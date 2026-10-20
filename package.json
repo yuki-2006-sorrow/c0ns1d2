@@ -1,0 +1,14 @@
+{
+  "name": "c0ns1d2",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "惊天魔盗团 · 个人记忆库",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

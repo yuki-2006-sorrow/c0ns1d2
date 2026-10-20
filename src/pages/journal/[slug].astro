@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const journals = await getCollection('journal', ({ data }) => !data.draft);
+  return journals.map(j => ({
+    params: { slug: j.slug },
+    props: { journal: j },
+  }));
+}
+
+const { journal } = Astro.props;
+const { Content } = await render(journal);
+---
+
+<BaseLayout title={journal.data.title}>
+  <article style="max-width: 700px; margin: 0 auto; padding: 40px 20px 80px;">
+    <div style="color: rgba(255,255,255,0.4); font-size: 0.9em; margin-bottom: 12px;">
+      {journal.data.date} · {journal.data.author}
+    </div>
+    <h1 style="font-size: 2.2em; color: #fff; margin-bottom: 25px; line-height: 1.3;">{journal.data.title}</h1>
+
+    {journal.data.tags.length > 0 && (
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 35px;">
+        {journal.data.tags.map(tag => (
+          <span style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); padding: 4px 12px; border-radius: 12px; font-size: 0.8em;">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="journal-content">
+      <Content />
+    </div>
+
+    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <a href="/journal" style="color: #4ca1af; font-size: 0.9em;">← 返回全部随笔</a>
+    </div>
+  </article>
+
+  <style is:global>
+    .journal-content { color: rgba(255,255,255,0.8); line-height: 2.1; font-size: 1.05em; }
+    .journal-content p { margin-bottom: 20px; }
+    .journal-content h2 { color: #fff; margin: 35px 0 15px; font-size: 1.4em; }
+    .journal-content h3 { color: #fff; margin: 25px 0 12px; font-size: 1.2em; }
+    .journal-content blockquote {
+      background: rgba(255,255,255,0.05);
+      border-left: 3px solid #4ca1af;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+    }
+  </style>
+</BaseLayout>

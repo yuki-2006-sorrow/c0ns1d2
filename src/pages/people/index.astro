@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const people = await getCollection('people');
+---
+
+<BaseLayout title="人物">
+  <div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
+    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">五人档案</h1>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 40px;">惊天魔盗团的五位成员</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+      {people.map(person => (
+        <a href={`/people/${person.slug}`} style="display: block; padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; transition: all 0.3s;">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: {person.data.color}; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3em; font-weight: 600;">
+            {person.data.name[0]}
+          </div>
+          <h3 style="color: #fff; font-size: 1.2em; margin-bottom: 6px;">{person.data.name}</h3>
+          <div style="color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 12px;">{person.data.nickname} · {person.data.role}</div>
+          <div style="color: rgba(255,255,255,0.4); font-size: 0.85em;">{person.data.university} · {person.data.major}</div>
+        </a>
+      ))}
+    </div>
+  </div>
+  <style is:global>
+    a[href^="/people/"]:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.15) !important; transform: translateY(-2px); }
+  </style>
+</BaseLayout>

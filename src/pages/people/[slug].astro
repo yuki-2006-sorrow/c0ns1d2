@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map(person => ({
+    params: { slug: person.slug },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+const { Content } = await render(person);
+
+const traits = [
+  { key: 'openness', label: '开放性' },
+  { key: 'conscientiousness', label: '尽责性' },
+  { key: 'extraversion', label: '外向性' },
+  { key: 'agreeableness', label: '宜人性' },
+  { key: 'neuroticism', label: '神经质' },
+];
+---
+
+<BaseLayout title={person.data.name}>
+  <article style="max-width: 750px; margin: 0 auto; padding: 40px 20px 80px;">
+    <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 40px;">
+      <div style="width: 80px; height: 80px; border-radius: 50%; background: {person.data.color}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2em; font-weight: 600; flex-shrink: 0;">
+        {person.data.name[0]}
+      </div>
+      <div>
+        <h1 style="font-size: 2em; color: #fff; margin-bottom: 6px;">{person.data.name}</h1>
+        <div style="color: rgba(255,255,255,0.5); font-size: 0.95em;">{person.data.nickname} · {person.data.role}</div>
+        <div style="color: rgba(255,255,255,0.4); font-size: 0.85em; margin-top: 4px;">{person.data.university} · {person.data.major}</div>
+      </div>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 25px; margin-bottom: 40px;">
+      <h3 style="color: #fff; font-size: 1.1em; margin-bottom: 20px;">大五人格画像</h3>
+      {traits.map(trait => (
+        <div style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span style="color: rgba(255,255,255,0.7); font-size: 0.9em;">{trait.label}</span>
+            <span style="color: {person.data.color}; font-size: 0.9em;">{person.data.personality[trait.key]}%</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+            <div style="height: 100%; width: {person.data.personality[trait.key]}%; background: {person.data.color}; border-radius: 3px;"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {person.data.tags.length > 0 && (
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 35px;">
+        {person.data.tags.map(tag => (
+          <span style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); padding: 4px 12px; border-radius: 12px; font-size: 0.8em;">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="person-content">
+      <Content />
+    </div>
+
+    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <a href="/people" style="color: #4ca1af; font-size: 0.9em;">← 返回全部人物</a>
+    </div>
+  </article>
+
+  <style is:global>
+    .person-content { color: rgba(255,255,255,0.8); line-height: 2; font-size: 1.02em; }
+    .person-content p { margin-bottom: 18px; }
+  </style>
+</BaseLayout>

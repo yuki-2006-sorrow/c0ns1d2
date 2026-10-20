@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const events = await getCollection('events', ({ data }) => !data.draft);
+events.sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const categoryNames = {
+  core: '核心事件',
+  food: '聚餐/生日',
+  exam: '高考相关',
+  other: '日常/其他'
+};
+---
+
+<BaseLayout title="事件">
+  <div style="max-width: 900px; margin: 0 auto; padding: 40px 20px;">
+    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">全部事件</h1>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 40px;">共 {events.length} 个记忆节点</p>
+
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      {events.map(event => (
+        <a href={`/events/${event.slug}`} style="display: flex; align-items: center; gap: 20px; padding: 20px; border-radius: 12px; transition: background 0.3s; border: 1px solid transparent;">
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: {event.data.color}; flex-shrink: 0;"></div>
+          <div style="flex: 1;">
+            <div style="color: #fff; font-size: 1.05em; margin-bottom: 4px;">{event.data.title}</div>
+            <div style="color: rgba(255,255,255,0.4); font-size: 0.85em;">
+              {event.data.date} · {categoryNames[event.data.category]} · {event.data.persons.join('、')}
+            </div>
+          </div>
+          <div style="color: rgba(255,255,255,0.3);">→</div>
+        </a>
+      ))}
+    </div>
+  </div>
+  <style is:global>
+    a[href^="/events/"]:hover { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.1) !important; }
+  </style>
+</BaseLayout>
