@@ -36,9 +36,12 @@ const { title } = Astro.props;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
     @media (max-width: 768px) {
-      .nav { padding: 15px 20px; }
-      .nav-links { gap: 16px; }
-      .nav-links a { font-size: 0.8em; }
+      .nav { padding: 12px 15px; gap: 15px; }
+      .nav-logo { font-size: 1em; flex-shrink: 0; }
+      .nav-links { gap: 14px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { font-size: 0.82em; flex-shrink: 0; }
+      .content { padding-top: 65px; }
     }
   </style>
 </head>
@@ -47,10 +50,13 @@ const { title } = Astro.props;
     <a href="/" class="nav-logo">c0ns1d2</a>
     <div class="nav-links">
       <a href="/">星球</a>
+      <a href="/timeline">时间线</a>
       <a href="/events">事件</a>
       <a href="/tags">分类</a>
       <a href="/people">人物</a>
+      <a href="/stats">统计</a>
       <a href="/journal">随笔</a>
+      <a href="/search">🔍 搜索</a>
     </div>
   </nav>
   <main class="content">

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const events = await getCollection('events', ({ data }) => !data.draft);
+events.sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const categoryColors = {
+  core: '#4ca1af',
+  food: '#e74c3c',
+  exam: '#f39c12',
+  other: '#9b59b6',
+};
+---
+
+<BaseLayout title="时间线">
+  <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px 80px;">
+    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">时间线</h1>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 50px;">2026.01 — 2026.10 · 共 {events.length} 个事件</p>
+
+    <div style="position: relative; padding-left: 30px;">
+      <!-- 时间线竖线 -->
+      <div style="position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1);"></div>
+
+      {events.map(event => (
+        <div style="position: relative; margin-bottom: 35px;">
+          <!-- 圆点 -->
+          <div style="position: absolute; left: -30px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: {categoryColors[event.data.category]}; border: 3px solid #0a0e17; box-shadow: 0 0 10px {categoryColors[event.data.category]}60;"></div>
+
+          <a href={`/events/${event.slug}`} style="display: block; padding: 18px 22px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; transition: all 0.3s;">
+            <div style="color: {categoryColors[event.data.category]}; font-size: 0.85em; margin-bottom: 6px; letter-spacing: 1px;">
+              {event.data.date}
+            </div>
+            <div style="color: #fff; font-size: 1.1em; margin-bottom: 8px;">{event.data.title}</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              {event.data.persons.map(p => (
+                <span style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); padding: 2px 10px; border-radius: 10px; font-size: 0.78em;">{p}</span>
+              ))}
+            </div>
+            {event.data.tags.length > 0 && (
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+                {event.data.tags.map(tag => (
+                  <span style="color: #4ca1af; font-size: 0.78em;">#{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <style is:global>
+    .timeline-item a:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(76,161,175,0.3) !important; transform: translateX(5px); }
+  </style>
+</BaseLayout>

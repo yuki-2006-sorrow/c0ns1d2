@@ -6,11 +6,11 @@ export async function getStaticPaths() {
   const events = await getCollection('events', ({ data }) => !data.draft);
   return events.map(event => ({
     params: { slug: event.slug },
-    props: { event },
+    props: { event, allEvents: events },
   }));
 }
 
-const { event } = Astro.props;
+const { event, allEvents } = Astro.props;
 const { Content } = await render(event);
 
 const categoryNames = {
@@ -19,6 +19,17 @@ const categoryNames = {
   exam: '高考相关',
   other: '日常/其他'
 };
+
+// 找相关事件（共同人物最多的前3个）
+const relatedEvents = allEvents
+  .filter(e => e.slug !== event.slug)
+  .map(e => ({
+    ...e,
+    common: e.data.persons.filter(p => event.data.persons.includes(p)).length,
+  }))
+  .filter(e => e.common > 0)
+  .sort((a, b) => b.common - a.common)
+  .slice(0, 3);
 ---
 
 <BaseLayout title={event.data.title}>
@@ -48,10 +59,10 @@ const categoryNames = {
 
     {event.data.images.length > 0 && (
       <div style="margin-top: 50px;">
-        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">照片</h2>
+        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">照片 ({event.data.images.length})</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
-          {event.data.images.map(img => (
-            <img src={img} alt="" style="width: 100%; border-radius: 10px; cursor: pointer; opacity: 0.9; transition: opacity 0.3s;" loading="lazy" />
+          {event.data.images.map((img, i) => (
+            <img src={img} alt="" class="gallery-img" data-index={i} style="width: 100%; border-radius: 10px; cursor: pointer; opacity: 0.9; transition: all 0.3s;" loading="lazy" />
           ))}
         </div>
       </div>
@@ -59,19 +70,81 @@ const categoryNames = {
 
     {event.data.videos.length > 0 && (
       <div style="margin-top: 50px;">
-        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">视频</h2>
+        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">视频 ({event.data.videos.length})</h2>
         {event.data.videos.map(vid => (
-          <video controls style="width: 100%; border-radius: 10px; margin-bottom: 15px;">
+          <video controls style="width: 100%; border-radius: 10px; margin-bottom: 15px; background: #000;">
             <source src={vid} type="video/mp4">
           </video>
         ))}
       </div>
     )}
 
-    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
-      <a href="/events" style="color: #4ca1af; font-size: 0.9em;">← 返回全部事件</a>
+    {relatedEvents.length > 0 && (
+      <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <h2 style="color: #fff; font-size: 1.2em; margin-bottom: 20px;">相关事件</h2>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          {relatedEvents.map(e => (
+            <a href={`/events/${e.slug}`} style="display: flex; align-items: center; gap: 15px; padding: 15px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: {e.data.color}; flex-shrink: 0;"></div>
+              <div style="flex: 1;">
+                <div style="color: #fff; font-size: 0.98em;">{e.data.title}</div>
+                <div style="color: rgba(255,255,255,0.4); font-size: 0.8em;">{e.data.date}</div>
+              </div>
+              <div style="color: rgba(255,255,255,0.3);">→</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
+      <a href="/events" style="color: #4ca1af; font-size: 0.9em;">← 全部事件</a>
+      <a href="/timeline" style="color: #4ca1af; font-size: 0.9em;">时间线 →</a>
     </div>
   </article>
+
+  <!-- 图片灯箱 -->
+  <div id="lightbox" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; align-items: center; justify-content: center; cursor: pointer;">
+    <span id="lightbox-close" style="position: absolute; top: 25px; right: 35px; color: white; font-size: 2em; cursor: pointer;">&times;</span>
+    <img id="lightbox-img" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
+    <div id="lightbox-counter" style="position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.9em;"></div>
+  </div>
+
+  <script is:inline>
+    const images = document.querySelectorAll('.gallery-img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    let currentIndex = 0;
+
+    images.forEach((img, i) => {
+      img.addEventListener('click', () => {
+        currentIndex = i;
+        lightboxImg.src = img.src;
+        lightboxCounter.textContent = (i + 1) + ' / ' + images.length;
+        lightbox.style.display = 'flex';
+      });
+    });
+
+    function closeLightbox() { lightbox.style.display = 'none'; }
+    lightbox.addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        currentIndex--;
+        lightboxImg.src = images[currentIndex].src;
+        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+      }
+      if (e.key === 'ArrowRight' && currentIndex < images.length - 1) {
+        currentIndex++;
+        lightboxImg.src = images[currentIndex].src;
+        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
+      }
+    });
+  </script>
 
   <style is:global>
     .event-content { color: rgba(255,255,255,0.8); line-height: 2; font-size: 1.02em; }
@@ -86,5 +159,7 @@ const categoryNames = {
       font-style: italic;
       color: rgba(255,255,255,0.6);
     }
+    .gallery-img:hover { opacity: 1 !important; transform: scale(1.02); }
+    a[href^="/events/"]:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(76,161,175,0.3) !important; }
   </style>
 </BaseLayout>

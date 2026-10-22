@@ -4,13 +4,14 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
+  const events = await getCollection('events', ({ data }) => !data.draft);
   return people.map(person => ({
     params: { slug: person.slug },
-    props: { person },
+    props: { person, allEvents: events },
   }));
 }
 
-const { person } = Astro.props;
+const { person, allEvents } = Astro.props;
 const { Content } = await render(person);
 
 const traits = [
@@ -20,6 +21,11 @@ const traits = [
   { key: 'agreeableness', label: '宜人性' },
   { key: 'neuroticism', label: '神经质' },
 ];
+
+// 筛选该人物参与的事件
+const personEvents = allEvents
+  .filter(e => e.data.persons.includes(person.data.name))
+  .sort((a, b) => a.data.date.localeCompare(b.data.date));
 ---
 
 <BaseLayout title={person.data.name}>
@@ -62,7 +68,25 @@ const traits = [
       <Content />
     </div>
 
-    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+    {personEvents.length > 0 && (
+      <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">参与的事件 ({personEvents.length})</h2>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          {personEvents.map(e => (
+            <a href={`/events/${e.slug}`} style="display: flex; align-items: center; gap: 15px; padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: {e.data.color}; flex-shrink: 0;"></div>
+              <div style="flex: 1;">
+                <div style="color: #fff; font-size: 0.98em;">{e.data.title}</div>
+                <div style="color: rgba(255,255,255,0.4); font-size: 0.8em;">{e.data.date}</div>
+              </div>
+              <div style="color: rgba(255,255,255,0.3);">→</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
       <a href="/people" style="color: #4ca1af; font-size: 0.9em;">← 返回全部人物</a>
     </div>
   </article>
@@ -70,5 +94,6 @@ const traits = [
   <style is:global>
     .person-content { color: rgba(255,255,255,0.8); line-height: 2; font-size: 1.02em; }
     .person-content p { margin-bottom: 18px; }
+    a[href^="/events/"]:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(76,161,175,0.3) !important; }
   </style>
 </BaseLayout>
