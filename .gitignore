@@ -5,3 +5,7 @@ dist/
 *.log
 .env
 .env.local
+
+# 素材和验证截图
+image/
+intro-shots/
