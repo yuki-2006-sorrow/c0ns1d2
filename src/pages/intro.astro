@@ -1,0 +1,453 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="开场">
+  <!-- 2.5D 立绘场景 -->
+  <div id="scene-wrap">
+    <div id="scene">
+      <!-- 背景墙 -->
+      <div class="layer wall">
+        <div class="placeholder">背景墙</div>
+      </div>
+
+      <!-- 立绘1：靠墙（开场） -->
+      <div id="char-idle" class="character">
+        <div class="layer hair-back">
+          <div class="placeholder">后发</div>
+        </div>
+        <div class="layer body">
+          <div class="placeholder">身体（靠墙）</div>
+        </div>
+        <div class="layer hair-front hair-sway">
+          <div class="placeholder">前发</div>
+        </div>
+        <div class="layer armband ribbon-idle">
+          <div class="placeholder">SOS臂章</div>
+        </div>
+      </div>
+
+      <!-- 立绘2：叉腰近景（环绕后切换） -->
+      <div id="char-closeup" class="character" style="opacity:0;">
+        <div class="layer hair-back">
+          <div class="placeholder">后发</div>
+        </div>
+        <div class="layer body">
+          <div class="placeholder">身体（叉腰）</div>
+        </div>
+        <div class="layer hair-front hair-sway">
+          <div class="placeholder">前发</div>
+        </div>
+        <div class="layer armband ribbon-ready">
+          <div class="placeholder">SOS臂章</div>
+        </div>
+      </div>
+
+      <!-- 飘带（卡片路径） -->
+      <div id="ribbon"></div>
+
+      <!-- 卡片容器 -->
+      <div id="cards-container"></div>
+    </div>
+  </div>
+
+  <div id="ui-layer">
+    <div id="hint">点击画面</div>
+    <div id="stage-indicator">阶段：靠墙待机</div>
+  </div>
+
+  <style is:global>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      user-select: none;
+    }
+
+    #scene-wrap {
+      width: 100vw; height: 100vh;
+      perspective: 1200px;
+      perspective-origin: 50% 45%;
+      overflow: hidden;
+    }
+
+    #scene {
+      position: absolute;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .layer {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform-style: preserve-3d;
+    }
+
+    .character {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform-style: preserve-3d;
+      transition: opacity 0.15s ease;
+    }
+
+    /* 占位色块，拿到立绘后替换为 background-image */
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+
+    /* 背景墙 */
+    .wall {
+      transform: translate3d(-50%, -50%, -300px);
+    }
+    .wall .placeholder {
+      width: 120vw; height: 120vh;
+      background: linear-gradient(180deg, #1a1a20 0%, #121216 100%);
+      border: none;
+    }
+
+    /* 立绘各层尺寸（占位，按实际图片调整） */
+    .character .body .placeholder {
+      width: 320px; height: 640px;
+      margin-left: -160px; margin-top: -320px;
+      background: rgba(76, 161, 175, 0.25);
+    }
+    .character .hair-back .placeholder {
+      width: 300px; height: 560px;
+      margin-left: -150px; margin-top: -360px;
+      background: rgba(90, 50, 16, 0.2);
+    }
+    .character .hair-front .placeholder {
+      width: 200px; height: 160px;
+      margin-left: -100px; margin-top: -360px;
+      background: rgba(90, 50, 16, 0.35);
+    }
+    .character .armband .placeholder {
+      width: 60px; height: 40px;
+      margin-left: 100px; margin-top: -120px;
+      background: rgba(200, 40, 40, 0.5);
+    }
+
+    /* 3D深度：后发最远，身体中间，前发最近 */
+    .hair-back  { transform: translate3d(-50%, -50%, -20px); }
+    .body       { transform: translate3d(-50%, -50%, 0); }
+    .hair-front { transform: translate3d(-50%, -50%, 25px); }
+    .armband    { transform: translate3d(-50%, -50%, 40px); }
+
+    /* 头发轻微飘动 */
+    .hair-sway {
+      animation: hairSway 3.2s ease-in-out infinite;
+      transform-origin: 50% 20%;
+    }
+    @keyframes hairSway {
+      0%, 100% { transform: translate3d(-50%, -50%, 25px) rotateZ(0deg) rotateX(0deg); }
+      25%      { transform: translate3d(-50%, -50%, 25px) rotateZ(1.2deg) rotateX(0.5deg); }
+      50%      { transform: translate3d(-50%, -50%, 25px) rotateZ(-0.5deg) rotateX(-0.3deg); }
+      75%      { transform: translate3d(-50%, -50%, 25px) rotateZ(1deg) rotateX(0.3deg); }
+    }
+
+    /* 臂章待机时轻微晃动 */
+    .ribbon-idle {
+      animation: armbandSway 2.6s ease-in-out infinite;
+      transform-origin: 10% 50%;
+    }
+    @keyframes armbandSway {
+      0%, 100% { transform: translate3d(-50%, -50%, 40px) rotateZ(0deg); }
+      50%      { transform: translate3d(-50%, -50%, 40px) rotateZ(-2deg); }
+    }
+
+    /* 立绘定位 */
+    #char-idle {
+      transform: translate3d(-50%, -48%, 0) scale(1);
+    }
+    #char-closeup {
+      transform: translate3d(-50%, -42%, 120px) scale(1.35);
+    }
+
+    /* 环绕阶段：镜头快速旋转，中间切换立绘 */
+    #scene.rotating {
+      transform: rotateY(0deg);
+    }
+    #scene.rotating.spin {
+      transform: rotateY(0deg);
+    }
+
+    /* 近景待机：轻微呼吸 */
+    #char-closeup.breathing {
+      animation: breathe 3.5s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { transform: translate3d(-50%, -42%, 120px) scale(1.35); }
+      50%      { transform: translate3d(-50%, -42.2%, 120px) scale(1.352); }
+    }
+
+    /* 飘带 */
+    #ribbon {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 0; height: 8px;
+      background: linear-gradient(90deg, #c82828, #e84848, #c82828);
+      border-radius: 4px;
+      opacity: 0;
+      transform-origin: 0 50%;
+      box-shadow: 0 0 20px rgba(200,40,40,0.4);
+    }
+
+    /* 卡片 */
+    .memory-card {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 180px; height: 240px;
+      margin-left: -90px; margin-top: -120px;
+      background: linear-gradient(135deg, #1e2530, #2a3440);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      opacity: 0;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+
+    /* UI */
+    #ui-layer {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-end;
+      padding-bottom: 60px; gap: 15px;
+      z-index: 100;
+    }
+    #hint {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9em; letter-spacing: 0.3em;
+      animation: pulse 2s infinite;
+    }
+    #stage-indicator {
+      color: rgba(255,255,255,0.25);
+      font-size: 0.75em; letter-spacing: 0.1em;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* 扫光（环绕切换时用） */
+    .light-sweep {
+      position: fixed; inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    .light-sweep.flash {
+      animation: sweep 0.6s ease;
+    }
+    @keyframes sweep {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <div class="light-sweep" id="sweep"></div>
+
+  <script>
+    // === 状态机 ===
+    const STAGES = {
+      IDLE: 'idle',
+      ROTATING: 'rotating',
+      CLOSEUP: 'closeup',
+      RIBBON: 'ribbon',
+      CARDS: 'cards',
+    };
+    let stage = STAGES.IDLE;
+    let animating = false;
+
+    const scene = document.getElementById('scene');
+    const charIdle = document.getElementById('char-idle');
+    const charCloseup = document.getElementById('char-closeup');
+    const hint = document.getElementById('hint');
+    const indicator = document.getElementById('stage-indicator');
+    const sweep = document.getElementById('sweep');
+
+    // 缓动函数
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+    }
+
+    // 点击推进
+    document.getElementById('scene-wrap').addEventListener('click', () => {
+      if (animating) return;
+
+      if (stage === STAGES.IDLE) {
+        startRotation();
+      } else if (stage === STAGES.CLOSEUP) {
+        startRibbon();
+      } else if (stage === STAGES.CARDS) {
+        // 进入主界面
+        window.location.href = '/';
+      }
+    });
+
+    // 阶段1：环绕（镜头360度推近，90度侧面时切换立绘）
+    function startRotation() {
+      animating = true;
+      stage = STAGES.ROTATING;
+      indicator.textContent = '阶段：镜头环绕';
+      hint.style.opacity = '0';
+
+      const duration = 2400;
+      const start = performance.now();
+      let switched = false;
+
+      function frame(now) {
+        const elapsed = now - start;
+        const t = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(t);
+
+        // 场景完整旋转360度，同时整体推近放大
+        const angle = eased * 360;
+        const zoom = 1 + eased * 0.25;
+        scene.style.transform = `rotateY(${angle}deg) scale(${zoom})`;
+
+        // 0-25%：立绘1转到侧面（90度时完全侧视）
+        if (t < 0.25) {
+          charIdle.style.opacity = 1 - t * 4;
+        }
+        // 25%处：侧面不可见，切换立绘
+        else if (t >= 0.25 && t < 0.75) {
+          if (!switched) {
+            charIdle.style.opacity = '0';
+            charCloseup.style.opacity = '0';
+            switched = true;
+            // 背面经过时扫光
+            sweep.classList.add('flash');
+            setTimeout(() => sweep.classList.remove('flash'), 600);
+          }
+        }
+        // 75-100%：立绘2从另一侧出现
+        else {
+          const t2 = (t - 0.75) * 4;
+          charCloseup.style.opacity = t2;
+          if (t2 > 0.5 && !charCloseup.classList.contains('breathing')) {
+            charCloseup.classList.add('breathing');
+          }
+        }
+
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          // 360度回到正面，无跳变
+          scene.style.transition = 'none';
+          scene.style.transform = 'rotateY(0deg) scale(1.25)';
+          charCloseup.style.opacity = '1';
+          // 恢复过渡
+          requestAnimationFrame(() => {
+            scene.style.transition = 'transform 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
+          });
+          stage = STAGES.CLOSEUP;
+          animating = false;
+          indicator.textContent = '阶段：近景（点击展开记忆）';
+          hint.style.opacity = '1';
+          hint.textContent = '再次点击';
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // 阶段2：臂章展开成飘带
+    function startRibbon() {
+      animating = true;
+      stage = STAGES.RIBBON;
+      indicator.textContent = '阶段：SOS飘带展开';
+      hint.style.opacity = '0';
+
+      const ribbon = document.getElementById('ribbon');
+      ribbon.style.opacity = '1';
+
+      // 飘带展开动画（宽度从0增长到屏幕宽度）
+      const duration = 1200;
+      const start = performance.now();
+      const maxWidth = Math.min(window.innerWidth * 0.8, 900);
+
+      function frame(now) {
+        const elapsed = now - start;
+        const t = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(t);
+
+        const w = maxWidth * eased;
+        ribbon.style.width = w + 'px';
+        ribbon.style.transform = `translate(-${w/2}px, -50%) rotateZ(${-3 + Math.sin(t*Math.PI)*2}deg)`;
+
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          // 飘带持续飘动
+          ribbon.style.animation = 'ribbonWave 2.5s ease-in-out infinite';
+          const style = document.createElement('style');
+          style.textContent = `
+            @keyframes ribbonWave {
+              0%, 100% { transform: translate(-${maxWidth/2}px, -50%) rotateZ(-3deg); }
+              50% { transform: translate(-${maxWidth/2}px, -48%) rotateZ(1deg); }
+            }
+          `;
+          document.head.appendChild(style);
+          stage = STAGES.CARDS;
+          animating = false;
+          launchCards();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // 阶段3：卡牌沿飘带移动
+    function launchCards() {
+      indicator.textContent = '阶段：记忆卡片';
+      const container = document.getElementById('cards-container');
+      const cardCount = 5;
+      const maxWidth = Math.min(window.innerWidth * 0.8, 900);
+
+      for (let i = 0; i < cardCount; i++) {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.textContent = '';
+        container.appendChild(card);
+
+        const delay = i * 250;
+        setTimeout(() => {
+          card.animate([
+            {
+              opacity: 0,
+              transform: `translateX(${-maxWidth/2}px) translateY(20px) rotateZ(-8deg) scale(0.5)`,
+            },
+            {
+              opacity: 1,
+              offset: 0.3,
+              transform: `translateX(${-maxWidth/4}px) translateY(-30px) rotateZ(3deg) scale(0.9)`,
+            },
+            {
+              opacity: 1,
+              transform: `translateX(${i * 20 - (cardCount-1)*10}px) translateY(${(i%2)*15}px) rotateZ(${(i-2)*3}deg) scale(1)`,
+            },
+          ], {
+            duration: 1400,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+            fill: 'forwards',
+          });
+        }, delay);
+      }
+
+      setTimeout(() => {
+        indicator.textContent = '点击进入记忆库';
+        hint.style.opacity = '1';
+        hint.textContent = '点击进入';
+      }, cardCount * 250 + 1500);
+    }
+  </script>
+</BaseLayout>
