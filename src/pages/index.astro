@@ -1,71 +1,392 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlanetCanvas from '../components/PlanetCanvas.astro';
 import { getCollection } from 'astro:content';
 
-const allEvents = await getCollection('events', ({ data }) => !data.draft);
-const allPeople = await getCollection('people');
-const allJournals = await getCollection('journal', ({ data }) => !data.draft);
-
-const planetEvents = allEvents.map(e => ({
-  slug: e.slug,
-  title: e.data.title,
-  date: e.data.date,
-  persons: e.data.persons,
-  color: e.data.color,
-  size: e.data.size,
-}));
-
-// 收集所有标签
-const allTags = new Set();
-allEvents.forEach(e => e.data.tags.forEach(t => allTags.add(t)));
+const events = await getCollection('events', ({ data }) => !data.draft);
+events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 ---
 
-<BaseLayout>
-  <div style="position: relative; height: calc(100vh - 80px);">
-    <PlanetCanvas events={planetEvents} />
-
-    <!-- 左上角统计面板 -->
-    <div class="home-stats" style="position: absolute; top: 25px; left: 30px; background: rgba(10,14,23,0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px 25px; z-index: 10;">
-      <div style="color: #4ca1af; font-size: 0.8em; letter-spacing: 2px; margin-bottom: 12px;">惊天魔盗团 · 记忆库</div>
-      <div style="display: flex; gap: 25px;">
-        <div>
-          <div style="color: #fff; font-size: 1.6em; font-weight: 600;">{allEvents.length}</div>
-          <div style="color: rgba(255,255,255,0.5); font-size: 0.8em;">事件</div>
-        </div>
-        <div>
-          <div style="color: #fff; font-size: 1.6em; font-weight: 600;">{allPeople.length}</div>
-          <div style="color: rgba(255,255,255,0.5); font-size: 0.8em;">人物</div>
-        </div>
-        <div>
-          <div style="color: #fff; font-size: 1.6em; font-weight: 600;">{allTags.size}</div>
-          <div style="color: rgba(255,255,255,0.5); font-size: 0.8em;">分类</div>
-        </div>
+<BaseLayout title="c0ns1d2">
+  <div class="gallery-page">
+    <!-- 开场 -->
+    <div class="intro-overlay" id="intro">
+      <h1 class="intro-title">c0ns1d2</h1>
+      <p class="intro-sub">惊天魔盗团 · 记忆库</p>
+      <div class="intro-hint">
+        <span></span>
+        <p>SCROLL TO ENTER</p>
       </div>
     </div>
 
-    <!-- 右上角快速入口 -->
-    <div class="home-entries" style="position: absolute; top: 25px; right: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 10;">
-      <a href="/timeline" style="padding: 10px 18px; background: rgba(10,14,23,0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: rgba(255,255,255,0.8); font-size: 0.9em; transition: all 0.3s; text-align: center;">📅 时间线</a>
-      <a href="/tags" style="padding: 10px 18px; background: rgba(10,14,23,0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: rgba(255,255,255,0.8); font-size: 0.9em; transition: all 0.3s; text-align: center;">🏷️ 分类</a>
-      <a href="/stats" style="padding: 10px 18px; background: rgba(10,14,23,0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: rgba(255,255,255,0.8); font-size: 0.9em; transition: all 0.3s; text-align: center;">📊 统计</a>
-      <a href="/search" style="padding: 10px 18px; background: rgba(10,14,23,0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: rgba(255,255,255,0.8); font-size: 0.9em; transition: all 0.3s; text-align: center;">🔍 搜索</a>
-    </div>
+    <!-- 主区域 -->
+    <div class="main-view" id="mainView">
+      <!-- 卡片堆叠 -->
+      <div class="cards-container" id="cardsContainer">
+        {events.map((event, i) => (
+          <div class="card" data-index={i}>
+            <div class="card-img" style="background: #f0f0f0;"></div>
+            <div class="card-shine"></div>
+          </div>
+        ))}
+      </div>
 
-    <!-- 底部提示 -->
-    <div style="position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.3); font-size: 0.85em; text-align: center; pointer-events: none; letter-spacing: 1px;">
-      拖动画面 · 滚轮缩放 · 点击星球进入事件
+      <!-- 文字堆叠 -->
+      <div class="text-stack" id="textStack">
+        {events.map((event, i) => (
+          <div class="text-item" data-index={i}>
+            <span class="text-date">{event.data.date}</span>
+            <h2 class="text-title">{event.data.title}</h2>
+            <p class="text-desc">{event.data.persons.join(' · ')}</p>
+            <a href={`/events/${event.slug}`} class="text-enter">进入事件 →</a>
+          </div>
+        ))}
+      </div>
+
+      <!-- 底部控制 -->
+      <div class="controls">
+        <button class="ctrl-btn" id="prevBtn">←</button>
+        <div class="counter">
+          <span id="currentNum">01</span>
+          <span class="counter-divider">/</span>
+          <span id="totalNum">{String(events.length).padStart(2, '0')}</span>
+        </div>
+        <button class="ctrl-btn" id="nextBtn">→</button>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <!-- 顶部导航提示 -->
+      <div class="top-hint">
+        <span>滚动 / 点击 / 方向键 切换</span>
+      </div>
     </div>
   </div>
 
   <style is:global>
-    .home-entry a:hover { background: rgba(76,161,175,0.2) !important; border-color: rgba(76,161,175,0.4) !important; color: #fff !important; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; background: #0a0a0a; }
+
+    .gallery-page { position: relative; height: 100vh; width: 100vw; overflow: hidden; }
+
+    /* 开场 */
+    .intro-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: #0a0a0a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    .intro-overlay.hidden { opacity: 0; visibility: hidden; }
+    .intro-title {
+      font-size: clamp(3em, 10vw, 7em);
+      font-weight: 200; letter-spacing: 0.3em;
+      color: #fff; opacity: 0;
+      animation: fadeUp 1.5s ease 0.3s forwards;
+    }
+    .intro-sub {
+      font-size: 0.9em; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.5em; margin-top: 20px; opacity: 0;
+      animation: fadeUp 1.5s ease 0.8s forwards;
+    }
+    .intro-hint {
+      position: absolute; bottom: 50px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      opacity: 0; animation: fadeUp 1.5s ease 1.5s forwards;
+    }
+    .intro-hint span {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+      animation: scrollAnim 2s infinite;
+    }
+    .intro-hint p {
+      font-size: 0.7em; letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* 主视图 */
+    .main-view {
+      position: relative; height: 100vh; width: 100vw;
+      opacity: 0; transition: opacity 1s ease 0.5s;
+    }
+    .main-view.visible { opacity: 1; }
+
+    /* 卡片堆叠 */
+    .cards-container {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      width: 400px; height: 500px;
+      perspective: 1200px;
+    }
+    .card {
+      position: absolute;
+      width: 100%; height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .card-img {
+      width: 100%; height: 100%;
+      background: #f0f0f0;
+    }
+    .card-shine {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* 文字堆叠 */
+    .text-stack {
+      position: absolute;
+      bottom: 120px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 180px;
+      text-align: center;
+    }
+    .text-item {
+      position: absolute;
+      width: 100%;
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .text-date {
+      font-size: 0.8em; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.3em; display: block; margin-bottom: 12px;
+    }
+    .text-title {
+      font-size: clamp(1.5em, 3vw, 2.5em);
+      font-weight: 300; color: #fff;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .text-desc {
+      font-size: 0.9em; color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .text-enter {
+      display: inline-block;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85em; letter-spacing: 0.1em;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+    .text-enter:hover {
+      color: #fff; border-bottom-color: #fff;
+    }
+
+    /* 控制 */
+    .controls {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 30px;
+    }
+    .ctrl-btn {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ctrl-btn:hover {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+    }
+    .counter {
+      font-size: 0.9em; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em; min-width: 60px; text-align: center;
+    }
+    .counter-divider { margin: 0 6px; color: rgba(255,255,255,0.3); }
+    #currentNum { color: #fff; font-weight: 500; }
+
+    /* 进度条 */
+    .progress-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+    .progress-fill {
+      height: 100%;
+      background: #fff;
+      transition: width 0.5s ease;
+    }
+
+    .top-hint {
+      position: absolute;
+      top: 30px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75em; color: rgba(255,255,255,0.25);
+      letter-spacing: 0.2em;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollAnim {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
     @media (max-width: 768px) {
-      .home-stats { padding: 12px 16px !important; top: 15px !important; left: 15px !important; }
-      .home-stats > div > div:first-child { font-size: 1.2em !important; }
-      .home-stats > div { gap: 15px !important; }
-      .home-entries { top: auto !important; bottom: 60px !important; right: 15px !important; left: 15px !important; flex-direction: row !important; flex-wrap: wrap !important; justify-content: center !important; }
-      .home-entries a { padding: 8px 14px !important; font-size: 0.82em !important; }
+      .cards-container { width: 280px; height: 360px; }
+      .text-stack { width: 90%; bottom: 100px; }
+      .text-title { font-size: 1.5em; }
     }
   </style>
+
+  <script is:inline>
+    const cards = document.querySelectorAll('.card');
+    const textItems = document.querySelectorAll('.text-item');
+    const total = cards.length;
+    let current = 0;
+    let isAnimating = false;
+
+    const intro = document.getElementById('intro');
+    const mainView = document.getElementById('mainView');
+    const currentNum = document.getElementById('currentNum');
+    const progressFill = document.getElementById('progressFill');
+
+    // 开场滚动进入
+    let introScrolled = false;
+    window.addEventListener('wheel', (e) => {
+      if (!introScrolled) {
+        introScrolled = true;
+        intro.classList.add('hidden');
+        mainView.classList.add('visible');
+        setTimeout(() => updateView(), 600);
+      }
+    }, { passive: true });
+
+    // 点击开场也能进入
+    intro.addEventListener('click', () => {
+      if (!introScrolled) {
+        introScrolled = true;
+        intro.classList.add('hidden');
+        mainView.classList.add('visible');
+        setTimeout(() => updateView(), 600);
+      }
+    });
+
+    function updateView() {
+      cards.forEach((card, i) => {
+        const offset = i - current;
+        const absOffset = Math.abs(offset);
+
+        if (absOffset > 3) {
+          card.style.opacity = '0';
+          card.style.transform = `translateX(${offset * 100}px) scale(0.7)`;
+          card.style.zIndex = 0;
+          card.style.pointerEvents = 'none';
+        } else {
+          const x = offset * 180;
+          const scale = 1 - absOffset * 0.12;
+          const opacity = 1 - absOffset * 0.25;
+          const rotateY = offset * -8;
+          const zIndex = 10 - absOffset;
+
+          card.style.opacity = opacity;
+          card.style.transform = `translateX(${x}px) scale(${scale}) rotateY(${rotateY}deg)`;
+          card.style.zIndex = zIndex;
+          card.style.pointerEvents = absOffset === 0 ? 'auto' : 'auto';
+        }
+      });
+
+      textItems.forEach((item, i) => {
+        const offset = i - current;
+        const absOffset = Math.abs(offset);
+
+        if (absOffset > 2) {
+          item.style.opacity = '0';
+          item.style.transform = `translateY(${offset * 60}px)`;
+          item.style.pointerEvents = 'none';
+        } else {
+          const y = offset * 50;
+          const opacity = absOffset === 0 ? 1 : 0.3;
+          const scale = absOffset === 0 ? 1 : 0.9;
+
+          item.style.opacity = opacity;
+          item.style.transform = `translateY(${y}px) scale(${scale})`;
+          item.style.pointerEvents = absOffset === 0 ? 'auto' : 'none';
+          item.style.filter = absOffset === 0 ? 'none' : 'blur(1px)';
+        }
+      });
+
+      currentNum.textContent = String(current + 1).padStart(2, '0');
+      progressFill.style.width = ((current + 1) / total * 100) + '%';
+    }
+
+    function goTo(index) {
+      if (isAnimating) return;
+      current = Math.max(0, Math.min(total - 1, index));
+      isAnimating = true;
+      updateView();
+      setTimeout(() => isAnimating = false, 700);
+    }
+
+    // 滚轮切换
+    let wheelTimeout;
+    window.addEventListener('wheel', (e) => {
+      if (!introScrolled) return;
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        if (e.deltaY > 30) goTo(current + 1);
+        else if (e.deltaY < -30) goTo(current - 1);
+      }, 50);
+    }, { passive: true });
+
+    // 点击卡片切换
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => goTo(i));
+    });
+
+    // 按钮
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+    // 键盘
+    document.addEventListener('keydown', (e) => {
+      if (!introScrolled) {
+        if (e.key === 'ArrowDown' || e.key === ' ') {
+          introScrolled = true;
+          intro.classList.add('hidden');
+          mainView.classList.add('visible');
+          setTimeout(() => updateView(), 600);
+        }
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+    });
+
+    // 触摸
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+    window.addEventListener('touchend', (e) => {
+      if (!introScrolled) {
+        introScrolled = true;
+        intro.classList.add('hidden');
+        mainView.classList.add('visible');
+        setTimeout(() => updateView(), 600);
+        return;
+      }
+      const diff = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diff) > 50) {
+        goTo(diff > 0 ? current + 1 : current - 1);
+      }
+    });
+  </script>
 </BaseLayout>
