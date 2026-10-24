@@ -1,415 +1,589 @@
----
+﻿---
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>c0ns1d2</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%234ca1af'/></svg>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c0ns1d2 · 惊天魔盗团记忆库</title>
+  <style is:inline>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      overflow: hidden;
-      background: #efece5;
-      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-      user-select: none;
-      width: 100%; height: 100%;
+      width: 100%; height: 100%; overflow: hidden;
+      background: #0c0d10;
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      user-select: none; -webkit-user-select: none;
     }
-</style>
-</head>
-<body>
-  <div id="scene-wrap">
-    <div id="scene">
-      <!-- 立绘1：靠墙（开场） -->
-      <div id="char-idle" class="character">
-        <img src="/intro/haruhi-idle.jpg" alt="" draggable="false" />
-      </div>
+    #cinema { position: fixed; inset: 0; overflow: hidden; }
 
-      <!-- 立绘2：叉腰近景 -->
-      <div id="char-closeup" class="character">
-        <img src="/intro/haruhi-closeup.jpg" alt="" draggable="false" />
-      </div>
-
-      <!-- 飘带（卡片路径） -->
-      <div id="ribbon"></div>
-      <!-- 卡片容器 -->
-      <div id="cards-container"></div>
-    </div>
-
-    <!-- 前景暗角 -->
-    <div class="vignette"></div>
-    <!-- 扫光 -->
-    <div class="light-sweep" id="sweep"></div>
-  </div>
-
-  <div id="ui-layer">
-    <div id="brand">c0ns1d2</div>
-    <div id="hint">点击画面</div>
-    <div id="stage-indicator"></div>
-  </div>
-
-  <style>
-    #scene-wrap {
-      position: fixed; inset: 0;
-      perspective: 1600px;
-      perspective-origin: 50% 42%;
-      overflow: hidden;
-      background: linear-gradient(180deg, #f4f1ea 0%, #e8e4db 100%);
+    #camera {
+      position: absolute; inset: 0;
+      perspective: 1500px;
+      perspective-origin: 50% 48%;
     }
-
-    #scene {
-      position: absolute;
-      inset: 0;
+    #rig {
+      position: absolute; left: 50%; top: 50%;
+      width: 0; height: 0;
       transform-style: preserve-3d;
-      will-change: transform;
     }
 
+    /* ===== 房间 ===== */
+    .room { position: absolute; transform-style: preserve-3d; }
+    .wall {
+      position: absolute; left: 0; top: 0;
+      width: 2000px; height: 1300px;
+      margin-left: -1000px; margin-top: -650px;
+    }
+    .w-back  { transform: translateY(-117px) translateZ(-700px); }
+    .w-front { transform: translateY(-117px) rotateY(180deg) translateZ(-700px); }
+    .w-left  { transform: translateY(-117px) rotateY(-90deg) translateZ(-700px); }
+    .w-right { transform: translateY(-117px) rotateY(90deg) translateZ(-700px); }
+
+    .wall-inner {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, #e9e4d8 0%, #e2dccf 62%, #d8d1c0 62.2%, #cfc7b3 100%);
+      overflow: hidden;
+    }
+    .wall-inner::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 38%;
+      height: 2px; background: rgba(120,105,80,0.25);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .wall-inner::before {
+      content: ""; position: absolute; inset: 62% 0 0 0;
+      background-image: linear-gradient(90deg, rgba(120,105,80,0.16) 1px, transparent 1px);
+      background-size: 150px 100%;
+    }
+
+    .window {
+      position: absolute; width: 300px; height: 380px;
+      top: 12%;
+      background: linear-gradient(180deg, #fdf6e3 0%, #f3ead0 55%, #e8dcc0 100%);
+      border: 12px solid #e8e2d4;
+      box-shadow: 0 0 80px 30px rgba(255,240,200,0.45), inset 0 0 40px rgba(255,255,255,0.6);
+    }
+    .window::before {
+      content: ""; position: absolute; inset: 0;
+      border: 4px solid #d9d2c2;
+      background:
+        linear-gradient(90deg, transparent 48%, #d9d2c2 48%, #d9d2c2 52%, transparent 52%),
+        linear-gradient(0deg, transparent 48%, #d9d2c2 48%, #d9d2c2 52%, transparent 52%);
+    }
+    .win-l { left: 12%; }
+    .win-r { right: 12%; }
+    .win-single { left: 50%; transform: translateX(-50%); width: 340px; }
+
+    .floor {
+      position: absolute; left: 0; top: 0;
+      width: 2400px; height: 2400px;
+      margin-left: -1200px; margin-top: -1200px;
+      transform: translateY(533px) rotateX(90deg);
+      background:
+        repeating-linear-gradient(90deg, rgba(120,95,60,0.10) 0 2px, transparent 2px 150px),
+        repeating-linear-gradient(0deg, rgba(120,95,60,0.14) 0 2px, transparent 2px 110px),
+        linear-gradient(180deg, #d3c9b4 0%, #c8bca4 100%);
+    }
+    .contact-shadow {
+      position: absolute; left: 0; top: 0;
+      width: 300px; height: 140px;
+      margin-left: -150px; margin-top: -70px;
+      transform: translateY(534px) rotateX(90deg);
+      background: radial-gradient(ellipse at center, rgba(40,35,25,0.45) 0%, rgba(40,35,25,0) 70%);
+      border-radius: 50%;
+    }
+
+    /* ===== 角色立牌（billboard） ===== */
+    #characters { position: absolute; transform-style: preserve-3d; }
     .character {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; left: 0; top: 0;
       transform-style: preserve-3d;
-      backface-visibility: hidden;
     }
     .character img {
-      height: 92vh;
-      max-width: 92vw;
-      object-fit: contain;
+      position: absolute;
       -webkit-user-drag: none;
-      filter: drop-shadow(0 20px 40px rgba(60,50,40,0.18));
+      filter: drop-shadow(0 18px 30px rgba(40,35,25,0.35));
     }
-    #char-closeup img {
-      height: 100vh;
-      max-width: 100vw;
-      filter: drop-shadow(0 24px 50px rgba(60,50,40,0.15));
+    #char-idle img { width: 300px; left: -150px; top: -533px; }
+    #char-closeup { opacity: 0; }
+    #char-closeup img { width: 520px; left: -260px; top: -382px; }
+
+    /* ===== 3D 粒子 ===== */
+    #particles { position: absolute; transform-style: preserve-3d; }
+    .mote {
+      position: absolute; left: 0; top: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,244,220,0.85);
+      box-shadow: 0 0 8px 2px rgba(255,240,200,0.6);
     }
 
-    #char-idle {
-      transform: translateZ(0);
-      animation: idleBreathe 5s ease-in-out infinite;
-    }
-    @keyframes idleBreathe {
-      0%, 100% { transform: translateZ(0) scale(1); }
-      50%      { transform: translateZ(20px) scale(1.006); }
-    }
-
-    #char-closeup {
-      opacity: 0;
-      transform: translateZ(60px) scale(1.02);
-      pointer-events: none;
-    }
-    #char-closeup.visible {
-      animation: closeupBreathe 4.5s ease-in-out infinite;
-    }
-    @keyframes closeupBreathe {
-      0%, 100% { transform: translateZ(60px) scale(1.02); }
-      50%      { transform: translateZ(60px) scale(1.026) translateY(-0.3%); }
-    }
-
-    /* 飘带 */
-    #ribbon {
-      position: absolute;
-      left: 50%; top: 52%;
-      height: 10px;
-      width: 0;
-      border-radius: 6px;
-      opacity: 0;
-      background: linear-gradient(90deg,
-        rgba(200,35,35,0) 0%,
-        #c82323 8%,
-        #e84545 50%,
-        #c82323 92%,
-        rgba(200,35,35,0) 100%);
-      box-shadow: 0 4px 24px rgba(200,35,35,0.35);
-      transform-origin: 0 50%;
-      z-index: 20;
-    }
-
-    /* 卡片 */
-    .memory-card {
-      position: absolute;
-      left: 50%; top: 50%;
-      width: 190px; height: 255px;
-      margin-left: -95px; margin-top: -127px;
-      border-radius: 12px;
-      background: linear-gradient(160deg, #2a3240 0%, #181d26 100%);
-      border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: 0 18px 50px rgba(30,30,40,0.45);
-      opacity: 0;
-      z-index: 30;
-      overflow: hidden;
-    }
-    .memory-card::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 40%);
-    }
-
-    /* 暗角 */
+    /* ===== 后期 ===== */
+    #post { position: absolute; inset: 0; pointer-events: none; }
     .vignette {
-      position: fixed; inset: 0;
-      pointer-events: none;
-      z-index: 10;
+      position: absolute; inset: 0;
       background: radial-gradient(ellipse at center,
-        transparent 55%,
-        rgba(80,70,60,0.10) 85%,
-        rgba(60,50,40,0.18) 100%);
+        rgba(0,0,0,0) 42%, rgba(20,15,10,0.28) 72%, rgba(10,8,5,0.62) 100%);
+    }
+    .grade {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,238,200,0.08) 0%, rgba(120,110,150,0.10) 100%);
+      mix-blend-mode: overlay;
+    }
+    #motion-blur {
+      position: absolute; inset: 0; opacity: 0;
+      background: radial-gradient(ellipse at center, rgba(255,250,235,0) 30%, rgba(255,250,235,0.5) 100%);
+    }
+    #sweep {
+      position: absolute; inset: 0; opacity: 0;
+      background: linear-gradient(105deg,
+        rgba(255,255,255,0) 30%,
+        rgba(255,252,240,0.92) 48%,
+        rgba(255,255,255,0) 66%);
+      transform: translateX(-120%);
+    }
+    .bokeh {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,240,200,0.5), rgba(255,240,200,0));
+      filter: blur(3px);
+      animation: bokehDrift linear infinite;
+    }
+    @keyframes bokehDrift {
+      0% { transform: translateY(20px); }
+      50% { transform: translateY(-18px); }
+      100% { transform: translateY(20px); }
+    }
+    #grain {
+      position: absolute; inset: -50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      animation: grainShift 0.6s steps(3) infinite;
+    }
+    @keyframes grainShift {
+      0% { transform: translate(0,0); }
+      33% { transform: translate(-2%,1%); }
+      66% { transform: translate(1%,-2%); }
+      100% { transform: translate(0,0); }
+    }
+    #fade {
+      position: fixed; inset: 0; background: #000;
+      opacity: 1; pointer-events: none; transition: opacity 1.1s ease;
+      z-index: 30;
     }
 
-    /* 扫光 */
-    .light-sweep {
-      position: fixed; inset: 0;
-      z-index: 40;
-      pointer-events: none;
+    /* ===== 飘带 / 卡片 ===== */
+    #ribbon {
+      position: absolute; left: 50%; top: 55%;
+      width: 0; height: 90px;
+      transform: translate(-50%, -50%) rotate(-8deg);
+      background: linear-gradient(90deg, rgba(190,25,35,0.96), rgba(225,45,55,0.98) 50%, rgba(160,20,30,0.94));
+      border-top: 2px solid rgba(255,255,255,0.25);
+      border-bottom: 2px solid rgba(0,0,0,0.25);
+      box-shadow: 0 6px 24px rgba(180,20,30,0.35);
+      opacity: 0; border-radius: 6px;
+      z-index: 12; transform-origin: left center;
+    }
+    #ribbon::after {
+      content: ""; position: absolute; right: -22px; top: -10px;
+      border: 45px solid transparent; border-left-color: rgba(225,45,55,0.98);
+      border-right-width: 0;
+    }
+    #cards-container { position: absolute; inset: 0; z-index: 13; }
+    .mem-card {
+      position: absolute; left: 50%; top: 55%;
+      width: 150px; height: 200px;
+      margin-left: -75px; margin-top: -100px;
+      border-radius: 12px; overflow: hidden;
+      background: linear-gradient(160deg, #1c2230, #10141d);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.5);
       opacity: 0;
-      background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.9), rgba(255,255,255,0.4) 40%, transparent 70%);
     }
-    .light-sweep.flash { animation: sweep 0.7s ease; }
-    @keyframes sweep {
-      0% { opacity: 0; }
-      40% { opacity: 1; }
-      100% { opacity: 0; }
+    .mem-card::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.12), transparent 60%);
+    }
+    .mem-card .tag {
+      position: absolute; left: 12px; bottom: 12px;
+      font-size: 13px; color: rgba(255,255,255,0.85); letter-spacing: 1px;
     }
 
-    /* 运动模糊 */
-    .motion-blur { filter: blur(6px) brightness(1.2); }
-
-    /* UI */
-    #ui-layer {
-      position: fixed; inset: 0;
-      z-index: 100;
-      pointer-events: none;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: flex-end;
-      padding-bottom: 7vh;
-      gap: 14px;
-    }
+    /* ===== UI ===== */
+    #ui { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
     #brand {
-      position: absolute;
-      top: 5vh; left: 50%;
+      position: absolute; top: 5.5%; left: 50%;
       transform: translateX(-50%);
-      font-size: 1.3em;
-      letter-spacing: 0.5em;
-      color: rgba(70,60,50,0.55);
-      font-weight: 300;
+      font-size: 18px; letter-spacing: 10px;
+      color: rgba(80,70,55,0.55); font-weight: 600;
     }
     #hint {
-      color: rgba(70,60,50,0.6);
-      font-size: 0.85em;
-      letter-spacing: 0.35em;
-      animation: pulse 2.2s infinite;
+      position: absolute; bottom: 6.5%; left: 50%;
+      transform: translateX(-50%);
+      font-size: 15px; letter-spacing: 6px;
+      color: rgba(80,70,55,0.62);
+      animation: hintPulse 2.4s ease-in-out infinite;
+      opacity: 0; transition: opacity 0.6s ease;
     }
-    #stage-indicator {
-      color: rgba(70,60,50,0.35);
-      font-size: 0.72em;
-      letter-spacing: 0.15em;
-      height: 1em;
+    @keyframes hintPulse {
+      0%,100% { opacity: 0.55; }
+      50% { opacity: 1; }
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.35; }
-      50% { opacity: 0.9; }
+    #stage-dot { position: absolute; bottom: 6.5%; right: 6%; display: flex; gap: 8px; }
+    #stage-dot span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(80,70,55,0.25); transition: all 0.4s ease;
     }
-
-    /* 淡出转场到主界面 */
-    #fade-out {
-      position: fixed; inset: 0;
-      z-index: 200;
-      background: #0a0a0a;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s ease;
-    }
-    #fade-out.show { opacity: 1; }
-
-    @media (max-width: 768px) {
-      .character img { height: 80vh; }
-      .memory-card { width: 140px; height: 190px; margin-left: -70px; margin-top: -95px; }
-    }
+    #stage-dot span.on { background: rgba(120,100,70,0.8); }
   </style>
+</head>
+<body>
+  <div id="cinema">
+    <div id="camera">
+      <div id="rig">
+        <div class="room">
+          <div class="floor"></div>
+          <div class="contact-shadow"></div>
+          <div class="wall w-back"><div class="wall-inner">
+            <div class="window win-l"></div>
+            <div class="window win-r"></div>
+          </div></div>
+          <div class="wall w-front"><div class="wall-inner">
+            <div class="window win-single"></div>
+          </div></div>
+          <div class="wall w-left"><div class="wall-inner">
+            <div class="window win-single"></div>
+          </div></div>
+          <div class="wall w-right"><div class="wall-inner">
+            <div class="window win-l"></div>
+            <div class="window win-r"></div>
+          </div></div>
+        </div>
 
-  <div id="fade-out"></div>
+        <div id="particles"></div>
 
-  <script>
-    const STAGES = { IDLE: 0, ROTATING: 1, CLOSEUP: 2, RIBBON: 3, CARDS: 4, DONE: 5 };
+        <div id="characters">
+          <div id="char-idle" class="character">
+            <img src="/intro/char-idle.png" alt="" draggable="false" />
+          </div>
+          <div id="char-closeup" class="character">
+            <img src="/intro/char-closeup.png" alt="" draggable="false" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="post">
+      <div class="grade"></div>
+      <div id="motion-blur"></div>
+      <div id="sweep"></div>
+      <div id="bokeh-layer"></div>
+      <div id="grain"></div>
+      <div class="vignette"></div>
+    </div>
+
+    <div id="ribbon"></div>
+    <div id="cards-container"></div>
+    <div id="fade"></div>
+
+    <div id="ui">
+      <div id="brand">c0ns1d2</div>
+      <div id="hint">点击画面</div>
+      <div id="stage-dot"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <script is:inline>
+    const rig = document.getElementById('rig');
+    const charIdle = document.getElementById('char-idle');
+    const charCloseup = document.getElementById('char-closeup');
+    const motionBlur = document.getElementById('motion-blur');
+    const sweep = document.getElementById('sweep');
+    const fade = document.getElementById('fade');
+    const hint = document.getElementById('hint');
+    const particles = document.getElementById('particles');
+    const bokehLayer = document.getElementById('bokeh-layer');
+    const dots = document.querySelectorAll('#stage-dot span');
+
+    /* 相机身后的墙必须隐藏（CSS 3D 不裁剪相机后方物体） */
+    const wallEls = {
+      front: document.querySelector('.w-front'),
+      left:  document.querySelector('.w-left'),
+      back:  document.querySelector('.w-back'),
+      right: document.querySelector('.w-right'),
+    };
+    const wallAngles = { front: 0, left: Math.PI/2, back: Math.PI, right: -Math.PI/2 };
+    function updateWalls(theta) {
+      const keys = ['front','left','back','right'];
+      for (let i = 0; i < keys.length; i++) {
+        const k = keys[i];
+        const behind = Math.cos(theta - wallAngles[k]);
+        wallEls[k].style.visibility = behind > 0.2 ? 'hidden' : 'visible';
+      }
+    }
+
+    const STAGES = { IDLE: 0, ORBIT: 1, CLOSEUP: 2, RIBBON: 3, CARDS: 4, DONE: 5 };
     let stage = STAGES.IDLE;
     let locked = false;
 
-    const wrap = document.getElementById('scene-wrap');
-    const scene = document.getElementById('scene');
-    const charIdle = document.getElementById('char-idle');
-    const charCloseup = document.getElementById('char-closeup');
-    const hint = document.getElementById('hint');
-    const indicator = document.getElementById('stage-indicator');
-    const sweep = document.getElementById('sweep');
-    const fadeOut = document.getElementById('fade-out');
+    /* 3D 尘埃粒子 */
+    const motes = [];
+    for (let i = 0; i < 60; i++) {
+      const m = document.createElement('div');
+      m.className = 'mote';
+      const x = (Math.random() - 0.5) * 1200;
+      const y = -Math.random() * 700 - 60;
+      const z = (Math.random() - 0.5) * 1200 - 100;
+      const s = 0.5 + Math.random() * 2.2;
+      m.style.transform = 'translate3d(' + x + 'px,' + y + 'px,' + z + 'px) scale(' + s + ')';
+      m.style.opacity = (0.2 + Math.random() * 0.6).toFixed(2);
+      particles.appendChild(m);
+      motes.push({ el: m, x: x, y: y, z: z, base: Math.random() * Math.PI * 2 });
+    }
+    /* 屏幕空间 bokeh */
+    for (let i = 0; i < 10; i++) {
+      const b = document.createElement('div');
+      b.className = 'bokeh';
+      const size = 30 + Math.random() * 90;
+      b.style.width = b.style.height = size + 'px';
+      b.style.left = (Math.random() * 100) + '%';
+      b.style.top = (Math.random() * 100) + '%';
+      b.style.opacity = (0.2 + Math.random() * 0.5).toFixed(2);
+      b.style.animationDuration = (6 + Math.random() * 8) + 's';
+      bokehLayer.appendChild(b);
+    }
 
-    function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
-    function lerp(a, b, t) { return a + (b - a) * t; }
+    /* 轨道相机 view = Ry(-θ) Rx(pitch) T(-P) */
+    function rigTransform(theta, dist, height) {
+      const pitch = Math.atan2(height, dist);
+      const px = Math.sin(theta) * dist;
+      const pz = Math.cos(theta) * dist;
+      rig.style.transform =
+        'rotateY(' + (-theta) + 'rad) rotateX(' + pitch + 'rad) translate3d(' +
+        (-px) + 'px,' + (-height) + 'px,' + (-pz) + 'px)';
+    }
+    function billboard(theta) { return 'rotateY(' + theta + 'rad)'; }
 
-    wrap.addEventListener('click', () => {
-      if (locked) return;
-      if (stage === STAGES.IDLE) startRotation();
-      else if (stage === STAGES.CLOSEUP) startRibbon();
-      else if (stage === STAGES.CARDS || stage === STAGES.DONE) enterSite();
-    });
+    /* 运镜关键帧：环绕 0→2π + 推进 + 升降，dist 全部小于墙距700 */
+    const orbitKeys = [
+      { t: 0.0,  theta: 0,             dist: 620, h: 60 },
+      { t: 0.28, theta: Math.PI*0.62, dist: 560, h: 30 },
+      { t: 0.5,  theta: Math.PI,      dist: 500, h: 40 },
+      { t: 0.72, theta: Math.PI*1.38, dist: 420, h: 90 },
+      { t: 1.0,  theta: Math.PI*2,    dist: 340, h: 110 },
+    ];
+    function easeInOut(e) { return e < 0.5 ? 2*e*e : 1 - Math.pow(-2*e+2, 2)/2; }
+    function sampleKeys(keys, p) {
+      p = Math.max(0, Math.min(1, p));
+      for (let i = 0; i < keys.length - 1; i++) {
+        const a = keys[i], b = keys[i+1];
+        if (p >= a.t && p <= b.t) {
+          const e = easeInOut((p - a.t) / (b.t - a.t));
+          return {
+            theta: a.theta + (b.theta - a.theta) * e,
+            dist: a.dist + (b.dist - a.dist) * e,
+            h: a.h + (b.h - a.h) * e,
+          };
+        }
+      }
+      const last = keys[keys.length-1];
+      return { theta: last.theta, dist: last.dist, h: last.h };
+    }
 
-    // 阶段1：环绕 + 立绘切换
-    function startRotation() {
+    function driftMotes(T) {
+      for (let i = 0; i < motes.length; i++) {
+        const m = motes[i];
+        const yy = m.y + Math.sin(T*2 + m.base) * 10;
+        m.el.style.transform = 'translate3d(' + m.x + 'px,' + yy + 'px,' + m.z + 'px)';
+      }
+    }
+
+    let idleT = 0;
+    function idleLoop() {
+      if (stage !== STAGES.IDLE) return;
+      idleT += 0.016;
+      const breathe = Math.sin(idleT*0.5) * 12;
+      const sway = Math.sin(idleT*0.28) * 6;
+      rigTransform(0, 620 + breathe, 60 + sway);
+      charIdle.style.transform = billboard(0);
+      charCloseup.style.transform = billboard(0);
+      updateWalls(0);
+      driftMotes(idleT);
+      requestAnimationFrame(idleLoop);
+    }
+
+    function startOrbit() {
+      stage = STAGES.ORBIT;
       locked = true;
-      stage = STAGES.ROTATING;
       hint.style.opacity = '0';
-      indicator.textContent = '';
-      charIdle.style.animation = 'none';
-
-      const duration = 2600;
+      dots[0].classList.add('on');
+      const duration = 3000;
       const start = performance.now();
       let switched = false;
+      let lastTheta = 0;
 
       function frame(now) {
-        const t = Math.min((now - start) / duration, 1);
-        const e = easeInOut(t);
+        let p = (now - start) / duration;
+        if (p >= 1) p = 1;
+        const k = sampleKeys(orbitKeys, p);
+        rigTransform(k.theta, k.dist, k.h);
+        charIdle.style.transform = billboard(k.theta);
+        charCloseup.style.transform = billboard(k.theta);
+        updateWalls(k.theta);
 
-        // 完整360度旋转 + 轻微推近
-        const angle = e * 360;
-        const zoom = 1 + e * 0.04;
-        scene.style.transform = `rotateY(${angle}deg) scale(${zoom})`;
+        const speed = Math.abs(k.theta - lastTheta);
+        lastTheta = k.theta;
+        const blurAmt = Math.min(1, speed * 2.2);
+        motionBlur.style.opacity = (blurAmt * 0.5).toFixed(3);
+        motionBlur.style.backdropFilter = 'blur(' + (blurAmt*3).toFixed(2) + 'px)';
+        motionBlur.style.webkitBackdropFilter = 'blur(' + (blurAmt*3).toFixed(2) + 'px)';
 
-        // 中段运动模糊 + 切换立绘
-        const distToSide = Math.abs(Math.sin(angle * Math.PI / 180));
-        if (distToSide < 0.35) {
-          charIdle.classList.add('motion-blur');
-          charCloseup.classList.add('motion-blur');
-        } else {
-          charIdle.classList.remove('motion-blur');
-          charCloseup.classList.remove('motion-blur');
+        if (!switched && k.theta >= Math.PI*0.98) {
+          switched = true;
+          charIdle.style.opacity = '0';
+          charCloseup.style.opacity = '1';
+          sweep.style.opacity = '1';
+          sweep.style.transition = 'transform 0.7s ease-out';
+          sweep.style.transform = 'translateX(-120%)';
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() { sweep.style.transform = 'translateX(120%)'; });
+          });
+          dots[1].classList.add('on');
         }
+        driftMotes(now/1000);
 
-        if (t > 0.42 && t < 0.58) {
-          if (!switched) {
-            switched = true;
-            charIdle.style.opacity = '0';
-            charCloseup.style.opacity = '1';
-            charCloseup.classList.add('visible');
-            sweep.classList.add('flash');
-            setTimeout(() => sweep.classList.remove('flash'), 700);
-          }
-        } else if (t <= 0.42) {
-          charIdle.style.opacity = (1 - t / 0.42 * 0.3).toString();
-        }
-
-        if (t < 1) {
+        if (p < 1) {
           requestAnimationFrame(frame);
         } else {
-          scene.style.transition = 'none';
-          scene.style.transform = 'rotateY(0deg) scale(1.02)';
-          charIdle.classList.remove('motion-blur');
-          charCloseup.classList.remove('motion-blur');
-          void scene.offsetWidth;
-          scene.style.transition = '';
+          motionBlur.style.opacity = '0';
           stage = STAGES.CLOSEUP;
-          locked = false;
-          indicator.textContent = '';
-          hint.textContent = '再次点击';
+          closeupLoop(performance.now());
+          hint.textContent = '再点一次';
           hint.style.opacity = '1';
+          locked = false;
         }
       }
       requestAnimationFrame(frame);
     }
 
-    // 阶段2：SOS臂章展开成飘带
+    function closeupLoop(now0) {
+      const base = now0;
+      function loop(ts) {
+        if (stage !== STAGES.CLOSEUP) return;
+        const ct = (ts - base) / 1000;
+        const breathe = Math.sin(ct*1.4) * 8;
+        const sway = Math.sin(ct*0.8) * 5;
+        rigTransform(0, 340 + breathe, 110 + sway);
+        charIdle.style.transform = billboard(0);
+        charCloseup.style.transform = billboard(0);
+        updateWalls(0);
+        driftMotes(ct);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    }
+
     function startRibbon() {
-      locked = true;
       stage = STAGES.RIBBON;
+      locked = true;
       hint.style.opacity = '0';
-
+      dots[2].classList.add('on');
       const ribbon = document.getElementById('ribbon');
-      const maxW = Math.min(window.innerWidth * 0.82, 920);
-      ribbon.style.opacity = '1';
-
-      const duration = 1300;
-      const start = performance.now();
-
-      function frame(now) {
-        const t = Math.min((now - start) / duration, 1);
-        const e = easeInOut(t);
-        const w = maxW * e;
-        const wave = Math.sin(t * Math.PI) * 14;
-        ribbon.style.width = w + 'px';
-        ribbon.style.transform = `translate(-${w/2}px, -50%) rotateZ(${-4 + wave*0.2}deg)`;
-        if (t < 1) requestAnimationFrame(frame);
-        else {
-          // 持续飘动
-          ribbon.style.animation = 'ribbonWave 2.8s ease-in-out infinite';
-          injectKeyframes(maxW);
-          launchCards();
-        }
-      }
-      requestAnimationFrame(frame);
+      ribbon.style.transition = 'none';
+      ribbon.style.opacity = '0';
+      ribbon.style.width = '0';
+      requestAnimationFrame(function() {
+        ribbon.style.transition = 'width 0.9s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease';
+        ribbon.style.width = '70vw';
+        ribbon.style.opacity = '1';
+      });
+      let t = 0;
+      const wave = setInterval(function() {
+        if (stage !== STAGES.RIBBON && stage !== STAGES.CARDS) { clearInterval(wave); return; }
+        t += 0.08;
+        const r = document.getElementById('ribbon');
+        const rot = -8 + Math.sin(t)*2.2;
+        const ty = Math.sin(t*1.3)*6;
+        r.style.transform = 'translate(-50%,-50%) rotate(' + rot + 'deg) translateY(' + ty + 'px)';
+      }, 40);
+      setTimeout(launchCards, 950);
     }
 
-    function injectKeyframes(maxW) {
-      const s = document.createElement('style');
-      s.textContent = `@keyframes ribbonWave {
-        0%,100% { transform: translate(-${maxW/2}px,-50%) rotateZ(-3deg) translateY(0); }
-        25% { transform: translate(-${maxW/2}px,-50%) rotateZ(1deg) translateY(-6px); }
-        50% { transform: translate(-${maxW/2}px,-50%) rotateZ(2deg) translateY(2px); }
-        75% { transform: translate(-${maxW/2}px,-50%) rotateZ(-1deg) translateY(-4px); }
-      }`;
-      document.head.appendChild(s);
-    }
-
-    // 阶段3：卡牌沿飘带飞入
     function launchCards() {
       stage = STAGES.CARDS;
       const container = document.getElementById('cards-container');
-      const maxW = Math.min(window.innerWidth * 0.82, 920);
       const count = 5;
-
+      const maxW = Math.min(window.innerWidth*0.7, 720);
       for (let i = 0; i < count; i++) {
         const card = document.createElement('div');
-        card.className = 'memory-card';
+        card.className = 'mem-card';
+        card.innerHTML = '<span class="tag">记忆 ' + String(i+1).padStart(2,'0') + '</span>';
         container.appendChild(card);
-        const delay = i * 220;
-        setTimeout(() => {
-          const finalX = (i - (count - 1) / 2) * 34;
-          const finalY = (i % 2 === 0 ? -1 : 1) * 12;
-          const finalRot = (i - 2) * 4;
-          card.animate([
-            { opacity: 0, transform: `translate(${-maxW/2}px, 30px) rotate(-12deg) scale(0.4)` },
-            { opacity: 1, offset: 0.35, transform: `translate(${-maxW/4}px, -40px) rotate(4deg) scale(0.85)` },
-            { opacity: 1, offset: 0.7, transform: `translate(${finalX*0.5}px, 10px) rotate(${finalRot*0.5}deg) scale(1.02)` },
-            { opacity: 1, transform: `translate(${finalX}px, ${finalY}px) rotate(${finalRot}deg) scale(1)` },
-          ], { duration: 1300, easing: 'cubic-bezier(0.4,0,0.2,1)', fill: 'forwards' });
-        }, delay);
+        (function(idx) {
+          setTimeout(function() {
+            const finalX = (idx - (count-1)/2) * 150;
+            const finalY = (idx % 2 === 0 ? -1 : 1) * 40;
+            const finalRot = (idx - 2) * 5;
+            card.animate([
+              { opacity: 0, transform: 'translate(' + (-maxW/2) + 'px,40px) rotate(-14deg) scale(0.4)' },
+              { opacity: 1, transform: 'translate(' + (-maxW/4) + 'px,-120px) rotate(6deg) scale(0.85)', offset: 0.35 },
+              { opacity: 1, transform: 'translate(' + (finalX*0.5) + 'px,20px) rotate(' + (finalRot*0.5) + 'deg) scale(1.02)', offset: 0.7 },
+              { opacity: 1, transform: 'translate(' + finalX + 'px,' + finalY + 'px) rotate(' + finalRot + 'deg) scale(1)' }
+            ], { duration: 1400, easing: 'cubic-bezier(0.4,0,0.2,1)', fill: 'forwards' });
+          }, idx * 200);
+        })(i);
       }
-
-      setTimeout(() => {
+      setTimeout(function() {
         stage = STAGES.DONE;
         locked = false;
         hint.textContent = '点击进入记忆库';
         hint.style.opacity = '1';
-      }, count * 220 + 1500);
+      }, count*200 + 1600);
     }
 
     function enterSite() {
       locked = true;
-      fadeOut.classList.add('show');
-      setTimeout(() => { window.location.href = '/'; }, 1000);
+      fade.style.opacity = '1';
+      setTimeout(function() { window.location.href = '/'; }, 1000);
     }
 
-    // 调试：URL hash 直接进入某阶段（#closeup / #ribbon / #cards）
-    const debugStage = location.hash.replace('#', '');
-    if (debugStage === 'closeup') {
-      scene.style.transition = 'none';
-      scene.style.transform = 'rotateY(0deg) scale(1.02)';
+    function handleClick() {
+      if (locked) return;
+      if (stage === STAGES.IDLE) startOrbit();
+      else if (stage === STAGES.CLOSEUP) startRibbon();
+      else if (stage === STAGES.DONE) enterSite();
+    }
+    document.getElementById('cinema').addEventListener('click', handleClick);
+
+    /* 启动 */
+    rigTransform(0, 620, 60);
+    updateWalls(0);
+    charIdle.style.transform = billboard(0);
+    charCloseup.style.transform = billboard(0);
+    requestAnimationFrame(function() {
+      fade.style.opacity = '0';
+      setTimeout(function() { hint.style.opacity = '1'; }, 1000);
+      requestAnimationFrame(idleLoop);
+    });
+
+    /* 调试 hash：#orbit=0.5 / #closeup */
+    const dbg = location.hash.replace('#','');
+    if (dbg.indexOf('orbit=') === 0) {
+      const p = parseFloat(dbg.split('=')[1]);
+      const k = sampleKeys(orbitKeys, p);
+      rigTransform(k.theta, k.dist, k.h);
+      updateWalls(k.theta);
+      charIdle.style.transform = billboard(k.theta);
+      charCloseup.style.transform = billboard(k.theta);
+      if (p > 0.5) { charIdle.style.opacity = '0'; charCloseup.style.opacity = '1'; }
+      fade.style.opacity = '0';
+      hint.style.opacity = '0';
+    } else if (dbg === 'closeup') {
+      rigTransform(0, 340, 110);
+      updateWalls(0);
       charIdle.style.opacity = '0';
-      charIdle.style.animation = 'none';
       charCloseup.style.opacity = '1';
-      charCloseup.classList.add('visible');
-      stage = STAGES.CLOSEUP;
+      charCloseup.style.transform = billboard(0);
+      fade.style.opacity = '0';
+      hint.style.opacity = '0';
     }
   </script>
 </body>
