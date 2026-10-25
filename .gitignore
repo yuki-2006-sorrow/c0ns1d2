@@ -10,3 +10,6 @@ dist/
 image/
 intro-shots/
 intro-source/
+
+# AI 工作记忆（含账号/路径等，不提交）
+agent-memory/
