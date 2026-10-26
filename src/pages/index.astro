@@ -92,17 +92,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       will-change: opacity;
     }
     .shot.is-active { opacity: 1; }
-    /* 接缝：退出旧段先纯推近（0~0.32s 不叠化，无双重脸），再快速叠化。
-       单向 dolly-in 接住下一段更近的首帧，非循环呼吸；倍数由 --push 控制 */
-    .shot.zoom-out {
-      animation: shotPush 0.55s ease-out forwards;
-      transform-origin: 50% 42%;
-      z-index: 2;
-    }
-    @keyframes shotPush {
-      from { transform: scale(1); }
-      to   { transform: scale(var(--push, 1.4)); }
-    }
+    /* 素材首尾帧已逐段对齐，只做最简单的淡入叠化，不做任何网页端推近/缩放 */
     .shot video.sv {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
@@ -361,26 +351,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       showHint(hint);
     }
 
-    // 退出旧段：叠化期间做一次单向推近，把旧段定格帧推到与下一段首帧一致的景别（消除接缝跳变）
-    function pushOut(k) {
-      const el = shotEls[k];
-      if (!el) return;
-      el.style.setProperty('--push', k === 0 ? '1.42' : '1.25');
-      el.classList.remove('zoom-out');
-      void el.offsetWidth;          // 重置动画，保证再次触发
-      el.classList.add('zoom-out');
-      setTimeout(() => el.classList.remove('zoom-out'), 1000);
-    }
-
-    // 上一段定格到准确尾帧（与定格点/下一段首帧三处一致，消除接缝跳变）
-    function freezePrev(k) {
-      const p = vids[k];
-      if (!p) return;
-      p.pause();
-      setRate(p, RATE);
-      if (p.duration) p.currentTime = p.duration - HOLD;
-    }
-
+    // 新段直接显示：素材首帧=上一段尾帧，叠化期间两帧几乎一致，自然衔接
     function startSeg(i) {
       seg = i; mode = 'play';
       showHint(null);
@@ -389,9 +360,20 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       v.ontimeupdate = null; v.onended = null;
       setRate(v, RATE);
       v.currentTime = 0;
-      // 新段先在底层播放但不显示：前 0.32s 让旧段纯推近（无 crossfade 双重脸），再叠化到新段（此时两帧景别已接近）
-      if (startSeg._t) clearTimeout(startSeg._t);
-      startSeg._t = setTimeout(() => setShot(i), 320);
+      setShot(i);
+      if (v.readyState >= 3) play(v);
+    }
+
+    // 第一次点击：段一从外景定格处（HEAD）续播，不重置回开头（修复"跳回第一帧"）
+    function resumeFirst() {
+      seg = 0; mode = 'play';
+      showHint(null);
+      const v = vids[0];
+      v.ontimeupdate = null; v.onended = null;
+      setRate(v, RATE);
+      if (v.currentTime < HEAD) v.currentTime = HEAD;
+      setShot(0);
+      if (v.readyState >= 3) play(v);
     }
 
     function finish() {
@@ -418,10 +400,10 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     // 点击：外景（播放中或定格）开播段一；hold 推进下一段；play 正放中忽略
     function advance() {
       if (introScrolled || mode === 'done' || mode === 'play') return;
-      if (mode === 'head' || mode === 'headhold') startSeg(0);
+      if (mode === 'head' || mode === 'headhold') resumeFirst();
       else if (mode === 'hold') {
-        if (seg === 0) { pushOut(0); freezePrev(0); startSeg(1); }
-        else if (seg === 1) { pushOut(1); freezePrev(1); startSeg(2); }
+        if (seg === 0) startSeg(1);
+        else if (seg === 1) startSeg(2);
       }
     }
     cinema.addEventListener('click', advance);
