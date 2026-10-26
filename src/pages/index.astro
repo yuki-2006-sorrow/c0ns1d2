@@ -72,6 +72,9 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
   <style is:global>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; background: #0a0a0a; }
+    /* 首页沉浸式：隐藏固定导航栏（避免误点"首页"链接跳回），并去掉内容区顶部预留 */
+    #siteNav { display: none; }
+    .content { padding-top: 0; }
 
     .gallery-page { position: relative; height: 100vh; width: 100vw; overflow: hidden; }
 
@@ -365,7 +368,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       if (introScrolled) return;
       introScrolled = true;
       stopRaf();
-      try { sessionStorage.setItem('introPlayed', '1'); } catch (e) {}
+      try { localStorage.setItem('introPlayed', '1'); } catch (e) {}
       v.ontimeupdate = null; v.onended = null; v.pause();
       cinema.classList.add('cinema-out');
       mainView.classList.add('visible');
@@ -391,7 +394,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     // 初始：本次会话已看过开场则直接进照片墙；否则定格在 HEAD 等点击（不自动播放，避免启动抽搐）
     mode = 'headhold';
     let alreadyPlayed = false;
-    try { alreadyPlayed = sessionStorage.getItem('introPlayed') === '1'; } catch (e) {}
+    try { alreadyPlayed = localStorage.getItem('introPlayed') === '1'; } catch (e) {}
     if (alreadyPlayed) {
       introScrolled = true;
       v.pause();
