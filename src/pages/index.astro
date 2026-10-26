@@ -11,9 +11,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     <!-- 电影开场：三段点击播放（静态帧 Ken Burns 运镜占位，视频齐了把对应 .shot 内换成 <video>） -->
     <div class="cinema" id="cinema">
       <div class="shots" id="shots">
-        <div class="shot is-active"><video class="sv" src="/intro/p1.mp4" poster="/intro/k1.png" muted playsinline preload="auto" disablepictureinpicture></video></div>
-        <div class="shot"><video class="sv" src="/intro/p2.mp4" muted playsinline preload="auto" disablepictureinpicture></video></div>
-        <div class="shot"><video class="sv" src="/intro/p3.mp4" muted playsinline preload="auto" disablepictureinpicture></video></div>
+        <div class="shot is-active"><video class="sv" id="introVideo" src="/intro/intro.mp4" poster="/intro/k1.png" muted playsinline preload="auto" disablepictureinpicture></video></div>
       </div>
       <div class="red-flash" id="redFlash"></div>
       <div class="cinema-vignette"></div>
@@ -285,112 +283,71 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     const currentNum = document.getElementById('currentNum');
     const progressFill = document.getElementById('progressFill');
 
-    /* ===== 电影开场：三段真实视频 · 点击播放（首/尾帧循环做呼吸，红铺满接照片墙） ===== */
+    /* ===== 电影开场：单个 1080P 长视频（12.08s），点击三次推进；接缝在播放中跨过，红铺满接照片墙 ===== */
     let introScrolled = false;
     const cinema = document.getElementById('cinema');
     const cHint = document.getElementById('cHint');
     const redFlash = document.getElementById('redFlash');
     const cDots = document.querySelectorAll('#cDots span');
-    const shotEls = document.querySelectorAll('.shot');
-    const vids = Array.from(document.querySelectorAll('.shot video.sv'));
+    const v = document.getElementById('introVideo');
 
-    const RATE = 1.12;        // 正片播放速率（运镜偏慢，整体提速）
-    const HEAD = 1.2;         // 初始窗外远景：正放到这里定格
-    const HOLD = 0.005;       // 段一/二定格点=距结尾0.005s（30fps下≈末帧），贴住真正尾帧=下一段首帧，消除接缝放大
-    const FINALE_TRIG = 0.4;  // 段三结尾前多少秒触发红铺满
-    let seg = 0;
-    let mode = 'head';        // head（外景正放）| headhold（外景定格）| play（正放）| hold（纯静止定格）| done
+    const RATE = 1.12;        // 播放速率（运镜偏慢，整体提速）
+    const HEAD = 1.2;         // 初始窗外远景定格点
+    const STOP1 = 4.1;        // 接缝1约 4.03，停点紧贴接缝后（卡在极限），让跳帧在播放中跨过
+    const STOP2 = 8.0;        // P2 尾（俯视徽章）；接缝2约 8.06，停在接缝前
+    const FINALE_TRIG = 0.4;  // 结尾前多少秒触发红铺满
+    let step = 0;             // 0=外景/将到P1尾 1=将到P2尾 2=P3 3=done
+    let mode = 'head';        // head | headhold | play | hold | done
     let rafId = null;
 
-    vids.forEach(v => { v.muted = true; v.disablePictureInPicture = true; });
-    function setShot(i) { shotEls.forEach((el, k) => el.classList.toggle('is-active', k === i)); }
+    v.muted = true; v.disablePictureInPicture = true;
     function showHint(t) { if (t) { cHint.textContent = t; cHint.classList.remove('hide'); } else { cHint.classList.add('hide'); } }
-    const play = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    const setRate = (v, r) => { try { if (Math.abs(v.playbackRate - r) > 1e-6) v.playbackRate = r; } catch (e) {} };
+    const playV = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    const setRate = (r) => { try { if (Math.abs(v.playbackRate - r) > 1e-6) v.playbackRate = r; } catch (e) {} };
     function stopRaf() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
 
-    // 全正向、零倒放：每段自然正放一次 → 停在真正尾帧（纯静止定格）。
-    // 不用负 playbackRate（Firefox/Safari/部分内核不支持，会直接报错或抽搐）；不做 CSS 缩放呼吸（=镜头抽动）。
     function tick() {
       try {
-        const v = vids[seg];
         const d = v.duration || 0;
         if (mode === 'head') {
           if (v.readyState < 2) { if (!v.paused) v.pause(); }
           else if (d && (v.ended || v.currentTime >= HEAD)) {
-            v.pause(); v.currentTime = HEAD; holdHere('headhold', '点击开始');
+            v.pause(); v.currentTime = HEAD; holdHere('headhold', '点击开始', 0);
           } else {
-            setRate(v, 1);
-            if (v.paused && !v.ended) play(v);
+            setRate(1); if (v.paused && !v.ended) playV();
           }
         } else if (mode === 'play') {
-          if (v.readyState < 3) { if (!v.paused) v.pause(); }   // 缓冲不足先停住等，避免开头卡顿
-          else if (seg === 2) {
-            if (d && (v.ended || v.currentTime >= d - FINALE_TRIG)) { finish(); return; }
-            setRate(v, RATE);
-            if (v.paused && !v.ended) play(v);
-          } else if (d && (v.ended || v.currentTime >= d - HOLD)) {
-            // 到定格点（含已 ended）：定格在最后一帧，绝不在此处 play()，否则 ended 会被重播
-            v.pause(); v.currentTime = d - HOLD;
-            holdHere('hold', '点击继续');
-          } else {
-            setRate(v, RATE);
-            if (v.paused && !v.ended) play(v);
+          if (v.readyState < 3) { if (!v.paused) v.pause(); }   // 缓冲不足先停，避免卡顿
+          else {
+            if (step === 2) {
+              if (d && (v.ended || v.currentTime >= d - FINALE_TRIG)) { finish(); return; }
+            } else {
+              const target = step === 0 ? STOP1 : STOP2;
+              if (d && (v.ended || v.currentTime >= target)) {
+                v.pause(); v.currentTime = target;
+                holdHere('hold', '点击继续', step + 1);
+              }
+            }
+            if (mode === 'play') { setRate(RATE); if (v.paused && !v.ended) playV(); }
           }
         }
-        // headhold / hold：时间轴完全静止，停在最后一帧等待点击
+        // headhold / hold：时间轴静止，待机不续循环（holdHere 已 stopRaf）
+        if (mode === 'headhold' || mode === 'hold') return;
         rafId = requestAnimationFrame(tick);
       } catch (e) { console.warn('[cinema tick]', e); rafId = requestAnimationFrame(tick); }
     }
 
-    // 定格：停在最后一帧（纯静止，不做任何缩放/循环），等待点击
-    function holdHere(nextMode, hint) {
+    function holdHere(nextMode, hint, dotIndex) {
       mode = nextMode;
-      if (nextMode === 'hold' && cDots[seg]) cDots[seg].classList.add('on');
+      if (nextMode === 'hold' && cDots[dotIndex]) cDots[dotIndex].classList.add('on');
       showHint(hint);
-    }
-
-    // 新段直接显示：素材首帧=上一段尾帧，叠化期间两帧几乎一致，自然衔接
-    function startSeg(i) {
-      seg = i; mode = 'play';
-      showHint(null);
-      vids.forEach((x, k) => { if (k !== i) x.pause(); });
-      const v = vids[i];
-      v.ontimeupdate = null; v.onended = null;
-      v.pause();
-      setRate(v, RATE);
-      // 先在底层 seek 到首帧、等画面稳定渲染，再切过去（避免首帧没准备好导致闪/抖）
-      let revealed = false;
-      const reveal = () => {
-        if (revealed) return;
-        revealed = true;
-        setShot(i);
-        play(v);
-      };
-      v.addEventListener('seeked', reveal, { once: true });
-      v.currentTime = 0;
-      if (v.readyState >= 2) requestAnimationFrame(() => requestAnimationFrame(reveal));
-      else v.addEventListener('loadeddata', reveal, { once: true });
-    }
-
-    // 第一次点击：段一从外景定格处（HEAD）续播，不重置回开头（修复"跳回第一帧"）
-    function resumeFirst() {
-      seg = 0; mode = 'play';
-      showHint(null);
-      const v = vids[0];
-      v.ontimeupdate = null; v.onended = null;
-      setRate(v, RATE);
-      if (v.currentTime < HEAD) v.currentTime = HEAD;
-      setShot(0);
-      if (v.readyState >= 3) play(v);
+      stopRaf();   // 待机时彻底停止循环，杜绝任何 JS 干扰导致的画面抽搐
     }
 
     function finish() {
-      mode = 'done';
+      mode = 'done'; step = 3;
       stopRaf();
-      const v = vids[2];
-      v.ontimeupdate = null;
-      v.pause();
+      v.ontimeupdate = null; v.pause();
       redFlash.style.transition = 'opacity 0.5s ease';
       redFlash.style.opacity = '1';   // 与视频结尾暗红无缝铺满
       setTimeout(enterGallery, 700);
@@ -400,32 +357,35 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       if (introScrolled) return;
       introScrolled = true;
       stopRaf();
-      vids.forEach(x => { x.ontimeupdate = null; x.onended = null; x.pause(); setRate(x, RATE); });
+      v.ontimeupdate = null; v.onended = null; v.pause();
       cinema.classList.add('cinema-out');
       mainView.classList.add('visible');
       setTimeout(() => updateView(), 700);
     }
 
-    // 点击：外景（播放中或定格）开播段一；hold 推进下一段；play 正放中忽略
+    // 点击推进：从当前定格点继续播放（不重置、不跳回首帧）
+    function startPlay() {
+      playV();
+      stopRaf();
+      rafId = requestAnimationFrame(tick);
+    }
     function advance() {
       if (introScrolled || mode === 'done' || mode === 'play') return;
-      if (mode === 'head' || mode === 'headhold') resumeFirst();
+      if (mode === 'head' || mode === 'headhold') { step = 0; mode = 'play'; showHint(null); startPlay(); }
       else if (mode === 'hold') {
-        if (seg === 0) startSeg(1);
-        else if (seg === 1) startSeg(2);
+        if (step === 0) { step = 1; mode = 'play'; showHint(null); startPlay(); }
+        else if (step === 1) { step = 2; mode = 'play'; showHint(null); startPlay(); }
       }
     }
     cinema.addEventListener('click', advance);
 
-    // 初始：段一外景正放 → 外景定格
-    setShot(0);
-    seg = 0; mode = 'head';
-    const v0 = vids[0];
-    const boot = () => { if (!rafId) rafId = requestAnimationFrame(tick); };
-    if (v0.readyState >= 2) boot();
-    else v0.addEventListener('loadeddata', boot, { once: true });
+    // 初始：加载好后直接定格在 HEAD（窗外远景），不自动播放，避免启动时序竞争导致的抽搐
+    mode = 'headhold';
+    const goHead = () => { v.pause(); v.currentTime = HEAD; showHint('点击开始'); };
+    if (v.readyState >= 2) goHead();
+    else v.addEventListener('loadeddata', goHead, { once: true });
 
-    // 开场播放期间，滚轮/键盘/触摸均不直接进入照片墙（严格点击三段推进）
+    // 开场播放期间，滚轮不直接进照片墙（严格点击推进）
     window.addEventListener('wheel', (e) => { if (!introScrolled) e.preventDefault(); }, { passive: false });
 
     function updateView() {
