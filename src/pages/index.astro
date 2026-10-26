@@ -139,12 +139,12 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     }
     .main-view.visible { opacity: 1; }
 
-    /* 卡片堆叠 */
+    /* 卡片堆叠（左栏） */
     .cards-container {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -55%);
-      width: 400px; height: 500px;
+      top: 50%; left: 30%;
+      transform: translate(-50%, -50%);
+      width: 380px; height: 500px;
       perspective: 1200px;
     }
     .card {
@@ -166,13 +166,13 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       pointer-events: none;
     }
 
-    /* 文字堆叠 */
+    /* 文字堆叠（右栏） */
     .text-stack {
       position: absolute;
-      bottom: 120px; left: 50%;
-      transform: translateX(-50%);
-      width: 600px; height: 180px;
-      text-align: center;
+      top: 50%; left: 73%;
+      transform: translate(-50%, -50%);
+      width: 380px;
+      text-align: left;
     }
     .text-item {
       position: absolute;
@@ -181,16 +181,16 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     }
     .text-date {
       font-size: 0.8em; color: rgba(255,255,255,0.4);
-      letter-spacing: 0.3em; display: block; margin-bottom: 12px;
+      letter-spacing: 0.3em; display: block; margin-bottom: 16px;
     }
     .text-title {
-      font-size: clamp(1.5em, 3vw, 2.5em);
+      font-size: clamp(1.4em, 2.2vw, 2em);
       font-weight: 300; color: #fff;
-      margin-bottom: 10px; line-height: 1.3;
+      margin-bottom: 18px; line-height: 1.35;
     }
     .text-desc {
-      font-size: 0.9em; color: rgba(255,255,255,0.5);
-      margin-bottom: 20px;
+      font-size: 0.95em; color: rgba(255,255,255,0.55);
+      margin-bottom: 28px; line-height: 1.6;
     }
     .text-enter {
       display: inline-block;
@@ -266,9 +266,17 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     }
 
     @media (max-width: 768px) {
-      .cards-container { width: 280px; height: 360px; }
-      .text-stack { width: 90%; bottom: 100px; }
-      .text-title { font-size: 1.5em; }
+      .cards-container {
+        width: 260px; height: 340px;
+        top: 33%; left: 50%;
+      }
+      .text-stack {
+        width: 86%;
+        top: 70%; left: 50%;
+        text-align: center;
+      }
+      .text-title { font-size: 1.4em; }
+      .controls { gap: 18px; bottom: 28px; }
     }
   </style>
 
@@ -357,6 +365,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       if (introScrolled) return;
       introScrolled = true;
       stopRaf();
+      try { sessionStorage.setItem('introPlayed', '1'); } catch (e) {}
       v.ontimeupdate = null; v.onended = null; v.pause();
       cinema.classList.add('cinema-out');
       mainView.classList.add('visible');
@@ -379,11 +388,21 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     }
     cinema.addEventListener('click', advance);
 
-    // 初始：加载好后直接定格在 HEAD（窗外远景），不自动播放，避免启动时序竞争导致的抽搐
+    // 初始：本次会话已看过开场则直接进照片墙；否则定格在 HEAD 等点击（不自动播放，避免启动抽搐）
     mode = 'headhold';
-    const goHead = () => { v.pause(); v.currentTime = HEAD; showHint('点击开始'); };
-    if (v.readyState >= 2) goHead();
-    else v.addEventListener('loadeddata', goHead, { once: true });
+    let alreadyPlayed = false;
+    try { alreadyPlayed = sessionStorage.getItem('introPlayed') === '1'; } catch (e) {}
+    if (alreadyPlayed) {
+      introScrolled = true;
+      v.pause();
+      cinema.classList.add('cinema-out');
+      mainView.classList.add('visible');
+      updateView();
+    } else {
+      const goHead = () => { v.pause(); v.currentTime = HEAD; showHint('点击开始'); };
+      if (v.readyState >= 2) goHead();
+      else v.addEventListener('loadeddata', goHead, { once: true });
+    }
 
     // 开场播放期间，滚轮不直接进照片墙（严格点击推进）
     window.addEventListener('wheel', (e) => { if (!introScrolled) e.preventDefault(); }, { passive: false });
@@ -395,20 +414,22 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 
         if (absOffset > 3) {
           card.style.opacity = '0';
-          card.style.transform = `translateX(${offset * 100}px) scale(0.7)`;
+          card.style.transform = `translate(${offset * 80}px, ${offset * 60}px) scale(0.7)`;
           card.style.zIndex = 0;
           card.style.pointerEvents = 'none';
         } else {
-          const x = offset * 180;
-          const scale = 1 - absOffset * 0.12;
-          const opacity = 1 - absOffset * 0.25;
-          const rotateY = offset * -8;
+          // 斜向堆叠：后面的卡片沿对角线（右下）错开，露出边缘，填充空间
+          const x = offset * 70;
+          const y = offset * 46;
+          const scale = 1 - absOffset * 0.1;
+          const opacity = 1 - absOffset * 0.22;
+          const rotateY = offset * -6;
           const zIndex = 10 - absOffset;
 
           card.style.opacity = opacity;
-          card.style.transform = `translateX(${x}px) scale(${scale}) rotateY(${rotateY}deg)`;
+          card.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotateY(${rotateY}deg)`;
           card.style.zIndex = zIndex;
-          card.style.pointerEvents = absOffset === 0 ? 'auto' : 'auto';
+          card.style.pointerEvents = 'auto';
         }
       });
 
@@ -416,19 +437,17 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
         const offset = i - current;
         const absOffset = Math.abs(offset);
 
-        if (absOffset > 2) {
-          item.style.opacity = '0';
-          item.style.transform = `translateY(${offset * 60}px)`;
-          item.style.pointerEvents = 'none';
+        if (absOffset === 0) {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0) scale(1)';
+          item.style.pointerEvents = 'auto';
+          item.style.filter = 'none';
         } else {
-          const y = offset * 50;
-          const opacity = absOffset === 0 ? 1 : 0.3;
-          const scale = absOffset === 0 ? 1 : 0.9;
-
-          item.style.opacity = opacity;
-          item.style.transform = `translateY(${y}px) scale(${scale})`;
-          item.style.pointerEvents = absOffset === 0 ? 'auto' : 'none';
-          item.style.filter = absOffset === 0 ? 'none' : 'blur(1px)';
+          // 非当前项直接隐藏（不做虚化残留），仅保留切换时的滑动过渡
+          item.style.opacity = '0';
+          item.style.transform = `translateY(${offset * 40}px) scale(0.96)`;
+          item.style.pointerEvents = 'none';
+          item.style.filter = 'none';
         }
       });
 
@@ -436,23 +455,35 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       progressFill.style.width = ((current + 1) / total * 100) + '%';
     }
 
+    let lastGoTime = 0;
     function goTo(index) {
-      if (isAnimating) return;
-      current = Math.max(0, Math.min(total - 1, index));
-      isAnimating = true;
+      const now = performance.now();
+      if (now - lastGoTime < 100) return false;   // 短节流防同一手势瞬间翻多页，不阻塞连续翻页
+      const target = Math.max(0, Math.min(total - 1, index));
+      if (target === current) return false;
+      current = target;
+      lastGoTime = now;
       updateView();
-      setTimeout(() => isAnimating = false, 700);
+      return true;
     }
 
-    // 滚轮切换
-    let wheelTimeout;
+    // 滚轮切换：累积滚动量，连续信号可连续翻页（transition 会平滑重定向），做到跟手丝滑
+    let wheelAccum = 0;
+    let wheelResetTimer = null;
+    const STEP_DELTA = 90;
     window.addEventListener('wheel', (e) => {
       if (!introScrolled) return;
-      clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => {
-        if (e.deltaY > 30) goTo(current + 1);
-        else if (e.deltaY < -30) goTo(current - 1);
-      }, 50);
+      wheelAccum += e.deltaY;
+      clearTimeout(wheelResetTimer);
+      wheelResetTimer = setTimeout(() => { wheelAccum = 0; }, 180);
+      while (wheelAccum >= STEP_DELTA) {
+        wheelAccum -= STEP_DELTA;
+        if (!goTo(current + 1)) break;
+      }
+      while (wheelAccum <= -STEP_DELTA) {
+        wheelAccum += STEP_DELTA;
+        if (!goTo(current - 1)) break;
+      }
     }, { passive: true });
 
     // 点击卡片切换
