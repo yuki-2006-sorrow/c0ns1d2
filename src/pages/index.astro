@@ -88,8 +88,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     .shots { position: absolute; inset: 0; }
     .shot {
       position: absolute; inset: 0;
-      opacity: 0; transition: opacity 0.5s ease;
-      will-change: opacity;
+      opacity: 0;
     }
     .shot.is-active { opacity: 1; }
     /* 素材首尾帧已逐段对齐，只做最简单的淡入叠化，不做任何网页端推近/缩放 */
@@ -358,10 +357,20 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       vids.forEach((x, k) => { if (k !== i) x.pause(); });
       const v = vids[i];
       v.ontimeupdate = null; v.onended = null;
+      v.pause();
       setRate(v, RATE);
+      // 先在底层 seek 到首帧、等画面稳定渲染，再切过去（避免首帧没准备好导致闪/抖）
+      let revealed = false;
+      const reveal = () => {
+        if (revealed) return;
+        revealed = true;
+        setShot(i);
+        play(v);
+      };
+      v.addEventListener('seeked', reveal, { once: true });
       v.currentTime = 0;
-      setShot(i);
-      if (v.readyState >= 3) play(v);
+      if (v.readyState >= 2) requestAnimationFrame(() => requestAnimationFrame(reveal));
+      else v.addEventListener('loadeddata', reveal, { once: true });
     }
 
     // 第一次点击：段一从外景定格处（HEAD）续播，不重置回开头（修复"跳回第一帧"）
