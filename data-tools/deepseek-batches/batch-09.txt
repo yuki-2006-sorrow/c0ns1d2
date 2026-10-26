@@ -1,0 +1,2468 @@
+### EVENT: group-20260210-01-SOS团.md
+TITLE: 深夜互叫·闲聊
+DATE: 2026-02-10
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-10 00:41 陈二逼：@Anony
+- 02-10 00:41 陈二逼：醒醒
+- 02-10 01:09 金晟恺：？
+- 02-10 01:09 金晟恺：干嘛
+- 02-10 01:50 金晟恺：干嘛啊混蛋
+- 02-10 01:50 金晟恺：@Eventide
+- 02-10 01:50 金晟恺：我睡了
+- 02-10 02:05 陈二逼：[图片]
+- 02-10 02:05 陈二逼：@Anony
+- 02-10 02:05 金晟恺：辛苦了
+
+### EVENT: group-20260211-01-SOS团.md
+TITLE: 约看电影·闪灵
+DATE: 2026-02-11
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-11 12:34 朱浩宇：[图片]
+- 02-11 12:34 朱浩宇：打卡
+- 02-11 12:34 朱浩宇：[图片]
+- 02-11 14:28 陈二逼：差
+- 02-11 14:28 陈二逼：[图片]
+- 02-11 15:42 金晟恺：@困眼闭 明天如何
+- 02-11 16:02 朱浩宇：是香甜要我去和他看闪灵
+- 02-11 16:02 朱浩宇：你们要来我再订两张
+- 02-11 16:03 朱浩宇：因为我明天还要上课所以没法敦伟大友谊
+- 02-11 16:04 unknown：你撤回了一条消息
+- 02-11 16:04 朱浩宇：已知有是香甜降价晨朱浩宇
+
+### EVENT: group-20260211-01-十五猪.md
+TITLE: 聊生日策划·CS开黑时间
+DATE: 2026-02-11
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-11 21:26 46164930219@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请你和"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_p2330jgu695a22]]></username>
+							<nickname><![CDATA[吴晨阳]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_4q8whsqmajlc22]]></username>
+							<nickname><![CDATA[SkyMaths]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 02-11 21:26 吴晨阳：。老大要生日了老大
+- 02-11 21:26 吴晨阳：什么想法
+- 02-11 21:27 朱浩宇：十点再说
+- 02-11 21:27 吴晨阳：笑死了
+- 02-11 21:29 施翔天：为何
+- 02-11 21:29 朱浩宇：十点我俩准时打游戏
+- 02-11 21:29 吴晨阳：十点是我们打CS时间
+- 02-11 21:29 施翔天：笑死了
+- 02-11 21:29 施翔天：[裂开]
+- 02-11 21:30 施翔天：[图片]
+- 02-11 21:31 朱浩宇：[惊恐]
+- 02-11 21:31 吴晨阳：[表情]
+- 02-11 22:03 施翔天：[语音]
+- 02-11 22:03 施翔天：[语音]
+- 02-11 22:06 吴晨阳：[语音]
+- 02-11 22:08 施翔天：[语音]
+- 02-11 22:09 朱浩宇：[惊恐]
+- 02-11 22:09 吴晨阳：@困眼闭 约会对象，你好了没
+- 02-11 22:09 朱浩宇：我才刚洗完澡
+- 02-11 22:09 朱浩宇：刚吹完头发
+- 02-11 22:09 施翔天：[语音]
+- 02-11 22:09 吴晨阳：3685:1:
+爸爸
+null
+- 02-11 22:09 施翔天：[语音]
+- 02-11 22:09 吴晨阳：共用一个飞机杯
+- 02-11 22:10 施翔天：<?xml version="1.0"?>
+<msg>
+	<appmsg appid="" sdkver="0">
+		<title>爸爸</title>
+		<des />
+		<username />
+		<action>view</action>
+		<type>57</type>
+		<showtype>0</showtype>
+		<content />
+		<url />
+		<lowurl />
+		<forwardflag>0</forwardflag>
+		<dataurl />
+		<lowdataurl />
+		<contentattr>0</contentattr>
+		<streamvideo>
+			<streamvideourl />
+			<streamvideototaltime>0</streamvideototaltime>
+			<streamvideotitle />
+			<streamvideowording />
+			<streamvideoweburl />
+			<streamvideothumburl />
+			<streamvideoaduxinfo />
+			<streamvideopublishid />
+		</streamvideo>
+		<canvasPageItem>
+			<canvasPageXml><![CDATA[]]></canvasPageXml>
+		</canvasPageItem>
+		<refermsg></refermsg>
+		<appattach>
+			<totallen>0</totallen>
+			<attachid />
+			<cdnattachurl />
+			<emoticonmd5 />
+			<aeskey />
+			<fileext />
+			<islargefilemsg>0</islargefilemsg>
+		</appattach>
+		<extinfo />
+		<androidsource>0</androidsource>
+		<thumburl />
+		<mediatagname />
+		<messageaction><![CDATA[]]></messageaction>
+		<messageext><![CDATA[]]></messageext>
+		<emoticongift>
+			<packageflag>0</packageflag>
+			<packageid />
+		</emoticongift>
+		<emoticonshared>
+			<packageflag>0</packageflag>
+			<packageid />
+		</emoticonshared>
+		<designershared>
+			<designeruin>0</designeruin>
+			<designername>null</designername>
+			<designerrediretcturl><![CDATA[null]]></designerrediretcturl>
+		</designershared>
+		<emotionpageshared>
+			<tid>0</tid>
+			<title>null</title>
+			<desc>null</desc>
+			<iconUrl><![CDATA[null]]></iconUrl>
+			<secondUrl>null</secondUrl>
+			<pageType>0</pageType>
+			<setKey>null</setKey>
+		</emotionpageshared>
+		<webviewshared>
+			<shareUrlOriginal />
+			<shareUrlOpen />
+			<jsAppId />
+			<publisherId />
+			<publisherReqId />
+		</webviewshared>
+		<template_id />
+		<md5 />
+		<websearch>
+			<rec_category>0</rec_category>
+			<channelId>0</channelId>
+		</websearch>
+		<weappinfo>
+			<username />
+			<appid />
+			<appservicetype>0</appservicetype>
+			<secflagforsinglepagemode>0</secflagforsinglepagemode>
+			<videopageinfo>
+				<thumbwidth>0</thumbwidth>
+				<thumbheight>0</thumbheight>
+				<fromopensdk>0</fromopensdk>
+			</videopageinfo>
+		</weappinfo>
+		<statextstr />
+		<musicShareItem>
+			<musicDuration>0</musicDuration>
+		</musicShareItem>
+		<finderLiveProductShare>
+			<finderLiveID><![CDATA[]]></finderLiveID>
+			<finderUsername><![CDATA[]]></finderUsername>
+			<finderObjectID><![CDATA[]]></finderObjectID>
+			<finderNonceID><![CDATA[]]></finderNonceID>
+			<liveStatus><![CDATA[]]></liveStatus>
+			<appId><![CDATA[]]></appId>
+			<pagePath><![CDATA[]]></pagePath>
+			<productId><![CDATA[]]></productId>
+			<coverUrl><![CDATA[]]></coverUrl>
+			<productTitle><![CDATA[]]></productTitle>
+			<marketPrice><![CDATA[0]]></marketPrice>
+			<sellingPrice><![CDATA[0]]></sellingPrice>
+			<platformHeadImg><![CDATA[]]></platformHeadImg>
+			<platformName><![CDATA[]]></platformName>
+			<shopWindowId><![CDATA[]]></shopWindowId>
+			<flashSalePrice><![CDATA[0]]></flashSalePrice>
+			<flashSaleEndTime><![CDATA[0]]></flashSaleEndTime>
+			<ecSource><![CDATA[]]></ecSource>
+			<sellingPriceWording><![CDATA[]]></sellingPriceWording>
+			<platformIconURL><![CDATA[]]></platformIconURL>
+			<firstProductTagURL><![CDATA[]]></firstProductTagURL>
+			<firstProductTagAspectRatioString><![CDATA[0.0]]></firstProductTagAspectRatioString>
+			<secondProductTagURL><![CDATA[]]></secondProductTagURL>
+			<secondProductTagAspectRatioString><![CDATA[0.0]]></secondProductTagAspectRatioString>
+			<firstGuaranteeWording><![CDATA[]]></firstGuaranteeWording>
+			<secondGuaranteeWording><![CDATA[]]></secondGuaranteeWording>
+			<thirdGuaranteeWording><![CDATA[]]></thirdGuaranteeWording>
+			<isPriceBeginShow>false</isPriceBeginShow>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+			<promoterKey><![CDATA[]]></promoterKey>
+			<discountWording><![CDATA[]]></discountWording>
+			<priceSuffixDescription><![CDATA[]]></priceSuffixDescription>
+			<productCardKey><![CDATA[]]></productCardKey>
+			<isWxShop><![CDATA[]]></isWxShop>
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<rIconUrl><![CDATA[]]></rIconUrl>
+			<rIconUrlDarkMode><![CDATA[]]></rIconUrlDarkMode>
+			<topShopIconUrl><![CDATA[]]></topShopIconUrl>
+			<topShopIconUrlDarkMode><![CDATA[]]></topShopIconUrlDarkMode>
+			<simplifyTopShopIconUrl><![CDATA[]]></simplifyTopShopIconUrl>
+			<simplifyTopShopIconUrlDarkmode><![CDATA[]]></simplifyTopShopIconUrlDarkmode>
+			<topShopIconWidth><![CDATA[0]]></topShopIconWidth>
+			<topShopIconHeight><![CDATA[0]]></topShopIconHeight>
+			<simplifyTopShopIconWidth><![CDATA[0]]></simplifyTopShopIconWidth>
+			<simplifyTopShopIconHeight><![CDATA[0]]></simplifyTopShopIconHeight>
+			<maskPriceWording><![CDATA[]]></maskPriceWording>
+			<showBoxItemStringList />
+			<richLabelTitleB64><![CDATA[]]></richLabelTitleB64>
+			<richShopDescB64><![CDATA[]]></richShopDescB64>
+		</finderLiveProductShare>
+		<finderOrder>
+			<appID><![CDATA[]]></appID>
+			<orderID><![CDATA[]]></orderID>
+			<path><![CDATA[]]></path>
+			<priceWording><![CDATA[]]></priceWording>
+			<stateWording><![CDATA[]]></stateWording>
+			<productImageURL><![CDATA[]]></productImageURL>
+			<products><![CDATA[]]></products>
+			<productsCount><![CDATA[0]]></productsCount>
+			<orderType><![CDATA[0]]></orderType>
+			<newPriceWording><![CDATA[]]></newPriceWording>
+			<newStateWording><![CDATA[]]></newStateWording>
+			<useNewWording><![CDATA[0]]></useNewWording>
+		</finderOrder>
+		<finderShopWindowShare>
+			<finderUsername><![CDATA[]]></finderUsername>
+			<avatar><![CDATA[]]></avatar>
+			<nickname><![CDATA[]]></nickname>
+			<commodityInStockCount><![CDATA[]]></commodityInStockCount>
+			<appId><![CDATA[]]></appId>
+			<path><![CDATA[]]></path>
+			<appUsername><![CDATA[]]></appUsername>
+			<query><![CDATA[]]></query>
+			<liteAppId><![CDATA[]]></liteAppId>
+			<liteAppPath><![CDATA[]]></liteAppPath>
+			<liteAppQuery><![CDATA[]]></liteAppQuery>
+			<platformTagURL><![CDATA[]]></platformTagURL>
+			<saleWording><![CDATA[]]></saleWording>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+			<profileTypeWording><![CDATA[]]></profileTypeWording>
+			<saleWordingExtra><![CDATA[]]></saleWordingExtra>
+			<isWxShop><![CDATA[]]></isWxShop>
+			<platformIconUrl><![CDATA[]]></platformIconUrl>
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<description><![CDATA[]]></description>
+			<backgroundUrl><![CDATA[]]></backgroundUrl>
+			<darkModePlatformIconUrl><![CDATA[]]></darkModePlatformIconUrl>
+			<rIconUrl><![CDATA[]]></rIconUrl>
+			<rIconUrlDarkMode><![CDATA[]]></rIconUrlDarkMode>
+			<rWords><![CDATA[]]></rWords>
+			<topShopIconUrl><![CDATA[]]></topShopIconUrl>
+			<topShopIconUrlDarkMode><![CDATA[]]></topShopIconUrlDarkMode>
+			<simplifyTopShopIconUrl><![CDATA[]]></simplifyTopShopIconUrl>
+			<simplifyTopShopIconUrlDarkmode><![CDATA[]]></simplifyTopShopIconUrlDarkmode>
+			<topShopIconWidth><![CDATA[0]]></topShopIconWidth>
+			<topShopIconHeight><![CDATA[0]]></topShopIconHeight>
+			<simplifyTopShopIconWidth><![CDATA[0]]></simplifyTopShopIconWidth>
+			<simplifyTopShopIconHeight><![CDATA[0]]></simplifyTopShopIconHeight>
+			<reputationInfo>
+				<hasReputationInfo>0</hasReputationInfo>
+				<reputationScore>0</reputationScore>
+				<reputationWording />
+				<reputationTextColor />
+				<reputationLevelWording />
+				<reputationBackgroundColor />
+			</reputationInfo>
+			<productImageURLList />
+		</finderShopWindowShare>
+		<findernamecard>
+			<username />
+			<avatar><![CDATA[]]></avatar>
+			<nickname />
+			<auth_job />
+			<auth_icon>0</auth_icon>
+			<auth_icon_url />
+			<ecSource><![CDATA[]]></ecSource>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+		</findernamecard>
+		<finderGuarantee>
+			<scene><![CDATA[0]]></scene>
+		</finderGuarantee>
+		<directshare>0</directshare>
+		<gamecenter>
+			<namecard>
+				<iconUrl />
+				<name />
+				<desc />
+				<tail />
+				<jumpUrl />
+				<liteappId />
+				<liteappPath />
+				<liteappQuery />
+				<liteappMinVersion />
+			</namecard>
+		</gamecenter>
+		<patMsg>
+			<chatUser />
+			<records>
+				<recordNum>0</recordNum>
+			</records>
+		</patMsg>
+		<secretmsg>
+			<issecretmsg>0</issecretmsg>
+		</secretmsg>
+		<referfromscene>0</referfromscene>
+		<gameshare>
+			<liteappext>
+				<liteappbizdata />
+				<priority>0</priority>
+			</liteappext>
+			<appbrandext>
+				<litegameinfo />
+				<priority>-1</priority>
+			</appbrandext>
+			<gameshareid />
+			<sharedata />
+			<isvideo>0</isvideo>
+			<duration>-1</duration>
+			<isexposed>0</isexposed>
+			<readtext />
+		</gameshare>
+		<tingChatRoomItem>
+			<type>0</type>
+			<categoryItem>null</categoryItem>
+			<categoryId />
+			<listenItem>null</listenItem>
+		</tingChatRoomItem>
+		<photoaccountnamecard>
+			<username />
+			<nickname />
+			<fromnickname />
+			<fullpy />
+			<shortpy />
+			<alias />
+			<imagestatus>0</imagestatus>
+			<scene>0</scene>
+			<province />
+			<city />
+			<sign />
+			<percard>0</percard>
+			<sex>0</sex>
+			<certflag>0</certflag>
+			<certinfo />
+			<certinfoext />
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<brandHomeUrl><![CDATA[]]></brandHomeUrl>
+			<brandSubscriptConfigUrl><![CDATA[]]></brandSubscriptConfigUrl>
+			<brandFlags>0</brandFlags>
+			<regionCode />
+			<biznamecardinfo><![CDATA[]]></biznamecardinfo>
+			<brandType>0</brandType>
+		</photoaccountnamecard>
+		<mpsharetrace>
+			<hasfinderelement>0</hasfinderelement>
+			<lastgmsgid />
+		</mpsharetrace>
+		<wxgamecard>
+			<framesetname />
+			<mbcarddata />
+			<minpkgversion />
+			<clientextinfo />
+			<mbcardheight>0</mbcardheight>
+			<isoldversion>0</isoldversion>
+		</wxgamecard>
+		<ecskfcard>
+			<framesetname />
+			<mbcarddata />
+			<minupdateunixtimestamp>0</minupdateunixtimestamp>
+			<needheader>false</needheader>
+			<summary />
+		</ecskfcard>
+		<liteapp>
+			<id>null</id>
+			<path />
+			<query />
+			<istransparent>0</istransparent>
+			<hideicon>0</hideicon>
+			<forbidforward>0</forbidforward>
+		</liteapp>
+		<opensdk_share_is_modified>0</opensdk_share_is_modified>
+	</appmsg>
+	<fromusername>wxid_p2330jgu695a22</fromusername>
+	<scene>0</scene>
+	<appinfo>
+		<version>1</version>
+		<appname></appname>
+	</appinfo>
+	<commenturl></commenturl>
+</msg>
+mad sexy cool baby
+null
+- 02-11 22:10 朱浩宇：别乱交
+- 02-11 22:10 朱浩宇：交
+- 02-11 22:10 朱浩宇：叫
+- 02-11 22:10 吴晨阳：😭👎
+- 02-11 22:10 吴晨阳：<?xml version="1.0"?>
+<msg>
+	<appmsg appid="" sdkver="0">
+		<title>mad sexy cool baby</title>
+		<des />
+		<username />
+		<action>view</action>
+		<type>57</type>
+		<showtype>0</showtype>
+		<content />
+		<url />
+		<lowurl />
+		<forwardflag>0</forwardflag>
+		<dataurl />
+		<lowdataurl />
+		<contentattr>0</contentattr>
+		<streamvideo>
+			<streamvideourl />
+			<streamvideototaltime>0</streamvideototaltime>
+			<streamvideotitle />
+			<streamvideowording />
+			<streamvideoweburl />
+			<streamvideothumburl />
+			<streamvideoaduxinfo />
+			<streamvideopublishid />
+		</streamvideo>
+		<canvasPageItem>
+			<canvasPageXml><![CDATA[]]></canvasPageXml>
+		</canvasPageItem>
+		<refermsg></refermsg>
+		<appattach>
+			<totallen>0</totallen>
+			<attachid />
+			<cdnattachurl />
+			<emoticonmd5 />
+			<aeskey />
+			<fileext />
+			<islargefilemsg>0</islargefilemsg>
+		</appattach>
+		<extinfo />
+		<androidsource>0</androidsource>
+		<thumburl />
+		<mediatagname />
+		<messageaction><![CDATA[]]></messageaction>
+		<messageext><![CDATA[]]></messageext>
+		<emoticongift>
+			<packageflag>0</packageflag>
+			<packageid />
+		</emoticongift>
+		<emoticonshared>
+			<packageflag>0</packageflag>
+			<packageid />
+		</emoticonshared>
+		<designershared>
+			<designeruin>0</designeruin>
+			<designername>null</designername>
+			<designerrediretcturl><![CDATA[null]]></designerrediretcturl>
+		</designershared>
+		<emotionpageshared>
+			<tid>0</tid>
+			<title>null</title>
+			<desc>null</desc>
+			<iconUrl><![CDATA[null]]></iconUrl>
+			<secondUrl>null</secondUrl>
+			<pageType>0</pageType>
+			<setKey>null</setKey>
+		</emotionpageshared>
+		<webviewshared>
+			<shareUrlOriginal />
+			<shareUrlOpen />
+			<jsAppId />
+			<publisherId />
+			<publisherReqId />
+		</webviewshared>
+		<template_id />
+		<md5 />
+		<websearch>
+			<rec_category>0</rec_category>
+			<channelId>0</channelId>
+		</websearch>
+		<weappinfo>
+			<username />
+			<appid />
+			<appservicetype>0</appservicetype>
+			<secflagforsinglepagemode>0</secflagforsinglepagemode>
+			<videopageinfo>
+				<thumbwidth>0</thumbwidth>
+				<thumbheight>0</thumbheight>
+				<fromopensdk>0</fromopensdk>
+			</videopageinfo>
+		</weappinfo>
+		<statextstr />
+		<musicShareItem>
+			<musicDuration>0</musicDuration>
+		</musicShareItem>
+		<finderLiveProductShare>
+			<finderLiveID><![CDATA[]]></finderLiveID>
+			<finderUsername><![CDATA[]]></finderUsername>
+			<finderObjectID><![CDATA[]]></finderObjectID>
+			<finderNonceID><![CDATA[]]></finderNonceID>
+			<liveStatus><![CDATA[]]></liveStatus>
+			<appId><![CDATA[]]></appId>
+			<pagePath><![CDATA[]]></pagePath>
+			<productId><![CDATA[]]></productId>
+			<coverUrl><![CDATA[]]></coverUrl>
+			<productTitle><![CDATA[]]></productTitle>
+			<marketPrice><![CDATA[0]]></marketPrice>
+			<sellingPrice><![CDATA[0]]></sellingPrice>
+			<platformHeadImg><![CDATA[]]></platformHeadImg>
+			<platformName><![CDATA[]]></platformName>
+			<shopWindowId><![CDATA[]]></shopWindowId>
+			<flashSalePrice><![CDATA[0]]></flashSalePrice>
+			<flashSaleEndTime><![CDATA[0]]></flashSaleEndTime>
+			<ecSource><![CDATA[]]></ecSource>
+			<sellingPriceWording><![CDATA[]]></sellingPriceWording>
+			<platformIconURL><![CDATA[]]></platformIconURL>
+			<firstProductTagURL><![CDATA[]]></firstProductTagURL>
+			<firstProductTagAspectRatioString><![CDATA[0.0]]></firstProductTagAspectRatioString>
+			<secondProductTagURL><![CDATA[]]></secondProductTagURL>
+			<secondProductTagAspectRatioString><![CDATA[0.0]]></secondProductTagAspectRatioString>
+			<firstGuaranteeWording><![CDATA[]]></firstGuaranteeWording>
+			<secondGuaranteeWording><![CDATA[]]></secondGuaranteeWording>
+			<thirdGuaranteeWording><![CDATA[]]></thirdGuaranteeWording>
+			<isPriceBeginShow>false</isPriceBeginShow>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+			<promoterKey><![CDATA[]]></promoterKey>
+			<discountWording><![CDATA[]]></discountWording>
+			<priceSuffixDescription><![CDATA[]]></priceSuffixDescription>
+			<productCardKey><![CDATA[]]></productCardKey>
+			<isWxShop><![CDATA[]]></isWxShop>
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<rIconUrl><![CDATA[]]></rIconUrl>
+			<rIconUrlDarkMode><![CDATA[]]></rIconUrlDarkMode>
+			<topShopIconUrl><![CDATA[]]></topShopIconUrl>
+			<topShopIconUrlDarkMode><![CDATA[]]></topShopIconUrlDarkMode>
+			<simplifyTopShopIconUrl><![CDATA[]]></simplifyTopShopIconUrl>
+			<simplifyTopShopIconUrlDarkmode><![CDATA[]]></simplifyTopShopIconUrlDarkmode>
+			<topShopIconWidth><![CDATA[0]]></topShopIconWidth>
+			<topShopIconHeight><![CDATA[0]]></topShopIconHeight>
+			<simplifyTopShopIconWidth><![CDATA[0]]></simplifyTopShopIconWidth>
+			<simplifyTopShopIconHeight><![CDATA[0]]></simplifyTopShopIconHeight>
+			<maskPriceWording><![CDATA[]]></maskPriceWording>
+			<showBoxItemStringList />
+			<richLabelTitleB64><![CDATA[]]></richLabelTitleB64>
+			<richShopDescB64><![CDATA[]]></richShopDescB64>
+		</finderLiveProductShare>
+		<finderOrder>
+			<appID><![CDATA[]]></appID>
+			<orderID><![CDATA[]]></orderID>
+			<path><![CDATA[]]></path>
+			<priceWording><![CDATA[]]></priceWording>
+			<stateWording><![CDATA[]]></stateWording>
+			<productImageURL><![CDATA[]]></productImageURL>
+			<products><![CDATA[]]></products>
+			<productsCount><![CDATA[0]]></productsCount>
+			<orderType><![CDATA[0]]></orderType>
+			<newPriceWording><![CDATA[]]></newPriceWording>
+			<newStateWording><![CDATA[]]></newStateWording>
+			<useNewWording><![CDATA[0]]></useNewWording>
+		</finderOrder>
+		<finderShopWindowShare>
+			<finderUsername><![CDATA[]]></finderUsername>
+			<avatar><![CDATA[]]></avatar>
+			<nickname><![CDATA[]]></nickname>
+			<commodityInStockCount><![CDATA[]]></commodityInStockCount>
+			<appId><![CDATA[]]></appId>
+			<path><![CDATA[]]></path>
+			<appUsername><![CDATA[]]></appUsername>
+			<query><![CDATA[]]></query>
+			<liteAppId><![CDATA[]]></liteAppId>
+			<liteAppPath><![CDATA[]]></liteAppPath>
+			<liteAppQuery><![CDATA[]]></liteAppQuery>
+			<platformTagURL><![CDATA[]]></platformTagURL>
+			<saleWording><![CDATA[]]></saleWording>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+			<profileTypeWording><![CDATA[]]></profileTypeWording>
+			<saleWordingExtra><![CDATA[]]></saleWordingExtra>
+			<isWxShop><![CDATA[]]></isWxShop>
+			<platformIconUrl><![CDATA[]]></platformIconUrl>
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<description><![CDATA[]]></description>
+			<backgroundUrl><![CDATA[]]></backgroundUrl>
+			<darkModePlatformIconUrl><![CDATA[]]></darkModePlatformIconUrl>
+			<rIconUrl><![CDATA[]]></rIconUrl>
+			<rIconUrlDarkMode><![CDATA[]]></rIconUrlDarkMode>
+			<rWords><![CDATA[]]></rWords>
+			<topShopIconUrl><![CDATA[]]></topShopIconUrl>
+			<topShopIconUrlDarkMode><![CDATA[]]></topShopIconUrlDarkMode>
+			<simplifyTopShopIconUrl><![CDATA[]]></simplifyTopShopIconUrl>
+			<simplifyTopShopIconUrlDarkmode><![CDATA[]]></simplifyTopShopIconUrlDarkmode>
+			<topShopIconWidth><![CDATA[0]]></topShopIconWidth>
+			<topShopIconHeight><![CDATA[0]]></topShopIconHeight>
+			<simplifyTopShopIconWidth><![CDATA[0]]></simplifyTopShopIconWidth>
+			<simplifyTopShopIconHeight><![CDATA[0]]></simplifyTopShopIconHeight>
+			<reputationInfo>
+				<hasReputationInfo>0</hasReputationInfo>
+				<reputationScore>0</reputationScore>
+				<reputationWording />
+				<reputationTextColor />
+				<reputationLevelWording />
+				<reputationBackgroundColor />
+			</reputationInfo>
+			<productImageURLList />
+		</finderShopWindowShare>
+		<findernamecard>
+			<username />
+			<avatar><![CDATA[]]></avatar>
+			<nickname />
+			<auth_job />
+			<auth_icon>0</auth_icon>
+			<auth_icon_url />
+			<ecSource><![CDATA[]]></ecSource>
+			<lastGMsgID><![CDATA[]]></lastGMsgID>
+		</findernamecard>
+		<finderGuarantee>
+			<scene><![CDATA[0]]></scene>
+		</finderGuarantee>
+		<directshare>0</directshare>
+		<gamecenter>
+			<namecard>
+				<iconUrl />
+				<name />
+				<desc />
+				<tail />
+				<jumpUrl />
+				<liteappId />
+				<liteappPath />
+				<liteappQuery />
+				<liteappMinVersion />
+			</namecard>
+		</gamecenter>
+		<patMsg>
+			<chatUser />
+			<records>
+				<recordNum>0</recordNum>
+			</records>
+		</patMsg>
+		<secretmsg>
+			<issecretmsg>0</issecretmsg>
+		</secretmsg>
+		<referfromscene>0</referfromscene>
+		<gameshare>
+			<liteappext>
+				<liteappbizdata />
+				<priority>0</priority>
+			</liteappext>
+			<appbrandext>
+				<litegameinfo />
+				<priority>-1</priority>
+			</appbrandext>
+			<gameshareid />
+			<sharedata />
+			<isvideo>0</isvideo>
+			<duration>-1</duration>
+			<isexposed>0</isexposed>
+			<readtext />
+		</gameshare>
+		<tingChatRoomItem>
+			<type>0</type>
+			<categoryItem>null</categoryItem>
+			<categoryId />
+			<listenItem>null</listenItem>
+		</tingChatRoomItem>
+		<photoaccountnamecard>
+			<username />
+			<nickname />
+			<fromnickname />
+			<fullpy />
+			<shortpy />
+			<alias />
+			<imagestatus>0</imagestatus>
+			<scene>0</scene>
+			<province />
+			<city />
+			<sign />
+			<percard>0</percard>
+			<sex>0</sex>
+			<certflag>0</certflag>
+			<certinfo />
+			<certinfoext />
+			<brandIconUrl><![CDATA[]]></brandIconUrl>
+			<brandHomeUrl><![CDATA[]]></brandHomeUrl>
+			<brandSubscriptConfigUrl><![CDATA[]]></brandSubscriptConfigUrl>
+			<brandFlags>0</brandFlags>
+			<regionCode />
+			<biznamecardinfo><![CDATA[]]></biznamecardinfo>
+			<brandType>0</brandType>
+		</photoaccountnamecard>
+		<mpsharetrace>
+			<hasfinderelement>0</hasfinderelement>
+			<lastgmsgid />
+		</mpsharetrace>
+		<wxgamecard>
+			<framesetname />
+			<mbcarddata />
+			<minpkgversion />
+			<clientextinfo />
+			<mbcardheight>0</mbcardheight>
+			<isoldversion>0</isoldversion>
+		</wxgamecard>
+		<ecskfcard>
+			<framesetname />
+			<mbcarddata />
+			<minupdateunixtimestamp>0</minupdateunixtimestamp>
+			<needheader>false</needheader>
+			<summary />
+		</ecskfcard>
+		<liteapp>
+			<id>null</id>
+			<path />
+			<query />
+			<istransparent>0</istransparent>
+			<hideicon>0</hideicon>
+			<forbidforward>0</forbidforward>
+		</liteapp>
+		<opensdk_share_is_modified>0</opensdk_share_is_modified>
+	</appmsg>
+	<fromusername>wxid_4q8whsqmajlc22</fromusername>
+	<scene>0</scene>
+	<appinfo>
+		<version>1</version>
+		<appname></appname>
+	</appinfo>
+	<commenturl></commenturl>
+</msg>
+nasty baby😛😛
+null
+- 02-11 22:11 施翔天：去听啊兄弟
+- 02-11 22:11 施翔天：[流泪][流泪][流泪]
+- 02-11 22:11 施翔天：mad sexy cool
+- 02-11 22:11 朱浩宇：你不是存在我歌单里了吗
+- 02-11 22:11 吴晨阳：nasty girl去听去听
+- 02-11 22:11 施翔天：阳宝也要听
+- 02-11 22:11 施翔天：八宝已经听过了
+
+### EVENT: group-20260212-01-十五猪.md
+TITLE: 深夜互喊宝宝·成年前感慨
+DATE: 2026-02-12
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-12 00:03 朱浩宇：[流泪]
+- 02-12 00:08 吴晨阳：？
+- 02-12 00:09 朱浩宇：我不是未成年人了
+- 02-12 00:09 朱浩宇：好痛苦啊
+- 02-12 00:10 吴晨阳：去网吧可
+- 02-12 00:10 吴晨阳：🈷可
+- 02-12 00:10 朱浩宇：铺天盖地的责任压到了我的身上
+- 02-12 00:10 朱浩宇：童言无忌的保护伞从我身边离开
+- 02-12 00:12 施翔天：宝宝我是你的保护伞
+- 02-12 00:12 吴晨阳：天哪
+- 02-12 00:12 朱浩宇：[发呆]
+- 02-12 00:12 吴晨阳：。，，。我输了k
+- 02-12 00:13 施翔天：？
+- 02-12 00:14 吴晨阳：我输给你了
+- 02-12 00:15 施翔天：没事宝宝我也是你的保护伞！
+- 02-12 00:16 朱浩宇：啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+- 02-12 00:16 施翔天：啊
+- 02-12 00:16 吴晨阳：宝宝们，，
+- 02-12 00:16 吴晨阳：啊啊啊啊啊啊啊啊啊啊啊啊
+- 02-12 00:16 朱浩宇：啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+- 02-12 00:16 吴晨阳：aaaaaa你们两个香香软软的草莓小蛋糕啊啊啊啊啊啊啊啊啊啊啊
+- 02-12 00:16 unknown："施翔天" 撤回了一条消息
+- 02-12 00:16 吴晨阳：aaaaaaaaaaa
+- 02-12 00:16 吴晨阳：aaaaaaaaaaaa
+- 02-12 00:16 吴晨阳：aaaaaa
+- 02-12 00:16 朱浩宇：啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+- 02-12 00:16 吴晨阳：aaa
+- 02-12 00:17 施翔天：我要睡了
+- 02-12 00:17 施翔天：等我起床再说吧
+- 02-12 00:17 吴晨阳：宝宝啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊晚安
+
+### EVENT: group-20260212-02-SOS团.md
+TITLE: 生日·约看电影
+DATE: 2026-02-12
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-12 07:50 朱浩宇：快点确定看不看电影啊
+- 02-12 08:27 金晟恺：我要上课啊
+- 02-12 09:05 朱浩宇：🐦呢@Eventide
+- 02-12 09:05 朱浩宇：🐦
+- 02-12 09:05 朱浩宇：🐦
+- 02-12 09:05 朱浩宇：🐦
+- 02-12 09:25 陈二逼：时间，地点，人物
+- 02-12 09:25 陈二逼：昨天晚上太阴了
+- 02-12 09:25 陈二逼：什么都是性虐癖呀？
+- 02-12 09:27 陈二逼：@困眼闭 我一直开着勿扰模式什么都不知道
+- 02-12 09:29 金晟恺：上头了鸟
+- 02-12 09:30 陈二逼：你醒了
+- 02-12 09:45 金晟恺：生日快乐
+- 02-12 09:45 金晟恺：@困眼闭
+- 02-12 09:46 陈二逼：[蛋糕]
+- 02-12 10:29 朱浩宇：和泉万叶玩去玩去
+- 02-12 10:29 朱浩宇：生日快乐
+[跳跳]
+- 02-12 10:52 陈二逼：什么什么？
+
+### EVENT: group-20260212-02-十五猪.md
+TITLE: 约见面·拍照合影
+DATE: 2026-02-12
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-12 11:37 施翔天：[图片]
+- 02-12 11:37 施翔天：[图片]
+- 02-12 11:37 施翔天：[图片]
+- 02-12 11:37 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:38 施翔天：[图片]
+- 02-12 11:46 吴晨阳：<?xml version="1.0"?>
+<msg>
+	<img aeskey="824be9d83940c39792cc023ab0b29f17" encryver="1" cdnthumbaeskey="824be9d83940c39792cc023ab0b29f17" cdnthumburl="3057020100044b304902010002048b595b2802032eba830204450b006f0204698d4b28042436383537346239642d646436312d343432352d626364362d613362343765643065383939020401252a010201000405004c50bb00" cdnthumblength="4271" cdnthumbheight="432" cdnthumbwidth="193" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b304902010002048b595b2802032eba830204450b006f0204698d4b28042436383537346239642d646436312d343432352d626364362d613362343765643065383939020401252a010201000405004c50bb00" length="233112" cdnbigimgurl="3057020100044b304902010002048b595b2802032eba830204450b006f0204698d4b28042436383537346239642d646436312d343432352d626364362d613362343765643065383939020401252a010201000405004c50bb00" hdlength="223190" md5="0802d2c00b6f76176a9d92d050a4490e" hevc_mid_size="70337" originsourcemd5="0802d2c00b6f76176a9d92d050a4490e">
+		<secHashInfoBase64>eyJwaGFzaCI6IjcxMTAxMDcwMTA0MDAwMTAiLCJwZHFIYXNoIjoiZDliYjg4NjhhYTU0YzE5YzM0
+YmE1ZjJkYjY0NjcwZDI5NTMxYzU0ZmVhYzIyYTM5NTUxNGYxZDZlYjZjOGUzOSJ9
+</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+喜欢这个
+null
+- 02-12 12:05 朱浩宇：吴晨阳记得带充电宝
+- 02-12 12:05 朱浩宇：我手机感觉要没电了
+- 02-12 12:11 吴晨阳：OO
+- 02-12 17:08 施翔天：[语音]
+- 02-12 17:09 unknown：[视频]
+- 02-12 17:09 吴晨阳：朱浩宇我就弄最后一次，不要生气哟😛
+- 02-12 17:09 吴晨阳：6004:1:
+😥好吧
+null
+- 02-12 17:09 吴晨阳：谁让你是天宝呢😭🧡
+- 02-12 17:23 unknown："施翔天" 撤回了一条消息
+- 02-12 17:24 吴晨阳：一分钟后🐏会出现在你面前
+- 02-12 17:24 施翔天：[语音]
+- 02-12 17:25 吴晨阳：。
+- 02-12 17:25 吴晨阳：🐏要变成吉祥物了
+- 02-12 17:26 吴晨阳：我在这个马这里
+- 02-12 17:26 吴晨阳：也就是说南门
+- 02-12 17:26 吴晨阳：听歌
+- 02-12 21:59 施翔天：安全到家
+- 02-12 22:09 施翔天：[语音]
+- 02-12 22:09 吴晨阳：[语音]
+- 02-12 22:17 朱浩宇：[视频]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 朱浩宇：[图片]
+- 02-12 22:17 unknown：你撤回了一条消息
+- 02-12 22:17 unknown：你撤回了一条消息
+- 02-12 22:19 施翔天：thx
+- 02-12 22:21 吴晨阳：[图片]
+- 02-12 22:21 吴晨阳：这张真好
+- 02-12 22:23 施翔天：没有你们的吗
+- 02-12 22:23 施翔天：你们的给我
+- 02-12 22:23 施翔天：给我给我
+- 02-12 22:23 吴晨阳：我没咋拍
+- 02-12 22:23 吴晨阳：朱浩宇一直摸我
+- 02-12 22:23 吴晨阳：我都忘记了
+- 02-12 22:24 施翔天：？？？
+- 02-12 22:24 施翔天：有浩宇的吗
+- 02-12 22:25 朱浩宇：[语音]
+- 02-12 22:26 施翔天：[语音]
+- 02-12 22:26 吴晨阳：真理
+- 02-12 22:27 施翔天：[语音]
+- 02-12 22:27 朱浩宇：回忆会修复模糊的分辨率，别管清晰度，只要记录的勇气
+- 02-12 22:27 施翔天：真理
+
+### EVENT: group-20260212-03-SOS团.md
+TITLE: 晚间闲聊·走路回家
+DATE: 2026-02-12
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-12 22:29 陈二逼：家之到
+- 02-12 22:32 朱浩宇：到了
+- 02-12 22:33 金晟恺：走路回家之在路上
+- 02-12 22:33 unknown：[视频]
+- 02-12 22:34 朱浩宇：能不能剪刀
+- 02-12 22:34 朱浩宇：十足
+- 02-12 22:34 朱浩宇：女告终
+- 02-12 22:34 朱浩宇：胜
+- 02-12 22:35 金晟恺：？
+- 02-12 22:45 金晟恺：这个寒假被这张脸硬控了
+- 02-12 22:45 金晟恺：一个关于流浪圣诞老人的故事
+UP主：小强人不错
+播放：73.3万
+https://b23.tv/wFPzfFD?share_medium=android&share_source=weixin&bbid=XU6F94C68FA2A8B3DF450F5C0639955C8C3E0&ts=1770907487407
+- 02-12 22:48 陈二逼：六
+- 02-12 22:51 朱浩宇：[亲亲]
+
+### EVENT: group-20260213-02-十五猪.md
+TITLE: 聊5E平台·约打高端局
+DATE: 2026-02-13
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-13 19:03 朱浩宇：[图片]
+- 02-13 19:11 朱浩宇：下个5E
+- 02-13 19:11 朱浩宇：今天打高端局
+- 02-13 19:12 朱浩宇：我今天在义乌的最后一晚了
+- 02-13 19:12 朱浩宇：[图片]
+- 02-13 19:12 吴晨阳：5E是啥
+- 02-13 19:13 吴晨阳：你明天课都不上了🤣
+- 02-13 19:13 吴晨阳：岂有此理
+- 02-13 19:13 朱浩宇：下午下课下午走
+- 02-13 19:14 朱浩宇：5E
+- 02-13 19:14 吴晨阳：细节boy
+- 02-13 19:14 朱浩宇：你自己搜索一下
+- 02-13 19:14 朱浩宇：下载
+- 02-13 19:14 朱浩宇：了解一下
+- 02-13 19:14 朱浩宇：别注册不上
+- 02-13 19:15 吴晨阳：[图片]
+- 02-13 19:15 吴晨阳：this？
+- 02-13 19:15 朱浩宇：对
+- 02-13 19:15 朱浩宇：这个是国内的一个竞技平台
+- 02-13 19:16 吴晨阳：今天打多久
+- 02-13 19:16 朱浩宇：优点是竞技性更强
+- 02-13 19:16 吴晨阳：我明天可能出去旅游
+- 02-13 19:16 吴晨阳：🤣刚好可以通宵
+- 02-13 19:16 朱浩宇：缺点是你打不好就要被压力
+- 02-13 19:16 朱浩宇：我还在上课
+- 02-13 19:16 吴晨阳：。🥹
+- 02-13 19:16 朱浩宇：等我回家
+- 02-13 19:16 吴晨阳：？诶
+- 02-13 19:17 朱浩宇：今天九点开始
+- 02-13 19:17 朱浩宇：差不多到11点
+- 02-13 19:17 吴晨阳：今天不是五点下课了？
+- 02-13 19:17 吴晨阳：哦行
+- 02-13 19:17 朱浩宇：今天考试
+
+### EVENT: group-20260214-01-十五猪.md
+TITLE: 日常闲聊·聊旅游
+DATE: 2026-02-14
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-14 11:40 朱浩宇：[图片]
+- 02-14 11:57 朱浩宇：[图片]
+- 02-14 11:57 朱浩宇：[图片]
+- 02-14 11:57 朱浩宇：好舒服的床
+- 02-14 11:57 朱浩宇：[亲亲]
+- 02-14 11:58 吴晨阳：[图片]
+- 02-14 11:58 吴晨阳：好舒服的床
+- 02-14 11:58 吴晨阳：[亲亲]
+- 02-14 15:19 吴晨阳：[图片]
+- 02-14 15:39 吴晨阳：[图片]
+- 02-14 15:39 朱浩宇：洗吧亲家
+- 02-14 15:41 吴晨阳：중국인
+- 02-14 15:54 吴晨阳：金盛开：“上午跟吴泽凯玩，下午和吴晨阳玩，我好爽啊。”
+- 02-14 15:55 朱浩宇：洗吧亲家
+- 02-14 15:56 吴晨阳：洗吧亲家洗吧亲家为各类你噶囧恁亲密搜阿尼亚
+- 02-14 15:56 吴晨阳：亲家鸡摩拉送你噶
+- 02-14 17:21 朱浩宇：洗吧亲家
+- 02-14 17:21 朱浩宇：洗吧亲家
+- 02-14 17:21 朱浩宇：洗吧亲家
+- 02-14 17:24 吴晨阳：[语音]
+- 02-14 17:32 朱浩宇：洗吧亲家
+- 02-14 17:53 施翔天：[语音]
+- 02-14 17:53 朱浩宇：去迪士尼了
+- 02-14 17:53 朱浩宇：已知是国内
+- 02-14 17:53 朱浩宇：已知不在港澳台
+- 02-14 17:54 施翔天：上海？
+- 02-14 17:54 朱浩宇：洗吧亲家
+- 02-14 17:54 施翔天：哎呦喂
+- 02-14 17:54 朱浩宇：他们去首尔了[亲亲]
+- 02-14 17:54 朱浩宇：[发抖][跳跳]
+- 02-14 17:54 朱浩宇：[转圈]
+- 02-14 17:54 施翔天：你们在这个群里发消息我老以为有人在找我
+- 02-14 18:03 吴晨阳：[图片]
+- 02-14 18:03 吴晨阳：我们在这个语言的国家
+- 02-14 18:11 施翔天：出国了？
+- 02-14 19:50 吴晨阳：[图片]
+- 02-14 19:50 吴晨阳：[图片]
+- 02-14 19:50 吴晨阳：被自己的画画天赋吓哭了
+- 02-14 19:50 吴晨阳：[表情]
+- 02-14 19:52 施翔天：？
+- 02-14 20:12 朱浩宇：洗吧亲家
+- 02-14 20:12 施翔天：怎么了
+
+### EVENT: group-20260214-02-SOS团.md
+TITLE: 情人节闲聊·分享galgame
+DATE: 2026-02-14
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-14 12:19 朱浩宇：[视频]
+- 02-14 12:46 陈二逼：他在求救
+- 02-14 15:45 unknown：[视频]
+- 02-14 15:46 朱浩宇：不要啊
+- 02-14 15:46 朱浩宇：不要啊
+- 02-14 15:46 朱浩宇：呀没咯
+- 02-14 15:46 朱浩宇：呀没喽
+- 02-14 15:46 朱浩宇：已经
+- 02-14 15:46 朱浩宇：已
+- 02-14 15:46 朱浩宇：经
+- 02-14 15:46 朱浩宇：变成
+- 02-14 15:46 朱浩宇：呀没喽
+- 02-14 15:46 朱浩宇：吴晨阳的
+- 02-14 15:46 朱浩宇：形状了
+- 02-14 15:46 朱浩宇：呀没喽
+- 02-14 15:47 金晟恺：他要是敢做点什么我直接告未成年人猥亵
+- 02-14 15:47 金晟恺：祝好与你也是
+- 02-14 15:47 朱浩宇：[惊恐]
+- 02-14 15:48 金晟恺：小心哦
+- 02-14 15:48 朱浩宇：“卧槽有监控”
+- 02-14 15:48 朱浩宇：“他妈的校园巴林”
+- 02-14 15:48 朱浩宇：“要是我那个一点你就回家了”
+- 02-14 15:48 朱浩宇：“卧槽这就是校园巴林”
+- 02-14 15:49 陈二逼：【双端KR】爱欲姐妹洛丽塔 愛欲姉妹ロリータ.zip
+- 02-14 15:49 朱浩宇：我没话说了
+- 02-14 15:49 金晟恺：陈家明完蛋了
+- 02-14 15:49 朱浩宇：谁懂陈嘉铭突然冷不丁发出一个文件的救赎感
+- 02-14 15:49 金晟恺：krkr是安卓的吧
+- 02-14 15:50 金晟恺：XP3打不了吧
+- 02-14 15:50 金晟恺：假名完了
+- 02-14 15:50 金晟恺：这辈子有了
+- 02-14 15:50 陈二逼：Nekopara vol.1_kr.zip
+
+### EVENT: group-20260215-01-十五猪.md
+TITLE: 日常闲聊·深夜到家
+DATE: 2026-02-15
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-15 00:31 朱浩宇：亲家
+- 02-15 00:36 unknown：[视频]
+- 02-15 02:09 朱浩宇：终于
+- 02-15 02:09 朱浩宇：快到了
+- 02-15 02:11 unknown："Yang阳宝💗💗💗" 撤回了一条消息
+- 02-15 02:11 吴晨阳：😈
+- 02-15 02:11 朱浩宇：我已经
+- 02-15 02:11 朱浩宇：精神涣散了
+- 02-15 02:12 吴晨阳：我们明天六点半起床
+- 02-15 02:12 吴晨阳：我估计要把金盛开强行启动
+- 02-15 02:45 吴晨阳：[图片]
+- 02-15 02:45 朱浩宇：[惊恐]
+- 02-15 02:48 朱浩宇：几把
+- 02-15 02:48 朱浩宇：村里的🐔他妈的开始叫了
+- 02-15 02:53 unknown：[视频]
+- 02-15 07:25 吴晨阳：[图片]
+- 02-15 11:00 朱浩宇：亲家
+- 02-15 11:33 吴晨阳：[图片]
+- 02-15 11:34 吴晨阳：[语音]
+- 02-15 11:58 朱浩宇：傻逼？
+- 02-15 11:58 朱浩宇：我外放的
+- 02-15 11:59 朱浩宇：割高玩被我妈听见了
+- 02-15 12:00 朱浩宇：极速光轮小时候没玩
+- 02-15 12:00 朱浩宇：[发抖]
+- 02-15 12:00 吴晨阳：我小时候不敢坐过山车
+- 02-15 12:00 吴晨阳：割高玩被我妈听见了
+怎么每次都是你。
+null
+- 02-15 12:00 吴晨阳：傻逼？
+对你傻逼😳
+null
+- 02-15 12:35 unknown："施翔天" 撤回了一条消息
+- 02-15 12:35 施翔天：[表情]
+- 02-15 12:36 unknown："施翔天" 撤回了一条消息
+- 02-15 12:36 unknown："施翔天" 撤回了一条消息
+- 02-15 12:37 施翔天：[图片]
+- 02-15 12:38 朱浩宇：[色]
+- 02-15 12:39 unknown：[视频]
+- 02-15 12:40 朱浩宇：[色]
+- 02-15 14:10 吴晨阳：[图片]
+- 02-15 14:11 吴晨阳：<?xml version="1.0"?>
+<msg>
+	<img aeskey="7e1f3401f4dd9cedfb0782f93784e96c" encryver="1" cdnthumbaeskey="7e1f3401f4dd9cedfb0782f93784e96c" cdnthumburl="3057020100044b304902010002048b595b2802032f08a3020415e9af27020469914d8c042430663631653839652d306464392d346634332d393366622d303139663132393866396130020405250a020201000405004c550700" cdnthumblength="4647" cdnthumbheight="432" cdnthumbwidth="242" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b304902010002048b595b2802032f08a3020415e9af27020469914d8c042430663631653839652d306464392d346634332d393366622d303139663132393866396130020405250a020201000405004c550700" length="612452" md5="63288b999a160c7d69c8f4c321063c41" hevc_mid_size="80721" originsourcemd5="220e61397cd30e173206d3451c3363da">
+		<secHashInfoBase64>eyJwaGFzaCI6IjMwMTAwMDAwMDAwMDAwMDAiLCJwZHFIYXNoIjoiYjQzZDMwNmE0YTQ1OWU2YmUz
+Y2I4NGI3YWI5YjBjNTRmMWU4MzU4NDc3MjIxMDRlNWUwZGQ5ZmM3ZTk1MmU0NSJ9
+</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+🤮🤮🤮
+null
+- 02-15 15:29 施翔天：45:0
+这个好好
+null
+- 02-15 15:30 施翔天：亡妻回忆录
+- 02-15 15:30 施翔天：感觉是jsk已经消失了的时间线
+
+### EVENT: group-20260216-01-这个13班.md
+TITLE: 抢红包·有人抢最大没发
+DATE: 2026-02-16
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-16 19:48 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请你加入了群聊，群聊参与人还有：$others$]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_p2330jgu695a22]]></username>
+							<nickname><![CDATA[Yang阳宝💗💗💗]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="others" type="link_plain">
+					<plain><![CDATA[丁浩然、A000000快乐吃手手、朱悠冉、杨航瑞、物化生我求你了、窗边的小豆豆、郑期心、_cooR、家属他爸、李佳萱、窗外是佛罗伦萨、金昊、杨予哲、郑乐涛、_、施翔天、蒋云峰Jack、南风、ddddyt、李荣轩、吴亚瑟、超级xy小人、日趣、小陈苏西、KYW、金晟恺、🐟🐟🐟🐟🐟、Liky、违法昵称elidsr.@_1679、曾浩鑫、@、NED（胡杨）、邵开、吴泽楷、斯、陈二逼、rry、u]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 02-16 19:49 李韵雯：？
+- 02-16 19:49 吴泽楷：我发的两个，有个人两次抢了最大的没发来着
+- 02-16 19:49 吴泽楷：😘😘
+- 02-16 19:49 陈二逼：馒头币，也就是朱浩宇
+- 02-16 19:49 吴晨阳：？
+浩宇
+null
+- 02-16 19:50 曾浩鑫：[破涕为笑]
+- 02-16 19:50 吴逸欣：诶
+- 02-16 19:50 吴逸欣：我好像来晚了
+- 02-16 19:50 戈：[表情]
+- 02-16 19:50 李韵雯：不晚
+- 02-16 19:50 unknown：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602166213842485292&ver=6&sign=36434a449eb8ae3175993f276476cabd05e9375dd2433d37756188f14953ceb8dec111c82d1e183f4a1db25f5ffeb1f37acbb071d4a26fd3e780cdd5d1e73277b01dba00435c83305f647cf48b589bc3
+- 02-16 19:50 吴泽楷：？
+- 02-16 19:50 郑期心：富公哦
+- 02-16 19:50 吴泽楷：富姐
+- 02-16 19:50 戈：[表情]
+- 02-16 19:50 李韵雯：哇
+- 02-16 19:50 吴泽楷：跪了
+- 02-16 19:50 唐唯轩：哇哦
+- 02-16 19:50 吴逸欣：ber
+- 02-16 19:51 吴晨阳：<msg><emoji fromusername = "wxid_xu1gz3n44j1922" tousername = "45161506842@chatroom" type="2" idbuffer="media*#*0_0" md5="45f28f2fd04b989fe13c7cb14f861be0" len = "31476" productid="com.tencent.xin.emoticon.person.stiker_14542163984a728a7b3a0b2426" androidmd5="45f28f2fd04b989fe13c7cb14f861be0" androidlen="31476" s60v3md5 = "45f28f2fd04b989fe13c7cb14f861be0" s60v3len="31476" s60v5md5 = "45f28f2fd04b989fe13c7cb14f861be0" s60v5len="31476" cdnurl = "http*#*//wxapp.tc.qq.com/262/20304/stodownload?m=45f28f2fd04b989fe13c7cb14f861be0&amp;filekey=30340201010420301e020201060402535a041045f28f2fd04b989fe13c7cb14f861be002027af4040d00000004627466730000000131&amp;hy=SZ&amp;storeid=32303231303632353139343535313030306338333864343038366134643562633338356630393030303030313036&amp;bizid=1023" designerid = "" thumburl = "http*#*//mmbiz.qpic.cn/mmemoticon/ajNVdqHZLLCmxPqI7fND1spgkD0AzObdnndTU759nI912ibQ3d4bNN2vc9Bnteibs7/0" encrypturl = "http*#*//wxapp.tc.qq.com/262/20304/stodownload?m=196a42d28ecffcb76e409580dd5ac343&amp;filekey=30340201010420301e020201060402535a0410196a42d28ecffcb76e409580dd5ac34302027b00040d00000004627466730000000131&amp;hy=SZ&amp;storeid=32303231303632353139343535323030303130393336343038366134643532363064356630393030303030313036&amp;bizid=1023" aeskey= "ee4845f27d00ec953530b407b54bd9d2" externurl = "http*#*//wxapp.tc.qq.com/262/20304/stodownload?m=2667a2e01fdadaf13f75713ca2d5d17d&amp;filekey=30340201010420301e020201060402535a04102667a2e01fdadaf13f75713ca2d5d17d02024120040d00000004627466730000000131&amp;hy=SZ&amp;storeid=32303231303632353139343535323030303339646431343038366134643532393135356630393030303030313036&amp;bizid=1023" externmd5 = "137381088b7c21b73c58854e7e9ab5c3" width= "240" height= "240" tpurl= "" tpauthkey= "" attachedtext= "" attachedtextcolor= "" lensid= "" emojiattr= "" linkid= "" desc= "Cg4KBXpoX2NuEgVIZWxsbwoMCgV6aF90dxID5ZeoChAKB2RlZmF1bHQSBUhlbGxv" ></emoji> <gameext type="0" content="0" ></gameext> </msg>:0
+🤣🤣🤣
+null
+- 02-16 19:51 吴逸欣：我就设了五个人
+- 02-16 19:51 unknown：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602167156052345710&ver=6&sign=baf878d82a44a49fdd20a88c3502916082e25de75ec4cb26c3d89b9d0d472682296b832c1998c8eeea1447310d040380acf8a6cff5cfbf0a9dc054da0165b94a72b9996e912dc8d867225c7b9acb35d2
+- 02-16 19:51 唐唯轩：我tm
+- 02-16 19:52 unknown：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602166241021977968&ver=6&sign=929d9e4abc9083e34f4775801bcd6f7319ec1ceb4e1e2f8f7ee0cc826c00be5b81fc902e0570d402e7c6ee5dccd3f423695a6aafffadb7c32b05f6d9b9b047f507aaae2ccb10a030ec95b0176618dbf4
+- 02-16 19:52 李韵雯：哇
+- 02-16 19:53 唐唯轩：这是谁
+- 02-16 19:53 吴泽楷：我发的两个也是卡在这哥们上了
+- 02-16 19:53 吴泽楷：[表情]
+- 02-16 19:53 wxid_vny9nyjpw0t722：[旺柴]
+- 02-16 19:54 🐟🐟🐟🐟🐟：不是13班的就踢出去
+- 02-16 19:54 吴晨阳：金猪来了
+- 02-16 19:54 wxid_vny9nyjpw0t722：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602166256835322285&ver=6&sign=480be8e59cc1579664552e6b5c81b1129b9f6eb8f3816988cb6dde823a93674dd1c364ecbbdefc8db9cdf88972a4bfc35e6c820ffadd92ec2e1c56dc2b61ffa81c038f828cd4ac0ffabff97c260c31f0
+
+### EVENT: group-20260216-02-十五猪.md
+TITLE: 日常闲聊·逛酒吧拍照
+DATE: 2026-02-16
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-16 21:38 朱浩宇：头顶有金色的加州阳光！
+- 02-16 21:38 朱浩宇：是香甜：？
+- 02-16 21:39 朱浩宇：是香甜撤回了一条消息
+- 02-16 21:39 施翔天：怎么了
+- 02-16 21:39 施翔天：什么意思
+- 02-16 21:39 施翔天：陶喆？
+- 02-16 21:39 朱浩宇：是香甜撤回了一条消息
+- 02-16 21:40 吴晨阳：good show
+- 02-16 21:40 施翔天：没有啊
+- 02-16 21:40 施翔天：看到义乌了
+- 02-16 21:40 吴晨阳：跟郑淇心去酒吧了
+- 02-16 21:40 吴晨阳：[图片]
+- 02-16 21:40 吴晨阳：[图片]
+- 02-16 21:42 朱浩宇：看看制酒过程
+- 02-16 21:42 施翔天：是欸
+- 02-16 21:42 吴晨阳：嗯待会录个视频
+- 02-16 21:45 吴晨阳：里面有烟味，我们准备换一家
+- 02-16 21:46 施翔天：对的对的
+- 02-16 21:46 吴晨阳：操真的受不了，我可以拿着烟装逼，但绝对不能享受这个感觉
+- 02-16 21:46 施翔天：原来大家都闻不了烟味
+- 02-16 22:06 吴晨阳：[图片]
+- 02-16 22:06 施翔天：真好吧
+- 02-16 22:08 unknown：[视频]
+- 02-16 22:10 朱浩宇：[图片]
+- 02-16 22:10 施翔天：天哪好浪漫
+- 02-16 22:12 朱浩宇：[视频]
+- 02-16 22:13 吴晨阳：[图片]
+- 02-16 22:16 施翔天：还有异色的
+- 02-16 22:17 施翔天：刚才拍你的那个角度
+- 02-16 22:18 朱浩宇：没电了
+- 02-16 22:19 施翔天：嗯
+- 02-16 22:24 吴晨阳：[图片]
+- 02-16 22:24 吴晨阳：[图片]
+- 02-16 22:24 施翔天：我好喜欢第一张
+- 02-16 22:44 朱浩宇：<?xml version="1.0"?>
+<msg>
+	<img aeskey="7aa076f2882f94d25a28c13918f04ecf" encryver="1" cdnthumbaeskey="7aa076f2882f94d25a28c13918f04ecf" cdnthumburl="3057020100044b30490201000204dcbe3fa302032e1e4102048b8ae473020469932888042464356532656262632d646231652d346165302d383239632d356538353630333938396533020401252a010201000405004c550500" cdnthumblength="6804" cdnthumbheight="432" cdnthumbwidth="322" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b30490201000204dcbe3fa302032e1e4102048b8ae473020469932888042464356532656262632d646231652d346165302d383239632d356538353630333938396533020401252a010201000405004c550500" length="174899" cdnbigimgurl="3057020100044b30490201000204dcbe3fa302032e1e4102048b8ae473020469932888042464356532656262632d646231652d346165302d383239632d356538353630333938396533020401252a010201000405004c550500" hdlength="3188946" md5="47db0db7345fb2b471fd23e2b3a53020" hevc_mid_size="66801" originsourcemd5="090cbee10756e6b61bf1b83414ca4889">
+		<secHashInfoBase64>eyJwaGFzaCI6IjUwNTA1MDUwMTE2MDAxMDAiLCJwZHFIYXNoIjoiNWM5YzdhZDZhMzdhZWI0YzE1
+OGM5OTMyZTY3ZDZmZDA0ZmMyODA0ZGI4MmQ3NmYwMDFiMzA0Y2ZmNjBhZDkzMSJ9
+</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+紧盯烟灰缸
+- 02-16 23:27 朱浩宇：快更新啊
+- 02-16 23:27 吴晨阳：[图片]
+- 02-16 23:27 吴晨阳：[图片]
+- 02-16 23:27 吴晨阳：[图片]
+- 02-16 23:27 吴晨阳：[图片]
+- 02-16 23:28 吴晨阳：人现在有点飘起来了
+- 02-16 23:28 朱浩宇：有没有露骨一点的
+- 02-16 23:28 朱浩宇：你们这个太保守了
+
+### EVENT: group-20260217-01-SOS团.md
+TITLE: 聊galgame·推荐
+DATE: 2026-02-17
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-17 00:12 陈二逼：[图片]
+- 02-17 00:12 陈二逼：困眼壁
+- 02-17 00:12 陈二逼：这是谁？
+- 02-17 00:13 朱浩宇：黑姬结灯
+- 02-17 00:17 陈二逼：超时空辉口口推荐看吗
+- 02-17 00:17 朱浩宇：昂，辉夜姬做挺好
+- 02-17 00:17 金晟恺：对，你需要这种东西清洗一下你的灵魂
+- 02-17 00:18 朱浩宇：不过不知道对不对你口味
+- 02-17 00:18 朱浩宇：死宅要素比较多
+- 02-17 00:43 陈二逼：对，你需要这种东西清洗一下你的灵魂
+啊喂，我比你抗gal入侵多了
+- 02-17 02:03 陈二逼：嘉登的最爱
+UP主：欧皇传染病
+播放：1154
+https://b23.tv/vYXnwCJ
+
+### EVENT: group-20260217-02-SOS团.md
+TITLE: 约玩·去金晟恺家
+DATE: 2026-02-17
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-17 12:31 金晟恺：晚上来玩
+- 02-17 12:31 金晟恺：@Eventide
+- 02-17 12:32 陈二逼：去你家？
+- 02-17 12:32 金晟恺：对
+- 02-17 12:32 陈二逼：时间 地点人物
+- 02-17 12:34 金晟恺：随便
+- 02-17 13:17 陈二逼：地点发来
+- 02-17 13:18 金晟恺：来义乌天地
+- 02-17 13:40 陈二逼：那很近了
+- 02-17 14:10 陈二逼：怎么没有主卡穆颗粒呀？
+- 02-17 14:20 unknown：[视频]
+- 02-17 15:59 陈二逼：不行，要很晚了
+- 02-17 16:25 金晟恺：不用来了
+- 02-17 16:33 朱浩宇：马丁马丁
+- 02-17 16:33 金晟恺：@困眼闭 何时会回
+- 02-17 16:33 陈二逼：丁亮
+- 02-17 16:34 朱浩宇：初五
+- 02-17 16:34 朱浩宇：马丁马丁
+- 02-17 16:34 朱浩宇：[憨笑]
+- 02-17 16:34 朱浩宇：[调皮]
+- 02-17 16:34 朱浩宇：[色]
+- 02-17 16:34 朱浩宇：[发抖]
+- 02-17 16:34 朱浩宇：[笑脸]
+- 02-17 16:34 朱浩宇：[流泪]
+- 02-17 16:34 朱浩宇：[偷笑]
+- 02-17 16:34 陈二逼：闭！
+- 02-17 17:55 金晟恺：为什么低头也能吐啊
+UP主：小叔唔小
+播放：33.7万
+https://b23.tv/TGH3MDE?share_medium=android&share_source=weixin&bbid=XU6F94C68FA2A8B3DF450F5C0639955C8C3E0&ts=1771322109133
+- 02-17 17:56 朱浩宇：意识流
+
+### EVENT: group-20260217-02-这个13班.md
+TITLE: 红包接龙
+DATE: 2026-02-17
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-17 11:13 unknown：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177048218142466&ver=6&sign=422a0744ab615751d687164a6215578c77668d0436a4367ee99e61b6ca7250f2beef3dc72fce36288c0bb60a1f978f89c9e4054c3832279ac98e233fe949040e5f1aa5f29021d057eff1f8f0292aa9f0
+- 02-17 12:03 🐟🐟🐟🐟🐟：杨予哲真牛啊
+- 02-17 12:03 杨予：[表情]
+- 02-17 12:04 杨予：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177290409385349&ver=6&sign=2d25f7e558c3d51664f14253acda52200ed937c2e93c32b350c72a2efa0d81b15483ebed58a265150100291fe76ea1b7bbc58f81ef1db291d478b76fa1ecbecc03987002fc231773a129d85f7cdc6326
+- 02-17 12:05 Raymond：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176054643856069&ver=6&sign=20d28cd51c346382e1b4c22634185b836ad9891f667c1c4c572a9ac49dd7e2005f33a9560e6a9c9de1278c6be71d4ff0e9e4ae2f6ada2bb7ce5248c79a19b381ff39c76873b5de7bff9437336aaf41ae
+- 02-17 12:05 吴泽楷：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177318896378098&ver=6&sign=0c8cae6851a7922c525aa942d41f46bb2dc61199cc36d7a66b0575494ad2cb95890dab5dd051d1f2457f42c8ffd5d74496d670d034069528832b29a88be0ac23b6eec83bf49f83984a3affd3bb9d025f
+- 02-17 12:06 吴泽楷：……
+- 02-17 12:06 李科宇：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176382785718539&ver=6&sign=dd38847f79ad382c2e5d186eb03e8d57af14b17ab00f3a1b507b936f9580f7509dbb050203632fd376a3d42506eef9babf7ecf203f88abc43194f1215743da7d18fc121720821f47b4493f691a02e860
+- 02-17 12:06 吴泽楷：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177349127231591&ver=6&sign=a6e6e2ea7342ebb537494663965dd395a311f5a587887a61ae6af08be443d9d6f2410e1f7b4b02930792a375c470ba3a587ff7f8945aad2da1503c649926a05afb356bfdb5a598d2ee5854c8da2a4991
+- 02-17 12:07 小陈苏西：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177371790976343&ver=6&sign=8d9eb14e9ae9ff1b58c470529b0a19b4dfb6d12ba0cc4c8e66534adccad5195776af14a567c0ca0eda281b5226175a67baaa4ba3c0175da51396922bce7500a2c130dbe79b58c0a38d081d0f1020c775
+- 02-17 12:08 邵开：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177341814967058&ver=6&sign=4d73dab3d7bee4585e01f996cfb95de01585a3ffdcede0473692c5c2a679e911795b103785edd88f8a28207d61cae631da9252dfc132e5f6118ca0ceebd8c4bf373dea4c8d4791bc8c49a7c1be0addc1
+- 02-17 12:08 李科宇：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176132774419547&ver=6&sign=d65c5a668c8a782f0cc3a0f2fe114dd38b9cca05794d419f3be15ccc9701b0b5e087624d5fe176c2329f76b186fd3b61ee2e8121c4ca3720656e899ac6e3fa188385d5aec5249ff809f973b9172bebe6
+- 02-17 12:09 李科宇：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176201480157890&ver=6&sign=6489cc52e01f9d361e8480be2e8426e7d0c5fa9ed8e117a97f061fe99a5293f62730989c52a8fd465afb1a446bb2e084fdc111c89d755ea1eae8f5dd82f00400cae850df316efe6ab8ae080f6dec2120
+- 02-17 12:10 邵开：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177226623994715&ver=6&sign=154ae2f5ba620d2fa1b6da89804eb849cc665663ba683741dabc55d91fa667135eb3cfc2ec6250e1f248f0287897b05de0686f79f59fa53f394b68daaad4a4f2cc498611f384ae503dc4300bbdae8c3f
+- 02-17 12:10 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176213921875618&ver=6&sign=20cc40cdc2663375d6d9295971dc2ddcc26a65233d0e7e7e9663f3d166640d193badb9e254dcec35cdad42cf98d0611750b59c728e8d8faaf41dab3c5535ec942b908c8e890a95ffa1ab1efef3e5ee14
+- 02-17 12:11 斯：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177357061563164&ver=6&sign=163419c8f4ab27627a75c43254820cfd00801d60a056f6e6bdf0782bd43019ddf8ccf7f71fb455ac68ef1b504962776c122e7885f6acbdbd720057a8d22211ca20e84c2741173e2fa3af450887266909
+- 02-17 12:11 邵开：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177044462174788&ver=6&sign=f83fe5fb5076bd06d7ba6962ae24bd3aa5918726a8d0b3d472be2d2772e6a69bb4b96e1afe634f28fe9d2fe5704997a54c79da7cf0d50a6643d0594dd3bc99e8a80fc74aab0b83d32f6acb8a342cae4a
+- 02-17 12:11 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176063721961165&ver=6&sign=470774f8181ac80a674b8fd332ebf10d9f100fef1039893935f87546ca3703e34b1d35a1c931a5cf230eee8aaed5a432460a090dd0673ba3edfcae3a2612777b007232bbbad11a7b383919043e61a4f2
+- 02-17 12:12 唐唯轩：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176107000587045&ver=6&sign=237d7d0c5de0e1f59bda8b73f455ce2310a5dcbb2bc3289c4153bceabac9f0e0fbf436518ad83c81d59be2609b8f43c44611b8507ef7af6e690e94780f8429b48ed1be6172addcc4a7099e284da77082
+- 02-17 12:12 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176303581128456&ver=6&sign=bc04752884473a1583f8d2dadc383d39f8cc3d4ead9209fa4eea2146355d2450827fe2f3407732fa3e6348e26ac7426862820272d3dbb9e62e24c8069f48de624381bd4e80a0e2508ee5c5f0e2c289ce
+- 02-17 12:12 唐唯轩：[表情]
+- 02-17 12:12 唐唯轩：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176151775705313&ver=6&sign=10f1c97437ea4934e28969f7b9c3dae148b7c298ab37317b327028107a01d8d985f8dd402fb691ced211c327d14098600020e9715b6f328f9b149f27b028d6cd74b4ca0d931548b72e169ac07a815986
+- 02-17 12:13 斯：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177212396502114&ver=6&sign=54844dee965a9d6e636a78d3004c12eeffae0dd82ac1e0609395cd96bff241132dee4bac1fffc4c98bb5b50cad6a30dfb489b8362dca8e6df06f0a9ff575a6fb44e2bd884be3955b29bf7bd6cec97297
+- 02-17 12:13 李科宇：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176124377303711&ver=6&sign=00f800c16499515f254ea6b4805886a80d982380d659d1bf2c1f602b5d407bf9e0ee7df8ac21bd878e87afb827affbd5ccfec32949cc866d438f991600cf3f8d3098e8ea4dddd9f84335b9496bbfebca
+- 02-17 12:14 唐唯轩：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176118159353758&ver=6&sign=9b3c9299a38ebb2eaf7e08b2dc4bd6d41d1efce9830fda6f1daf444ea6e13d6b441c43efbf53feb8ac5e21fc2b844d5c85dbedeb686f4e08bcaeedb3199da5ac3336d404f8c7698f02d366ebc39c93f3
+- 02-17 12:14 斯：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177367904705041&ver=6&sign=0b5cdf40b27dd55b6f3ae1d9b87494d3406f2e4b0956d06663ead76b98aaa70332c442ee4b0c224f3c608ee64262c41054d0895616d71ad8ff9fbbdf85c88de45cfd89f35b6eba8efacbc4dfd6b3a8b4
+- 02-17 12:14 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176351360160670&ver=6&sign=c0aa26afc293300d15615dcb1f4787a08f42948793ded9cc98ed3d768f56777e476795fe9672c69ccc61ce43ef008e252f4734691ab7e447983e29fa4571dff2f92bb28827a8a89fc37e460d15e9ed76
+- 02-17 12:15 斯：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602177072312854799&ver=6&sign=51bfb8eaeee275015d2ec517078f8ecf35132ba47f0667401b0edb786f40764236563acbc3010055c73b0a5f3ce7fabfa93851966299206c8d1ed55d926890039d84e5aa376dfe4d86eb6cc182e70d68
+- 02-17 12:15 郑期心：西巴
+- 02-17 12:15 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176021231651670&ver=6&sign=0fcfcd6774552d7f2cfc63603b2c736ab7b5aff8f5a886f5c46742654e2aa2ebd7f297f203f74f66358fe9c29c60e33f7772214578755aa931a4ce576dd76980edf2a1346ae7f4c959a210a0fa95b8f7
+- 02-17 12:15 楼程宇：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176233398839160&ver=6&sign=adcdf45c1ae75bdd97d089278e6b7a5df2542fa2e9054cda537e8b852e95bbacb43be34669ebe38163d18557105bfffb1913e0d31786561aabcac27c47a428fd570930d09197c862e93b7b1c1fef7fab
+- 02-17 12:16 郑期心：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039801202602176028429619306&ver=6&sign=6d5c7f44760067ad1ee2ede9ae0719fad969372ac0cdcf58fdd57f4836ce87f4450854b89815a24a94c5fa8a10af93e32584cb3087c271f770ad16e6418ef2bce197ee893654f202d5812ca71acc9d50
+
+### EVENT: group-20260218-01-SOS团.md
+TITLE: 回农村老家·聊鬼故事
+DATE: 2026-02-18
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-18 10:45 朱浩宇：陈嘉铭更像一只鸡而不是鸟
+- 02-18 10:46 陈二逼：和椅慰？
+- 02-18 13:07 朱浩宇：[图片]
+- 02-18 13:08 陈二逼：鸭
+- 02-18 13:12 朱浩宇：[图片]
+- 02-18 13:12 陈二逼：牛
+- 02-18 13:16 朱浩宇：[图片]
+- 02-18 13:16 陈二逼：金晟恺
+- 02-18 13:16 陈二逼：请使用之
+- 02-18 13:36 金晟恺：？
+- 02-18 13:42 朱浩宇：晨培育
+- 02-18 13:44 陈二逼：[图片]
+- 02-18 13:59 朱浩宇：[图片]
+- 02-18 13:59 朱浩宇：农村的野山
+- 02-18 13:59 朱浩宇：到处是坟墓与危房
+- 02-18 14:00 朱浩宇：我的发小非常精通民俗鬼故事
+- 02-18 14:00 朱浩宇：不停地吓我
+- 02-18 14:00 朱浩宇：金晟恺我检查一下你的🐔8️⃣
+- 02-18 14:05 陈二逼：看懂的有福了
+- 02-18 14:06 unknown：[视频]
+- 02-18 14:06 unknown：[视频]
+
+### EVENT: group-20260219-03-SOS团.md
+TITLE: 小学同学来访·聊游戏
+DATE: 2026-02-19
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-19 20:18 金晟恺：和女同学讨论ddlc、P5，同学你这辈子有了
+- 02-19 20:19 unknown：你撤回了一条消息
+- 02-19 20:20 朱浩宇：？
+- 02-19 20:20 朱浩宇：谁
+- 02-19 20:20 金晟恺：我小学同学
+- 02-19 20:20 朱浩宇：你之前说过的那个青梅？
+- 02-19 20:20 金晟恺：一群小学同学来我家
+- 02-19 20:21 金晟恺：你之前说过的那个青梅？
+no
+null
+- 02-19 20:22 陈二逼：哎，都是以前老是同你学的老同学，有什么好说的[白眼]
+- 02-19 20:22 金晟恺：唉
+
+### EVENT: group-20260220-01-SOS团.md
+TITLE: 日常闲聊·看视频
+DATE: 2026-02-20
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-20 10:23 朱浩宇：陈嘉铭无敌了
+- 02-20 10:24 朱浩宇：我打心底里佩服陈嘉铭
+- 02-20 12:48 陈二逼：天
+- 02-20 12:48 陈二逼：[图片]
+- 02-20 12:50 朱浩宇：@Anony
+- 02-20 13:50 陈二逼：[图片]
+- 02-20 14:37 金晟恺：@困眼闭 干嘛
+- 02-20 14:37 朱浩宇：没干嘛，看逆天小鸟
+
+### EVENT: group-20260220-01-这个13班.md
+TITLE: 聊galgame·真百魔夜
+DATE: 2026-02-20
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-20 00:54 陈二逼：<?xml version="1.0"?>
+<msg>
+	<img aeskey="14dbbed6ef55ced1ae6ad536ff803277" encryver="1" cdnthumbaeskey="14dbbed6ef55ced1ae6ad536ff803277" cdnthumburl="3057020100044b3049020100020478f8dcae02032e1e410204658be4730204699697c9042434316461663062642d353033332d346561392d613337362d633832353134303133353566020401250a020201000405004c50b900" cdnthumblength="2053" cdnthumbheight="174" cdnthumbwidth="433" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b3049020100020478f8dcae02032e1e410204658be4730204699697c9042434316461663062642d353033332d346561392d613337362d633832353134303133353566020401250a020201000405004c50b900" length="21017" md5="c8c2645d385d18996fb3e41feb212ab2" hevc_mid_size="8874" originsourcemd5="21b69842a3e0e78c0509a842ce8e32f6">
+		<secHashInfoBase64>eyJwaGFzaCI6IjMwMDAyMDAwMDAwMDAwMDAiLCJwZHFIYXNoIjoiN2NlMmRmODgwNDEzZmJlMGY4
+MGMwMDNmMWJmMWZmODYwNzA5ZDNlMTdjM2VjMDE5ZmZjMDNmZTcwMDdmZTAxOCJ9
+</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+[害羞]，真百以其残酷划出警醒红线，魔夜以其生活化却幽默且泰坦尼克+君名般的剧情令玩家（男）经历情感方面的心智成熟
+- 02-20 00:54 陈二逼：其开放式结局（nn线）自然助玩家由虚拟过渡到现实，将活力与动力注入生活，由此热爱学习
+- 02-20 00:54 陈二逼：我想若角色符合道德且正派不失为佳作
+- 02-20 00:56 陈二逼：对于我以上两款足以互补，而物极必反，玩太多就是Anony 了
+- 02-20 00:57 陈二逼：嗤嗤嗤[骷髅]
+- 02-20 01:02 邵志鹏：为自己玩galagame找理由[旺柴]
+
+### EVENT: group-20260220-02-SOS团.md
+TITLE: 买漫画踩雷·吐槽
+DATE: 2026-02-20
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-20 20:25 金晟恺：[图片]
+- 02-20 20:25 金晟恺：我真的哭死
+- 02-20 20:25 金晟恺：我他妈就买了这四本的简中
+- 02-20 20:26 金晟恺：其他的都简中ok，但就我买的这四本不行
+- 02-20 20:26 金晟恺：啊啊啊啊啊啊啊
+- 02-20 20:26 金晟恺：啊啊啊啊啊啊啊啊啊啊
+- 02-20 20:26 金晟恺：我说看的时候怎么这么没意思
+- 02-20 20:26 金晟恺：啊啊啊啊啊啊
+- 02-20 20:27 朱浩宇：[图片]
+- 02-20 20:27 金晟恺：啊啊啊啊啊啊啊啊啊啊啊
+- 02-20 20:27 unknown："陈二逼" 撤回了一条消息
+
+### EVENT: group-20260221-01-SOS团.md
+TITLE: 聊梦·吐槽女装
+DATE: 2026-02-21
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-21 08:22 陈二逼：我在短短七点到八点做了个梦
+- 02-21 08:22 陈二逼：其中我们已经住校了
+- 02-21 08:23 陈二逼：故事由寝室开始
+- 02-21 08:23 陈二逼：大概五点
+- 02-21 08:24 陈二逼：我蒙在被子里用手机做考公题
+- 02-21 08:25 陈二逼：突然外面发出窸窣的声音
+- 02-21 08:25 朱浩宇：[图片]
+- 02-21 08:25 陈二逼：随即又有宿管的声音
+- 02-21 08:26 朱浩宇：金晟恺也有过这么干净的时候
+- 02-21 08:26 陈二逼：然后过了一会
+- 02-21 08:26 陈二逼：铃响起床
+- 02-21 08:26 陈二逼：我到教室
+- 02-21 08:28 陈二逼：我座位左边出现三个长的像天选姬的女生
+- 02-21 08:29 陈二逼：原来是金晟恺和王弈铠穿了女装！
+- 02-21 08:30 陈二逼：Jsk 的气质非常符合
+- 02-21 08:31 陈二逼：我质疑wyk你这么高站起来我看看
+- 02-21 08:33 陈二逼：结果他如大字一般分开两条穿着白丝的长腿，压低身高，让自己错看起来像个萝莉
+- 02-21 08:33 陈二逼：我纥旱馊去了
+
+### EVENT: group-20260222-01-SOS团.md
+TITLE: 农历生日·约联机后室
+DATE: 2026-02-22
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-22 16:08 金晟恺：又过生日了
+- 02-22 16:08 金晟恺：@困眼闭 欢迎回来
+- 02-22 16:08 朱浩宇：来我家吃晚饭吗
+- 02-22 16:12 金晟恺：上课哈哈
+- 02-22 16:24 陈二逼：生日？
+- 02-22 16:25 陈二逼：困眼闭的？
+- 02-22 16:26 朱浩宇：😏对
+- 02-22 16:26 朱浩宇：农历
+- 02-22 16:27 陈二逼：我要打昔爱斯
+- 02-22 16:28 朱浩宇：[图片]
+- 02-22 16:28 陈二逼：我不玩茶杯头
+- 02-22 16:32 陈二逼：你还强基吗
+- 02-22 16:38 朱浩宇：不
+- 02-22 16:48 朱浩宇：玩不玩后室
+- 02-22 16:49 朱浩宇：@Eventide
+- 02-22 16:49 陈二逼：玩
+- 02-22 16:49 朱浩宇：我和是香甜在下载
+- 02-22 16:49 朱浩宇：这游戏咋玩啊
+- 02-22 16:50 陈二逼：我过来教你
+- 02-22 16:51 陈二逼：有没有晚饭的？
+- 02-22 16:51 朱浩宇：不行，你来太挤了，和我们联机就行
+- 02-22 16:51 朱浩宇：我家太小
+- 02-22 16:52 陈二逼：几个人
+- 02-22 16:52 朱浩宇：三个人两台电脑
+- 02-22 16:52 朱浩宇：已经非常拥挤了
+- 02-22 16:53 陈二逼：来来，不是金盛凯没叫到吗？
+- 02-22 16:53 朱浩宇：今生开上课
+- 02-22 16:53 朱浩宇：别来
+- 02-22 16:53 朱浩宇：玩后室
+- 02-22 16:53 朱浩宇：今天不可以熬夜的
+- 02-22 16:53 朱浩宇：要是熬夜就叫你来了
+
+### EVENT: group-20260222-01-十五猪.md
+TITLE: 约聚·整理房间
+DATE: 2026-02-22
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-22 13:38 朱浩宇：我的孩子们
+- 02-22 13:38 朱浩宇：你们在哪
+- 02-22 13:39 吴晨阳：施翔天孩子在睡觉吗😪
+- 02-22 13:48 朱浩宇：我的孩子你在哪
+- 02-22 13:49 朱浩宇：快来跟我一起
+- 02-22 13:49 朱浩宇：整理我的房间
+- 02-22 13:49 吴晨阳：那我晚点来
+- 02-22 13:50 朱浩宇：快来
+- 02-22 13:50 朱浩宇：今天不熬夜的
+- 02-22 13:50 朱浩宇：晚上赶人的
+- 02-22 13:50 施翔天：15分钟
+- 02-22 13:50 unknown："Yang阳宝💗💗💗" 撤回了一条消息
+- 02-22 13:50 吴晨阳：我要锻炼我的看地图能力，我要骑过去
+- 02-22 13:52 朱浩宇：几把快来啊我
+- 02-22 13:52 朱浩宇：虽然说没有任何可以做的事情
+- 02-22 13:52 朱浩宇：但是快来啊
+- 02-22 14:04 施翔天：下来
+- 02-22 14:04 施翔天：我到了
+- 02-22 14:04 朱浩宇：行
+- 02-22 14:05 施翔天：[图片]
+- 02-22 14:05 朱浩宇：站那别动
+- 02-22 14:06 施翔天：我在车里
+- 02-22 14:13 吴晨阳：路真难找，天真热🥵
+
+### EVENT: group-20260222-02-十五猪.md
+TITLE: 玩游戏·送游戏与红包
+DATE: 2026-02-22
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-22 21:50 朱浩宇：感觉也就刚开始的几把好玩
+- 02-22 21:50 朱浩宇：玩到后面有点阳痿了
+- 02-22 21:50 朱浩宇：我们失败了@SkyMaths
+- 02-22 21:51 施翔天：我到家了
+- 02-22 21:51 施翔天：什么意思？
+- 02-22 21:51 吴晨阳：[图片]
+- 02-22 21:51 吴晨阳：原来这个姿势早有来头
+- 02-22 21:52 施翔天：这是朱？
+- 02-22 21:52 吴晨阳：✓
+- 02-22 21:52 施翔天：😅
+- 02-22 21:52 施翔天：想着给浩宇送个游戏
+- 02-22 21:52 施翔天：然后想起来我们好友没有一周
+- 02-22 21:52 施翔天：然后到家了想起来我可以线下
+- 02-22 21:53 施翔天：[表情]
+- 02-22 21:54 朱浩宇：[发怒]
+- 02-22 21:55 unknown：微信红包
+我给你发了一个红包，赶紧去拆!
+https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039901202602226015746023619&ver=6&sign=bf29ee0d31786f621db102a536963de3b96d0d2b68adc4a42cc5b7e239226d25d19117685ec063a826cbc8f2f2eefed840c3acbef0c218bd0f4a946a9b598158c235d7ab2e8d7b0fd95820ec9d3c46c6
+- 02-22 22:00 施翔天：[图片]
+- 02-22 22:03 朱浩宇：[色][色]
+- 02-22 22:03 朱浩宇：一个人不敢玩啊
+- 02-22 22:03 朱浩宇：[流泪]
+- 02-22 22:03 施翔天：没事的
+- 02-22 22:03 施翔天：我屏幕好脏
+- 02-22 22:11 朱浩宇：有没有人顺走了我打印的那张照片
+- 02-22 22:12 吴晨阳：i m not
+- 02-22 22:12 朱浩宇：[流泪]
+- 02-22 22:13 朱浩宇：真的要走吗
+- 02-22 22:13 朱浩宇：[表情]
+- 02-22 22:13 吴晨阳：头晕
+- 02-22 22:13 吴晨阳：不打了吧而且我再打我爸就要炸了
+- 02-22 22:13 朱浩宇：好的
+- 02-22 22:14 朱浩宇：👋
+- 02-22 22:14 吴晨阳：因为我今天严格意义上是偷手机出去的
+- 02-22 22:14 朱浩宇：！
+- 02-22 22:14 朱浩宇：再见👋吴小弟
+
+### EVENT: group-20260223-01-SOS团.md
+TITLE: 呼叫帮忙·找人手
+DATE: 2026-02-23
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-23 16:08 朱浩宇：！！！
+- 02-23 16:08 朱浩宇：出现任务了
+- 02-23 16:08 朱浩宇：出现任务了
+- 02-23 16:08 朱浩宇：！！！
+- 02-23 16:08 朱浩宇：出现任务了
+- 02-23 16:08 朱浩宇：出现任务了
+- 02-23 16:08 朱浩宇：！！！
+- 02-23 16:09 朱浩宇：出现任务了
+- 02-23 16:09 朱浩宇：出现任务了
+- 02-23 16:09 朱浩宇：！！！
+- 02-23 16:09 金晟恺：？
+- 02-23 16:09 朱浩宇：呼叫
+- 02-23 16:09 朱浩宇：呼叫
+- 02-23 16:09 朱浩宇：呼叫
+- 02-23 16:09 朱浩宇：金晟恺
+- 02-23 16:09 朱浩宇：你家离得太远了
+- 02-23 16:09 朱浩宇：你肯定无法参与行动
+- 02-23 16:10 金晟恺：上课
+- 02-23 16:10 朱浩宇：[图片]
+- 02-23 16:10 朱浩宇：[图片]
+- 02-23 16:10 朱浩宇：[图片]
+- 02-23 16:10 金晟恺：哈哈
+- 02-23 16:10 朱浩宇：反正是脏活累活
+- 02-23 16:10 金晟恺：哇
+- 02-23 16:12 金晟恺：找放鱼缸
+- 02-23 16:12 金晟恺：应定要找他
+- 02-23 16:12 朱浩宇：我找过了
+- 02-23 16:12 金晟恺：真的
+- 02-23 16:12 朱浩宇：没空
+- 02-23 16:12 金晟恺：如何
+- 02-23 16:12 金晟恺：[弱]
+- 02-23 17:06 陈二逼：[图片]
+- 02-23 17:07 朱浩宇：我丢
+- 02-23 17:07 朱浩宇：你现在在急诊室
+
+### EVENT: group-20260223-01-十五猪.md
+TITLE: 日常闲聊·聊跳舞与浴缸
+DATE: 2026-02-23
+SOURCE: 十五猪
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-23 09:52 朱浩宇：[图片]
+- 02-23 09:52 朱浩宇：[图片]
+- 02-23 09:52 朱浩宇：[图片]
+- 02-23 09:56 吴晨阳：其实是的
+- 02-23 09:56 吴晨阳：陪他打比直接去好很多
+- 02-23 10:00 吴晨阳：等等
+- 02-23 10:00 吴晨阳：我们浴缸算什么。
+- 02-23 10:00 朱浩宇：浴缸
+- 02-23 10:00 吴晨阳：浴缸不是挺好的吗
+- 02-23 10:00 朱浩宇：鱼缸里面高歌
+- 02-23 10:01 吴晨阳：？
+- 02-23 10:01 吴晨阳：神奇
+- 02-23 10:04 施翔天：对啊浴缸
+- 02-23 10:04 施翔天：呢
+- 02-23 10:04 朱浩宇：我要上课了
+- 02-23 10:05 吴晨阳：[语音]
+- 02-23 11:16 吴晨阳：[图片]
+- 02-23 11:16 吴晨阳：@困眼闭 陈嘉铭要学跳舞了，你落后了
+- 02-23 11:19 朱浩宇：高歌咋办
+- 02-23 11:19 朱浩宇：虽说和我们无关
+- 02-23 11:19 朱浩宇：但是高歌咋办
+- 02-23 11:19 朱浩宇：也不能说无关
+- 02-23 11:19 吴晨阳：我想问问鱼缸来着
+- 02-23 11:19 朱浩宇：你问问鱼缸
+- 02-23 11:20 吴晨阳：还有一种可能是陈佩玉过度担心了？
+- 02-23 11:20 朱浩宇：玉钢
+- 02-23 11:20 朱浩宇：浴缸
+- 02-23 11:20 朱浩宇：到底是哪两个字
+- 02-23 11:20 朱浩宇：不是的
+- 02-23 11:20 吴晨阳：刻意关心肯定会被高歌察觉，到时候就不知道是高兴还是愤怒了
+- 02-23 11:20 朱浩宇：高歌要像真敢问一样了
+- 02-23 11:20 朱浩宇：如果不干预
+- 02-23 11:20 吴晨阳：最合适的人选仍然是浴缸
+- 02-23 11:21 吴晨阳：到底是哪两个字
+煜刚
+null
+- 02-23 11:22 吴晨阳：如果不干预
+那我只能问于刚了
+null
+
+### EVENT: group-20260224-01-SOS团.md
+TITLE: 闲聊·聊分手
+DATE: 2026-02-24
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 02-24 19:04 金晟恺：[图片]
+- 02-24 19:04 金晟恺：[图片]
+- 02-24 19:04 金晟恺：[图片]
+- 02-24 19:13 金晟恺：@困眼闭 昨夜勇闯进展如何
+- 02-24 19:13 朱浩宇：没辙了
+- 02-24 19:14 朱浩宇：金晟恺的另一条时间线
+- 02-24 19:14 朱浩宇：高歌
+- 02-24 19:21 金晟恺：6
+- 02-24 19:40 陈二逼：@Anony 你分手了？
+- 02-24 20:08 金晟恺：？
+- 02-24 20:09 陈二逼：你为什么发这些图片？
+- 02-24 20:09 陈二逼：你觉得很有趣
+- 02-24 20:09 金晟恺：嗯
+- 02-24 20:09 陈二逼：好的
+
+### EVENT: group-20260404-01-SOS团.md
+TITLE: 清明节闲聊·刷视频
+DATE: 2026-04-04
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 04-04 18:55 朱浩宇：[图片]
+- 04-04 18:57 陈二逼：[强]
+- 04-04 19:01 金晟恺：哇哇
+- 04-04 19:02 陈二逼：[图片]
+- 04-04 19:05 朱浩宇：故地
+- 04-04 20:43 金晟恺：[图片]
+- 04-04 20:48 朱浩宇：有需求吗
+- 04-04 20:48 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+迷你世界拆与乖乖小桐 #迷你世界 #一字拆 #拆家军 #迷你空岛冒险启程
+https://support.weixin.qq.com/update/
+- 04-04 22:18 陈二逼：📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊
+- 04-04 22:19 陈二逼：[炸弹]
+- 04-04 23:26 朱浩宇：[图片]
+- 04-04 23:26 朱浩宇：这一部好像是有名的
+- 04-04 23:26 朱浩宇：我给AI你说的情节就找到了
+- 04-04 23:28 陈二逼：哎有我的妈，吓死我了，刚跟szp 聊完
+- 04-04 23:28 朱浩宇：生殖器
+- 04-04 23:28 朱浩宇：水蒸气
+- 04-04 23:29 陈二逼：P
+- 04-04 23:29 朱浩宇：邵志鹏
+
+### EVENT: group-20260411-01-SOS团.md
+TITLE: 约聚会·华润悦府
+DATE: 2026-04-11
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 04-11 19:16 陈二逼：Go
+- 04-11 19:16 朱浩宇：在下雨呀
+- 04-11 19:17 陈二逼：我去其它地方
+- 04-11 19:48 陈二逼：@Anony 翻译
+- 04-11 22:04 金晟恺：我带回来了
+- 04-11 22:05 陈二逼：对
+- 04-11 22:07 金晟恺：明天来华润悦府20栋
+- 04-11 22:10 金晟恺：你们有没有事
+- 04-11 22:10 陈二逼：没
+- 04-11 22:10 金晟恺：明天
+- 04-11 22:11 金晟恺：待到一起吃午饭
+- 04-11 22:12 陈二逼：送我上学
+- 04-11 22:12 金晟恺：对
+- 04-11 22:12 金晟恺：就是这么想的
+- 04-11 22:12 金晟恺：问一下朱
+- 04-11 22:12 陈二逼：你打个电话
+- 04-11 22:12 金晟恺：明天几点？
+- 04-11 22:12 朱浩宇：明天会来的
+- 04-11 22:12 朱浩宇：八点左右
+- 04-11 22:13 陈二逼：我7:00左右
+- 04-11 22:13 朱浩宇：🐴说他也想来
+- 04-11 22:13 金晟恺：如果要待到吃午饭，最好晚点
+- 04-11 22:13 陈二逼：八点也行
+- 04-11 22:13 金晟恺：我7:00左右
+八点以后
+null
+- 04-11 22:13 陈二逼：九点
+- 04-11 22:13 金晟恺：八点半
+- 04-11 22:14 金晟恺：统一八点半
+- 04-11 22:14 陈二逼：O的k
+- 04-11 22:14 金晟恺：码头也让他来吧
+- 04-11 22:14 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+AI改变生活#猫meme#豆包#搞笑
+https://support.weixin.qq.com/update/
+
+### EVENT: group-20260425-01-SOS团.md
+TITLE: 日常闲聊·刷视频
+DATE: 2026-04-25
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 04-25 19:50 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+这是属于强者之间的对决！
+#古筝 #健身 #植物大战僵尸 #theking #龙卷cos
+https://support.weixin.qq.com/update/
+- 04-25 19:52 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+第三十九集：Teto Word for The Day! Framerate!来自：YouTube:junglisoicy
+https://support.weixin.qq.com/update/
+- 04-25 21:33 朱浩宇：小鸟小鸟
+- 04-25 21:33 陈二逼：啥
+- 04-25 21:35 朱浩宇：小鸟小鸟
+- 04-25 21:35 朱浩宇：啾
+- 04-25 21:35 朱浩宇：揪
+- 04-25 21:35 朱浩宇：揪
+- 04-25 21:35 陈二逼：[炸弹][发怒]
+- 04-25 22:16 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+日本警察厅也能出乙女游戏？#乙女游戏 #猎奇#抽象#游戏
+https://support.weixin.qq.com/update/
+- 04-25 22:20 朱浩宇：别刷这种东西了小鸟
+- 04-25 22:20 陈二逼：「寰宇灾劫」炼狱模式神明吞噬者+三使徒 全BGM无伤PV
+UP主：至尊catastrophe
+播放：1471
+https://b23.tv/eDbndVy
+
+### EVENT: group-20260430-01-五五一.md
+TITLE: 约五一出行·时间协调
+DATE: 2026-04-30
+SOURCE: 五五一
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 04-30 19:33 48418729342@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请你和"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_p2330jgu695a22]]></username>
+							<nickname><![CDATA[Yang阳宝💗💗💗]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_rqhf7zsjsrqc32]]></username>
+							<nickname><![CDATA[郑期心]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 04-30 19:33 吴晨阳：呃明天去可以不
+- 04-30 19:34 吴晨阳：发现浙警离我们玩的地方太远，时间太赶，我打算住两天
+- 04-30 19:34 48418729342@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"修改群名为“$remark$”]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_p2330jgu695a22]]></username>
+							<nickname><![CDATA[Yang阳宝💗💗💗]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="remark" type="link_plain">
+					<plain><![CDATA[五五一]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 04-30 19:44 朱浩宇：[破涕为笑]
+- 04-30 19:44 朱浩宇：那你玩两天吧，我五月二号来找你？
+- 04-30 19:45 吴晨阳：你们最好可以五月一来，不然我怕你第二天上学太累
+- 04-30 19:45 朱浩宇：一号有课
+- 04-30 19:46 吴晨阳：行
+- 04-30 19:46 吴晨阳：吗
+- 04-30 19:46 吴晨阳：那你下午再来
+- 04-30 19:47 吴晨阳：我们早上应该是要去熟悉场地
+- 04-30 19:47 朱浩宇：呃
+- 04-30 19:47 朱浩宇：什么意思
+- 04-30 19:48 吴晨阳：就是5.2早上要去浙警里面走一圈，但也应该挺快的，
+- 04-30 19:48 吴晨阳：5.1不开放
+- 04-30 19:49 朱浩宇：反正我按照自己的流程，五月二号我会去那里，也许做一些别的事情，如果有机会我们会合。不一定要硬凑
+- 04-30 19:50 吴晨阳：嗯
+- 04-30 19:50 郑期心：我 他妈今天不上课明天后天上
+- 04-30 19:50 吴晨阳：就是这个理
+- 04-30 19:50 吴晨阳：我 他妈今天不上课明天后天上
+。。拜拜了。。。
+null
+- 04-30 19:50 吴晨阳：不知言何
+- 04-30 19:50 朱浩宇：哎没办法的
+- 04-30 19:51 朱浩宇：学校里约的哪能知道上课情况呢
+- 04-30 19:51 吴晨阳：全高三就我空的要死😆
+- 04-30 19:51 吴晨阳：反正也不差这一次
+- 04-30 19:51 吴晨阳：无所谓了
+- 04-30 19:52 郑期心：[图片]
+- 04-30 19:53 郑期心：我说的是这个
+- 04-30 19:53 郑期心：美院南街西湖旁边
+- 04-30 19:53 郑期心：九点开
+
+### EVENT: group-20260501-01-五一说法.md
+TITLE: 日常闲聊·旧地重游
+DATE: 2026-05-01
+SOURCE: 五一说法
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 05-01 20:09 朱浩宇：[图片]
+- 05-01 20:09 朱浩宇：刚好走到这里
+- 05-01 20:09 朱浩宇：感触良多
+- 05-01 20:09 曾浩鑫：啥意思
+- 05-01 20:09 曾浩鑫：你稠州的？
+- 05-01 20:10 朱浩宇：去年五一
+- 05-01 20:10 wxid_eisdzftcoqtx12：暗恋却没勇气的你
+UP主：猎奇行为实录
+播放：16.9万
+https://b23.tv/uKbBS5P?share_medium=android&share_source=weixin&bbid=XU6F94C68FA2A8B3DF450F5C0639955C8C3E0&ts=1777617536567
+- 05-01 20:10 wxid_eisdzftcoqtx12：@茂名驹神
+- 05-01 20:10 吴晨阳：笑吐了
+- 05-01 20:10 曾浩鑫：😯
+- 05-01 20:10 曾浩鑫：？
+- 05-01 22:13 u：[图片]
+- 05-01 22:13 u：去年
+- 05-01 22:13 陈二逼：[强]
+- 05-01 22:24 wxid_eisdzftcoqtx12：能不能发一下原图
+- 05-01 22:24 陈二逼：原图？
+- 05-01 22:24 wxid_eisdzftcoqtx12：<?xml version="1.0"?>
+<msg>
+	<img aeskey="58d6422545048bef6fd2a8da05bbacb0" encryver="1" cdnthumbaeskey="58d6422545048bef6fd2a8da05bbacb0" cdnthumburl="3057020100044b30490201000204eccdd70202032e6c6302048fab016f020469f4b4ee042462623530623035612d336437372d346531302d383830622d3235366632663131323162650204252508020201000405004c4dff00" cdnthumblength="12489" cdnthumbheight="210" cdnthumbwidth="157" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b30490201000204eccdd70202032e6c6302048fab016f020469f4b4ee042462623530623035612d336437372d346531302d383830622d3235366632663131323162650204252508020201000405004c4dff00" length="147938" md5="d9809675d94935ae99f4848e8bf96b3e" hevc_mid_size="147938" originsourcemd5="6a2f73829f85c09fa7216ed9167d85e7">
+		<secHashInfoBase64>eyJwaGFzaCI6IjEyMzI0MDUwMjAzMDAwMTAiLCJwZHFoYXNoIjoiYTYxNWE0NWRjOTM0Y2MzYjQ0YmJkY2JhZDkyNjAwYTY2NDJmNjQwZGZkNzVhZDU3MjRkYjQ0MmZjZDI2Yjk1NCJ9</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+这张的原图
+null
+- 05-01 22:24 wxid_eisdzftcoqtx12：@u
+- 05-01 22:24 u：这就是原图
+- 05-01 22:24 u：[图片]
+- 05-01 22:25 陈二逼：[图片]
+- 05-01 22:25 wxid_eisdzftcoqtx12：可惜了
+- 05-01 22:25 曾浩鑫：？
+- 05-01 22:25 u：jsk好可爱
+- 05-01 22:25 吴泽楷：<?xml version="1.0"?>
+<msg>
+	<img aeskey="58d6422545048bef6fd2a8da05bbacb0" encryver="1" cdnthumbaeskey="58d6422545048bef6fd2a8da05bbacb0" cdnthumburl="3057020100044b30490201000204eccdd70202032e6c6302048fab016f020469f4b4ee042462623530623035612d336437372d346531302d383830622d3235366632663131323162650204252508020201000405004c4dff00" cdnthumblength="12489" cdnthumbheight="210" cdnthumbwidth="157" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="3057020100044b30490201000204eccdd70202032e6c6302048fab016f020469f4b4ee042462623530623035612d336437372d346531302d383830622d3235366632663131323162650204252508020201000405004c4dff00" length="147938" md5="d9809675d94935ae99f4848e8bf96b3e" hevc_mid_size="147938" originsourcemd5="6a2f73829f85c09fa7216ed9167d85e7">
+		<secHashInfoBase64>eyJwaGFzaCI6IjEyMzI0MDUwMjAzMDAwMTAiLCJwZHFoYXNoIjoiYTYxNWE0NWRjOTM0Y2MzYjQ0YmJkY2JhZDkyNjAwYTY2NDJmNjQwZGZkNzVhZDU3MjRkYjQ0MmZjZDI2Yjk1NCJ9</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+这个眼镜也太🍬
+null
+- 05-01 22:26 u：哈哈哈
+- 05-01 22:26 wxid_eisdzftcoqtx12：头像已换
+- 05-01 22:26 u：666
+- 05-01 22:27 陈二逼：头像已换
+AUV
+- 05-01 22:27 吴泽楷：像在摸隐形人的扔子
+- 05-01 22:27 朱浩宇：这是把球扔出去还是要接球啊
+- 05-01 22:27 陈二逼：薛定谔的球
+- 05-01 22:28 unknown：[视频]
+- 05-01 22:28 unknown：[视频]
+- 05-01 22:28 u：想看你妹妹正脸
+- 05-01 22:28 u：@Eventide
+
+### EVENT: group-20260502-01-SOS团.md
+TITLE: 生气吐槽·求建议
+DATE: 2026-05-02
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 05-02 10:22 朱浩宇：我先在非常生气
+- 05-02 10:22 朱浩宇：现在
+- 05-02 10:22 朱浩宇：你们给我一些建议
+- 05-02 10:23 朱浩宇：@Eventide @Anony
+- 05-02 10:23 陈二逼：出去屠杀小动物
+- 05-02 10:24 朱浩宇：我会不会被抓起来
+- 05-02 10:24 陈二逼：不会
+
+### EVENT: group-20260502-01-五五一.md
+TITLE: 约逛科技馆·行程建议
+DATE: 2026-05-02
+SOURCE: 五五一
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 05-02 10:21 朱浩宇：我现在只有一个人
+- 05-02 10:21 朱浩宇：你们能不能给我一些建议
+- 05-02 10:21 朱浩宇：我没什么想法
+- 05-02 10:23 吴晨阳：你不是说也想去天文馆吗
+- 05-02 10:23 朱浩宇：你说不去我就没预约
+- 05-02 10:23 吴晨阳：今天也可以预约
+- 05-02 10:25 朱浩宇：[憨笑]
+- 05-02 10:29 郑期心：你说的是浙江省科技馆吗
+- 05-02 10:30 朱浩宇：是
+- 05-02 10:33 郑期心：好吧
+- 05-02 10:34 郑期心：那个好像挺老的
+- 05-02 10:34 朱浩宇：我还没有进去过
+- 05-02 10:35 朱浩宇：上次来的时候没预约，这次找补一下吧
+- 05-02 10:35 朱浩宇：这次比较疲累，等会要是觉得无聊只能找个电影看了[破涕为笑]
+- 05-02 10:40 郑期心：[图片]
+- 05-02 10:41 郑期心：之前收藏的几个
+- 05-02 10:41 郑期心：武林广场那块都是吃的，可以解决中饭
+- 05-02 10:41 朱浩宇：😲
+- 05-02 10:41 朱浩宇：谢谢了
+- 05-02 10:45 郑期心：[表情]
+
+### EVENT: group-20260502-02-五五一.md
+TITLE: 逛街返程·没买到票
+DATE: 2026-05-02
+SOURCE: 五五一
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 05-02 17:56 朱浩宇：OK我到家了
+- 05-02 17:57 朱浩宇：还行还可以
+- 05-02 17:57 朱浩宇：武林广场那里挺好的，有很多次元化店铺[憨笑]消磨了很多时间
+- 05-02 17:58 朱浩宇：就是可惜没有和陌生人产生互动
+- 05-02 17:58 朱浩宇：好几个大叔来找我问路，以为我是志愿者之类的
+- 05-02 17:59 郑期心：好几个大叔来找我问路，以为我是志愿者之类的
+为什么
+- 05-02 17:59 朱浩宇：我后面反思了一下
+- 05-02 18:00 朱浩宇：可能是因为我站在那种指示牌边上
+- 05-02 18:00 朱浩宇：然后又揣着手的缘故？
+- 05-02 18:00 朱浩宇：有三个来问的
+- 05-02 18:00 朱浩宇：地铁里两个，科技馆一个
+- 05-02 18:02 郑期心：[表情]
+- 05-02 18:02 郑期心：宝相庄严
+- 05-02 18:03 朱浩宇：[调皮]
+- 05-02 18:07 吴晨阳：看你骚
+- 05-02 18:07 朱浩宇：有点累了
+- 05-02 18:07 吴晨阳：[表情]
+- 05-02 18:07 吴晨阳：[图片]
+- 05-02 18:08 吴晨阳：奶茶不错
+- 05-02 18:08 朱浩宇：逛那个老资历的店铺太久
+- 05-02 18:08 朱浩宇：差点回不来了
+- 05-02 18:08 吴晨阳：有点累了
+本来我晚上也有舞蹈课的，但是太累了我怕乳酸堆积明天跑不动
+null
+- 05-02 18:08 郑期心：[图片]
+- 05-02 18:08 朱浩宇：最后半小时拼命狂奔
+- 05-02 18:08 吴晨阳：差点回不来了
+哦对了没票了
+null
+- 05-02 18:08 郑期心：[图片]
+- 05-02 18:09 郑期心：你回不来了？
+- 05-02 18:09 朱浩宇：你爸妈在那边
+- 05-02 18:09 吴晨阳：他说差点回不来
+- 05-02 18:09 朱浩宇：你肯定回得来
+- 05-02 18:09 吴晨阳：你爸妈在那边
+✓
+null
+- 05-02 18:12 郑期心：我现在觉得
+- 05-02 18:12 郑期心：如果三个人不赶时间打车回义乌更划算
+- 05-02 18:12 朱浩宇：确实
+- 05-02 18:13 朱浩宇：但是
+
+### EVENT: group-20260610-01-SOS团.md
+TITLE: 闲聊·聊手机esim
+DATE: 2026-06-10
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-10 16:30 金晟恺：天文台怎么说
+- 06-10 16:30 金晟恺：我去学校了
+- 06-10 16:30 陈二逼：我堵在学校前的路上，我要先整理
+- 06-10 16:31 朱浩宇：去了去了
+- 06-10 16:31 金晟恺：我也先整理
+- 06-10 16:31 金晟恺：我把手机搞定了
+- 06-10 16:32 金晟恺：在陈佳明家楼下
+- 06-10 16:32 陈二逼：啊？
+- 06-10 16:32 金晟恺：搞了恶心的esim
+- 06-10 16:32 金晟恺：慢死了
+- 06-10 16:32 朱浩宇：国内很慢
+- 06-10 16:32 朱浩宇：那是都有还是只有E
+- 06-10 16:32 朱浩宇：我也打算搞@Anony
+- 06-10 16:32 朱浩宇：你体验一下
+- 06-10 16:33 金晟恺：有比5g快的5ga信号
+- 06-10 16:33 陈二逼：原来如此
+- 06-10 16:33 金晟恺：信号应该还行
+- 06-10 16:33 金晟恺：就是去营业厅麻烦
+- 06-10 16:33 朱浩宇：哦
+- 06-10 16:34 朱浩宇：这个慢
+- 06-10 16:34 朱浩宇：我还以为E在国内慢
+- 06-10 16:34 金晟恺：对哈哈
+- 06-10 16:34 金晟恺：不会的
+- 06-10 16:34 金晟恺：中国是5g大国
+- 06-10 16:34 金晟恺：[图片]
+- 06-10 18:50 unknown：[视频]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:50 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:51 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 朱浩宇：没死就好
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:52 陈二逼：[图片]
+- 06-10 18:53 陈二逼：王从天降
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:53 陈二逼：[图片]
+- 06-10 18:54 陈二逼：[图片]
+- 06-10 18:54 陈二逼：[图片]
+- 06-10 18:54 陈二逼：[图片]
+- 06-10 18:54 陈二逼：[图片]
+- 06-10 18:54 陈二逼：[图片]
+
+### EVENT: group-20260610-01-这个13班.md
+TITLE: 班级通知·领取毕业照与体检单
+DATE: 2026-06-10
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-10 11:49 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_4q8whsqmajlc22]]></username>
+							<nickname><![CDATA[施翔天]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_lxscn3uafrk921]]></username>
+							<nickname><![CDATA[Wonderful]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-10 13:01 王丹凤：公告：因为Wonderful物理年卡已经到期，作业余额已经全部清零，暂未开通售后服务，请各位达人转战各高校继续拓展业务，感谢大家的配合，祝你们学业有成，咱们有缘再见[抱拳]
+- 06-10 13:02 🐟🐟🐟🐟🐟：[爱心][爱心][爱心]
+- 06-10 13:02 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[p997673679]]></username>
+							<nickname><![CDATA[🐟🐟🐟🐟🐟]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_fbicfzavguso12]]></username>
+							<nickname><![CDATA[Geeno]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-10 13:02 u：[爱心][爱心][爱心]
+- 06-10 13:02 朱浩宇：地理的很悲
+- 06-10 13:02 朱浩宇：他们还没醒
+- 06-10 13:10 王丹凤：[图片]
+- 06-10 13:11 邵志鹏：[爱心][爱心][爱心]
+- 06-10 13:13 🐟🐟🐟🐟🐟：这个群好像有闲杂人等的
+- 06-10 13:13 🐟🐟🐟🐟🐟：给他踢出去一下[旺柴]
+- 06-10 13:13 🐟🐟🐟🐟🐟：好像有别的班的
+- 06-10 16:51 🐟🐟🐟🐟🐟：@所有人 领取毕业照和体检反馈单，领取后签字
+- 06-10 16:51 🐟🐟🐟🐟🐟：[图片]
+- 06-10 19:29 王丹凤：当前版本不支持展示该内容，请升级至最新版本。
+高中毕业啦！期待捷报频传！祝福金榜题名！
+https://support.weixin.qq.com/security/readtemplate?t=w_security_center_website/upgrade
+- 06-10 21:07 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_uncwwnwkjwvp22]]></username>
+							<nickname><![CDATA[李荣轩]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_7hvy77o15rja12]]></username>
+							<nickname><![CDATA[郑乐涛]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-10 21:07 unknown："郑乐涛"与群里其他人都不是朋友关系，请注意隐私安全
+
+### EVENT: group-20260611-01-SOS团.md
+TITLE: 帮拿鞋与足球·索康尼差点痛失
+DATE: 2026-06-11
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-11 12:22 朱浩宇：[图片]
+- 06-11 12:22 朱浩宇：引火上身
+- 06-11 12:24 金晟恺：陈佳敏不低调
+- 06-11 12:24 朱浩宇：她什么也不知道
+- 06-11 12:24 朱浩宇：而我们已经全成就
+- 06-11 12:32 陈二逼：我发给朱一诺
+- 06-11 12:35 朱浩宇：[图片]
+- 06-11 12:35 朱浩宇：张力
+- 06-11 12:35 陈二逼：[炸弹]
+- 06-11 12:45 陈二逼：[图片]
+- 06-11 12:51 朱浩宇：你自己都发朋友圈了
+- 06-11 12:51 朱浩宇：应该也就没关系了
+- 06-11 15:55 陈二逼：去给你拿足球了
+- 06-11 16:28 陈二逼：[图片]
+- 06-11 16:28 陈二逼：全我家
+- 06-11 16:53 金晟恺：woc
+- 06-11 16:53 金晟恺：我鞋
+- 06-11 17:12 朱浩宇：好的
+- 06-11 17:13 朱浩宇：我就怕被宿管拿走
+- 06-11 17:14 金晟恺：soucony那双我和蒸汽心一起去玩的时候买的
+- 06-11 17:14 金晟恺：2600
+- 06-11 17:14 金晟恺：差点痛失3000元
+
+### EVENT: group-20260612-01-SOS团.md
+TITLE: 闲聊·easy revenge被放茶几
+DATE: 2026-06-12
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-12 08:12 金晟恺：[图片]
+- 06-12 08:12 金晟恺：原图
+- 06-12 08:13 金晟恺：玉米的原图找到了
+- 06-12 10:32 陈二逼：[庆祝][庆祝][庆祝][庆祝][庆祝]
+- 06-12 10:40 朱浩宇：easy revenge被我爸妈放在我家茶几
+- 06-12 10:40 朱浩宇：刚刚起床才看见
+- 06-12 10:41 朱浩宇：我手心发汗
+- 06-12 10:41 金晟恺：哈哈哈
+- 06-12 10:41 金晟恺：完了
+- 06-12 10:41 陈二逼：这是什么[发怒]
+- 06-12 10:41 朱浩宇：🚬
+- 06-12 10:41 陈二逼：臭小子

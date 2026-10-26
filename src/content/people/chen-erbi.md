@@ -6,6 +6,8 @@ major: 未知
 role: 建群人，校史馆潜入策划者
 color: "#2ecc71"
 messages: 2086
+group: ""
+featured: true
 personality:
   openness: 80
   conscientiousness: 30

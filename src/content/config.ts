@@ -6,6 +6,8 @@ const events = defineCollection({
     title: z.string(),
     date: z.union([z.string(), z.date()]).transform(v => typeof v === 'string' ? v : v.toISOString().slice(0, 10)),
     persons: z.array(z.string()),
+    summary: z.string().default(''),
+    quotes: z.array(z.string()).default([]),
     category: z.enum(['core', 'food', 'exam', 'other']).default('other'),
     tags: z.array(z.string()).default([]),
     color: z.string().default('#4ca1af'),
@@ -28,6 +30,8 @@ const people = defineCollection({
     role: z.string(),
     color: z.string(),
     messages: z.number(),
+    featured: z.boolean().default(false),
+    group: z.string().default(''),
     personality: z.object({
       openness: z.number(),
       conscientiousness: z.number(),

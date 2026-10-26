@@ -6,6 +6,8 @@ major: 计算机
 role: 浙大计算机，约饭/开黑搭子
 color: "#3498db"
 messages: 985
+group: ""
+featured: true
 personality:
   openness: 72
   conscientiousness: 65

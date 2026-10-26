@@ -6,6 +6,8 @@ major: 未知
 role: 柯亦武，上海夏令营同伴
 color: "#d35400"
 messages: 223
+group: 夏令营线
+featured: false
 personality:
   openness: 62
   conscientiousness: 40

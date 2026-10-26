@@ -1,0 +1,1980 @@
+### EVENT: dm-20260830-59-吴晨阳.md
+TITLE: 聊跳舞女生·NPD
+DATE: 2026-08-30
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 08-30 23:15 吴晨阳：当前微信版本不支持展示该内容，请升级至最新版本。
+#donottouch #sana #misamo #twice #kpop #路演 #直拍
+放炮致歉忘记走位致歉
+https://support.weixin.qq.com/update/
+- 08-30 23:20 朱浩宇：为啥不发群里
+- 08-30 23:22 朱浩宇：她现在很厉害吗
+- 08-30 23:29 吴晨阳：为啥不发群里
+第一个想到你
+- 08-30 23:29 吴晨阳：😂😂
+- 08-30 23:29 吴晨阳：她现在很厉害吗
+进步很大
+- 08-30 23:29 朱浩宇：我最近在抖音上刷到了
+- 08-30 23:29 朱浩宇：[表情]
+- 08-30 23:30 朱浩宇：初中的时候就说过想学跳舞
+- 08-30 23:30 朱浩宇：也算是事竟成吧
+- 08-30 23:30 吴晨阳：已经蛮不错了
+- 08-30 23:30 吴晨阳：她自学的时候都已经小有成就了
+- 08-30 23:31 朱浩宇：这个人心气很高
+- 08-30 23:31 朱浩宇：互联网会比现实世界更适合他
+- 08-30 23:32 吴晨阳：这个人心气很高
+这很真实
+- 08-30 23:32 吴晨阳：我有一次跟她提了建议，然后转头就吐槽我自大
+- 08-30 23:32 吴晨阳：野心太大了
+- 08-30 23:32 吴晨阳：很要强，感觉
+- 08-30 23:33 朱浩宇：你知道NPD骂
+- 08-30 23:33 朱浩宇：吗
+- 08-30 23:33 吴晨阳：这个会不会有点过
+- 08-30 23:34 朱浩宇：NPD本来也不是很过分的说法吧
+- 08-30 23:34 吴晨阳：我以为NPD是贬义的
+- 08-30 23:34 吴晨阳：就是需要别人不断夸赞崇拜自己
+- 08-30 23:34 吴晨阳：没什么实力，但是自认为高人一等
+- 08-30 23:34 朱浩宇：呃
+- 08-30 23:35 朱浩宇：你这个有点以偏概全了
+- 08-30 23:35 朱浩宇：差不多是这个意思
+- 08-30 23:35 朱浩宇：但是你这个说法很乖
+- 08-30 23:35 朱浩宇：怪
+- 08-30 23:35 吴晨阳：自恋型人格障碍，我从这个词本身是理解不到什么东西的
+
+### EVENT: dm-20260901-37-陈二逼.md
+TITLE: 日常通话
+DATE: 2026-09-01
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-01 21:19 朱浩宇：4.38 复制打开抖音，看看【安肝的作品】  https://v.douyin.com/wNrB5eBbMkM/ 09/11 jPX:/ l@P.xf :2pm
+- 09-01 21:22 陈二逼：[图片]
+- 09-01 21:22 陈二逼：[图片]
+- 09-01 21:23 朱浩宇：<?xml version="1.0"?>
+<msg>
+	<img aeskey="e2a24632d91b330d430a85140096b378" encryver="1" cdnthumbaeskey="e2a24632d91b330d430a85140096b378" cdnthumburl="305f020100044b304902010002041b524a9802032e6b3702042d06912702046a96d18e042436386231626236372d656665392d346136302d386239302d346333333866313433613732020405150a02020100040d004c50bb000000000000000000" cdnthumblength="11190" cdnthumbheight="210" cdnthumbwidth="118" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="305f020100044b304902010002041b524a9802032e6b3702042d06912702046a96d18e042436386231626236372d656665392d346136302d386239302d346333333866313433613732020405150a02020100040d004c50bb000000000000000000" length="39109" md5="bef3fa4c0b2f6ff4f95154e7d5cf87c4" hevc_mid_size="39109">
+		<secHashInfoBase64>eyJwaGFzaCI6IjUwZjAxMDgwMDE4MDAxNDAiLCJwZHFoYXNoIjoiZWQyZWQyOTY3MzU5NzEyOTMwOTFiNjdiY2MyNjg4OTY5NWM5NjI2NWViYjc1NTkyZGNjZmJlNzQyMzNlNDIwMCJ9</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+说话
+- 09-01 21:56 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[已取消]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>564106566692453659</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788270984</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788271005514</timestamp>
+<identity><![CDATA[1278890997436427367]]></identity>
+<duration>0</duration>
+<inviteid64>1788270984</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-01 21:56 陈二逼：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[忙线未接听]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>564113469241473217</roomid>
+<roomkey>0</roomkey>
+<inviteid>0</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788271011500</timestamp>
+<identity><![CDATA[64010315711127627]]></identity>
+<duration>0</duration>
+<inviteid64>0</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-01 21:57 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:08]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>564115056502725343</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788271016</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788271030582</timestamp>
+<identity><![CDATA[8149119753411817147]]></identity>
+<duration>0</duration>
+<inviteid64>1788271016</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-01 22:19 陈二逼：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:28]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>564474977984412319</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788272356</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788272390779</timestamp>
+<identity><![CDATA[8327141075617076680]]></identity>
+<duration>0</duration>
+<inviteid64>1788272356</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+
+### EVENT: dm-20260901-60-吴晨阳.md
+TITLE: 分享舞蹈视频·聊街舞风格
+DATE: 2026-09-01
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-01 21:56 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:00]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>564112458048365884</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788271006</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788271015930</timestamp>
+<identity><![CDATA[441655040789418921]]></identity>
+<duration>0</duration>
+<inviteid64>1788271006</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-02 07:17 朱浩宇：9.92 复制打开抖音，看看【叔哥的作品】用这态度结束这台风暴雨的一天 # locking ... https://v.douyin.com/ut23nTP3WV0/ :9pm A@G.vS xSY:/ 09/13
+- 09-02 07:35 朱浩宇：1.58 复制打开抖音，看看【Miyu的作品】Just for fun🤭 # miyudance... https://v.douyin.com/4cK4SOWzo18/ 04/17 c@n.qR :3pm ygb:/
+- 09-02 10:51 吴晨阳：9.92 复制打开抖音，看看【叔哥的作品】用这态度结束这台风暴雨的一天 # locking ... https://v.douyin.com/ut23nTP3WV0/ :9pm A@G.vS xSY:/ 09/13
+基本功不行 但是氛围很对我看的时候也挺享受的
+- 09-02 10:51 吴晨阳：[表情]
+- 09-02 10:51 吴晨阳：1.58 复制打开抖音，看看【Miyu的作品】Just for fun🤭 # miyudance... https://v.douyin.com/4cK4SOWzo18/ 04/17 c@n.qR :3pm ygb:/
+这个是舞蹈界的大神😂😂
+- 09-02 10:52 吴晨阳：我现在清楚喜欢什么风格了
+- 09-02 10:55 吴晨阳：他们日本人快把街舞圈垄断了
+- 09-02 10:55 吴晨阳：唉
+- 09-02 10:56 吴晨阳：无论哪个舞种都培育了最优秀的那一批人
+- 09-02 11:49 朱浩宇：[偷笑]
+- 09-02 23:37 朱浩宇：4.38 复制打开抖音，看看【创想飓风小武的作品】打卡韩国街头，证明一下中国人真的会飞 # 中国人会... https://v.douyin.com/OldWWHduzXE/ TYz:/ 02/28 h@o.qR :6pm
+- 09-02 23:37 吴晨阳：🫣
+- 09-02 23:38 吴晨阳：这是秘术
+- 09-02 23:38 吴晨阳：戚百草
+- 09-02 23:44 朱浩宇：9.43 复制打开抖音，看看【azizbeav的作品】活在缘分中，而非关系里 # inmyfeeling... https://v.douyin.com/UOCiybtoxcU/ sRk:/ 08/29 :7pm n@Q.kC
+- 09-02 23:46 吴晨阳：太惬意了
+- 09-02 23:46 吴晨阳：不错不错，我老了也要这样
+- 09-02 23:46 吴晨阳：你抖音号是什么
+- 09-02 23:47 朱浩宇：[图片]
+- 09-02 23:47 吴晨阳：神了
+- 09-02 23:47 吴晨阳：点进去两个神人
+- 09-02 23:47 吴晨阳：[表情]
+
+### EVENT: dm-20260902-30-曾浩鑫.md
+TITLE: 约CS·军训最后一舞
+DATE: 2026-09-02
+SOURCE: 曾浩鑫
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-02 21:11 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[已取消]]></msg>
+<room_type>0</room_type>
+<red_dot>false</red_dot>
+<roomid>514513152434694751</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788354669</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788354674177</timestamp>
+<identity><![CDATA[3957778853938477196]]></identity>
+<duration>0</duration>
+<inviteid64>1788354669</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-02 21:12 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方无应答]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>514514471530689981</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788354674</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788354734945</timestamp>
+<identity><![CDATA[6927559215251283278]]></identity>
+<duration>0</duration>
+<inviteid64>1788354674</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-02 21:57 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[已取消]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>515252443818901828</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788357424</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788357445006</timestamp>
+<identity><![CDATA[8355708198383016767]]></identity>
+<duration>0</duration>
+<inviteid64>1788357424</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-02 21:58 曾浩鑫：要结束了
+- 09-02 21:58 曾浩鑫：赛点
+- 09-02 22:01 曾浩鑫：结束了
+- 09-02 22:21 朱浩宇：来吧
+- 09-02 22:22 曾浩鑫：ok
+- 09-03 21:38 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方无应答]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>538124559585755478</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788442629</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788442690287</timestamp>
+<identity><![CDATA[3608210924843330544]]></identity>
+<duration>0</duration>
+<inviteid64>1788442629</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-03 21:40 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方忙线中]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>538175952093593907</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788442820</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788442837746</timestamp>
+<identity><![CDATA[1778881017717872652]]></identity>
+<duration>0</duration>
+<inviteid64>1788442820</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-03 21:40 曾浩鑫：我暂时结束不了
+- 09-03 22:03 曾浩鑫：今天估计不行了
+- 09-03 22:03 曾浩鑫：明天是我的最后一舞
+- 09-03 22:03 曾浩鑫：[表情]
+- 09-03 22:04 朱浩宇：嗯
+
+### EVENT: dm-20260902-65-金晟恺.md
+TITLE: 聊军训·十公里毅行
+DATE: 2026-09-02
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-02 07:18 金晟恺：军训会很累吗
+- 09-02 07:18 朱浩宇：心率不高
+- 09-02 07:18 金晟恺：[表情]
+- 09-02 07:18 朱浩宇：我现在每天睡五个多小时
+- 09-02 07:18 朱浩宇：也有人每天只睡三个小时
+- 09-02 07:18 朱浩宇：但是白天并不会让人觉得要死
+- 09-02 07:18 朱浩宇：确实很累很困
+- 09-02 07:18 金晟恺：牛逼
+- 09-02 07:19 朱浩宇：但是和高强度运动的累不一样
+- 09-02 07:19 金晟恺：可以
+- 09-02 07:19 金晟恺：好害怕啊
+- 09-02 07:19 朱浩宇：今天十公里毅行
+- 09-02 07:19 朱浩宇：Anony 你肯定要吃点苦的
+- 09-02 07:19 朱浩宇：毕竟你肯定不会喜欢军队的做法
+- 09-02 07:19 朱浩宇：有规矩的
+- 09-02 07:20 金晟恺：明白
+
+### EVENT: dm-20260907-01-王紫伊.md
+TITLE: 请王紫伊给陈嘉詺庆生
+DATE: 2026-09-07
+SOURCE: 王紫伊
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-07 23:07 王紫伊：以上是打招呼的消息
+- 09-07 23:07 王紫伊：我通过了你的朋友验证请求，现在我们可以开始聊天了
+- 09-07 23:08 王紫伊：你好，你是？
+- 09-07 23:19 朱浩宇：你好你好
+- 09-07 23:19 朱浩宇：13班的朱浩宇
+- 09-07 23:22 王紫伊：哦哦哦好的11班王紫伊
+- 09-07 23:23 朱浩宇：其实是来找你帮忙的
+- 09-07 23:23 王紫伊：哦有什么事情
+- 09-07 23:26 朱浩宇：就是
+- 09-07 23:27 朱浩宇：我的朋友陈嘉詺暑假过得很颓废，我一直想有个契机让他振作起来。明天他过生日，但是因为上大学各奔东西没有办法给他庆生。在我认知里如果你可以跟他说一下生日快乐之类的事情会很有用
+- 09-07 23:27 朱浩宇：可能有点冒犯到你
+- 09-07 23:27 朱浩宇：但是我确实是这么想的
+- 09-07 23:29 王紫伊：哦这样呀我跟他关系不是很好，还是算了吧，不好意思哈
+- 09-07 23:29 朱浩宇：嗯好的打扰你了
+- 09-07 23:30 王紫伊：嗯嗯没关系
+- 09-07 23:30 朱浩宇：另外就是
+- 09-07 23:30 朱浩宇：我姐姐在重庆大学念播音主持
+- 09-07 23:30 朱浩宇：[名片] DuuuD
+微信号：DDKK20050728
+地区：浙江 金华
+签名：同频的人像礼物
+- 09-07 23:30 朱浩宇：希望能帮到你
+- 09-07 23:31 朱浩宇：谢谢你了
+- 09-07 23:31 王紫伊：啊谢谢你哈
+
+### EVENT: dm-20260907-26-施翔天.md
+TITLE: 军训结束·约见面
+DATE: 2026-09-07
+SOURCE: 施翔天
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-07 22:25 施翔天：你们结束了吗
+- 09-07 22:25 朱浩宇：[视频]
+- 09-07 22:25 朱浩宇：[视频]
+- 09-07 22:25 朱浩宇：[视频]
+- 09-07 22:25 施翔天：我还没结束
+- 09-07 22:26 朱浩宇：你们是唱歌的那个吗
+- 09-07 22:27 施翔天：什么
+- 09-07 22:27 施翔天：可能没有？
+- 09-07 22:27 朱浩宇：[语音]
+- 09-07 22:28 施翔天：不是不是
+- 09-07 22:29 施翔天：位置共享已经结束
+- 09-07 22:29 朱浩宇：总结会类似
+- 09-07 22:29 朱浩宇：我们九点准时放了
+- 09-07 22:29 朱浩宇：今年还哭吗
+- 09-07 22:29 施翔天：没哭
+- 09-07 22:29 施翔天：三年前哭了吗
+- 09-07 22:30 施翔天：忘记了
+- 09-08 11:16 施翔天：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方已取消]]></msg>
+<room_type>1</room_type>
+<red_dot>true</red_dot>
+<roomid>572028001703357053</roomid>
+<roomkey>0</roomkey>
+<inviteid>2130969044</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788837390096</timestamp>
+<identity><![CDATA[50316101487421774]]></identity>
+<duration>0</duration>
+<inviteid64>1788837364180</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-08 11:16 施翔天：[语音]
+- 09-08 11:17 施翔天：快点回答
+- 09-08 11:29 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:05]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>572237794750083868</roomid>
+<roomkey>0</roomkey>
+<inviteid>1788838146</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788838185905</timestamp>
+<identity><![CDATA[5541007124681548760]]></identity>
+<duration>0</duration>
+<inviteid64>1788838146</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-08 11:29 朱浩宇：刚刚在搞洗衣机
+- 09-08 11:30 朱浩宇：你定位发过来我会过去的
+- 09-08 11:32 施翔天：OK
+- 09-08 11:35 施翔天：位置共享已经结束
+- 09-08 11:38 朱浩宇：还没弄完
+- 09-08 11:38 朱浩宇：一直在搞
+- 09-08 11:38 施翔天：[语音]
+- 09-08 12:08 施翔天：我发个定位给你
+- 09-08 12:08 施翔天：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:12]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>572864466453855754</roomid>
+<roomkey>0</roomkey>
+<inviteid>2134085121</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1788840497942</timestamp>
+<identity><![CDATA[9080979818736972408]]></identity>
+<duration>0</duration>
+<inviteid64>1788840480257</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-08 12:08 朱浩宇：宣扬说他也回来
+- 09-08 12:08 施翔天：OK
+- 09-08 12:08 朱浩宇：我在寝室里
+- 09-08 12:08 朱浩宇：我知道你位置
+- 09-08 12:09 施翔天：那怎么说
+- 09-08 12:09 朱浩宇：哪个麦当劳
+
+### EVENT: dm-20260907-38-陈二逼.md
+TITLE: 要松鼠微信·加好友
+DATE: 2026-09-07
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-07 11:41 朱浩宇：[图片]
+- 09-07 11:53 陈二逼：[让我看看]
+- 09-07 12:08 朱浩宇：2.82 复制打开抖音，看看【小白衣的作品】  https://v.douyin.com/Eh8eQMxwbfc/ 04/15 :7pm NWZ:/ T@y.gO
+- 09-07 13:54 朱浩宇：给我🐿️的微信
+- 09-07 17:23 朱浩宇：别装死
+- 09-07 17:57 陈二逼：军训结束了
+- 09-07 17:58 陈二逼：[图片]
+- 09-07 22:43 陈二逼：你加了吗
+- 09-07 22:43 朱浩宇：准备加了
+- 09-07 22:44 朱浩宇：发送申请了
+- 09-07 22:47 朱浩宇：没有通过
+- 09-07 22:47 陈二逼：看看
+- 09-07 22:47 朱浩宇：电脑发的邀请
+- 09-07 22:47 朱浩宇：不知道上哪里看
+- 09-07 22:48 朱浩宇：[图片]
+- 09-07 22:48 朱浩宇：我今天加了两个私人
+- 09-07 22:48 朱浩宇：都没反应的
+- 09-07 22:50 陈二逼：申请明确一点
+- 09-07 22:50 朱浩宇：啥
+- 09-07 22:50 朱浩宇：你觉得我要干嘛
+- 09-07 22:50 陈二逼：问你呗
+- 09-07 22:50 陈二逼：我也不知道
+- 09-07 22:50 朱浩宇：我就买车呀
+- 09-07 22:51 陈二逼：还有礼貌一点
+- 09-07 22:51 陈二逼：电话号码也发过去
+- 09-07 22:52 朱浩宇：明天我再试试吧
+- 09-07 22:52 朱浩宇：今天军训已经结束了
+- 09-07 22:52 朱浩宇：明天开始就空了
+- 09-07 22:52 陈二逼：[太阳]
+- 09-07 22:53 朱浩宇：说不定这个时候她已经睡了
+- 09-07 22:53 朱浩宇：现在还是等待验证，没有被拒绝
+- 09-07 22:53 陈二逼：不是买车吗
+- 09-07 22:53 朱浩宇：对
+
+### EVENT: dm-20260908-61-吴晨阳.md
+TITLE: 约陈嘉詺生日视频
+DATE: 2026-09-08
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-08 17:00 朱浩宇：18:00陈嘉詺军训下课
+- 09-08 17:00 朱浩宇：一起打个视频电话吧
+- 09-08 17:00 吴晨阳：好
+- 09-08 18:03 吴晨阳：他军训手机是带在身上的吗
+- 09-08 18:03 朱浩宇：现在好像还没有
+- 09-08 18:03 朱浩宇：[语音]
+- 09-08 18:04 朱浩宇：[语音]
+- 09-08 18:04 吴晨阳：好
+- 09-08 18:04 吴晨阳：待会call我 我小眯会
+- 09-08 18:25 朱浩宇：有些人没空
+- 09-08 18:25 朱浩宇：改成晚上大家都洗好澡好了
+- 09-08 18:25 吴晨阳：好的这样最好了
+- 09-08 18:25 吴晨阳：[表情]
+
+### EVENT: dm-20260908-67-金晟恺.md
+TITLE: 复盘加王紫伊·夏日幻魂
+DATE: 2026-09-08
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-08 16:05 金晟恺：故事很短，但却书写了四个孩子的青春，已死的，将死的，寻死的，心死的；一场夏夜邂逅，如愿了，坦然了，反抗了，醒悟了。
+- 09-08 16:05 金晟恺：夏
+- 09-08 16:06 金晟恺：[大哭]
+- 09-08 16:06 朱浩宇：夏？
+- 09-08 16:06 金晟恺：夏日幻魂
+- 09-08 17:00 朱浩宇：[聊天记录] 困眼闭和Aoi的聊天记录
+困眼闭: 18:00陈嘉詺军训下课
+困眼闭: 一起打个视频电话吧
+Aoi: 好
+- 09-08 17:02 金晟恺：妈的，那个时候我们他妈刚好开始晚训，我们很傻逼的，原本是7点钟，结果他妈这次提前到了6点钟
+- 09-08 17:02 朱浩宇：卧槽
+- 09-08 17:02 金晟恺：原本是第一天，第二天的时候是7点钟集合，到后面调整到6点半集合，到后面他妈今天变成了6点钟集合，我操他妈了个逼的！晚上他妈还9点半才解散，我他妈什么时候来给你洗澡
+- 09-08 17:02 朱浩宇：我昨天干了一件事情
+- 09-08 17:02 朱浩宇：但是我搞砸了
+- 09-08 17:02 金晟恺：咋了
+- 09-08 17:02 朱浩宇：我不敢和陈嘉铭说
+- 09-08 17:03 金晟恺：快说呀
+- 09-08 17:03 朱浩宇：[聊天记录] 困眼闭和長安的聊天记录
+長安: 我通过了你的朋友验证请求，现在我们可以开始聊天了
+長安: 你好，你是？
+困眼闭: 你好你好
+困眼闭: 13班的朱浩宇
+長安: 哦哦哦好的11班王紫伊
+困眼闭: 其实是来找你帮忙的
+長安: 哦有什么事情
+困眼闭: 就是
+困眼闭: 我的朋友陈嘉詺暑假过得很颓废，我一直想有个契机让他振作起来。明天他过生日，但是因为上大学各奔东西没有办法给他庆生。在我认知里如果你可以跟他说一下生日快乐之类的事情会很有用
+困眼闭: 可能有点冒犯到你
+困眼闭: 但是我确实是这么想的
+長安: 哦这样呀我跟他关系不是很好，还是算了吧，不好意思哈
+困眼闭: 嗯好的打扰你了
+長安: 嗯嗯没关系
+困眼闭: 另外就是
+困眼闭: 我姐姐在重庆大学念播音主持
+困眼闭: [个人名片] DuuuD
+困眼闭: 希望能帮到你
+困眼闭: 谢谢你了
+長安: 啊谢谢你哈
+- 09-08 17:04 朱浩宇：[表情]
+- 09-08 17:04 金晟恺：汗流浃背了
+- 09-08 17:05 朱浩宇：其实陈嘉詺已经什么都知道了
+- 09-08 17:05 金晟恺：那更完了
+- 09-08 17:06 朱浩宇：[聊天记录] 困眼闭和Eventide的聊天记录
+困眼闭: 给我🐿️的微信
+困眼闭: 别装死
+Eventide: 军训结束了
+Eventide: [图片]
+Eventide: 你加了吗
+困眼闭: 准备加了
+困眼闭: 发送申请了
+困眼闭: 没有通过
+Eventide: 看看
+困眼闭: 电脑发的邀请
+困眼闭: 不知道上哪里看
+困眼闭: [图片]
+困眼闭: 我今天加了两个私人
+困眼闭: 都没反应的
+Eventide: 申请明确一点
+困眼闭: 啥
+困眼闭: 你觉得我要干嘛
+Eventide: 问你呗
+Eventide: 我也不知道
+困眼闭: 我就买车呀
+Eventide: 还有礼貌一点
+Eventide: 电话号码也发过去
+困眼闭: 明天我再试试吧
+困眼闭: 今天军训已经结束了
+困眼闭: 明天开始就空了
+Eventide: [太阳]
+困眼闭: 说不定这个时候她已经睡了
+困眼闭: 现在还是等待验证，没有被拒绝
+Eventide: 不是买车吗
+困眼闭: 对
+困眼闭: 学长可能睡了
+Eventide: [图片]
+Eventide: 学校不让骑电驴
+困眼闭: 学校里骑着个呀
+困眼闭: 我听说了
+困眼闭: 西安交大
+困眼闭: 有个学生偷了首长的衣服
+困眼闭: 伪装首长
+困眼闭: 被两个军人给耍了
+困眼闭: 然后被重大处分
+Eventide: 大胆
+Eventide: 我早上手机差点晒报废了
+困眼闭: 反正看不了
+困眼闭: 不如别带
+困眼闭: 捉弄捉弄同学
+Eventide: 嗯
+困眼闭: 好的
+困眼闭: 我搞砸了
+困眼闭: [表情]
+困眼闭: 没买上车
+困眼闭: 兄弟
+困眼闭: 以后也买不上了
+困眼闭: 再也没有电瓶车了
+Eventide: 啊？
+困眼闭: 以后也没有电瓶车骑了
+困眼闭: [表情]
+Eventide: 怎回事
+困眼闭: 你不要骂我
+困眼闭: 我就告诉你
+Eventide: 不会
+困眼闭: 你明明就在淫笑
+困眼闭: 还说不会吗
+Eventide: 没看到淫笑没笑过
+困眼闭: 我还是不和你说了
+困眼闭: 这样最体面
+Eventide: 手机光太亮倒是有眼泪
+困眼闭: [表情]
+Eventide: 随你
+- 09-08 17:06 朱浩宇：昨晚的博弈
+- 09-08 17:06 朱浩宇：我很难受
+- 09-08 17:06 朱浩宇：一个玩世不恭的男人也有这么脆弱的时候
+- 09-08 17:06 朱浩宇：不禁潸然泪下
+- 09-08 17:07 金晟恺：妈的先让我吃饭
+- 09-08 17:07 金晟恺：[表情]
+- 09-08 17:08 朱浩宇：边吃边看
+- 09-08 17:08 金晟恺：我已经快要吃不下饭了
+- 09-08 17:08 朱浩宇：你干嘛了
+- 09-08 17:09 金晟恺：看你的聊天记录，看得吃不下饭了
+- 09-08 17:09 朱浩宇：为什么
+- 09-08 17:09 金晟恺：[表情]
+- 09-08 17:09 金晟恺：看着好拧巴
+
+### EVENT: dm-20260909-39-陈二逼.md
+TITLE: 解密王紫伊聊天记录
+DATE: 2026-09-09
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-09 11:55 朱浩宇：8.48   https://v.douyin.com/5Fg9vJpgyUQ/ 复制此链接，打开抖音搜索，直接观看视频！ 02/28 PXM:/ :8pm b@N.jc
+- 09-09 12:25 陈二逼：School shock my dick
+- 09-09 20:48 朱浩宇：[聊天记录] 困眼闭和長安的聊天记录
+長安: 我通过了你的朋友验证请求，现在我们可以开始聊天了
+長安: 你好，你是？
+困眼闭: 你好你好
+困眼闭: 13班的朱浩宇
+長安: 哦哦哦好的11班王紫伊
+困眼闭: 其实是来找你帮忙的
+長安: 哦有什么事情
+困眼闭: 就是
+困眼闭: 我的朋友陈嘉詺暑假过得很颓废，我一直想有个契机让他振作起来。明天他过生日，但是因为上大学各奔东西没有办法给他庆生。在我认知里如果你可以跟他说一下生日快乐之类的事情会很有用
+困眼闭: 可能有点冒犯到你
+困眼闭: 但是我确实是这么想的
+長安: 哦这样呀我跟他关系不是很好，还是算了吧，不好意思哈
+困眼闭: 嗯好的打扰你了
+長安: 嗯嗯没关系
+困眼闭: 另外就是
+困眼闭: 我姐姐在重庆大学念播音主持
+困眼闭: [个人名片] DuuuD
+困眼闭: 希望能帮到你
+困眼闭: 谢谢你了
+長安: 啊谢谢你哈
+- 09-09 20:48 朱浩宇：国家机密解密，自己感受
+- 09-09 20:49 陈二逼：哎哟我去
+- 09-09 20:50 陈二逼：你做的很好
+- 09-09 20:51 朱浩宇：屏幕太亮倒是看得见眼泪
+- 09-09 20:52 陈二逼：颓废着实有点损了
+
+### EVENT: dm-20260910-62-吴晨阳.md
+TITLE: 吴晨阳离杭·聊足球
+DATE: 2026-09-10
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-10 06:30 吴晨阳：🌞
+- 09-10 06:31 吴晨阳：自然醒
+- 09-10 06:31 吴晨阳：很舒服
+- 09-10 08:01 朱浩宇：👍
+- 09-10 10:55 吴晨阳：你什么时候走
+- 09-10 10:55 朱浩宇：12:35
+- 09-10 10:55 吴晨阳：🤣👋
+- 09-10 10:55 朱浩宇：[憨笑]
+- 09-10 12:13 朱浩宇：[图片]
+- 09-10 12:14 吴晨阳：浙大⚽️
+- 09-10 12:14 吴晨阳：爽
+
+### EVENT: dm-20260912-19-蒋佳辰.md
+TITLE: 蒋佳辰开学·聊骑行
+DATE: 2026-09-12
+SOURCE: 蒋佳辰
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-12 21:33 蒋佳辰：[图片]
+- 09-12 21:33 蒋佳辰：也是当上区了
+- 09-12 21:33 朱浩宇：[图片]
+- 09-12 21:33 朱浩宇：陪一张
+- 09-12 21:34 朱浩宇：[图片]
+- 09-12 21:34 朱浩宇：[图片]
+- 09-12 21:34 朱浩宇：[图片]
+- 09-12 21:34 朱浩宇：[图片]
+- 09-12 21:34 朱浩宇：我去踢球了
+- 09-13 08:42 蒋佳辰：[图片]
+- 09-13 08:43 蒋佳辰：今天才开学
+- 09-13 08:43 朱浩宇：吴晨阳也今天才开学
+- 09-13 08:44 朱浩宇：你很多手续办了吗
+- 09-13 08:44 朱浩宇：刚开学挺麻烦的
+- 09-13 08:44 蒋佳辰：比如？
+- 09-13 08:45 朱浩宇：一堆卡，还有寝室。选课之类的
+- 09-13 08:45 朱浩宇：学校大不大
+- 09-13 08:46 蒋佳辰：生活方面差不多了，课程还没选
+- 09-13 08:47 蒋佳辰：感觉大的
+- 09-13 08:47 朱浩宇：你有自行车吗
+- 09-13 08:48 朱浩宇：我搞了一辆电动车
+- 09-13 08:48 蒋佳辰：[图片]
+- 09-13 08:48 蒋佳辰：买了自行车
+- 09-13 08:49 朱浩宇：[表情]
+- 09-13 08:49 朱浩宇：那差不多就步入正轨了
+- 09-13 08:49 蒋佳辰：但是我不会用这个代步
+- 09-13 08:49 朱浩宇：你要玩骑行
+- 09-13 08:49 朱浩宇：吗
+- 09-13 08:49 蒋佳辰：对
+- 09-13 08:50 朱浩宇：我也是这么想的
+- 09-13 08:50 蒋佳辰：所以平常只能步行了
+- 09-13 08:50 蒋佳辰：😂
+- 09-13 08:50 朱浩宇：可以的
+- 09-13 09:18 蒋佳辰：感觉这些讲座都是一堆中式彩虹屁
+- 09-13 09:19 朱浩宇：目前都是这样的
+- 09-13 09:19 朱浩宇：我在网络上看到的
+- 09-13 09:19 朱浩宇：西南政法的讲的还不错
+- 09-13 16:09 蒋佳辰：[图片]
+- 09-13 16:09 蒋佳辰：依旧
+- 09-13 16:10 朱浩宇：真草吗
+
+### EVENT: dm-20260915-20-蒋佳辰.md
+TITLE: 聊赛博朋克边缘行者
+DATE: 2026-09-15
+SOURCE: 蒋佳辰
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-15 14:58 蒋佳辰：[图片]
+- 09-15 14:58 蒋佳辰：你们有着玩意吗
+- 09-15 14:58 朱浩宇：或多或少也有
+- 09-15 14:59 蒋佳辰：想当年我仿佛的确也是一个共产主义者
+- 09-15 15:00 朱浩宇：现在也是
+- 09-15 15:01 蒋佳辰：现在不过只是一条犬儒区罢了
+- 09-15 15:15 朱浩宇：[表情]
+- 09-15 15:16 朱浩宇：[图片]
+- 09-15 15:16 朱浩宇：蒋佳辰
+- 09-15 15:16 蒋佳辰：你怎么会有大卫的表情
+- 09-15 15:17 朱浩宇：2077我23年就看了
+- 09-15 15:17 朱浩宇：[表情]
+- 09-15 15:18 蒋佳辰：[晕]
+- 09-15 15:19 蒋佳辰：那时这部很火吧
+- 09-15 15:20 朱浩宇：对
+- 09-15 15:20 朱浩宇：当时2077游戏的口碑一拖
+- 09-15 15:20 朱浩宇：全靠动漫救回来
+- 09-15 15:20 蒋佳辰：确实我感觉动漫才是神作
+- 09-15 15:20 朱浩宇：露西刻画的太好了
+- 09-15 15:21 蒋佳辰：爱，死，机
+- 09-15 15:21 朱浩宇：确实
+- 09-15 15:22 朱浩宇：爱死亡与机械人
+- 09-15 15:22 朱浩宇：[表情]
+- 09-15 15:23 蒋佳辰：还有悲剧内核
+- 09-15 15:45 朱浩宇：我当时还经常把维特根斯坦和大卫的脊柱搞混
+- 09-15 15:56 蒋佳辰：我现在也不知道装斯安威斯坦到底要不要把脊柱卸下来
+- 09-15 15:56 蒋佳辰：这部动画如果我放23年看的话，估计我心里承受不了
+- 09-15 15:57 蒋佳辰：那时候还是怎么说呢。太愚蠢了。人永远也无法共情以前的自己
+- 09-15 16:02 朱浩宇：触犯你什么价值观了？
+- 09-15 16:05 蒋佳辰：可能会觉得太黑暗太血腥了，但是这才是现实
+- 09-15 16:06 朱浩宇：赛博朋克
+- 09-15 16:07 朱浩宇：[图片]
+- 09-15 16:07 朱浩宇：[图片]
+- 09-15 16:07 朱浩宇：[图片]
+- 09-15 16:07 朱浩宇：[图片]
+- 09-15 16:07 朱浩宇：[图片]
+- 09-15 16:07 朱浩宇：这种电影都这个风格
+- 09-15 16:07 朱浩宇：不应该把一种艺术表达当成全部的生活
+- 09-15 16:15 蒋佳辰：但是确实有很多地方很现实，也很讽刺
+- 09-15 16:15 朱浩宇：嗯，艺术表达把别忽视的一些地方放大了
+
+### EVENT: dm-20260915-69-金晟恺.md
+TITLE: 聊英语老师与语言学
+DATE: 2026-09-15
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-15 15:56 朱浩宇：感觉英语老师确实是一个比较牛逼的群体
+- 09-15 15:57 金晟恺：多一项语言，眼睛就看得多，眼界就不一样
+- 09-15 15:57 金晟恺：所以我们要多学一点
+- 09-15 15:57 金晟恺：不止英语
+- 09-15 15:57 朱浩宇：我觉得不能这么说
+- 09-15 15:57 朱浩宇：很多数学教授也懂很多门语言
+- 09-15 15:59 金晟恺：主修英语专业的你觉得和单纯多语言支持的人有什么不同呢
+- 09-15 16:01 朱浩宇：语言学和多一项语言完全不是同一种东西
+- 09-15 16:01 朱浩宇：英语文学和语言科学也不一样
+- 09-15 16:01 朱浩宇：这里面很玄乎
+- 09-15 16:01 金晟恺：嗯
+- 09-15 16:02 金晟恺：你大学英语老师咋了
+- 09-15 16:02 金晟恺：让你这么说
+- 09-15 16:02 朱浩宇：并不是一个元素让我说
+- 09-15 16:03 朱浩宇：是一个人集合让我说
+- 09-15 16:04 朱浩宇：搞文学研究，偏文科方向的人
+- 09-15 16:04 朱浩宇：就会对很多事情看得开一点
+- 09-15 16:05 朱浩宇：这种坦然是很值得佩服的
+- 09-15 16:05 朱浩宇：我觉得把事情做到极致的大师身上
+- 09-15 16:05 朱浩宇：都会有这种佛系的特质
+- 09-15 16:05 朱浩宇：只不过一个人书看得多可能就更容易想开
+- 09-15 16:06 朱浩宇：不多说
+- 09-15 16:06 朱浩宇：你知道我什么意思
+- 09-15 16:09 朱浩宇：主播的英文是非常纯真的
+- 09-15 16:09 金晟恺：你撤回了一条消息
+- 09-15 16:11 金晟恺：我要多读点书
+- 09-15 16:11 金晟恺：了
+- 09-15 16:11 金晟恺：吧
+- 09-15 16:11 金晟恺：没有读过什么书了
+- 09-15 16:11 金晟恺：毕业之后
+
+### EVENT: dm-20260916-32-曾浩鑫.md
+TITLE: 聊新生导师选择
+DATE: 2026-09-16
+SOURCE: 曾浩鑫
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-16 22:10 曾浩鑫：你们新生导师咋选的
+- 09-16 22:10 曾浩鑫：私发邮件吗
+- 09-16 22:10 曾浩鑫：新生导师有啥用吗
+- 09-16 22:27 朱浩宇：随机分的
+- 09-16 22:27 朱浩宇：和你导师聊聊吧
+- 09-16 22:28 朱浩宇：有的导师会热情一点
+- 09-16 22:28 朱浩宇：有的忙的就不怎么理你
+- 09-16 22:28 朱浩宇：你就打个招呼问几个问题吧
+- 09-16 22:29 曾浩鑫：😯
+- 09-16 22:29 曾浩鑫：以后还能找别的导师吗
+- 09-16 22:29 朱浩宇：这个是本科生导师
+- 09-16 22:30 朱浩宇：意思意思得
+- 09-16 22:30 朱浩宇：不影响你读研联系别的老师
+- 09-16 22:30 曾浩鑫：OK
+- 09-16 22:30 曾浩鑫：[爱心]
+
+### EVENT: dm-20260916-70-金晟恺.md
+TITLE: 大学第一课线性代数·周杰伦二创冠军
+DATE: 2026-09-16
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-16 18:25 金晟恺：[语音]
+- 09-16 18:25 金晟恺：没想到我上大学的第一节课竟然是线性代数
+- 09-16 18:26 朱浩宇：[强]
+- 09-16 19:12 金晟恺：当前微信版本不支持展示该内容，请升级至最新版本。
+我拿了「周杰伦太阳之子二创挑战」的第一名🏆
+「强者专用曲 | 冠军版」
+#周杰伦 #燃曲 #审美积累 #remix #音频投稿计划
+https://support.weixin.qq.com/update/
+- 09-16 19:12 金晟恺：牛逼我看哭了
+- 09-16 19:37 朱浩宇：好强
+- 09-16 19:38 金晟恺：<?xml version="1.0"?>
+<msg>
+	<appmsg appid="" sdkver="0">
+		<title />
+		<type>8</type>
+		<appattach>
+			<totallen>1349533</totallen>
+			<emoticonmd5>abe497a629d030ed1e0e5bbb2f2fed03</emoticonmd5>
+			<fileext>pic</fileext>
+			<attachid>0:0:abe497a629d030ed1e0e5bbb2f2fed03</attachid>
+			<cdnthumbaeskey>626a79667a7665697576646764717070</cdnthumbaeskey>
+			<aeskey />
+			<cdnthumburl>305f020100044b3049020100020478f8dcae02033d14b9020456160e7902046aaa7fc6042464366561383039322d343032322d343931382d396530392d326462636262623536613866020401280803020100040d004c50b9000000000000000900cf2e164a</cdnthumburl>
+			<cdnthumblength>14480</cdnthumblength>
+			<cdnthumbwidth>300</cdnthumbwidth>
+			<cdnthumbheight>168</cdnthumbheight>
+			<cdnthumbmd5>79f9b360b09b303c9167baddb7c68275</cdnthumbmd5>
+			<emojiinfo>CiBhYmU0OTdhNjI5ZDAzMGVkMWUwZTViYmIyZjJmZWQwMxLEAmh0dHA6Ly92d2VpeGluZi50Yy5xcS5jb20vMTEwLzIwNDAxL3N0b2Rvd25sb2FkP209YWJlNDk3YTYyOWQwMzBlZDFlMGU1YmJiMmYyZmVkMDMmZmlsZWtleT0zMDQ0MDIwMTAxMDQzMDMwMmUwMjAxNmUwNDAyNTM0ODA0MjA2MTYyNjUzNDM5Mzc2MTM2MzIzOTY0MzAzMzMwNjU2NDMxNjUzMDY1MzU2MjYyNjIzMjY2MzI2NjY1NjQzMDMzMDIwMzY4YWYwYTA0MGQwMDAwMDAwNDYyNzQ2NjczMDAwMDAwMDEzMiZoeT1TSCZzdG9yZWlkPTI2YTg5MzFmMDAwMGUzY2Q4NTUxMjc0NzQwMDAwMDA2ZTAxMDA0ZmIxNTM0ODBiNDNmMDMxNTc4NGRhZGU2JmVmPTEmYml6aWQ9MTAyMirEAmh0dHA6Ly92d2VpeGluZi50Yy5xcS5jb20vMTEwLzIwNDAyL3N0b2Rvd25sb2FkP209YmMzN2VlNzFjMDhjMmMwOWI1OWY4NzE0Nzg4ZjAyMzkmZmlsZWtleT0zMDQ0MDIwMTAxMDQzMDMwMmUwMjAxNmUwNDAyNTM0ODA0MjA2MjYzMzMzNzY1NjUzNzMxNjMzMDM4NjMzMjYzMzAzOTYyMzUzOTY2MzgzNzMxMzQzNzM4Mzg2NjMwMzIzMzM5MDIwMzY4YWYxMDA0MGQwMDAwMDAwNDYyNzQ2NjczMDAwMDAwMDEzMiZoeT1TSCZzdG9yZWlkPTI2YTg5MzFmMTAwMDRkYWI0NTUxMjc0NzQwMDAwMDA2ZTAyMDA0ZmIyNTM0ODBiNDNmMDMxNTc4NGRhZTQ3JmVmPTImYml6aWQ9MTAyMjIgODA5MGJjOTAyNzY5NDU1ZTg2ZmY2ZTc2ODA2MThiNzdCxAJodHRwOi8vdndlaXhpbmYudGMucXEuY29tLzExMC8yMDQwMy9zdG9kb3dubG9hZD9tPTNmYjllZGI4NzkzNzc0YWI1NThjYjRkZDg4NWRkYjRkJmZpbGVrZXk9MzA0NDAyMDEwMTA0MzAzMDJlMDIwMTZlMDQwMjUzNDgwNDIwMzM2NjYyMzk2NTY0NjIzODM3MzkzMzM3MzczNDYxNjIzNTM1Mzg2MzYyMzQ2NDY0MzgzODM1NjQ2NDYyMzQ2NDAyMDMxNDk3YTAwNDBkMDAwMDAwMDQ2Mjc0NjY3MzAwMDAwMDAxMzImaHk9U0gmc3RvcmVpZD0yNmE4OTMxZjEwMDBiMjIyZjU1MTI3NDc0MDAwMDAwNmUwMzAwNGZiMzUzNDgwYjQzZjAzMTU3ODRkYWVhNiZlZj0zJmJpemlkPTEwMjJKIGE0MTljMmJlZGIxYzE3NjQ3NDlhOTE0MzkwNTEwMjIzWgBiAGoAggEA</emojiinfo>
+		</appattach>
+		<percent>99</percent>
+	</appmsg><extcommoninfo>
+	<media_expire_at>1790768326</media_expire_at>
+</extcommoninfo>
+
+	<fromusername>wxid_eisdzftcoqtx12</fromusername>
+	<scene>0</scene>
+	<appinfo>
+		<version>1</version>
+		<appname></appname>
+	</appinfo>
+	<commenturl></commenturl>
+</msg>
+- 09-16 23:32 金晟恺：当前微信版本不支持展示该内容，请升级至最新版本。
+谁还没听过《稻香》电台温柔版，这是一首以爱为出发点的疗伤歌曲，希望所有听到的朋友都可以被治愈。
+#稻香 #稻香电台版 #汶川大地震 #周杰伦 #Jay
+https://support.weixin.qq.com/update/
+- 09-17 00:49 金晟恺：当前微信版本不支持展示该内容，请升级至最新版本。
+儿子上学了为啥电脑还在动
+https://support.weixin.qq.com/update/
+- 09-17 07:23 朱浩宇：[撇嘴]
+- 09-17 07:24 朱浩宇：他这个是夏日狂想曲还是冬日狂想曲
+- 09-17 07:24 朱浩宇：我咋没见过
+- 09-17 07:25 金晟恺：冬日好像是
+- 09-17 16:07 金晟恺：洪zhe是哪个zhe
+- 09-17 16:07 金晟恺：[表情]
+- 09-17 16:07 金晟恺：困眼闭
+- 09-17 16:07 金晟恺：困眼闭
+- 09-17 16:08 金晟恺：困眼闭
+- 09-17 16:08 金晟恺：困眼闭
+- 09-17 16:09 朱浩宇：哲学吧
+- 09-17 16:09 朱浩宇：他不在意这个的
+- 09-17 16:11 金晟恺：哲哥嘛
+- 09-17 16:11 金晟恺：有意思
+- 09-17 16:11 金晟恺：绝区零主角叫哲
+
+### EVENT: dm-20260917-06-王一开.md
+TITLE: 教用Z-Library找书
+DATE: 2026-09-17
+SOURCE: 王一开
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-17 21:20 朱浩宇：你去zlibrary 上找电子书，应该都已有的
+- 09-17 21:20 朱浩宇：应该都有的
+- 09-17 21:20 王一开：啥玩意
+- 09-17 21:21 朱浩宇：Z library
+- 09-17 21:21 朱浩宇：一个网站
+- 09-17 21:21 朱浩宇：电子书网站
+- 09-17 21:21 朱浩宇：上面很多书都有
+- 09-17 21:21 朱浩宇：但是要开梯子
+- 09-17 21:21 王一开：那没辙了
+- 09-17 21:21 朱浩宇：好像也有镜像网站
+- 09-17 21:21 朱浩宇：你去找找
+- 09-17 21:21 王一开：我开不来
+- 09-17 21:21 王一开：算鸟
+- 09-17 21:21 朱浩宇：有镜像网站的
+- 09-17 21:21 朱浩宇：你去找一下
+- 09-17 21:22 朱浩宇：你找到了以后什么书基本上都能找到了
+- 09-17 21:22 朱浩宇：动漫书也找得到
+- 09-17 21:22 朱浩宇：教科书也找得到
+- 09-17 21:22 朱浩宇：你找一下就行
+- 09-17 21:22 王一开：好吧
+- 09-17 21:24 王一开：他不是被封了么
+- 09-17 21:25 王一开：只有21版
+- 09-17 21:26 王一开：而且注册很麻烦
+- 09-17 21:26 王一开：我再找其他途径吧
+- 09-17 21:59 朱浩宇：我踢球回去帮你找
+- 09-17 22:09 朱浩宇：完了
+- 09-17 22:09 朱浩宇：几把拉去了
+- 09-17 22:09 王一开：？
+- 09-17 22:09 王一开：痛吗
+- 09-17 22:09 朱浩宇：几把不痛
+
+### EVENT: dm-20260918-23-吴泽楷.md
+TITLE: 聊二次元游戏
+DATE: 2026-09-18
+SOURCE: 吴泽楷
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-18 20:22 朱浩宇：[图片]
+- 09-18 20:22 吴泽楷：。。。
+- 09-18 20:23 吴泽楷：二游狗滚啊
+- 09-18 20:23 朱浩宇：异环是什么游戏
+- 09-18 20:23 吴泽楷：二游
+- 09-18 20:24 朱浩宇：是米哈游的吗
+- 09-18 20:24 吴泽楷：不是吧
+- 09-18 20:24 朱浩宇：绝区零是米哈游的吗
+- 09-18 20:24 吴泽楷：是
+- 09-18 20:24 朱浩宇：终末地又是啥
+- 09-18 20:25 吴泽楷：明日方舟衍生二游
+- 09-18 20:25 吴泽楷：鹰角的
+- 09-18 20:26 朱浩宇：硬脚也是一家公司
+- 09-18 20:26 吴泽楷：✔️
+
+### EVENT: dm-20260921-07-杨予.md
+TITLE: 给杨予高中视频素材
+DATE: 2026-09-21
+SOURCE: 杨予
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-21 21:18 杨予：给我一些高中的素材
+- 09-21 21:18 朱浩宇：哈哈
+- 09-21 21:18 杨予：视频
+- 09-21 21:18 杨予：[微笑]
+- 09-21 21:19 朱浩宇：我觉得拿过去的东西剪不好的
+- 09-21 21:19 朱浩宇：大家都是先记录在剪辑的
+- 09-21 21:19 杨予：为啥
+- 09-21 21:19 朱浩宇：你不妨记录一下你的大学生活
+- 09-21 21:19 朱浩宇：可以也可以
+- 09-21 21:19 朱浩宇：但是我很多素材都在家里呀
+- 09-21 21:19 朱浩宇：虽然也可以发你
+- 09-21 21:19 杨予：学校给的东西要我剪刀
+- 09-21 21:20 杨予：我参加了学生会
+- 09-21 21:20 朱浩宇：这样呀
+- 09-21 21:20 朱浩宇：行吧
+- 09-21 21:20 朱浩宇：我折腾一下
+- 09-21 21:20 杨予：反正以后是要简的
+- 09-21 21:23 朱浩宇：随便摘了一点
+- 09-21 21:23 杨予：行
+- 09-21 21:23 朱浩宇：很多我自己都没有整理过
+- 09-21 21:24 朱浩宇：我甚至自己都没有看过有些
+- 09-21 21:25 朱浩宇：[图片]
+- 09-21 21:25 朱浩宇：你慢慢等吧
+- 09-21 21:25 杨予：[表情]
+- 09-21 21:26 朱浩宇：[视频]
+- 09-21 21:26 朱浩宇：[视频]
+- 09-21 21:28 朱浩宇：[视频]
+- 09-21 21:29 朱浩宇：[视频]
+- 09-21 21:30 杨予：越多越好
+- 09-21 21:31 杨予：还有吗
+- 09-21 21:31 朱浩宇：还有很多
+- 09-21 21:31 朱浩宇：我大概有400G的素材
+- 09-21 21:31 朱浩宇：你先剪吧
+- 09-21 21:31 朱浩宇：先看
+- 09-21 21:31 朱浩宇：我不可能全部发给你的
+- 09-21 21:31 朱浩宇：而且说实话
+
+### EVENT: dm-20260921-21-蒋佳辰.md
+TITLE: 聊大学节奏·时间不够
+DATE: 2026-09-21
+SOURCE: 蒋佳辰
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-21 16:52 朱浩宇：[图片]
+- 09-21 16:58 蒋佳辰：hyw
+- 09-21 16:59 朱浩宇：送你去月球
+- 09-21 17:00 蒋佳辰：我今天起床的时候，早八已经上完了，第二节课已经开始了
+- 09-21 17:12 朱浩宇：看你在不在意吧
+- 09-21 17:45 蒋佳辰：[图片]
+- 09-21 17:45 蒋佳辰：其实我根本就不打算上课
+- 09-21 17:45 朱浩宇：哎
+- 09-22 11:30 朱浩宇：哎
+- 09-22 11:30 朱浩宇：我睡到十一点
+- 09-22 11:30 朱浩宇：把十点的课睡没了
+- 09-22 12:58 朱浩宇：[图片]
+- 09-22 12:59 蒋佳辰：今天我没课
+- 09-22 12:59 蒋佳辰：有的课我打完课就走了
+- 09-22 12:59 朱浩宇：感觉大学节奏很快
+- 09-22 12:59 朱浩宇：感觉自己有点跟不上
+- 09-22 13:00 蒋佳辰：拿方面
+- 09-22 13:00 朱浩宇：本来觉得可以花很多时间去做自己感兴趣的时间
+- 09-22 13:01 朱浩宇：但是其实这样安排时间是不够的
+- 09-22 13:01 朱浩宇：还是要在睡眠、学习娱乐里去三选二
+- 09-22 13:02 蒋佳辰：最近玩上贴吧了
+- 09-22 13:03 蒋佳辰：里面可以体会的很多恶趣味
+- 09-22 13:03 朱浩宇：哎
+
+### EVENT: dm-20260921-41-陈二逼.md
+TITLE: 给陈二逼看自制游戏demo
+DATE: 2026-09-21
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-21 13:04 朱浩宇：zaizhezhibin-0.1-win.zip
+- 09-21 13:04 朱浩宇：哟空帮我看看
+- 09-21 13:04 朱浩宇：等我再完善一下再让大家帮我想想点子
+- 09-21 13:40 陈二逼：好
+- 09-21 15:39 陈二逼：[图片]
+- 09-21 15:39 朱浩宇：乱码吗？
+- 09-21 15:39 陈二逼：没吧
+- 09-21 15:40 朱浩宇：现在剧情还太弱纸了
+- 09-21 15:40 朱浩宇：需要加入一些创意
+- 09-21 15:40 陈二逼：什么引擎？会不会限制发挥？
+- 09-21 15:41 朱浩宇：你把创意告诉我就行
+- 09-21 15:41 朱浩宇：py
+- 09-21 15:41 陈二逼：还在看
+- 09-21 15:42 陈二逼：不行，只是联想自带的软件开始造反啊，给我跳广告
+- 09-21 15:43 陈二逼：我先把他们都删掉
+- 09-21 15:45 陈二逼：感觉这种表达方式更适合对话多的文章，我这样看下来，反而更希望他是一整篇出现的
+- 09-21 15:45 朱浩宇：其实我自己还没看
+- 09-21 15:45 陈二逼：[发怒]
+- 09-21 15:45 朱浩宇：文本是我让AI摘取了我的日记
+- 09-21 15:45 朱浩宇：我不知道我的日记被改成啥样了
+- 09-21 15:46 朱浩宇：这个连初稿也算不上
+- 09-21 15:46 朱浩宇：我大致框架其实没有想好
+
+### EVENT: dm-20260921-64-吴晨阳.md
+TITLE: 聊IAI面基
+DATE: 2026-09-21
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-21 10:20 朱浩宇：你在金华能找IAI面基吗
+- 09-21 10:46 吴晨阳：他在金华吗？我不知道
+- 09-21 11:01 朱浩宇：IAI不是IP长期在金华的吗
+- 09-21 11:26 吴晨阳：他现在的工作很疲惫
+- 09-21 11:26 吴晨阳：不打扰了
+- 09-21 11:28 朱浩宇：你大学的时候可以给他当助教赚外快
+- 09-21 12:47 吴晨阳：朱浩宇我忍不住了
+- 09-21 12:48 吴晨阳：从12:30开始就一直想导管
+- 09-21 12:48 吴晨阳：没岛第九天
+- 09-21 12:48 吴晨阳：真的忍不了
+- 09-21 12:48 吴晨阳：我现在要去图书馆的厕所
+- 09-21 12:48 吴晨阳：再见
+- 09-21 12:48 吴晨阳：下午累死就累死吧
+- 09-21 12:48 吴晨阳：但我是真的忍不住了
+- 09-21 12:49 朱浩宇：别呀
+- 09-21 12:49 朱浩宇：人再怎么样也不能啊
+- 09-21 12:50 朱浩宇：不要啊
+- 09-21 12:50 朱浩宇：你去跳舞
+- 09-21 12:50 朱浩宇：别呀
+- 09-21 12:53 朱浩宇：[图片]
+- 09-21 12:53 朱浩宇：哎
+- 09-21 12:53 朱浩宇：你不要去公共厕所
+- 09-21 12:54 朱浩宇：浙师大很多摄像头的
+- 09-21 12:54 朱浩宇：到时候网站上看到你了
+- 09-21 13:09 吴晨阳：舒服了
+- 09-21 13:10 吴晨阳：这几天片老早都选好了
+- 09-21 13:10 吴晨阳：就等着忍不住的那一天
+- 09-21 13:10 吴晨阳：[表情]
+- 09-21 13:10 吴晨阳：好舒服啊
+- 09-21 13:10 吴晨阳：[表情]
+- 09-21 20:47 吴晨阳：[语音]
+- 09-21 20:48 朱浩宇：[发呆]
+- 09-21 20:48 朱浩宇：啥呀
+- 09-21 20:48 朱浩宇：拉黑吧
+
+### EVENT: dm-20260922-30-施翔天.md
+TITLE: 东教约见·记错课
+DATE: 2026-09-22
+SOURCE: 施翔天
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-22 17:06 施翔天：下课了吗
+- 09-22 17:07 朱浩宇：何时
+- 09-22 17:07 朱浩宇：何事
+- 09-22 17:08 施翔天：[语音]
+- 09-22 17:08 施翔天："施翔天" 撤回了一条消息
+- 09-22 17:08 施翔天：[语音]
+- 09-22 17:09 朱浩宇：行吧
+- 09-22 17:09 朱浩宇：可以的
+- 09-22 17:09 朱浩宇：我有时间
+- 09-22 17:09 朱浩宇：就是月底了
+- 09-22 17:09 朱浩宇：我有点拮据
+- 09-22 17:09 朱浩宇：你在哪里
+- 09-22 17:09 朱浩宇：我待会来找你
+- 09-22 17:10 朱浩宇：嗯好
+- 09-22 17:10 朱浩宇：我到了叫你
+- 09-22 17:13 施翔天：你去哪里找我
+- 09-22 17:14 朱浩宇：我在东一门口了
+- 09-22 17:14 施翔天：就是我们上次去那家麦当劳，你知道吗
+- 09-22 17:14 朱浩宇：嗯
+- 09-22 17:14 施翔天：主要是现在我还在东教
+- 09-22 17:16 朱浩宇：[图片]
+- 09-22 17:16 朱浩宇：你什么时候能下来
+- 09-22 17:16 施翔天：我骑过来，但是可能我们俩不一定能碰上
+- 09-22 17:16 施翔天：OK, 我现在过来
+- 09-22 17:36 施翔天：你是几号
+- 09-22 17:36 朱浩宇：35432
+- 09-22 17:37 施翔天：[图片]
+- 09-22 17:37 施翔天：这个？
+- 09-22 17:37 朱浩宇：嗯吧
+- 09-22 17:37 施翔天：还有纯牛奶
+- 09-22 17:37 朱浩宇：嗯
+- 09-22 18:47 朱浩宇：完蛋
+- 09-22 18:47 朱浩宇：记错课了
+- 09-22 18:47 施翔天：[表情]
+- 09-22 18:47 施翔天：你有没有这个
+
+### EVENT: dm-20260924-23-蒋佳辰.md
+TITLE: 装Linux·加入RoboMaster
+DATE: 2026-09-24
+SOURCE: 蒋佳辰
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-24 21:07 蒋佳辰：[图片]
+- 09-24 21:07 蒋佳辰：整了一下午也是用上linux了
+- 09-24 21:07 朱浩宇：虚拟机还是Mac
+- 09-24 21:07 蒋佳辰：双系统
+- 09-24 21:08 朱浩宇：Linux做什么
+- 09-24 21:10 蒋佳辰：加了robomaster的社团，linux配置系统环境比windows方便，开发一般用linux
+- 09-24 21:11 朱浩宇：好的
+
+### EVENT: dm-20260924-24-吴泽楷.md
+TITLE: 约CS·改打国际服
+DATE: 2026-09-24
+SOURCE: 吴泽楷
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-24 22:27 吴泽楷：来
+- 09-24 22:27 吴泽楷：cs
+- 09-24 22:28 朱浩宇：嗯我很快乐
+- 09-24 22:28 吴泽楷：[表情]
+- 09-24 22:28 吴泽楷：不打吗？
+- 09-24 22:29 朱浩宇：我马上了
+- 09-24 22:29 朱浩宇：陈嘉詺国服有问题
+- 09-24 22:29 吴泽楷：马上干嘛
+- 09-24 22:29 朱浩宇：要打国际服
+- 09-24 22:29 吴泽楷：[表情]
+- 09-24 22:29 朱浩宇：我正在玩呢
+- 09-24 22:29 吴泽楷：👌
+- 09-24 22:30 朱浩宇：我没有麦
+- 09-24 22:30 朱浩宇：可能要微信通话
+- 09-24 22:30 朱浩宇：你能接受吗
+- 09-24 22:30 朱浩宇：[害羞]
+- 09-24 22:30 吴泽楷：也行吧
+- 09-24 22:31 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:15]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>521085322664958418</roomid>
+<roomkey>0</roomkey>
+<inviteid>1790258201</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790260269951</timestamp>
+<identity><![CDATA[7362949294695134673]]></identity>
+<duration>0</duration>
+<inviteid64>1790258201</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>2</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-24 22:32 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:19]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>521085322664958418</roomid>
+<roomkey>0</roomkey>
+<inviteid>1790258201</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790260370815</timestamp>
+<identity><![CDATA[709784002834117443]]></identity>
+<duration>0</duration>
+<inviteid64>1790258201</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>3</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-24 22:33 吴泽楷：打了
+- 09-24 22:33 吴泽楷：没接到吗？
+- 09-24 22:33 朱浩宇：没接到
+- 09-24 22:33 朱浩宇：仔打一个
+- 09-24 22:33 吴泽楷：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[未应答]]></msg>
+<room_type>1</room_type>
+<red_dot>true</red_dot>
+<roomid>233437535173663439</roomid>
+<roomkey>0</roomkey>
+<inviteid>726878515</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790260432814</timestamp>
+<identity><![CDATA[483359027314483374]]></identity>
+<duration>0</duration>
+<inviteid64>726878515</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-24 22:34 吴泽楷：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:37]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>233454330110260432</roomid>
+<roomkey>0</roomkey>
+<inviteid>726879523</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790260474067</timestamp>
+<identity><![CDATA[9202109479945103391]]></identity>
+<duration>0</duration>
+<inviteid64>726879523</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+
+### EVENT: dm-20260924-72-金晟恺.md
+TITLE: 聊绝区零视频
+DATE: 2026-09-24
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-24 22:34 金晟恺：笑死了玩绝区零才懂真的哭死
+- 09-24 22:34 金晟恺：明明是由以太组成的怪物，在我眼中却是美丽的少女
+UP主：快扶_她起来
+播放：3.6万
+https://b23.tv/dL7hE5K
+- 09-24 22:37 朱浩宇：[流泪]
+- 09-24 22:38 金晟恺：🥲
+UP主：BlackcaT_T
+播放：41万
+https://b23.tv/GtpXKI5
+- 09-24 22:38 金晟恺：[流泪]
+- 09-25 11:53 金晟恺：dddd
+- 09-25 11:53 金晟恺：p
+- 09-25 11:53 金晟恺：d
+- 09-25 11:53 金晟恺：王弈恺？
+- 09-25 11:58 金晟恺：[图片]
+- 09-25 11:59 金晟恺：淘宝闪购
+
+### EVENT: dm-20260925-07-王一开.md
+TITLE: 约CS·教进kook
+DATE: 2026-09-25
+SOURCE: 王一开
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-25 11:51 王一开：1
+- 09-25 11:52 王一开：q
+- 09-25 11:52 王一开：qqqwe
+- 09-25 11:52 王一开：dd
+- 09-25 11:52 王一开：d
+- 09-25 11:52 王一开：e
+- 09-25 11:52 王一开：s
+- 09-25 11:52 朱浩宇：金晟恺吗
+- 09-25 11:52 王一开：？
+- 09-25 11:52 王一开：qq
+- 09-25 12:06 朱浩宇：[图片]
+- 09-25 12:07 王一开：[图片]
+- 09-25 12:09 王一开：[图片]
+- 09-25 12:09 王一开：[图片]
+- 09-25 21:29 王一开：主要是等一下，我和金胜凯，我们上CS
+- 09-25 21:29 朱浩宇：好的
+- 09-25 21:29 朱浩宇：我们马上了
+- 09-25 21:32 朱浩宇：你让今生开电脑进kook
+- 09-25 21:32 朱浩宇：他进过的
+- 09-25 21:37 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 01:42]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>543943873055511687</roomid>
+<roomkey>0</roomkey>
+<inviteid>728206275</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790343463493</timestamp>
+<identity><![CDATA[6264512038711352990]]></identity>
+<duration>0</duration>
+<inviteid64>728206275</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-25 22:14 朱浩宇：https://kook.vip/vurLEx
+- 09-25 22:14 朱浩宇：一开
+- 09-25 22:14 朱浩宇：这是邀请码
+- 09-25 22:15 朱浩宇：你能进吗
+
+### EVENT: dm-20260925-65-吴晨阳.md
+TITLE: 机组调试通话
+DATE: 2026-09-25
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-25 15:06 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:20]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>537664022326851588</roomid>
+<roomkey>0</roomkey>
+<inviteid>727831971</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790319986389</timestamp>
+<identity><![CDATA[8996268319813867481]]></identity>
+<duration>0</duration>
+<inviteid64>727831971</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-25 15:06 朱浩宇：失败了
+- 09-25 15:06 吴晨阳：🤣
+- 09-25 15:06 吴晨阳：trial and error
+- 09-25 15:10 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 03:43]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>537677845949522631</roomid>
+<roomkey>0</roomkey>
+<inviteid>727832787</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790320239676</timestamp>
+<identity><![CDATA[6668024194102825756]]></identity>
+<duration>0</duration>
+<inviteid64>727832787</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 09-25 15:10 朱浩宇：再等等
+- 09-25 15:10 朱浩宇：机组调试
+- 09-25 15:11 吴晨阳：好
+- 09-25 15:11 朱浩宇：继续调试
+- 09-25 15:12 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:56]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>537758543822003707</roomid>
+<roomkey>0</roomkey>
+<inviteid>727837603</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790320373118</timestamp>
+<identity><![CDATA[538254330680069643]]></identity>
+<duration>0</duration>
+<inviteid64>727837603</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+
+### EVENT: dm-20260926-33-曾浩鑫.md
+TITLE: 分享科学上网科普·CS内战分组
+DATE: 2026-09-26
+SOURCE: 曾浩鑫
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-26 22:51 朱浩宇：如何真正流畅的科学上网（全科普）
+首先感谢毒药，Sukka等人对部分内容的转载授权。
+前言
+本文主要介绍科学上网相关的一些知识和内容。着重声明请大家合理科学上网，科学上网是用来方便我们科研学习的，包括使用谷歌学术及下载加速等，不要在外网上发布任何政治相关的话题和言论，不要作死，不要没事找事，做一个头脑清醒的中国人，科研为重，好好学习，擦亮眼睛。（本文不要转载到任何校外论坛及其他公共平台，不要脑残，不要脑残，不要脑残）
+使用科学上网我们能获得哪些优势呢？
+访问一些被墙的网站，使用被墙的各类优质服务
+观看不同地区的流媒体，包括Netflix/HBO/Disney+等
+下载加速，部分网站虽然能连接上，但是由于163骨干网国际出口拥堵的问题，使用科学上网能提升下载体验，包括但不限于各大论文/文献网站
+科普
+GFW
+GFW，全称Great Fire Wall，也称大防火墙，这个东西没有任何的官方称呼，属于薛定谔的存在，他既有也没有，你认为他有他就有，没有就没有，github上有对应的项目来收集这一些被封禁的网站，建立了一个列表，也就是现在的gfwlist。GFW的存在，是因为我国通过一些手段和方式阻断了部分网站和地址，使得你在上网时无法访问，阻断的方式有很多，从早起的dns投毒到现在的关键字阻断，IP段封禁等。
+GFW的建立是在08年前后，当时奥运会期间一些邪教组织在Facebook上策划破坏活动，我国为了维护国家稳定和国家利益，要求Facebook配合调查，但是Facebook以保护用户的隐私权为由拒绝了，同时Google也用同样的理由拒绝了我国的要求。从那时开始，我国就开始完善网络审查制度并开始建墙，慢慢的一些网站就被封禁了，连带着一些色情网站也跟着躺枪。建墙对于我国的发展和国家利益从我看来是利大于弊的，国家为了维稳做出这样的决定也无可厚非，我们要辩证的看待这个问题。同时Facebook/Google拒绝审查也是有一定道理的，你给中国开了这个先河，那之后呢，又会有多少组织和国家找上门要求公开，隐私问题又该怎么解决。虽然Facebook恕我直言就是个垃圾公司，但是对这件事情本身，也是有他们自己的考量在的。
+从我的角度来说，墙的存在是利大于弊的，墙被推倒是迟早的事。
+科学上网主要的一些方式
+早期网民的翻墙主要是利用VPN，全称Virtual Private Network，但这种方式由于流量特征比较明显，GFW通过封禁VPN常用的端口阻断了这种方式，想要用的企业或组织全部要报备，审核通过了你才能用。
+之后Shadowsocks诞生了，通过在服务器和本地均建立服务，使得过墙的数据全部加密，是现在最安全最稳定的科学上网方式，后面的ShadowsocksR/V2ray/Trojan本质上和SS没有区别，这也是我们现在最常用的方式。简单来说ss翻墙的方式就是通过境外的一台计算机代理你的流量，将他访问被墙网站的信息发送给你，你们之间的通讯都是加密的，以此来绕过GFW的封锁。
+基于Shadowsocks的翻墙方式本质上没有优劣之分，但由于部分加密和混淆的差异可能会带来性能上的区别，使得大家觉得他们有一些不同，但合理选择才是最重要的。
+VPS
+VPS，全称Virtual Private Server，主要向各大云服务提供商购买，用来搭建ss server，来作为翻墙服务器，常见的提供商主要有GCP（谷歌），Azure（微软），AWS（亚马逊），阿里云等，一般自购的VPS都是专人专用或者几人拼用，相对稳定性会更好一点，如果自己有一定的Linux基础的话，但是相对的价格比较贵，特别是线路比较好的VPS；维护比较麻烦。
+AWS
+亚马逊云计算服务（Amazon Web Services，缩写为AWS），由亚马逊公司所创建的云计算平台，亚马逊AWS占全球云市场第一。
+AWS到联通和移动网速不佳。国际和本地带宽比较稳定。
+新加坡和日本接了电信163，到电信延时有所改善。但是由于价格便宜，又很容易买到，所以到总体到国内质量还是比较差的。
+但是由于价格便宜，又很容易买到，所以到总体到国内质量还是比较差的。不过这个价格下能做成这样真的已经非常良心（亏本）了。
+IP被墙重点关照很容易挂，但是浮动IP换起来也很方便。
+少部分IP段可以看Netflix。
+Azure
+Microsoft Azure是微软的公用云服务 (Public Cloud Service) 平台，规模仅次于亚马逊AWS。
+Azure 的带宽一般较大，部分实例的带宽可以达到 2Gbps。
+本地和国际带宽很大很稳，去很多地方都会走自己的骨干网。
+羊毛目前还是比较多，价格便宜，到国内三大运营商基本上已经被玩坏。到某些地方，如上海阿里云，有奇效，可能走了自己那根沪港骨干。
+还有个小毛病是播放YouTube的时候会默认走欧洲的CDN，但是速度基本没有影响，Azure是全球内网的自有骨干网的。
+不能解锁流媒体。
+阿里云
+阿里云，创立于2009年，是中国最大的云计算平台，服务范围覆盖全球200多个国家和地区。
+阿里云香港和新加坡有接CN2、对电信用户来说应该是性价比最高的选择了。联通用户去香港不错，去新加坡绕上海出口。移动到新加坡还行，到香港虽然延迟低但是实测网速很难突破500Kb/S。
+最大的问题是IP太容易被墙，当然也有很多方式可以降低被墙的概率，这里就不展开细说了。
+少部分IP段可以看Netflix，其他流媒体服务暂时没测试过。
+2020年2月份开始没有大带宽带流量包的机器可以买了，性价比不行了已经。个人想买个30M带宽带流量包的也是个不错的选择。
+GCP
+Google云端平台（Google Cloud Platform）是一项使用了Google核心基础架构、数据分析和机器学习技术的云计算服务。
+到大陆的互联带宽较小，防御做得也不理想（我觉得这主要是大陆运营商的锅），经常到大陆断网或绕路，稳定性是最大问题。
+国际带宽非常充裕，有自己的骨干网。
+最近300美元不能重复撸了，感觉互联直连会有一定的回升。
+可以解锁Netflix，Youtube Premium
+现在搬瓦工线路已经很差了，就算是CN2 GIA，而且容易被封，不推荐大家购买。如果有一些机场用的是Azure的服务器，而且还给了大流量，那且用且珍惜吧。
+我知道GCP可以白嫖，但这种事情最好少干，用过一年也就知足吧，经常有反复嫖的还要出来和我装逼，本来也不是什么光荣的事情，现在GCP时长已经缩短到3个月了，大家自己心里有数。说句难听的，国人最喜欢干这样的事情，只要有羊毛，就一定会反复薅，薅到秃为止，不要对号入座。
+机场
+机场主要是指一些个人或者团体向上游供应商购买线路并搭建好服务器，出售给用户来进行科学上网。机场的价格和稳定性取决于其购买的线路，其上游供应商是一级还是二级还是瞎几把买的。机场的水相对更深一点，有大机场也有小机场，一般来说小机场稳定性是不如大机场的，跑路的风险也相对比较高一些，但是现在的大机场其实也是小机场慢慢发展来的，针对机场只有一个提醒：不要把鸡蛋放在同一个篮子里。
+如何选择合适的机场
+线路
+一家机场的质量好坏从我的角度来说最重要的就是线路，这里来解释一下一些名词：
+CN2
+全称ChinaNet Next Carrying Network，中国电信下一代承载网络，由于其搭载了非常优异的QoS，国际出口相比163骨干网要稳定的多。CN2又分为CN2 GIA和CN2 GT，CN2 GIA是全程CN2线路，CN2 GT流量去程走的是CN2线，回程走的是163骨干网，所以CN2 GIA的价格相比GT要贵一些，一些机场线路上会标明走的是不是CN2，但是一般不会明确写出是GIA还是GT，所以要自己注意区分。
+IPLC
+全称International Private Leased Circuit，国际私有出租线路，也就是我们常说的专线，这个线路价格奇高，动辄几千上万一个月，个人用户是买不起的，土豪和企业专属，想要用线只能选择机场购买的IPLC，也就是和别人合用。这个线路有一个特点——他不过墙，也就是不过GFW的审查，因为IPLC本质上是内网线路。通过内网想要连接互联网还需要把数据转发到公网，举个例子，我和你之间的连接走的是沪港IPLC专线，那么我和你之间的数据是互通的，但是我们都看不了Youtube，还需要把流量转发到公网，这里就扯到了一个很复杂的问题，就是你到IPLC专线的入口和IPLC专线出口到Google的这两段的线路质量，如果你到IPLC的入口需要绕一大圈，那么你就算用了IPLC，那体验也不会很好。
+IEPL
+全称International Ethernet Private Line，国际以太网专线，和IPLC差不多，区别在于IPLC是通过物理层把两个点连接起来组成的局域网，IEPL是通过数据链路层把点对点或者多点对多点连接起来组成的。其他的性质和IPLC差不多，不多做解释了。
+BGP
+全称Border Gateway Protocol，边界网关协议，BGP机房也叫多线机房，BGP可以自动识别你的线路是哪家运营商，来选择最适合你的线路连接，同时在某条线路不通的时候，会自动为你切换线路。
+机场选择
+概述
+大机场还是小机场，贵的还是便宜的，其实这就像买商品一样，每个人的选择都不同，看你到底是怎么选择的，但是有一点一定记好，一分钱一分货，贵的一定不会差，便宜的大部分不太好。
+大机场呢，相对可能好在开的时间久，用户基数高，跑路风险低，但是也许会碰上人多容易卡的情况，所以要看大机场后续投入带宽能不能承载，看长期测速。但是对于用户来说还有就是可能价钱比较高。
+小机场呢，好在初期人比较少，可能速度会更快，而且价钱低，所以看起来比较有吸引力。但是小机场也有很多种可能，因为刚才的优点 “价钱低吸引人”，突然激增很多用户，然后服务器数量少，承载能力一俩月就不行了，都变的很慢很慢的，之前很多机场都是这个规律。
+其实有很多中型机场的性价比还是不错的，当时价钱适中，速度也不错，人数也还可以。不过经历过年期间几波封锁，很多原有好用的服务器不能用了，只能加大成本上中转服务器尤其是专线服务器，成本大幅提升，售卖价钱也很多涨了，而且上了中转后承载用户量会相对降低，除非带宽很大，但是成本太高。
+还有一点很重要，就是机场节点的连通性。其实用户不要只看速度，因为其实几十 M 就足够我们日常使用了。A 机场 30% 节点能跑满 500M，70% 节点全部瘫痪；B 机场所有节点都能只跑 80M，但是只有 10% 节点不能用，你觉得哪个好呢？其实肯定是 B 机场。平常不要只看速度，我测速也不全是为了速度，其实主要是看一个机场的节点正常率，这个很重要，否则你切换节点经常不能用会很难受。
+对机场来说不管哪种专线都没多大区别，体验好不好纯粹取决于买了多少量。影响专线质量的另一个因素是国内接入端和国外段所接入的公网，如果国内直接了一家运营商，那很可能到其他运营商就容易出现网络质量不好的情况。国外端也是同理，国外如果接了一些超便宜的注水运营商的话很可能导致你的数据走专线出去之后堵在专线国外端与落地机这段路上。
+部分机场简介
+说到机场就不得不提现在御三家——rixcloud（现在的Tempest）、魅影极速、佩奇，这三家都是顶尖的大机场，当然价格也很贵，年付套餐价格在800左右，主要是花卷的IPLC线，花卷科技自己本身不做机场，但是提供线路资源，他家的IPLC线路非常优秀，一般能用上他家的IPLC线的机场质量都是有保障的。
+最强机场当然是rixcloud（tempest）这是无疑的，他家的技术力是绝对顶尖的，而且用IDC的资源来做机场，speedtest测速直接就能显示rixcloud的名字，搞得和一个上市公司似的。
+魅影极速，简称魅影，他家有一个试验性的小机场叫ARK，有一些新概念的线路，还是挺厉害的。
+佩奇家主机场——Nexitally，技术力也不错，机场主比较佛系，线路质量也很OK。
+下面提供一些机场的名字（排名按实力分先后，主观排名）以及官网链接（大家有兴趣自己选择测试，部分官网需要翻墙才能连接）：
+我个人不推荐机场，建议各位自己尝试，我好用的你不一定好用，我不想做这个坏人，真的很想知道哪些比较实惠一点，想省点成本的，站短私信，我看到了随机回复。
+RixCloud：https://mcnocean.com/
+魅影极速：https://maying.co/
+Nexitally：https://nexitallysafe.com/
+海豚湾：https://hitun.io/
+跑路云：https://paoluz.com/
+CNIX（薯条）：https://cnix-gov-cn.com/
+Blindload：https://portal.blinkload.zone/
+Boslife：https://bgpnet.cc/
+羊圈：https://www.mielink.cc/
+什么是中继/中转节点
+三大运营商是付费网间结算，暂时没有免费对等互联。要中继的原因一部分是三大国际出口网络质量不一样，一部分是小运营商几乎没啥国际出口，所以要借助其他表现好的。
+使用场景
+为了改善本地网络（如长城宽带、鹏博士等海外带宽不足的问题）
+民用宽带的优先级较低，很容易受到运营商的QoS或干扰，可通过企业宽带或IDC宽带可改善体验
+在中继层部署加密隧道防止。。。
+机场可通过此手段以达到用户国内带宽统一化管理并提供相对优秀的路由节点
+中继分公网中继 / 专线传输。公网就是还走三大统一出国，专线是国内国外两头内网传输。
+用户 -> 国内服务器 A（中继层） -> 服务器 B（落地端）【公网中继】
+- 09-26 22:51 朱浩宇：0eb5610d-a4a4-47db-86c7-70a78c00a7ed.dat
+- 09-26 22:51 朱浩宇：用户 -> 服务器 A（专线入口） - 内网传输 -> 服务器 B（专线出口）-> 其他网络 【专线传输，如 rix­Cloud 等几家是当前架构】
+- 09-26 22:51 朱浩宇：中继节点结构：
+用户 ------ 中继入口服务器 ------ 中继服务器 2------ 中继服务器 N------ 落地服务器 ------ 用户访问的网站 用户直接通过代理协议（ss、v2 等），通过公网与中继入口服务器进行通讯。 一般情况下中继入口是放在国内的，中继的入口到落地之间穿越防火墙的这一段一般会使用一些隧道协议，以实现负载均衡、高可用、防止被墙等效果。 当然也有一些用单纯的端口转发过墙传输数据的，这种情况比较容易被墙。 中继入口也有可能会通过 IPLC/​IEPL 等专线出国，这种情况下连只需进行端口转发也不会被墙。
+在性能上，【国内 BGP + 专线出国】优于【国内单线 + 专线出国】、【国内 BGP+CN2 或 9929 出国】优于【国内单线 + CN2 或 9929 出国】、专线优于 CN2 和 9929、国内单线或者 BGP 直接出国方案认为难以长久稳定、直连出国是最差的选择
+普通中继 < CN2/9929 < 专线中继
+机场的TOS/审计规则
+其实就是机场对用户的一些行为限制，为了避开审查，或者是维持线路稳定，机场限制了包括但不限于BT下载等服务，不同机场的TOS都不同，这个最好买之前先看一下，避免使用的时候没注意账号被封禁得不偿失。
+部分机场测速（感谢毒药）
+RixCloud：
+- 09-26 22:51 朱浩宇：1394dcab-fd18-41d6-9a70-bd85391ed051.dat
+- 09-26 22:51 朱浩宇：魅影极速：
+- 09-26 22:51 朱浩宇：佩奇家
+- 09-26 22:51 朱浩宇：海豚湾
+- 09-26 22:51 朱浩宇：a54a0a2c-c43f-4284-9b11-2587b00836cc.dat
+- 09-26 22:51 朱浩宇：CNIX
+- 09-26 22:51 朱浩宇：Blindload
+- 09-26 22:51 朱浩宇：Boslife
+- 09-26 22:51 朱浩宇：f5e50d3a-5229-4078-a426-a77179f1fcc4.dat
+- 09-26 22:51 朱浩宇：养鸡场
+- 09-26 22:51 朱浩宇：36ffe838-a59d-40ac-9b53-68098bb85a19.dat
+- 09-26 22:51 朱浩宇：451f5462-e4f9-487d-8647-1ec40f47fd64.dat
+- 09-26 22:51 朱浩宇：f1ef9386-f61d-4cca-91f2-0789a11bd49d.dat
+- 09-26 22:51 朱浩宇：82b14922-7cf2-4657-b8b0-4a042898b96d.dat
+- 09-26 22:51 朱浩宇：65a68e83-e981-47de-8953-5d7e44da2147.dat
+- 09-26 22:51 朱浩宇：971cb417-274a-4220-b5da-fe13695c8339.dat
+- 09-26 22:53 朱浩宇：zoog
+- 09-26 23:13 曾浩鑫：我要看高三视频
+- 09-27 22:41 朱浩宇：CS内战分组.html
+- 09-27 22:41 朱浩宇：点开看看
+- 09-27 22:41 曾浩鑫：用什么打开
+- 09-27 22:41 朱浩宇：浏览器
+- 09-27 22:42 曾浩鑫：qq好像不能渲染出来
+- 09-27 22:42 曾浩鑫：苹果我用不了safari
+- 09-27 22:42 曾浩鑫：没这个选项
+- 09-27 22:42 曾浩鑫：我下个夸克
+
+### EVENT: dm-20260926-43-陈二逼.md
+TITLE: 陈二逼的网站·远程联机
+DATE: 2026-09-26
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-26 11:07 陈二逼：https://oncevisitisenough.netlify.app
+- 09-26 11:07 陈二逼：不要乱传一万次点击扣我两积分
+- 09-26 11:08 朱浩宇：要梯子吗
+- 09-26 11:08 陈二逼：不
+- 09-26 11:09 朱浩宇：做得好啊
+- 09-26 11:09 朱浩宇：好班长
+- 09-26 11:09 陈二逼：[强]
+- 09-26 22:59 陈二逼：使用 网易UU远程 即可对我发起远程协助
+设备ID：711470600
+设备验证码：RL8GHPLX
+点击链接可直接发起远程协助：https://uuyc.163.com/invite/f55ad4c1bdde43f49e6969a5969f0a4d
+- 09-26 23:06 陈二逼：[图片]
+- 09-26 23:06 陈二逼：[视频]
+- 09-26 23:08 陈二逼：我知道
+- 09-26 23:08 陈二逼：你不用云盘吗？
+- 09-26 23:30 朱浩宇：太轻松了
+- 09-26 23:30 陈二逼：cheater
+- 09-26 23:30 朱浩宇：[害羞]
+- 09-26 23:34 朱浩宇：[发呆]
+- 09-26 23:34 朱浩宇：你一直抢我鼠标
+- 09-26 23:34 陈二逼：你都不用键盘
+- 09-26 23:34 朱浩宇：所以我可以无限冰冻
+- 09-26 23:34 朱浩宇：这是FPS游戏
+- 09-26 23:35 陈二逼：那个植物买了几次爆发
+- 09-26 23:35 陈二逼：所以说没有冷却
+- 09-27 14:33 朱浩宇：1.20 复制打开抖音，看看【勾心豆角（重生版）的作品】# 植物大战僵尸整活@抖音小助手  https://v.douyin.com/V28uGZ0dmLw/ :0pm 01/29 oQk:/ c@A.te
+- 09-27 14:33 陈二逼：看过了
+- 09-27 14:38 朱浩宇：2.33 复制打开抖音，看看【戴夫的实验室的作品】植物攻速×1000 Vs 100百万血量僵王博士 ... https://v.douyin.com/syErkE1XqwY/ L@J.ic :2pm lCu:/ 10/22
+- 09-27 14:39 陈二逼："陈二逼" 撤回了一条消息
+- 09-27 14:39 陈二逼：我尽量不看电子斗蛐
+- 09-27 14:57 朱浩宇：[发呆]
+- 09-27 14:57 朱浩宇：[胜利]
+- 09-27 15:19 朱浩宇：[图片]
+- 09-27 16:17 朱浩宇：4.82 复制打开抖音，看看【叁月聚粮的作品】其实人的寿命只有一天，活过今天才解锁明天，明天的烦... https://v.douyin.com/Vev6S7dIbog/ C@H.ip 03/27 uSl:/ :3pm
+- 09-27 22:40 朱浩宇：CS内战分组.html
+
+### EVENT: dm-20260928-66-吴晨阳.md
+TITLE: 聊CCB韩语梗
+DATE: 2026-09-28
+SOURCE: 吴晨阳
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-28 10:35 朱浩宇：[图片]
+- 09-28 10:52 吴晨阳：超出能力范围
+- 09-28 16:09 朱浩宇：유가성은 내 맛있는 자지를 먹어
+- 09-28 16:09 吴晨阳：前三个字是啥 是人名吗
+- 09-28 16:09 朱浩宇：CCB里复制过来的
+- 09-28 16:09 朱浩宇：里面太恶臭了
+- 09-28 16:10 吴晨阳：🤣
+- 09-28 16:10 朱浩宇：[图片]
+- 09-28 16:10 朱浩宇：[图片]
+- 09-28 16:12 吴晨阳：나는 벼락을 맞은 것처럼 충격받았어요.OMG!!!
+
+### EVENT: dm-20260929-09-杨予.md
+TITLE: 约吃中饭·聊展
+DATE: 2026-09-29
+SOURCE: 杨予
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-29 17:46 朱浩宇：够擦一点点
+- 09-29 17:46 朱浩宇：揍获益在会面
+- 09-29 17:46 朱浩宇：仿佛杨改刚吃瓜
+- 09-29 17:47 朱浩宇：四面买副后孤单感更吃螺
+- 09-29 18:01 杨予：[表情]
+- 09-29 18:01 朱浩宇：[尴尬]
+- 09-29 18:02 杨予：这个展好像上海也有
+- 09-29 18:02 杨予：最大的
+- 09-29 18:02 杨予：我在哔站上刷到过
+- 09-29 18:03 朱浩宇：你发错人了吧
+- 09-29 18:05 杨予：啊
+- 09-29 18:05 杨予：为什么
+- 09-29 18:08 朱浩宇：什么展呀
+- 09-29 18:08 朱浩宇：哦
+- 09-29 18:08 朱浩宇：总天佑那个站
+- 09-29 18:08 朱浩宇：没发错
+- 09-29 18:08 杨予：[微笑]
+- 09-29 21:17 朱浩宇：https://oodwina.github.io/BigNaiWa/
+- 09-30 18:06 杨予："philo" 撤回了一条消息
+- 09-30 18:06 杨予：明天中午吃饭来吗
+- 09-30 18:08 朱浩宇：咩咩咩
+- 09-30 18:09 朱浩宇：咩
+- 09-30 18:09 杨予：[表情]
+- 09-30 18:10 朱浩宇：咩咩咩咩
+- 09-30 18:10 朱浩宇：咩咩咩？
+- 09-30 18:11 朱浩宇：咩咩咩咩
+- 09-30 18:11 朱浩宇：咩
+- 09-30 18:11 杨予：[表情]
+- 09-30 18:11 杨予：[表情]
+- 09-30 18:12 朱浩宇：咩天一起吃中饭吗
+- 09-30 18:12 杨予：对
+- 09-30 18:12 杨予：你想吃什么
+- 09-30 18:12 朱浩宇：寿司
+- 09-30 18:12 朱浩宇：[让我看看]
+
+### EVENT: dm-20260930-06-李荣轩.md
+TITLE: 国庆回义乌·李荣轩回温州
+DATE: 2026-09-30
+SOURCE: 李荣轩
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 09-30 17:45 朱浩宇：[图片]
+- 09-30 17:45 朱浩宇：感觉头发长了有点痞帅
+- 09-30 17:45 李荣轩：咋
+- 09-30 17:45 李荣轩：啊哈哈哈哈哈哈哈
+- 09-30 18:19 李荣轩：话说
+- 09-30 18:19 李荣轩：他这是发到哪里了
+- 09-30 18:20 李荣轩：这张照片
+- 09-30 18:20 李荣轩：[表情]
+- 09-30 18:20 朱浩宇：一个有金晟恺和我和陈嘉詺的群
+- 09-30 18:20 李荣轩：啊哈哈哈哈哈哈
+- 09-30 18:20 李荣轩：[表情]
+- 09-30 18:21 李荣轩：你国庆回义乌吗
+- 09-30 18:22 朱浩宇：快到义乌了
+- 09-30 18:22 李荣轩：[表情]
+- 09-30 18:22 李荣轩：我明天就回温州了
+- 09-30 18:22 李荣轩：嘻嘻
+- 09-30 18:22 朱浩宇：[惊讶]
+- 09-30 18:22 朱浩宇：可以
+
+### EVENT: dm-20261001-74-金晟恺.md
+TITLE: 在发酒疯不让我回去
+DATE: 2026-10-01
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 10-01 13:19 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:12]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>530988237079586888</roomid>
+<roomkey>0</roomkey>
+<inviteid>1790831963</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790831982538</timestamp>
+<identity><![CDATA[1570781572063828517]]></identity>
+<duration>0</duration>
+<inviteid64>1790831963</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-01 23:19 朱浩宇：我去KTV
+- 10-01 23:19 朱浩宇：用真声顶了2H
+- 10-01 23:19 朱浩宇：现在好难受
+- 10-01 23:20 金晟恺：终于在家感受到了强劲的网络
+- 10-01 23:20 朱浩宇：假声根本用不出来
+- 10-01 23:20 朱浩宇：我感觉那个地方完全没有办法发出声音
+- 10-01 23:22 朱浩宇：肺活量也不够用了
+- 10-01 23:22 朱浩宇：太难受了
+- 10-01 23:22 朱浩宇：为你封麦都封不动了
+- 10-01 23:56 金晟恺：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方已取消]]></msg>
+<room_type>0</room_type>
+<red_dot>true</red_dot>
+<roomid>541247569356422091</roomid>
+<roomkey>0</roomkey>
+<inviteid>4163787429</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790870209674</timestamp>
+<identity><![CDATA[6280959877566092918]]></identity>
+<duration>0</duration>
+<inviteid64>1790870182565</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-01 23:59 朱浩宇：还没唱完
+- 10-01 23:59 朱浩宇：还在唱
+- 10-01 23:59 朱浩宇：太吵了
+- 10-01 23:59 金晟恺：[表情]
+- 10-01 23:59 朱浩宇：不接你电话了
+- 10-02 00:10 朱浩宇：假声太难了
+- 10-02 00:10 朱浩宇：我胸腔已经几乎没有任何气了
+- 10-02 00:14 金晟恺：辛苦了
+- 10-02 00:22 朱浩宇：还在唱
+- 10-02 00:22 朱浩宇：我已经完全没有音调的概念
+- 10-02 00:22 朱浩宇：只能凭借本能在战斗
+- 10-02 00:23 金晟恺：[表情]
+- 10-02 00:23 金晟恺：唱这么
+- 10-02 00:23 金晟恺：久
+- 10-02 00:23 朱浩宇：我妈喝多了
+- 10-02 00:23 朱浩宇：在发酒疯不让我回去
+- 10-02 00:24 金晟恺：加油加油
+- 10-02 00:24 金晟恺：[捂脸]
+- 10-02 11:18 朱浩宇：你还来吗
+- 10-02 14:10 朱浩宇：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[已取消]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>554998768569924649</roomid>
+<roomkey>0</roomkey>
+<inviteid>1790921409</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1790921433735</timestamp>
+<identity><![CDATA[9178994128665232670]]></identity>
+<duration>0</duration>
+<inviteid64>1790921409</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-02 14:10 朱浩宇：骑电动车慢点
+
+### EVENT: dm-20261002-国庆CS内战.md
+TITLE: 国庆CS内战·分组软件与银泰比赛
+DATE: 2026-10-02
+SOURCE: 陈二逼、蒋佳辰、吴泽楷、曾浩鑫、吴晨阳
+BODY:
+> 私聊事件草稿（多人私聊合并的整体活动），待人工整理，定稿把 draft 改为 false
+
+## 9-30 准备：vibe coding、分组软件与抠图
+
+- 09-30 20:31 朱浩宇：[通话 00:20]
+- 09-30 20:32 朱浩宇：跟我去vibe coding
+- 09-30 21:08 朱浩宇：“We Are Falcons”——EWC猎鹰开赛动画素材 https://b23.tv/gOa7xUy
+- 09-30 21:22~21:23 朱浩宇：[大量生成图片]
+- 09-30 21:44 陈二逼：[图片]
+- 09-30 21:47 陈二逼：Qwen_image_2.1_00014.zip
+- 09-30 21:52 朱浩宇：[图片]
+- 09-30 22:08 陈二逼：Qwen_image_2.1_00025.zip
+- 09-30 22:13 朱浩宇：CS内战分组.html
+- 09-30 22:25 朱浩宇：CS内战分组.html
+- 09-30 22:51 陈二逼：苹果长按照片的贴纸那个好像也能抠，但是精度不太高
+- 09-30 22:52 朱浩宇：其实精度相当高了，一秒就搞好了，这精度相当够用了
+- 09-30 22:53 陈二逼：我妹妹说的。那我先把到此为止都发给你，剩下你自己按
+- 09-30 22:54 陈二逼：Qwen_image_2.1_00032.zip
+- 09-30 22:55 陈二逼：我妹妹现在在疯狂嘲讽我
+- 09-30 22:55 朱浩宇：为什么AI最开始没有告诉我，好丢人
+
+## 10-01 人员陆续到达、安排比赛
+
+- 10-01 13:08 朱浩宇：因为我在远控电脑，你可能听不见我的声音
+- 10-01 13:19 朱浩宇：[通话 00:12]
+- 10-01 13:32 朱浩宇：你内战打吗
+- 10-01 14:01 朱浩宇：[通话 00:15]
+- 10-01 14:04 吴晨阳：走错了吗
+- 10-01 14:05 朱浩宇：[通话 00:54]
+- 10-01 15:14 朱浩宇：[通话 00:26]
+- 10-01 16:20 朱浩宇：你看过了吗
+- 10-01 16:22 朱浩宇：[通话 00:57]
+- 10-01 16:47 朱浩宇：[通话 00:17]
+- 10-01 17:05 朱浩宇：你相当于是八点到杭州，然后坐车回来差不多12点吗
+- 10-01 17:06 吴泽楷：先飞北京，再飞义乌，十二点才落地
+- 10-01 17:08 朱浩宇：比赛明天打，本来定的是二号一点到五点
+- 10-01 17:09 吴泽楷：那没问题吧
+
+## 10-02 比赛当天：银泰 1103
+
+- 10-02 07:30 吴晨阳：[图片]
+- 10-02 10:18 朱浩宇：没问题了吗
+- 10-02 12:08 朱浩宇：吴泽楷到时候打的时候我和你换一下位置
+- 10-02 12:09 朱浩宇：杨予哲不来，我让我一个哥哥来替他，你们都不认识所以我要照顾一下。银泰的电梯，我那个方法在群里置顶了
+- 10-02 13:30 曾浩鑫：[通话 00:13]
+- 10-02 13:30 朱浩宇：[通话 00:30]
+- 10-02 13:32 曾浩鑫：找到了，在等电梯
+- 10-02 13:32 朱浩宇：电梯也看到了对吧。到时候和前台说你是1103的，然后身份登记掉来敲我的门
+- 10-02 14:02 吴泽楷：从商场里的电梯上吗
+- 10-02 14:04 吴泽楷：我骑电瓶车差点摔了
+- 10-02 14:36 曾浩鑫：[通话已拒绝]
+- 10-02 14:50 曾浩鑫：我们搞好了，你kook等下进音乐频道
+- 10-02 14:52 朱浩宇：身份证发我一下
+- 10-02 14:55 吴晨阳：[身份证号]
+- 10-02 15:02 朱浩宇：邀请我一下
+- 10-02 15:10 曾浩鑫：怎么选图
+- 10-02 15:12 曾浩鑫：沙二
+- 10-02 17:42 曾浩鑫、吴晨阳：[微信红包]
+
+### EVENT: dm-20261003-75-金晟恺.md
+TITLE: 金晟恺回义乌·聊星链
+DATE: 2026-10-03
+SOURCE: 金晟恺
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 10-03 18:48 金晟恺：《信 条》
+UP主：一摩尔炸鸡翅
+播放：14.1万
+https://b23.tv/jQ2G4Qb
+- 10-03 18:53 朱浩宇：[表情]
+- 10-04 17:11 金晟恺：肩胛骨拉伸
+UP主：身心道场
+播放：79.7万
+https://b23.tv/XczraO4
+- 10-04 17:14 朱浩宇：这是真有用
+- 10-04 17:14 朱浩宇：进我的收藏夹里吧
+- 10-04 17:14 朱浩宇：几点到
+- 10-04 17:14 金晟恺：[强]
+- 10-04 17:14 金晟恺：六点半
+- 10-04 17:15 朱浩宇：行
+- 10-04 17:15 朱浩宇：我晚上在天地吃完饭
+- 10-04 17:15 朱浩宇：说不定还能见上一见
+- 10-04 17:15 金晟恺：到了之后还得去
+- 10-04 17:15 金晟恺：…
+- 10-04 17:15 朱浩宇：父母给你接风哪
+- 10-04 17:15 朱浩宇：吗
+- 10-04 17:15 金晟恺：其他地方
+- 10-04 17:15 朱浩宇：可以
+- 10-04 17:15 朱浩宇：[表情]
+- 10-04 17:15 金晟恺：小学班主任
+- 10-04 17:15 金晟恺：聚餐
+- 10-04 17:16 朱浩宇：你和宣扬是同班的吗
+- 10-04 17:16 金晟恺：嗯
+- 10-04 17:16 金晟恺：对
+- 10-04 17:16 金晟恺：没网
+- 10-04 17:16 金晟恺：高铁上没网好傻逼
+- 10-04 17:17 朱浩宇：国际航班以后都可以上网了
+- 10-04 17:17 朱浩宇：star link
+- 10-04 17:17 朱浩宇：哎
+- 10-04 17:17 金晟恺：星恋
+- 10-04 17:17 金晟恺：哎
+- 10-04 17:17 朱浩宇：真没想到这东西这么有用
+- 10-04 17:17 金晟恺：星链基站不能过境
+
+### EVENT: dm-20261005-35-曾浩鑫.md
+TITLE: 国庆位置共享·走得大腿酸
+DATE: 2026-10-05
+SOURCE: 曾浩鑫
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 10-05 14:27 曾浩鑫：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 00:32]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>264555995940515661</roomid>
+<roomkey>0</roomkey>
+<inviteid>1791181603</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1791181650944</timestamp>
+<identity><![CDATA[3249794860916636748]]></identity>
+<duration>0</duration>
+<inviteid64>1791181603</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-05 14:43 曾浩鑫：位置共享已经结束
+- 10-05 14:47 曾浩鑫：我大腿酸了
+- 10-05 14:47 曾浩鑫：[难过]
+- 10-05 14:47 曾浩鑫：位置共享已经结束
+- 10-05 14:47 朱浩宇：慢慢走
+- 10-05 18:54 朱浩宇：https://sub.cocoduck.cc/sub/226c2f2125322af5/clash#COCODUCK
+
+### EVENT: dm-20261007-45-陈二逼.md
+TITLE: 深夜长谈·吵醒
+DATE: 2026-10-07
+SOURCE: 陈二逼
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 10-07 21:27 陈二逼：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[对方已取消]]></msg>
+<room_type>1</room_type>
+<red_dot>true</red_dot>
+<roomid>533894221347889704</roomid>
+<roomkey>0</roomkey>
+<inviteid>1791379660</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1791379666001</timestamp>
+<identity><![CDATA[3961521244956156949]]></identity>
+<duration>0</duration>
+<inviteid64>1791379660</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-07 21:27 陈二逼：没有音乐
+- 10-07 21:30 陈二逼：<voipmsg type="VoIPBubbleMsg"><VoIPBubbleMsg><msg><![CDATA[通话时长 01:42]]></msg>
+<room_type>1</room_type>
+<red_dot>false</red_dot>
+<roomid>533902358974966593</roomid>
+<roomkey>0</roomkey>
+<inviteid>1791379690</inviteid>
+<msg_type>100</msg_type>
+<timestamp>1791379806959</timestamp>
+<identity><![CDATA[7685485995556465375]]></identity>
+<duration>0</duration>
+<inviteid64>1791379690</inviteid64>
+<business>1</business>
+<caller_memberid>0</caller_memberid>
+<callee_memberid>1</callee_memberid>
+<force_update>0</force_update>
+</VoIPBubbleMsg></voipmsg>
+- 10-07 21:34 朱浩宇：你把我吵醒了
+- 10-07 21:34 朱浩宇：我睡不着了
+- 10-07 21:34 朱浩宇：出生
+- 10-07 21:35 陈二逼：[月亮]
+
+### EVENT: dm-20261009-36-曾浩鑫.md
+TITLE: 借美区账号登录
+DATE: 2026-10-09
+SOURCE: 曾浩鑫
+BODY:
+> 私聊事件草稿（按人物，时间靠近的已合并），待人工整理，定稿把 draft 改为 false
+
+- 10-09 17:06 曾浩鑫：啥意思
+- 10-09 17:06 曾浩鑫：什么叫是什么
+- 10-09 17:13 朱浩宇：你现在这个号地区在哪里
+- 10-09 17:14 曾浩鑫：美国
+- 10-09 17:14 曾浩鑫：不是
+- 10-09 17:14 曾浩鑫：我有两个号
+- 10-09 17:14 曾浩鑫：一个在美国
+- 10-09 17:14 朱浩宇：那你小号的密码和ID发给我
+- 10-09 17:14 曾浩鑫：😯
+- 10-09 17:14 曾浩鑫：稍等
+- 10-09 17:15 曾浩鑫：1916445956@qq.com
+- 10-09 17:16 曾浩鑫：2024wydxhHSR
+- 10-09 17:16 朱浩宇：2024wydxhHSR
+什么意思
+- 10-09 17:17 曾浩鑫：很傻逼
+- 10-09 17:17 曾浩鑫：复制没
+- 10-09 17:21 朱浩宇：[图片]
+- 10-09 17:21 曾浩鑫：我想一下
+- 10-09 17:22 曾浩鑫：2023试试
+- 10-09 17:22 朱浩宇：2023wydxhHSR
+- 10-09 17:22 曾浩鑫：对
+- 10-09 17:22 朱浩宇：哦
+- 10-09 17:22 朱浩宇：想起来了
+- 10-09 17:22 朱浩宇：有个姓韩的女生
+- 10-09 17:22 曾浩鑫：对
+- 10-09 17:23 朱浩宇：那wyd是什么呢
+- 10-09 17:23 曾浩鑫：你先登
+- 10-09 17:23 曾浩鑫：傻杯
+- 10-09 17:23 朱浩宇：还是不对
+- 10-09 17:24 曾浩鑫：我试试
+- 10-09 17:30 曾浩鑫：我草我忘了
+- 10-09 17:30 曾浩鑫：很久没登了

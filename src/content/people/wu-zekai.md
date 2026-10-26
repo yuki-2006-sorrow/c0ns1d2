@@ -6,6 +6,8 @@ major: 未知
 role: CS 开黑常客，活动组织者之一
 color: "#e67e22"
 messages: 1809
+group: ""
+featured: true
 personality:
   openness: 68
   conscientiousness: 55

@@ -6,6 +6,8 @@ major: 强基计划
 role: niko铁粉，群内发言量第一
 color: "#e74c3c"
 messages: 2696
+group: ""
+featured: true
 personality:
   openness: 75
   conscientiousness: 40

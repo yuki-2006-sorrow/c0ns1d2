@@ -6,6 +6,8 @@ major: 化工/新质工程
 role: 记忆库创建者，《流年似水》作者
 color: "#4ca1af"
 messages: 10043
+group: ""
+featured: true
 personality:
   openness: 85
   conscientiousness: 82

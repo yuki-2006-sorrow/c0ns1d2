@@ -1,0 +1,2094 @@
+### EVENT: group-20260612-02-SOS团.md
+TITLE: 追紫伊·搞到管理员
+DATE: 2026-06-12
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-12 18:09 陈二逼：[图片]
+- 06-12 18:09 陈二逼：搞到管理员了
+- 06-12 18:10 金晟恺：霍
+- 06-12 18:10 金晟恺：好好谈
+- 06-12 18:10 金晟恺：好好c
+- 06-12 18:10 金晟恺：别早泄了
+- 06-12 18:10 金晟恺：珍惜机会
+- 06-12 18:11 朱浩宇：@Eventide 加油
+- 06-12 18:12 朱浩宇：紫伊是个好女孩
+- 06-12 18:12 陈二逼：咳
+
+### EVENT: group-20260612-02-这个13班.md
+TITLE: 闲聊·分享视频唱歌
+DATE: 2026-06-12
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-12 19:56 unknown：[视频]
+- 06-12 19:57 Cllr：6
+- 06-12 19:57 Cllr：还得我来
+- 06-12 19:57 戈：听完被电死了
+- 06-12 19:57 KYW：力竭了
+- 06-12 19:57 KYW：[裂开]
+- 06-12 19:57 unknown：[视频]
+- 06-12 19:57 KYW：听这个
+- 06-12 19:58 吴晨阳：命真苦
+- 06-12 19:58 🐟🐟🐟🐟🐟：大学生是舒服点的
+- 06-12 19:58 u：hh
+- 06-12 19:59 王丹凤：不叫我去？差评
+- 06-12 19:59 Cllr：@Wonderful 对哦，老师参加过五四晚会
+- 06-12 20:00 KYW：[表情]
+- 06-12 20:00 陈二逼：@朱浩宇
+- 06-12 20:03 unknown："郑乐涛" 撤回了一条消息
+- 06-12 20:05 unknown：[视频]
+- 06-12 20:05 unknown：[视频]
+- 06-12 20:05 KYW：臭但帅
+- 06-12 20:06 陈二逼：哈哈哈！.mp3
+- 06-12 20:06 吴泽楷：[图片]
+- 06-12 20:06 陈二逼：你可真听话啊！.mp3
+- 06-12 20:06 陈二逼：动次-打次-动次-打次！.mp3
+- 06-12 20:07 u：鸡哥你
+- 06-12 20:07 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_0k53cnsskcox12]]></username>
+							<nickname><![CDATA[邵志鹏]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_chq1h76xi9ka19]]></username>
+							<nickname><![CDATA[6]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-12 20:16 unknown：[视频]
+- 06-12 20:18 吴晨阳：南韩第一豆
+- 06-12 20:19 吴晨阳：@吴泽楷 exo未公告成员
+- 06-12 20:19 吴泽楷：？
+- 06-12 20:20 吴泽楷：哥们在杭州孤独游戏中
+- 06-12 20:20 u：吴泽开个位置共享
+- 06-12 20:20 邵志鹏：可以去找宗天佑
+- 06-12 20:20 u：看看我们多远
+- 06-12 20:20 unknown：[视频]
+- 06-12 20:21 王一开：爱豆跳舞
+- 06-12 20:21 吴晨阳：天。
+- 06-12 20:21 u：这么近
+- 06-12 20:21 吴泽楷：不远
+
+### EVENT: group-20260613-01-2026强基培训.md
+TITLE: 强基培训通知·课程安排
+DATE: 2026-06-13
+SOURCE: 2026强基培训
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-13 11:46 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请你加入了群聊，群聊参与人还有：$others$]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[a33502717]]></username>
+							<nickname><![CDATA[13班朱浩宇妈妈张翠芳13385893999]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="others" type="link_plain">
+					<plain><![CDATA[wding、316金奕辰爸爸、壹尖培优小沈、316 陈雨泽爸爸、ঞ依然范特西、张冰Lex、🍀陶小陶、老爸、A-Can🌏、welcome吴维康、暗香盈袖、正、___only🌀、313柯亦武妈妈、315班张煜梵妈妈、晶珀丽、品顺、赤脚麻地、张昊妈妈、满天星、李大森、曹训刚、蒋云峰Jack、赵正国、田女士、315 ／翁成杰爸爸、316赵子寒妈妈、胡哥、🐟🐟🐟🐟🐟、316班胡立强妈妈、316李嘉宇姑姑]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 11:46 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[panjinlian640894]]></username>
+							<nickname><![CDATA[313柯亦武妈妈]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_cyixcdgm5xuz62]]></username>
+							<nickname><![CDATA[KYW]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 11:47 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_lrteijiwpt8b22]]></username>
+							<nickname><![CDATA[315 ／翁成杰爸爸]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_9iamax3kdybj22]]></username>
+							<nickname><![CDATA[LF_Forever]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 11:54 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_9zqnxomhnbwi22]]></username>
+							<nickname><![CDATA[品顺]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_fr5aq3unku5g22]]></username>
+							<nickname><![CDATA[Dimitrie.]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 11:58 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[chenzhiyuan181523]]></username>
+							<nickname><![CDATA[316 陈雨泽爸爸]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_11moypm6egpn12]]></username>
+							<nickname><![CDATA[destroyed]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 11:58 unknown："destroyed"与群里其他人都不是朋友关系，请注意隐私安全
+- 06-13 12:04 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_jwe0c5dnh08b22]]></username>
+							<nickname><![CDATA[(314班)李昉杰爸爸]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_0642256423612]]></username>
+							<nickname><![CDATA[新驰饰品]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_p4n8dcyo38q222]]></username>
+							<nickname><![CDATA[Li Frank]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:07 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_ojgfawxhzrkj11]]></username>
+							<nickname><![CDATA[暗香盈袖]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_4cqx6f6t0yxe12]]></username>
+							<nickname><![CDATA[.]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:20 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_eznrgjd61e4x12]]></username>
+							<nickname><![CDATA[316李嘉宇姑姑]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_6w7vup2ajoyn22]]></username>
+							<nickname><![CDATA[浪涌丨酒初醒]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:29 曹训刚：@所有人 各位家长抓紧把孩子拉进群，进群的学生昵称改成“316某某”模式
+- 06-13 12:30 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[a28867785]]></username>
+							<nickname><![CDATA[张冰Lex]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_51ijw3clzqg911]]></username>
+							<nickname><![CDATA[Bruce张昊]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:40 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_xpwz1a5c8dxo12]]></username>
+							<nickname><![CDATA[316班胡立强妈妈]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_kgxgantgneqc12]]></username>
+							<nickname><![CDATA[旧梦尘光]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:58 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_eznrgjd61e4x12]]></username>
+							<nickname><![CDATA[316李嘉宇姑姑]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_0447944477322]]></username>
+							<nickname><![CDATA[梦香（阳阳和妮妮）]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 12:58 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"修改群名为“$remark$”]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_0447944477322]]></username>
+							<nickname><![CDATA[梦香（阳阳和妮妮）]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="remark" type="link_plain">
+					<plain><![CDATA[316李嘉宇妈妈]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 13:15 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"修改群名为“$remark$”]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_c0b5d5dup9wi21]]></username>
+							<nickname><![CDATA[曹训刚]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="remark" type="link_plain">
+					<plain><![CDATA[2026强基培训]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 14:08 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_nd029sr0tj2522]]></username>
+							<nickname><![CDATA[314龚圣博爸爸]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_17bmztbh8d0322]]></username>
+							<nickname><![CDATA[Arability]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 14:08 unknown："Arability"与群里其他人都不是朋友关系，请注意隐私安全
+- 06-13 15:01 曹训刚：[图片]
+- 06-13 15:03 曹训刚：@所有人 强基培训明天开始，具体安排待发。请大家核对一下强基培训报名情况，有问题联系我。
+- 06-13 15:15 57390116872@chatroom：撤销
+- 06-13 16:01 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[q287172770]]></username>
+							<nickname><![CDATA[316金奕辰爸爸]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[q546159657]]></username>
+							<nickname><![CDATA[果辰]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 16:43 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[HualiJack]]></username>
+							<nickname><![CDATA[蒋云峰Jack]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_84t2pcn1eq7c21]]></username>
+							<nickname><![CDATA[黄建]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 17:20 曹训刚：[图片]
+- 06-13 17:20 曹训刚：[图片]
+- 06-13 17:21 曹训刚：@所有人 明天开始强基培训，有关事项通知如下：
+1️⃣地点：义乌中学教学中心三楼311教室。
+2️⃣课程：14～15日面试培训，16～19日物理，20～23日数学，24～25日化学，详见上表。
+3️⃣食宿：每天接送，在家住宿；自带饭卡，在学校食堂用餐。
+4️⃣要求：上午8:20前、下午13:50前签到，17:00放学；12:30～13:30在教室午休；全程认真听课，不玩手机，确保听课效率。
+- 06-13 18:11 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[q546159657]]></username>
+							<nickname><![CDATA[果辰]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_3or6pjh3duro22]]></username>
+							<nickname><![CDATA[趴着～～睡觉]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 18:23 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[a27721838]]></username>
+							<nickname><![CDATA[315班张煜梵妈妈]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_1o2qznp9d4v612]]></username>
+							<nickname><![CDATA[菠萝的海]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 18:25 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[a27721838]]></username>
+							<nickname><![CDATA[315班张煜梵妈妈]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_5meq6fflmh2p22]]></username>
+							<nickname><![CDATA[张学俊]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 18:52 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_4q8whsqmajlc22]]></username>
+							<nickname><![CDATA[施翔天]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_tzwhtrz5ndcc22]]></username>
+							<nickname><![CDATA[tong]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 20:04 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[taoxiaoling5188]]></username>
+							<nickname><![CDATA[🍀陶小陶]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_48mgaya8kqd822]]></username>
+							<nickname><![CDATA[再见太阳一面]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-13 21:12 曹训刚：@所有人 明、后两天面试培训，8:20报到，教学中心三楼311教室。带饭卡。
+- 06-13 21:19 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[taoxiaoling5188]]></username>
+							<nickname><![CDATA[🍀陶小陶]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_1503535035911]]></username>
+							<nickname><![CDATA[：]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+
+### EVENT: group-20260613-01-SOS团.md
+TITLE: 聊字帖与志愿·出分回校
+DATE: 2026-06-13
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-13 09:59 陈二逼：@Anony 安羽字帖背面拍我看一下
+- 06-13 11:22 金晟恺：woc
+- 06-13 11:22 金晟恺：安羽字帖石沉大海
+- 06-13 11:22 金晟恺：我没去找过
+- 06-13 11:23 金晟恺：在cpy办公室
+- 06-13 11:23 金晟恺：和mita，假发一起
+- 06-13 11:42 朱浩宇：到时候出分了搞那个志愿还要回去一次
+- 06-13 11:42 朱浩宇：或者抽空回去一次
+
+### EVENT: group-20260616-01-2026强基培训.md
+TITLE: 培训缴费·食堂用餐问题
+DATE: 2026-06-16
+SOURCE: 2026强基培训
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-16 07:57 57390116872@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[HualiJack]]></username>
+							<nickname><![CDATA[蒋云峰Jack]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_0kktf9cvq0gq22]]></username>
+							<nickname><![CDATA[蒋佳辰]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-16 11:37 施翔天：老师，我们没饭吃了
+- 06-16 11:37 unknown："施翔天" 撤回了一条消息
+- 06-16 11:37 LF_Forever：没到55不让我们吃
+- 06-16 11:37 浪涌丨酒初醒：太猎奇了[捂脸]
+- 06-16 11:38 曹训刚：我和餐厅讲一下
+- 06-16 11:38 朱浩宇：[庆祝]
+- 06-16 11:39 曹训刚：在哪个餐厅
+- 06-16 11:39 LF_Forever：一餐
+- 06-16 11:39 曹训刚：到二餐，昨天都讲过了
+- 06-16 11:40 unknown："施翔天" 撤回了一条消息
+- 06-16 15:34 壹尖培优小沈：@所有人 各位家长大家好，我是壹尖培优沈老师。孩子们面试课程昨天已经结束了，今天开始培训笔试。费用的话今天开始收费，大家打款的时候请备注（整期：义乌中学+整期+姓名，按各科报的，义乌中学（面试，数学，物理或化学）+姓名）。可以转财务支付宝，银行卡或是微信。感谢大家的支持！！！[愉快][抱拳]
+- 06-16 15:34 壹尖培优小沈：壹尖培优2026届清北强基密训营.pdf
+- 06-16 15:35 壹尖培优小沈：[图片]
+- 06-16 15:35 壹尖培优小沈：财务微信号：席红剑[抱拳]
+- 06-16 15:40 曹训刚：@所有人
+- 06-16 15:42 铭尚奔驰 陈志远：回单要发吗
+- 06-16 15:43 壹尖培优小沈：忘记备注的话发我一下，有备注了就不用[愉快]
+- 06-16 15:52 曹训刚：[图片]
+- 06-16 15:53 曹训刚：[图片]
+- 06-16 15:53 曹训刚：同学们上课认真，学校买些水果犒劳犒劳[呲牙][呲牙][呲牙]
+- 06-16 15:58 黄建：@曹训刚 谢谢曹校[抱拳][抱拳][抱拳]
+- 06-16 16:00 kedy：@曹训刚 谢谢曹校[抱拳][抱拳][抱拳]
+- 06-16 16:05 品顺：@曹训刚 谢谢曹校[抱拳][抱拳][抱拳]
+- 06-16 16:08 曹训刚：大家不用客气[玫瑰][玫瑰][玫瑰]
+- 06-16 16:12 🍀陶小陶：谢谢[玫瑰][玫瑰][玫瑰]
+- 06-16 18:44 老爸：@壹尖培优小沈 义乌中学朱浩宇（面试、数学、物化）已转
+- 06-16 18:48 壹尖培优小沈：好的👌
+
+### EVENT: group-20260616-01-这个13班.md
+TITLE: 闲聊·见到老师同学
+DATE: 2026-06-16
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-16 11:49 施翔天：[语音]
+- 06-16 11:57 🐟🐟🐟🐟🐟：有何贵干
+- 06-16 12:26 朱浩宇：数学老师在
+- 06-16 12:26 朱浩宇：其他没看见
+- 06-16 12:26 朱浩宇：估计其他都出去了，数学老师恪尽职守
+- 06-16 12:27 李韵雯：[强]
+- 06-16 12:29 王丹凤：我也在，有什么东西送来我吃？
+- 06-16 12:30 邵志鹏：老师在吗？刚才没看到哦[旺柴]
+- 06-16 12:30 金晟恺：昨天见到zp和他老婆在一起
+- 06-16 12:30 金晟恺：[图片]
+- 06-16 12:30 u：六六六
+- 06-16 12:30 邵志鹏：[表情]
+- 06-16 12:31 金晟恺：应该是老婆
+- 06-16 13:39 unknown："陈二逼" 撤回了一条消息
+- 06-16 13:39 unknown："陈二逼" 撤回了一条消息
+- 06-16 13:39 unknown："6" 撤回了一条消息
+- 06-16 13:39 unknown："6" 撤回了一条消息
+- 06-16 13:40 unknown："邵志鹏" 撤回了一条消息
+- 06-16 13:40 李韵雯：[发呆]
+
+### EVENT: group-20260617-01-2026强基培训.md
+TITLE: 要笔记·缴费确认
+DATE: 2026-06-17
+SOURCE: 2026强基培训
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-17 21:57 施翔天：请问能不能问一下当天的老师 当天的笔记能不能发一下
+- 06-17 21:58 unknown："施翔天" 撤回了一条消息
+- 06-17 21:59 施翔天：家里孩子反映需要笔记来辅助理解
+- 06-17 21:59 unknown："施翔天" 撤回了一条消息
+- 06-17 21:59 施翔天：[抱拳][抱拳][抱拳]
+- 06-17 22:06 unknown："313施翔天妈妈" 撤回了一条消息
+- 06-17 22:18 蒋云峰Jack：@壹尖培优小沈 义乌中学蒋佳辰数物化已转6000
+- 06-17 22:26 壹尖培优小沈：好的👌
+- 06-17 22:28 tong：@壹尖培优小沈 笔记的事情麻烦问一下老师[抱拳]
+
+### EVENT: group-20260617-01-四口舍子.md
+TITLE: 强基题复盘·对答案
+DATE: 2026-06-17
+SOURCE: 四口舍子
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-17 21:20 施翔天：有人试过这个强基题
+- 06-17 21:21 施翔天：[语音]
+- 06-17 21:21 施翔天：[表情]
+- 06-17 21:21 施翔天：[表情]
+- 06-17 21:21 施翔天：[表情]
+- 06-17 21:21 KYW：讲义里的拍了一道没拍出来
+- 06-17 21:21 KYW：[表情]
+- 06-17 21:21 施翔天：他这个上课讲的，我妈让我复复盘一下，但是我主要上课不知道他讲啥
+- 06-17 21:21 施翔天：[语音]
+- 06-17 21:22 KYW：就只拍了一道
+- 06-17 21:22 KYW：[图片]
+- 06-17 21:22 KYW：稍微重新看了一遍
+- 06-17 21:22 施翔天：，，
+- 06-17 21:22 KYW：很又成就感，有没有用另说
+- 06-17 21:23 KYW：[图片]
+- 06-17 21:23 施翔天：[表情]
+- 06-17 21:23 KYW：[表情]
+- 06-17 21:24 KYW：就当抗压训练了
+- 06-17 21:43 施翔天：[图片]
+- 06-17 21:43 施翔天：[图片]
+- 06-17 21:45 KYW：[图片]
+- 06-17 21:45 施翔天：[语音]
+- 06-17 21:45 施翔天：[语音]
+- 06-17 21:47 施翔天：[语音]
+- 06-17 21:47 施翔天：[语音]
+- 06-17 21:47 KYW：[语音]
+- 06-17 21:48 KYW：[图片]
+- 06-17 21:48 KYW：[语音]
+- 06-17 21:50 施翔天：[语音]
+- 06-17 21:50 施翔天：[语音]
+- 06-17 21:51 KYW：[语音]
+- 06-17 21:52 施翔天：[语音]
+- 06-17 21:53 46334537061@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"修改群名为“$remark$”]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_4q8whsqmajlc22]]></username>
+							<nickname><![CDATA[施翔天]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="remark" type="link_plain">
+					<plain><![CDATA[四口舍子]]></plain>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-17 21:54 施翔天：[语音]
+- 06-17 21:54 施翔天：[表情]
+- 06-17 21:54 施翔天：[表情]
+- 06-17 21:54 施翔天：[表情]
+- 06-17 21:54 KYW：你要拍哪几道
+- 06-17 21:54 KYW：[表情]
+- 06-17 21:55 施翔天：[语音]
+- 06-17 21:56 KYW：[图片]
+- 06-17 21:57 KYW：[语音]
+- 06-17 21:57 KYW：[语音]
+- 06-17 21:57 施翔天：[表情]
+- 06-17 21:57 施翔天：[表情]
+- 06-17 21:57 KYW：[表情]
+- 06-17 21:57 施翔天：[表情]
+- 06-17 22:00 施翔天：[表情]
+- 06-17 22:00 施翔天：[表情]
+- 06-17 22:01 施翔天：[语音]
+- 06-17 22:05 KYW：[语音]
+- 06-17 22:05 KYW：[表情]
+- 06-17 22:05 施翔天：不🙅🏻
+- 06-17 22:06 施翔天：我高考前好久好久没掉过
+- 06-17 22:06 施翔天：至少不会
+- 06-17 22:06 KYW：是💩
+- 06-17 22:06 施翔天：一挠头
+- 06-17 22:06 施翔天：桌子上掉了几根
+- 06-17 22:06 施翔天：这样
+- 06-17 22:06 施翔天：[表情]
+- 06-17 22:06 KYW：[语音]
+- 06-17 22:06 KYW：[语音]
+- 06-17 22:06 KYW：[表情]
+- 06-17 22:14 施翔天：[图片]
+- 06-17 22:14 施翔天：这题答案是B吗
+- 06-17 22:14 施翔天：[图片]
+- 06-17 22:14 施翔天：然后这题到底啥意思啊
+
+### EVENT: group-20260617-01-踢足球⚽️.md
+TITLE: 约踢球·下午场
+DATE: 2026-06-17
+SOURCE: 踢足球⚽️
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-17 11:48 54688716207@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请你和"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_7hvy77o15rja12]]></username>
+							<nickname><![CDATA[郑乐涛]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_oox840lxwigc22]]></username>
+							<nickname><![CDATA[Cllr]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_d7khif65yrr822]]></username>
+							<nickname><![CDATA[陈宣霖]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_am1m5rse9usu12]]></username>
+							<nickname><![CDATA[窗边的小豆豆]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_amxl50auqsli22]]></username>
+							<nickname><![CDATA[醉春骨]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_93xgp7r1jc9412]]></username>
+							<nickname><![CDATA[Liky]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_jftznwoqojdy12]]></username>
+							<nickname><![CDATA[NED（胡杨）]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_lavbe66t7gse22]]></username>
+							<nickname><![CDATA[吴泽楷]]></nickname>
+						</member>
+						<member>
+							<username><![CDATA[wxid_b14hrje421jn22]]></username>
+							<nickname><![CDATA[季恒毅]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+- 06-17 11:49 郑乐涛：大概在这里有一个小足球场[嘿哈]
+- 06-17 11:49 Cllr：啥意思
+- 06-17 11:49 Cllr：你们约了？
+- 06-17 11:49 54688716207@chatroom：撤销
+- 06-17 11:50 郑乐涛：拉一个群方便约啊
+- 06-17 11:52 54688716207@chatroom：撤销
+- 06-17 13:40 郑乐涛：大家下午4:40～6:00怎么样？有梦你就来[嘿哈]
+- 06-17 13:40 郑乐涛：就是有小雨
+- 06-17 13:43 郑乐涛：不过天气预报搞不清楚的 现在太阳这么大
+- 06-17 13:48 郑乐涛：这样子[呲牙]
+- 06-17 13:48 郑乐涛：[图片]
+- 06-17 13:49 郑乐涛：这是我之前去踢的照片
+- 06-17 13:49 郑乐涛：就是这样的场地
+- 06-17 13:50 陈宣霖：场地挺好的
+- 06-17 13:50 郑乐涛：对的 免费的
+- 06-17 13:51 郑乐涛：直接可以进的
+- 06-17 13:52 朱浩宇：@蒋佳辰 你去不去
+- 06-17 13:52 朱浩宇：我会去的
+- 06-17 13:53 郑乐涛：我也去[呲牙]
+- 06-17 13:53 郑乐涛：@Cllr 来蔡 来 来蔡 来
+- 06-17 13:53 陈宣霖：人够吗[疑问]
+- 06-17 13:54 Cllr：@郑乐涛19817956272 我回老家了[流泪]
+- 06-17 13:54 郑乐涛：人够吗[疑问]
+我一来就两个
+- 06-17 13:54 郑乐涛：@郑乐涛19817956272 我回老家了[流泪]
+啊 可惜了 损失了一个得分大将[捂脸]
+- 06-17 13:55 陈宣霖：现在有几个了[疑问]
+- 06-17 13:56 郑乐涛：我， 我邻居， 朱浩宇 ，李科宇
+- 06-17 13:58 朱浩宇：我觉得踢不了比赛，抱着磨练技术的想法去的
+- 06-17 13:58 郑乐涛：嗯嗯，人少咱就练，
+- 06-17 13:58 郑乐涛：人多咱就干
+- 06-17 13:59 陈宣霖：嗯
+
+### EVENT: group-20260618-01-这个13班.md
+TITLE: 班级讨论·回校拿毕业证
+DATE: 2026-06-18
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-18 03:31 王一开：我们不用在回一次学校吗？
+- 06-18 07:51 陈二逼：应该要
+- 06-18 07:52 🐟🐟🐟🐟🐟：你的毕业证还没拿
+- 06-18 07:57 施翔天：[表情]
+- 06-18 11:25 王一开：不会要成绩出之后再回吧
+- 06-18 11:27 吴晨阳：义乌中学似乎是没有毕业典礼这个传统
+- 06-18 11:30 🐟🐟🐟🐟🐟：不会要成绩出之后再回吧
+对
+- 06-18 12:14 施翔天：[图片]
+- 06-18 14:18 unknown："u" 撤回了一条消息
+- 06-18 14:18 unknown："u" 撤回了一条消息
+
+### EVENT: group-20260619-01-这个13班.md
+TITLE: 点外卖·义中四人份
+DATE: 2026-06-19
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-19 09:47 施翔天：[语音]
+- 06-19 09:47 施翔天：[表情]
+- 06-19 09:47 施翔天：[表情]
+- 06-19 09:47 邵志鹏：点到哪里？
+- 06-19 09:47 邵志鹏：学校吗？
+- 06-19 09:47 KYW：[表情]
+- 06-19 09:47 KYW：[表情]
+- 06-19 09:47 KYW：[表情]
+- 06-19 09:47 KYW：[表情]
+- 06-19 09:47 施翔天：点到义中，，
+- 06-19 09:48 unknown："KYW" 撤回了一条消息
+- 06-19 09:48 施翔天：四人份
+- 06-19 09:48 KYW：四人份
+- 06-19 09:48 KYW：[表情]
+- 06-19 09:48 KYW：[表情]
+- 06-19 09:48 施翔天：[表情]
+- 06-19 09:48 施翔天：[表情]
+- 06-19 09:48 施翔天：[表情]
+- 06-19 09:49 李韵雯：[白眼]
+- 06-19 09:49 unknown："施翔天" 撤回了一条消息
+- 06-19 09:49 邵志鹏：[图片]
+- 06-19 09:49 邵志鹏：这家挺好吃的
+- 06-19 09:49 施翔天：[表情]
+- 06-19 09:49 施翔天：[表情]
+
+### EVENT: group-20260620-02-四口舍子.md
+TITLE: 约吃砂锅面·上课冲突
+DATE: 2026-06-20
+SOURCE: 四口舍子
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-20 13:59 施翔天：[名片] 江宁klul
+地区：北京 海淀
+- 06-20 13:59 施翔天：数学老师
+- 06-20 16:21 施翔天：宣嫂·义乌砂锅面(楼店一区店)
+楼店新村一区7幢
+https://surl.amap.com/dx1MPYyn0u7
+- 06-20 17:45 施翔天：[图片]
+- 06-20 17:45 施翔天：你们去吗
+- 06-20 17:45 KYW：怎么去啊
+- 06-20 17:45 KYW：上课中
+- 06-20 17:45 施翔天：是不是时间冲了
+- 06-20 17:45 施翔天：行吧
+- 06-20 17:45 KYW：对啊
+- 06-20 17:45 KYW：[表情]
+
+### EVENT: group-20260621-01-13班CS分部.md
+TITLE: CS开黑·约五排连kook
+DATE: 2026-06-21
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-21 20:38 朱浩宇：我已经做好准备
+- 06-21 20:39 朱浩宇：吴泽
+- 06-21 20:39 朱浩宇：跳跳
+- 06-21 20:40 朱浩宇：随我出征
+- 06-21 20:40 吴泽楷：有人吗
+- 06-21 20:40 吴泽楷：我们这边凑到五排了
+- 06-21 20:40 吴泽楷：[委屈][委屈]
+- 06-21 20:41 朱浩宇：那你们先打
+- 06-21 21:43 吴泽楷：来吗
+- 06-21 21:43 吴泽楷：我可以
+- 06-21 21:44 朱浩宇：我们还没好
+- 06-21 21:45 吴泽楷：那我等一会
+- 06-21 21:45 朱浩宇：好的
+- 06-21 21:45 朱浩宇：我们国际服
+- 06-21 22:04 朱浩宇：https://kook.vip/fgi5nM
+- 06-21 22:04 朱浩宇：吴泽楷
+- 06-21 22:04 朱浩宇：加这个语音
+- 06-21 22:05 朱浩宇：然后把你的CS代码复制一下
+- 06-21 22:05 朱浩宇：@squiid
+- 06-21 22:08 吴泽楷：kook里拉我
+- 06-21 22:08 吴泽楷：服务器ID
+- 06-21 22:08 吴泽楷：发一下
+- 06-21 22:08 曾浩鑫：https://kook.vip/fgi5nM
+输这个
+- 06-21 22:08 朱浩宇：https://kook.vip/8QZx2d
+- 06-21 22:08 朱浩宇：这是邀请链接
+- 06-21 22:09 曾浩鑫：点游戏
+- 06-21 22:09 朱浩宇：双击一下游戏
+- 06-21 22:09 朱浩宇：[图片]
+
+### EVENT: group-20260622-01-13班CS分部.md
+TITLE: CS开黑·约四排
+DATE: 2026-06-22
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-22 21:36 朱浩宇：四排吗
+- 06-22 21:36 朱浩宇：我看你们都下线
+- 06-22 21:36 朱浩宇：都在线
+- 06-22 21:36 吴泽楷：可以
+- 06-22 21:36 吴晨阳：👍🏿
+- 06-22 21:36 朱浩宇：kook登一下
+- 06-22 21:37 吴晨阳：你们可以先开，我这把撸还没结束
+- 06-22 21:37 吴泽楷：我在铲
+- 06-22 21:37 朱浩宇：吴泽凯你想来就来
+- 06-22 21:37 朱浩宇：因为我打不了几把了
+- 06-22 21:51 吴晨阳：我好了 曾浩信还在游戏中
+
+### EVENT: group-20260622-01-这个13班.md
+TITLE: 班级通知·志愿书发放
+DATE: 2026-06-22
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-22 10:31 邵志鹏：有没有一起来学四级的[旺柴]
+- 06-22 10:31 unknown："邵志鹏" 撤回了一条消息
+- 06-22 10:31 邵志鹏：[图片]
+- 06-22 14:00 邵志鹏：360ka.cn
+http://360ka.cn/5305RQb#1782098908035
+- 06-22 14:57 郑乐涛：[图片]
+- 06-22 14:57 郑乐涛：温州的朋友知不知道这里是哪里[机智]
+- 06-22 15:08 施翔天：你迷路了？
+- 06-22 15:36 Cllr：@郑乐涛19817956272 怀疑南ji岛
+- 06-22 16:34 李韵雯：我们搞晚会吗
+- 06-22 16:40 郑乐涛：[图片]
+- 06-22 16:42 🐟🐟🐟🐟🐟：会玩的
+- 06-22 17:03 郑乐涛：@施翔天 在温州苍南168航线
+- 06-22 17:04 郑乐涛：你迷路了？
+哈哈哈哈，太逗了
+- 06-22 17:05 🐟🐟🐟🐟🐟：22号了，好紧张啊
+- 06-22 17:05 🐟🐟🐟🐟🐟：就要出分了
+- 06-22 17:06 KYW：25号上课的时候出分就炸了
+- 06-22 17:06 KYW：[表情]
+- 06-22 17:06 李韵雯：一个一个跳起来
+- 06-22 17:06 KYW：飞起来
+- 06-22 17:06 KYW：[表情]
+- 06-22 17:07 施翔天：看谁的手机先响
+- 06-22 17:08 李荣轩：@施翔天 在温州苍南168航线
+？
+- 06-22 17:08 unknown："吴晨阳" 撤回了一条消息
+- 06-22 17:08 戈：<msg><appmsg appid=""  sdkver="0"><title>？</title><type>57</type><action>view</action><appattach><cdnthumbaeskey></cdnthumbaeskey><aeskey></aeskey></appattach></appmsg><fromusername>wxid_uncwwnwkjwvp22</fromusername><appinfo><version>1</version><appname></appname><isforceupdate>1</isforceupdate></appinfo></msg>
+可以找lrx玩
+- 06-22 17:08 施翔天：[表情]
+- 06-22 17:09 李荣轩：要不要我来找你
+- 06-22 17:09 KYW：[表情]
+- 06-22 17:10 🐟🐟🐟🐟🐟：高考成绩发布在即，这份志愿填报“一站式”指南请收好
+https://mp.weixin.qq.com/s?__biz=MzAxMDAwMzU1Nw==&mid=2651517729&idx=1&sn=ef7a71f35dd43115d65a169a9e5ed112&chksm=812632c21c6b5489db100254bcc338f7ddce0115f6fcbd9463e5ab5074d3d92bf7123e4a84d4&mpshare=1&scene=1&srcid=0622OlrutxKmyv5V8oLsPm7J&sharer_shareinfo=edaefe8da338ba35c1130ce5373d4ae2&sharer_shareinfo_first=fcdd6efb9c552722dabe6a99c47069e4#rd
+- 06-22 17:11 🐟🐟🐟🐟🐟：我也想出去玩
+- 06-22 17:11 🐟🐟🐟🐟🐟：[流泪]
+- 06-22 17:36 🐟🐟🐟🐟🐟：2025录取情况，按名单每人一本。
+- 06-22 17:36 🐟🐟🐟🐟🐟：[图片]
+- 06-22 17:36 🐟🐟🐟🐟🐟：[图片]
+- 06-22 17:36 🐟🐟🐟🐟🐟：[图片]
+- 06-22 17:36 🐟🐟🐟🐟🐟：[图片]
+- 06-22 17:39 🐟🐟🐟🐟🐟：@所有人 关于志愿书发放，有关事项通知如下：
+1.时间地点：6月23日（周二）上午8:30-11:30，图书馆大厅。
+2.书籍清单：共三本书，2026年招生计划、2025年录取情况人手一本，体艺生还要拿一本艺体类的招生计划；还有一本报考指南，每班只有25本，届时酌情发放。
+- 06-22 17:41 李韵雯：能不能26号拿？
+- 06-22 17:42 🐟🐟🐟🐟🐟：行
+- 06-22 17:42 李韵雯：[OK][OK][坏笑]
+- 06-22 17:42 🐟🐟🐟🐟🐟：大家早点来拿，我好早点下班
+- 06-22 17:48 🐟🐟🐟🐟🐟：@所有人 各位同学，明天如果我还没到，先等我一下。最好都10点前来拿。
+
+### EVENT: group-20260623-01-SOS团.md
+TITLE: 日常闲聊·问返程
+DATE: 2026-06-23
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-23 11:39 朱浩宇：你们回去了是吧
+- 06-23 11:39 陈二逼：是
+- 06-23 11:39 朱浩宇：好
+- 06-23 14:22 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+爷爷你那边网络 不好#思念#思念亲人
+https://support.weixin.qq.com/update/
+- 06-23 14:53 陈二逼：https://m.youtube.com/playlist?list=PL8SSGPmeDcs15UaLRbOyeICxiEf8lz4Gv&ra=m
+- 06-23 15:04 朱浩宇：[图片]
+- 06-23 15:04 陈二逼：[月亮]
+- 06-23 18:56 朱浩宇：[图片]
+- 06-23 18:57 朱浩宇：[图片]
+
+### EVENT: group-20260623-01-这个13班.md
+TITLE: 搬书·领毕业证
+DATE: 2026-06-23
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-23 08:20 🐟🐟🐟🐟🐟：有没有到的同学，把图书馆的书一起搬到我办公室@所有人
+- 06-23 08:28 施翔天：[图片]
+- 06-23 08:28 🐟🐟🐟🐟🐟：OK，你们几个下课来拿毕业证
+- 06-23 08:54 unknown："妄想晚期" 撤回了一条消息
+- 06-23 08:59 🐟🐟🐟🐟🐟：快点来啊
+- 06-23 08:59 🐟🐟🐟🐟🐟：@所有人 快点来啊
+- 06-23 09:05 45161506842@chatroom：<sysmsg type="sysmsgtemplate">
+	<sysmsgtemplate>
+		<content_template type="tmpl_type_profile">
+			<plain><![CDATA[]]></plain>
+			<template><![CDATA["$username$"邀请"$names$"加入了群聊]]></template>
+			<link_list>
+				<link name="username" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_d7khif65yrr822]]></username>
+							<nickname><![CDATA[陈宣霖]]></nickname>
+						</member>
+					</memberlist>
+				</link>
+				<link name="names" type="link_profile">
+					<memberlist>
+						<member>
+							<username><![CDATA[wxid_can7fguj8cxb22]]></username>
+							<nickname><![CDATA[.]]></nickname>
+						</member>
+					</memberlist>
+					<separator><![CDATA[、]]></separator>
+				</link>
+			</link_list>
+		</content_template>
+	</sysmsgtemplate>
+</sysmsg>
+
+### EVENT: group-20260623-02-13班CS分部.md
+TITLE: CS开黑·拉蒋佳辰连语音凑五排
+DATE: 2026-06-23
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-23 18:56 朱浩宇：[图片]
+- 06-23 19:29 朱浩宇：打否
+- 06-23 19:29 吴泽楷：在外吃饭中
+- 06-23 19:29 吴泽楷：半小时
+- 06-23 19:29 曾浩鑫：在连道具
+- 06-23 19:30 朱浩宇：@码头 别练了
+- 06-23 19:31 曾浩鑫：刚练
+- 06-23 19:31 吴泽楷：太卷
+- 06-23 19:31 吴泽楷：我也打了一下午
+- 06-23 19:31 曾浩鑫：等吴泽呗
+- 06-23 19:31 吴泽楷：打2v2吗还是什么
+- 06-23 19:32 朱浩宇：正常打
+- 06-23 19:45 曾浩鑫：来人
+- 06-23 19:45 吴泽楷：马上
+- 06-23 19:45 吴泽楷：五分钟
+- 06-23 19:45 曾浩鑫：@蒋佳辰 @啊？
+- 06-23 19:45 曾浩鑫：👌
+- 06-23 19:45 蒋佳辰：来了
+- 06-23 19:46 吴泽楷：我们有五排了
+- 06-23 19:46 吴泽楷：我去
+- 06-23 19:46 吴泽楷：牛逼
+- 06-23 19:46 曾浩鑫：姜价下一个kook
+- 06-23 19:46 曾浩鑫：@蒋佳辰 下一个kook
+- 06-23 19:46 吴泽楷：我以为你说蒋家是下一个donk
+- 06-23 19:47 蒋佳辰：这是什么
+- 06-23 19:47 吴泽楷：语音软件
+- 06-23 19:47 曾浩鑫：语音软件
+- 06-23 19:47 曾浩鑫：@蒋佳辰
+- 06-23 19:48 朱浩宇：https://kook.vip/8QZx2d
+- 06-23 19:48 蒋佳辰：怎么联机
+- 06-23 19:48 朱浩宇：江家
+
+### EVENT: group-20260624-01-SOS团.md
+TITLE: 聊graphwar·蔚蓝档案国际服
+DATE: 2026-06-24
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-24 13:53 金晟恺：各位可知graphwar
+- 06-24 15:09 朱浩宇：看了一眼
+- 06-24 15:09 朱浩宇：有意思
+- 06-24 15:09 朱浩宇：[图片]
+- 06-24 15:10 陈二逼：[流泪]
+- 06-24 15:10 金晟恺：😯
+- 06-24 15:10 朱浩宇：当前微信版本不支持展示该内容，请升级至最新版本。
+未牵绳发情期大狗扑骑8岁女童，狗主人拒不道歉还骂人。家长：对方拒绝带孩子去医院 让走起诉
+https://support.weixin.qq.com/update/
+- 06-24 15:11 朱浩宇：graphwar能多少人联机
+- 06-24 15:15 朱浩宇：[图片]
+- 06-24 15:20 金晟恺：<?xml version="1.0"?>
+<msg>
+	<appmsg appid="" sdkver="0">
+		<title>当前微信版本不支持展示该内容，请升级至最新版本。</title>
+		<type>51</type>
+		<url>https://support.weixin.qq.com/update/</url>
+		<appattach>
+			<cdnthumbaeskey />
+			<aeskey />
+		</appattach>
+		<finderFeed>
+			<objectId><![CDATA[14950811420039059847]]></objectId>
+			<feedType><![CDATA[4]]></feedType>
+			<nickname><![CDATA[洛视频]]></nickname>
+			<avatar><![CDATA[https://wx.qlogo.cn/finderhead/ver_1/uLS7nRwVDSo9Yk6c6pd6o8SLHsLlt4Xsma6uzDJRfvrWicNWpAib2nFfgaztfk1rV4icwyGoLp5Xib10HLJlFnfEMIGicZVvF611s0xKSW3zarZQ/0]]></avatar>
+			<desc><![CDATA[未牵绳发情期大狗扑骑8岁女童，狗主人拒不道歉还骂人。家长：对方拒绝带孩子去医院 让走起诉]]></desc>
+			<mediaCount><![CDATA[1]]></mediaCount>
+			<objectNonceId><![CDATA[15373984158385229249_4_20_13_1_1782280446080357_1c4eeaac-6f91-11f1-8f40-ada91398f4f5]]></objectNonceId>
+			<liveId><![CDATA[0]]></liveId>
+			<username><![CDATA[v2_060000231003b20faec8c4eb801fc5dccb0de934b07745b78363fd88834537cf43654ff6911f@finder]]></username>
+			<authIconUrl><![CDATA[https://dldir1v6.qq.com/weixin/checkresupdate/icons_filled_channels_authentication_enterprise_a2658032368245639e666fb11533a600.png]]></authIconUrl>
+			<authIconType>2</authIconType>
+			<contactJumpInfoStr><![CDATA[]]></contactJumpInfoStr>
+			<sourceCommentScene>20</sourceCommentScene>
+			<mediaList>
+				<media>
+					<thumbUrl><![CDATA[https://wxapp.tc.qq.com/251/20304/stodownload?encfilekey=KGDRibp2wkicK8gGqLHBpSffNeViaYrGx02icWn3sK4l5cFfUoSY3HiaWUG7Uqr9BZ7YaGfuZZnOAK6D5IeajQfPNkQ&hy=SH&idx=1&m=&scene=2&uzid=1&picformat=200&wxampicformat=503&token=AxricY7RBHdUtKXrXucusU0MeohlvMM7cHfVCPVV48hgWpZ0TCkXIicJAPOiamtiaSIVxMXofkFvsb1UBFYogOp8GqiaV3eMFDS1SBESIHxT95w0fydJTYIQjeVz0VJTl62eDlpmEShlQDWXBmSic8cTaQqNj3dXziciaa8ic0K3ibUXTabNXTGuF0wwCgA2RU15lS8ibokm48L3oic8Cwf1pJBmXmwaMADh0NM3wUbF]]></thumbUrl>
+					<fullCoverUrl><![CDATA[]]></fullCoverUrl>
+					<videoPlayDuration><![CDATA[13]]></videoPlayDuration>
+					<url><![CDATA[http://wxapp.tc.qq.com/251/20302/stodownload?encfilekey=rgjNqbibdAo3rerLekfyAiatjJMBDaP8n0pzFyo2xuFoj7LtBayJvF2qtBXbicqb7ApdzcxoWJSNaB4L6u12icdL4g&bizid=1023&dotrans=0&hy=SH&idx=1&m=&uzid=7a152]]></url>
+					<coverUrl><![CDATA[https://wxapp.tc.qq.com/251/20304/stodownload?encfilekey=KGDRibp2wkicK8gGqLHBpSffNeViaYrGx02icWn3sK4l5cFfUoSY3HiaWUG7Uqr9BZ7YaGfuZZnOAK6D5IeajQfPNkQ&hy=SH&idx=1&m=&scene=2&uzid=1&picformat=200&wxampicformat=503&token=AxricY7RBHdUtKXrXucusU0MeohlvMM7cHfVCPVV48hgWpZ0TCkXIicJAPOiamtiaSIVxMXofkFvsb1UBFYogOp8GqiaV3eMFDS1SBESIHxT95w0fydJTYIQjeVz0VJTl62eDlpmEShlQDWXBmSic8cTaQqNj3dXziciaa8ic0K3ibUXTabNXTGuF0wwCgA2RU15lS8ibokm48L3oic8Cwf1pJBmXmwaMADh0NM3wUbF]]></coverUrl>
+					<height><![CDATA[1920]]></height>
+					<mediaType><![CDATA[4]]></mediaType>
+					<fullClipInset><![CDATA[]]></fullClipInset>
+					<width><![CDATA[1080]]></width>
+				</media>
+			</mediaList>
+			<megaVideo>
+				<objectId><![CDATA[]]></objectId>
+				<objectNonceId><![CDATA[]]></objectNonceId>
+			</megaVideo>
+			<bizUsername><![CDATA[]]></bizUsername>
+			<bizNickname><![CDATA[]]></bizNickname>
+			<bizAvatar><![CDATA[]]></bizAvatar>
+			<bizUsernameV2><![CDATA[]]></bizUsernameV2>
+			<bizAuthIconUrl><![CDATA[]]></bizAuthIconUrl>
+			<bizAuthIconType>0</bizAuthIconType>
+			<ecSource><![CDATA[]]></ecSource>
+			<shareBypData><![CDATA[]]></shareBypData>
+			<isDebug>0</isDebug>
+			<content_type>0</content_type>
+			<finderShareExtInfo><![CDATA[{"hasInput":false,"shareSrcScene":3}]]></finderShareExtInfo>
+			<finderForwardSource><![CDATA[]]></finderForwardSource>
+		</finderFeed>
+	</appmsg>
+	<fromusername>wxid_1mrre1dw5u0q22</fromusername>
+	<scene>0</scene>
+	<appinfo>
+		<version>1</version>
+		<appname></appname>
+	</appinfo>
+	<commenturl></commenturl>
+</msg>
+我这个我也刚刷到
+- 06-24 15:24 金晟恺：Graphwar 杀手
+UP主：HowieHz
+播放：9989
+https://b23.tv/tTMuvTm
+- 06-24 15:24 金晟恺：这个游戏已经没意思了
+- 06-24 17:29 朱浩宇：@Anony
+- 06-24 17:29 朱浩宇：那个资料我多拿一套
+- 06-24 17:29 朱浩宇：对不住你
+- 06-24 17:29 金晟恺：额
+- 06-24 17:30 金晟恺：cpy打电话远程骂我
+- 06-24 17:30 金晟恺：[捂脸]
+- 06-24 17:30 朱浩宇：[炸弹]
+- 06-24 17:31 金晟恺：我终于玩上了蔚蓝档案国际服
+- 06-24 17:31 金晟恺：豪爽
+- 06-24 17:31 朱浩宇：[流泪]
+- 06-24 17:32 金晟恺：之前在steam和iOS都不行
+- 06-24 17:32 陈二逼：[捂脸]
+- 06-24 17:32 金晟恺：安卓牛逼
+- 06-24 17:32 朱浩宇：[猪头]
+- 06-24 17:32 陈二逼：[爆竹]
+- 06-24 17:32 陈二逼：[爆竹]
+- 06-24 17:32 陈二逼：[爆竹]
+- 06-24 17:32 陈二逼：[炸弹]
+- 06-24 17:32 陈二逼：[爆竹]
+- 06-24 17:32 陈二逼：[炸弹]
+
+### EVENT: group-20260624-02-13班CS分部.md
+TITLE: CS开黑·聊frozen照片
+DATE: 2026-06-24
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-24 18:46 曾浩鑫：[图片]
+- 06-24 18:46 曾浩鑫：开电脑第一把
+- 06-24 18:46 朱浩宇：你等一下
+- 06-24 18:46 曾浩鑫：后面越来越慢我算是发现了
+- 06-24 18:47 朱浩宇：你打吗
+- 06-24 18:47 曾浩鑫：我都行
+- 06-24 18:47 朱浩宇：你等一下
+- 06-24 18:47 曾浩鑫：👌
+- 06-24 18:53 吴晨阳：我打两把
+- 06-24 18:53 吴晨阳：八点溜
+- 06-24 18:57 朱浩宇：还有人吗
+- 06-24 18:57 朱浩宇：现在四个
+- 06-24 19:00 吴泽楷：我来吧
+- 06-24 19:02 朱浩宇：来吧
+- 06-24 19:02 朱浩宇：我在等你们
+- 06-24 19:02 曾浩鑫：👌
+- 06-24 19:02 曾浩鑫：[图片]
+- 06-24 19:02 朱浩宇：自己看看就行
+- 06-24 19:02 吴泽楷：自己看看就行
+- 06-24 19:02 朱浩宇：发出来没什么意义
+- 06-24 19:03 曾浩鑫：今天可能枪很马
+- 06-24 19:03 吴泽楷：这是本人吗
+- 06-24 19:03 曾浩鑫：啥意思
+- 06-24 19:03 吴泽楷：这是frozen吗
+- 06-24 19:03 吴晨阳：✅
+- 06-24 19:03 曾浩鑫：对
+- 06-24 19:03 吴泽楷：不像
+- 06-24 19:04 吴泽楷：美颜开过头了
+- 06-24 19:04 曾浩鑫：开特效了
+- 06-24 19:04 曾浩鑫：对
+- 06-24 19:04 吴泽楷：还不如本人
+
+### EVENT: group-20260625-01-13班CS分部.md
+TITLE: CS比赛备战·讨论阵容训练
+DATE: 2026-06-25
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-25 00:00 吴泽楷：[图片]
+- 06-25 00:00 吴泽楷：备战
+- 06-25 00:00 朱浩宇：[破涕为笑]
+- 06-25 00:00 朱浩宇：第五个
+- 06-25 00:00 朱浩宇：选陈嘉詺还是蒋佳辰
+- 06-25 00:01 吴泽楷：两个人对掏决定首发
+- 06-25 00:01 蒋佳辰：选飞机
+- 06-25 00:01 吴泽楷：不要灰心
+- 06-25 00:01 吴泽楷：校长还是可以的
+- 06-25 00:02 吴泽楷：要有自信
+- 06-25 00:03 蒋佳辰：选飞机可以造成45开，使队手更强，从而我们也可以变得更强
+- 06-25 00:06 曾浩鑫：@squiid 还有几班的
+- 06-25 00:06 吴泽楷：很多吧
+- 06-25 00:06 吴泽楷：我去问问
+- 06-25 00:06 曾浩鑫：强吗
+- 06-25 00:07 蒋佳辰：怎么训练
+- 06-25 00:07 吴泽楷：强不强的
+- 06-25 00:07 吴泽楷：打了才知道
+- 06-25 00:07 曾浩鑫：完美段位
+- 06-25 00:07 吴泽楷：枪法肯定要练
+- 06-25 00:07 吴泽楷：还有协同，道具这些
+- 06-25 00:08 吴泽楷：完美段位
+在问了
+- 06-25 00:08 曾浩鑫：怎么训练
+你们可以先看看抖音打cs的主播
+- 06-25 00:08 曾浩鑫：搜沙二打法思路
+- 06-25 00:08 吴泽楷：真有内战不一定打沙二吧
+- 06-25 00:09 吴泽楷：别的图也得玩玩
+- 06-25 00:09 曾浩鑫：？
+- 06-25 00:09 曾浩鑫：那打鸡毛
+- 06-25 00:09 曾浩鑫：沙二都打不明白我们
+- 06-25 00:09 曾浩鑫：枪法一时半会练不出来的
+- 06-25 00:10 吴泽楷：我在商量
+
+### EVENT: group-20260625-01-SOS团.md
+TITLE: 追女生·要微信名片
+DATE: 2026-06-25
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-25 08:04 朱浩宇：抓住机会了吗
+- 06-25 08:04 朱浩宇：有没有彻聊一夜
+- 06-25 08:05 陈二逼：没
+- 06-25 11:36 朱浩宇：那你放弃了吗
+- 06-25 11:45 金晟恺：又黎允文的微信吗
+- 06-25 11:45 金晟恺：@困眼闭
+- 06-25 11:45 朱浩宇：[名片] _
+微信号：p887972q
+地区：南极洲
+签名：Sleep the first
+- 06-25 11:45 金晟恺：谢谢
+- 06-25 11:46 陈二逼：没
+
+### EVENT: group-20260625-01-这个13班.md
+TITLE: 高考出分·特控线讨论
+DATE: 2026-06-25
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-25 14:09 🐟🐟🐟🐟🐟：知道成绩了告诉我噢[拥抱][拥抱][拥抱]
+- 06-25 14:09 🐟🐟🐟🐟🐟：@所有人
+- 06-25 14:09 🐟🐟🐟🐟🐟：[表情]
+- 06-25 14:09 邵志鹏：[表情]
+- 06-25 14:10 u：[表情]
+- 06-25 14:11 🐟🐟🐟🐟🐟：截图发我噢截图
+- 06-25 14:11 unknown："蔡罗磊" 撤回了一条消息
+- 06-25 14:13 NEH（胡杨）：[表情]
+- 06-25 14:37 unknown："KYW" 撤回了一条消息
+- 06-25 14:37 Cllr：无敌
+- 06-25 14:37 Cllr：发分数线了
+- 06-25 14:37 邵志鹏：看到了
+- 06-25 14:38 邵志鹏：特控线594
+- 06-25 14:38 邵志鹏：[捂脸]
+- 06-25 14:38 Cllr：咋还高了
+- 06-25 14:38 Cllr：[破涕为笑]
+- 06-25 14:38 🐟🐟🐟🐟🐟：还是我那一年刺激呀，前一年是550，我那年593
+- 06-25 14:39 邵志鹏：那确实吓人
+- 06-25 14:39 邵志鹏：[表情]
+- 06-25 14:39 王丹凤：去年特控线592
+- 06-25 14:40 王丹凤：特控线是如何控制这么好
+- 06-25 14:40 🐟🐟🐟🐟🐟：控制平均分
+- 06-25 14:40 u：[表情]
+- 06-25 14:40 u：[表情]
+- 06-25 14:40 u：[表情]
+- 06-25 14:40 unknown："u" 撤回了一条消息
+- 06-25 14:40 unknown："u" 撤回了一条消息
+- 06-25 14:40 unknown："u" 撤回了一条消息
+- 06-25 14:40 吴泽楷：不行了
+- 06-25 14:40 吴泽楷：心慌手抖
+- 06-25 14:40 吴泽楷：无法呼吸
+- 06-25 14:41 王丹凤：@🐟🐟🐟🐟🐟 哪里写了特控线？
+- 06-25 14:42 朱怡诺：[图片]
+- 06-25 14:42 🐟🐟🐟🐟🐟：[图片]
+- 06-25 14:43 王丹凤：[憨笑]
+- 06-25 14:43 unknown："陈二逼" 撤回了一条消息
+- 06-25 14:49 unknown："丁浩然" 撤回了一条消息
+- 06-25 14:49 吴泽楷：撤回
+- 06-25 14:49 吴泽楷：别当众发
+- 06-25 14:49 u：撤回
+
+### EVENT: group-20260625-02-13班CS分部.md
+TITLE: CS比赛·讨论补人
+DATE: 2026-06-25
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-25 17:09 朱浩宇：今天大伙还打吗
+- 06-25 17:09 曾浩鑫：打吧
+- 06-25 17:09 吴晨阳：我ok
+- 06-25 17:09 曾浩鑫：无所谓了
+- 06-25 17:09 吴泽楷：打吧
+- 06-25 17:09 吴泽楷：就这样了
+- 06-25 17:10 朱浩宇：完美我准备好了
+- 06-25 17:10 朱浩宇：吴晨阳你记得研究一下啊
+- 06-25 17:10 曾浩鑫：那可以内战
+- 06-25 17:10 吴泽楷：可以
+- 06-25 17:10 朱浩宇：准备那个比赛为主
+- 06-25 17:11 吴泽楷：是的
+- 06-25 17:11 朱浩宇：这个比赛是我现在打ＣＳ的唯一动力
+- 06-25 17:12 朱浩宇：校长不会来的
+- 06-25 17:12 朱浩宇：飞机不知道
+- 06-25 17:12 朱浩宇：我们少一个人的
+- 06-25 17:13 吴泽楷：那就二打二练练枪呗
+- 06-25 17:13 吴泽楷：都行
+- 06-25 17:13 吴泽楷：校长咋了
+- 06-25 17:13 朱浩宇：校长是那个比赛大概率也不来
+- 06-25 17:13 朱浩宇：我们要补一个人
+- 06-25 17:14 吴泽楷：引进一个强援
+- 06-25 17:14 吴泽楷：暴力炸
+- 06-25 17:14 朱浩宇：王一开陈嘉詺
+- 06-25 17:15 吴泽楷：wyk什么水平
+- 06-25 17:15 朱浩宇：不知道
+- 06-25 17:15 朱浩宇：我劝不动他
+- 06-25 17:15 吴泽楷：劝什么
+- 06-25 17:16 朱浩宇：劝他打CS
+- 06-25 17:16 吴泽楷：……
+
+### EVENT: group-20260626-01-13班CS分部.md
+TITLE: CS道具·跳投练习
+DATE: 2026-06-26
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-26 08:35 吴泽楷：[图片]
+- 06-26 08:35 吴泽楷：[图片]
+- 06-26 11:17 吴泽楷：[图片]
+- 06-26 11:18 吴泽楷：跳投
+- 06-26 11:19 朱浩宇：<?xml version="1.0"?>
+<msg>
+	<img aeskey="91e6dc668b60e76eb02276ef6db6e7f6" encryver="1" cdnthumbaeskey="91e6dc668b60e76eb02276ef6db6e7f6" cdnthumburl="305f020100044b30490201000204f411024602032dd023020493cf0d7002046a3dc942042433656564636336612d393239612d343461652d623961632d616231623062313562336338020405250a02020100040d004c5507000000000000000000" cdnthumblength="5127" cdnthumbheight="432" cdnthumbwidth="322" cdnmidheight="0" cdnmidwidth="0" cdnhdheight="0" cdnhdwidth="0" cdnmidimgurl="305f020100044b30490201000204f411024602032dd023020493cf0d7002046a3dc942042433656564636336612d393239612d343461652d623961632d616231623062313562336338020405250a02020100040d004c5507000000000000000000" length="39391" md5="5de6a3fb4ae89464bf4311cd3f241f8e" hevc_mid_size="13929" originsourcemd5="0a02cf0579aa3c9fb7e37b6e712872d0">
+		<secHashInfoBase64>eyJwaGFzaCI6IjcwZDFkNDQ4OTExMTEwMDAiLCJwZHFIYXNoIjoiMjJjM2RkMjc5MmNkNGQ5MzUz
+M2JiMGUxNGQyM2QyYTk5NGQzNmYyOTA4ZWZiY2MyNjQyYzU2YzVkMDQzYWVlZiJ9
+</secHashInfoBase64>
+		<live>
+			<duration>0</duration>
+			<size>0</size>
+			<md5 />
+			<fileid />
+			<hdsize>0</hdsize>
+			<hdmd5 />
+			<hdfileid />
+			<stillimagetimems>0</stillimagetimems>
+		</live>
+	</img>
+	<platform_signature />
+	<imgdatahash />
+	<ImgSourceInfo>
+		<ImgSourceUrl />
+		<BizType>0</BizType>
+	</ImgSourceInfo>
+</msg>
+你幼时吗
+- 06-26 11:19 吴泽楷：不是
+- 06-26 11:19 曾浩鑫：总一套
+- 06-26 11:19 吴泽楷：是飞机让我发的
+- 06-26 11:19 吴泽楷：宗一韬
+
+### EVENT: group-20260628-01-13班CS分部.md
+TITLE: 日常闲聊·聊apex手感
+DATE: 2026-06-28
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-28 21:53 曾浩鑫：怎么没人打了这两天
+- 06-28 21:58 吴泽楷：来吗
+- 06-28 21:58 吴泽楷：我可以
+- 06-28 21:58 吴泽楷：这两天在派派
+- 06-28 22:18 曾浩鑫：其他人呢
+- 06-28 22:18 曾浩鑫：[可怜]
+- 06-28 22:19 吴泽楷：其他人呢
+- 06-28 22:19 吴泽楷：[可怜]
+- 06-28 22:20 朱浩宇：今天太晚了
+- 06-28 22:20 吴晨阳：爱鹿馆
+- 06-28 22:20 曾浩鑫：[破涕为笑]
+- 06-28 22:21 吴泽楷：[图片]
+- 06-28 22:21 曾浩鑫：？
+- 06-28 22:22 吴泽楷：[图片]
+- 06-28 22:23 曾浩鑫：？。？
+- 06-28 22:23 unknown："吴泽楷" 撤回了一条消息
+- 06-28 22:24 吴泽楷：[图片]
+- 06-28 22:24 吴晨阳：吴泽楷疯了我记得他b站头像也是这个物种
+- 06-28 22:25 吴泽楷：[图片]
+- 06-28 22:25 吴泽楷：[图片]
+- 06-28 22:25 吴泽楷：null
+- 06-28 22:25 曾浩鑫：傻福
+- 06-28 22:25 吴泽楷：[图片]
+- 06-28 22:25 吴泽楷：[图片]
+- 06-28 22:25 吴泽楷：我有的是呢
+- 06-28 22:25 吴泽楷：好多都在qq
+- 06-28 22:47 陈二逼：[炸弹]
+- 06-28 23:04 吴泽楷：我跟你们说这个apex真的好玩
+- 06-28 23:04 吴泽楷：有空去试试
+- 06-28 23:04 吴泽楷：免费的
+- 06-28 23:04 吴泽楷：玩了apex觉得cs有点索然无味
+- 06-28 23:07 曾浩鑫：[可怜]
+- 06-28 23:37 吴泽楷：我自从上次把鼠标膜撕了之后手感尽毁
+- 06-28 23:38 吴泽楷：只能玩apex这种很滑的射击游戏了
+- 06-28 23:38 吴泽楷：精准定位根本打不了
+
+### EVENT: group-20260629-02-13班CS分部.md
+TITLE: CS比赛·时间冲突可能弃权
+DATE: 2026-06-29
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 06-29 16:32 吴泽楷：比赛大概七月二号
+- 06-29 16:32 吴泽楷：完美
+- 06-29 16:35 曾浩鑫：晚一点晚一点
+- 06-29 16:35 曾浩鑫：比赛大概七月二号
+我要去北师大强基
+- 06-29 16:36 吴泽楷：行我去说一声
+- 06-29 16:36 吴泽楷：你什么时候能打
+- 06-29 16:36 曾浩鑫：4号
+- 06-29 16:44 吴泽楷：三号晚怎么样
+- 06-29 16:46 吴泽楷：@草泥马傻逼cs
+- 06-29 16:46 曾浩鑫：我看看
+- 06-29 16:46 曾浩鑫：我三号测完
+- 06-29 16:46 曾浩鑫：我可能在飞机上吧
+- 06-29 16:48 吴泽楷：那劳累了
+- 06-29 16:48 吴泽楷：[图片]
+- 06-29 16:50 曾浩鑫：[可怜]
+- 06-29 17:03 吴泽楷：@草泥马傻逼cs 你再看看三号晚行不行呢
+- 06-29 17:03 吴泽楷：不行只能退赛了
+- 06-29 17:03 吴泽楷：[委屈]
+- 06-29 17:27 曾浩鑫：估计不太行
+- 06-29 17:27 曾浩鑫：你们换谁
+- 06-29 17:28 吴泽楷：哪有人换啊
+- 06-29 17:28 吴泽楷：本质班队
+- 06-29 17:28 吴泽楷：少人只能弃权了
+- 06-29 17:28 曾浩鑫：[可怜]
+
+### EVENT: group-20260701-01-13班CS分部.md
+TITLE: CS观赛·天禄对faze
+DATE: 2026-07-01
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-01 16:58 曾浩鑫：天路打faze
+- 07-01 16:58 曾浩鑫：now
+- 07-01 16:59 曾浩鑫：fzn加油拿下mvp好吗
+- 07-01 17:11 吴泽楷：不好
+- 07-01 17:11 吴泽楷：天禄加油
+- 07-01 17:12 曾浩鑫：fzn加油
+- 07-01 17:12 曾浩鑫：[流泪]
+- 07-01 17:12 曾浩鑫：劳王
+- 07-01 17:12 曾浩鑫：niko的继承人
+- 07-01 17:13 吴泽楷：豆包帮我把所有niko烂梗的主语换成frozen
+- 07-01 17:14 曾浩鑫：[呲牙]
+- 07-01 17:14 曾浩鑫：[调皮]
+- 07-01 17:52 吴泽楷：哈哈
+- 07-01 17:52 吴泽楷：舒哥了
+- 07-01 20:07 吴泽楷：集合
+- 07-01 20:10 朱浩宇：陈嘉詺就位
+- 07-01 20:10 朱浩宇：朱浩宇就位
+- 07-01 20:11 曾浩鑫：[可怜]
+- 07-01 20:17 吴泽楷：其他人呢
+- 07-01 20:18 朱浩宇：[炸弹]
+- 07-01 20:18 曾浩鑫：没带电脑
+- 07-01 20:18 曾浩鑫：明天面试
+- 07-01 20:23 吴晨阳：💃
+- 07-01 23:02 陈二逼：如果每天多熬一小时，晚起一小时，那我还需21天无痛调回义中作息
+- 07-01 23:04 陈二逼：如果将一小时改为20分钟，那么九月号便成六点前起床的考研大佬
+- 07-01 23:04 朱浩宇：[发怒]
+- 07-01 23:16 曾浩鑫：傻福
+
+### EVENT: group-20260702-01-13班CS分部.md
+TITLE: CS比赛·约明天荣誉之战
+DATE: 2026-07-02
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-02 10:12 曾浩鑫：明天几点打
+- 07-02 10:13 曾浩鑫：我晚上才能回来
+- 07-02 10:13 曾浩鑫：@squiid
+- 07-02 12:32 吴泽楷：他们估计今天都打掉了
+- 07-02 12:33 吴泽楷：没办法了
+- 07-02 15:02 吴泽楷：明天晚上能打吗
+- 07-02 15:02 曾浩鑫：可以
+- 07-02 15:02 吴泽楷：那可以
+- 07-02 15:02 曾浩鑫：4点到义乌
+- 07-02 15:02 吴泽楷：搞
+- 07-02 15:02 吴泽楷：@dipityseren @困眼闭
+- 07-02 15:02 吴泽楷：怎么说
+- 07-02 15:03 曾浩鑫：fucking go
+- 07-02 15:07 吴晨阳：🉑
+- 07-02 15:08 吴晨阳：荣誉之战
+- 07-02 15:08 曾浩鑫：[破涕为笑]
+- 07-02 15:08 曾浩鑫：别输太难看
+- 07-02 15:08 吴泽楷：基本是打不过的呀
+- 07-02 15:08 吴泽楷：别输太难看
+- 07-02 15:08 吴晨阳：能行！
+- 07-02 15:08 曾浩鑫：我这算复出吗
+- 07-02 15:08 吴泽楷：winnable
+- 07-02 15:08 曾浩鑫：danking剧本
+- 07-02 15:08 吴晨阳：winnable
+- 07-02 15:08 曾浩鑫：操着走
+- 07-02 15:09 吴泽楷：我的枪法已经完全apex化了
+- 07-02 15:09 吴泽楷：cs不知道会区成啥样
+- 07-02 15:09 曾浩鑫：[破涕为笑]
+- 07-02 15:09 吴晨阳：🤣纠正
+- 07-02 15:09 曾浩鑫：滑铲跳
+
+### EVENT: group-20260702-01-这个13班.md
+TITLE: 班级通知·军校体测表填报
+DATE: 2026-07-02
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-02 20:49 王丹凤：考军校同学，明天上午来填体测表，先找体育组楼红霞老师填写成绩，再到校办盖章！
+- 07-02 23:34 王丹凤：从2026年7月7日到2027年6月7日，共计365天。计算过程如下：
+1.2026年剩余天数（2026年7月7日 - 2026年12月31日）：
+· 7月：31天 - 7天（已过的天数） = 24天（含7月7日当天）。
+· 8月：31天。
+· 9月：30天。
+· 10月：31天。
+· 11月：30天。
+· 12月：31天。
+· 合计：24 + 31 + 30 + 31 + 30 + 31 = 177天。
+2.2027年天数（2027年1月1日 - 2027年6月7日）：
+· 1月：31天。
+· 2月：2027年为平年，2月有28天。
+· 3月：31天。
+· 4月：30天。
+· 5月：31天。
+· 6月：7天（含6月7日当天）。
+· 合计：31 + 28 + 31 + 30 + 31 + 7 = 158天。
+3.总天数：177天 + 158天 = 365天。注：日期跨年时，首尾两天均按“算头算尾”计算（即包含7月7日当天和6月7日当天）。
+- 07-02 23:34 王丹凤：帮我看看这ai是否可信[坏笑]
+- 07-02 23:36 邵志鹏：177+158=335？
+- 07-02 23:36 🐟🐟🐟🐟🐟：AI一天到晚骗人
+- 07-02 23:37 邵志鹏：这是在算复读的话还有多久高考吗[捂脸][旺柴]
+
+### EVENT: group-20260703-02-13班CS分部.md
+TITLE: CS比赛·分组分析对手
+DATE: 2026-07-03
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-03 18:35 曾浩鑫：几点
+- 07-03 18:35 曾浩鑫：打
+- 07-03 18:36 吴泽楷：八点左右
+- 07-03 18:36 吴泽楷：大家先把完美都搞一下
+- 07-03 18:36 曾浩鑫：😯
+- 07-03 18:36 吴泽楷：@蒋佳辰
+- 07-03 18:43 吴泽楷：[图片]
+- 07-03 18:43 吴泽楷：今晚我们的肌肉
+- 07-03 18:43 曾浩鑫：[可怜]
+- 07-03 18:46 朱浩宇：尼姑喵喵的人设和吴泽恺好像啊
+- 07-03 18:46 吴泽楷：你看这个了吗
+- 07-03 18:46 吴泽楷：这个很猎奇的
+- 07-03 18:47 朱浩宇：[便便]🚬🚬🚬🚬
+- 07-03 18:48 吴泽楷：[图片]
+- 07-03 18:56 吴泽楷：分组出了
+- 07-03 18:56 吴泽楷：我们打ccb
+- 07-03 18:56 吴泽楷：五班打llg
+- 07-03 18:56 吴泽楷：五班两个精英b➕
+- 07-03 18:57 吴泽楷：llg有A和b➕
+- 07-03 18:57 曾浩鑫：ccb呢。
+- 07-03 18:57 吴泽楷：ccb是杨祥云比较强
+- 07-03 18:57 吴泽楷：其他就一般
+- 07-03 18:57 吴泽楷：其他和朱浩宇差不多
+- 07-03 18:57 吴泽楷：甚至不如朱浩宇
+- 07-03 18:57 吴晨阳：其他和朱浩宇差不多
+😱
+- 07-03 18:57 曾浩鑫：加油吧
+- 07-03 18:57 曾浩鑫：[破涕为笑]
+- 07-03 18:58 吴泽楷：尽力就好
+- 07-03 18:58 吴泽楷：打出风采
+- 07-03 18:58 朱浩宇：塞罗的唧唧哇
+- 07-03 18:59 曾浩鑫：我草
+- 07-03 18:59 曾浩鑫：我完美的名字是fznnnn
+
+### EVENT: group-20260704-01-13班CS分部.md
+TITLE: CS战术复盘·沙二攻防
+DATE: 2026-07-04
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-04 00:00 朱浩宇：沙二
+- 07-04 00:00 朱浩宇：狙击枪
+- 07-04 00:00 吴泽楷：这是对我们交流问题的惩罚
+- 07-04 00:00 朱浩宇：在B区的站位可以多看看
+- 07-04 00:00 朱浩宇：T的优势是人数
+- 07-04 00:00 朱浩宇：CT的优势是枪线
+- 07-04 00:01 朱浩宇：所以打T就要去把枪线拉开
+- 07-04 00:01 吴泽楷：对所以我们玩t真的要优先进点
+- 07-04 00:01 吴泽楷：甚至是人肉闪光
+- 07-04 00:01 朱浩宇：打CT就是要利用掩体制造一V一
+- 07-04 00:01 吴泽楷：抱团速进
+- 07-04 00:01 吴泽楷：被换是不亏的
+- 07-04 00:01 吴泽楷：他们打回防会难打的多
+- 07-04 00:02 朱浩宇：我们两个互相说其实意义不大
+- 07-04 00:02 吴泽楷：沙二多少次尬在a小的口上
+- 07-04 00:02 吴泽楷：有的人拉了有的人不拉
+- 07-04 00:02 朱浩宇：也不知道明天那两个会不会看
+- 07-04 00:02 吴泽楷：不看直接
+- 07-04 00:02 吴泽楷：飞老冯
+- 07-04 00:03 朱浩宇：有意识的去收集信息会通透很多
+- 07-04 00:03 朱浩宇：你知道人的大概位置也能提高对枪胜率
+- 07-04 00:04 吴泽楷：但我今天输了好几个对面位置已经明了的对枪
+- 07-04 00:04 吴泽楷：这是我的问题
+- 07-04 00:04 朱浩宇：曾浩鑫虽然还没有刻意收集信息的意识。但是他谨慎的性格弥补了这一点
+- 07-04 00:04 吴泽楷：我是比较激进的
+- 07-04 00:04 吴泽楷：我倾向于大胆拉
+- 07-04 00:05 吴泽楷：不怕死这一块
+- 07-04 00:06 朱浩宇：你的出烟时机和跳拉可以练一下
+- 07-04 00:06 朱浩宇：如果真的打算做人肉闪光
+- 07-04 00:06 朱浩宇：就要把头低下
+
+### EVENT: group-20260704-01-这个13班.md
+TITLE: 闲聊·分享视频图片
+DATE: 2026-07-04
+SOURCE: 这个13班
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-04 11:15 unknown："邵志鹏" 撤回了一条消息
+- 07-04 11:15 unknown："邵志鹏" 撤回了一条消息
+- 07-04 11:15 王一开：这倒提醒我了
+- 07-04 11:16 王一开：一分钟后不删
+- 07-04 11:16 unknown：[视频]
+- 07-04 11:16 邵志鹏：我嘞个雷
+- 07-04 11:16 施翔天：[表情]
+- 07-04 11:16 王一开：汉堡了
+- 07-04 11:18 邵志鹏：[图片]
+- 07-04 11:18 邵志鹏：神秘黑人
+- 07-04 11:30 邵志鹏：[图片]
+- 07-04 11:30 邵志鹏：[图片]
+
+### EVENT: group-20260704-02-13班CS分部.md
+TITLE: CS比赛·赛前练枪
+DATE: 2026-07-04
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-04 07:24 陈二逼：沙鹰
+- 07-04 12:13 吴泽楷：今天晚上打的这个会弱一点
+- 07-04 12:14 吴泽楷：而且他们只会米垃圾沙二
+- 07-04 12:36 曾浩鑫：行
+- 07-04 12:41 吴泽楷：但是可能有顶级枪男
+- 07-04 12:41 吴泽楷：对枪强度更高
+- 07-04 12:41 吴泽楷：但战术啥的不会那么难受
+- 07-04 13:02 曾浩鑫：[破涕为笑]
+- 07-04 13:02 曾浩鑫：[流泪]
+- 07-04 13:15 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+勇敢者游戏！[强][强][强]
+https://support.weixin.qq.com/update/
+- 07-04 13:16 曾浩鑫：bt
+- 07-04 13:17 吴泽楷：何意味
+- 07-04 13:17 吴泽楷：现在有人玩吗
+- 07-04 14:58 吴泽楷：对面一个很猛的完美b＋
+- 07-04 14:58 吴泽楷：其他估计很一般
+- 07-04 14:58 曾浩鑫：衰败也b➕
+- 07-04 14:59 曾浩鑫：[可怜]
+- 07-04 14:59 吴泽楷：他们剩下的肯定没有昨天强
+- 07-04 14:59 吴泽楷：我觉得能行
+- 07-04 15:00 曾浩鑫：⛽️
+- 07-04 16:05 吴泽楷：@dipityseren
+- 07-04 16:05 吴泽楷：练枪
+- 07-04 16:05 吴泽楷：完美
+- 07-04 16:06 吴晨阳：💃
+- 07-04 16:06 吴泽楷：别跳了
+- 07-04 16:07 吴泽楷：晚上还有比赛
+- 07-04 16:07 吴晨阳：锻炼一下
+- 07-04 16:07 吴晨阳：[调皮]
+- 07-04 16:07 吴晨阳：晚上我六点半可以练
+- 07-04 16:07 吴晨阳：眼睛太累了主要是刚刚撸那几把
+
+### EVENT: group-20260705-01-SOS团.md
+TITLE: 分享捞女游戏·压缩包
+DATE: 2026-07-05
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-05 10:19 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+她把你当妈妈，你却想睡她... #焦糖蓝金
+https://support.weixin.qq.com/update/
+- 07-05 14:29 朱浩宇：捞女
+- 07-05 14:29 陈二逼：？
+- 07-05 14:41 朱浩宇：新建文件夹.zip
+- 07-05 14:42 朱浩宇：这个游戏最著名的结局
+- 07-05 14:42 朱浩宇：我还没有勇气玩
+- 07-05 14:42 陈二逼：这什么游戏
+- 07-05 14:43 朱浩宇：捞女游戏
+- 07-05 14:43 朱浩宇：-女眉-肉-之-香- (2).zip
+- 07-05 14:43 陈二逼：那这个压缩包是什么
+- 07-05 14:43 朱浩宇：解压后记得重新合回一个文件夹里
+- 07-05 14:43 朱浩宇：这是捞女游戏
+- 07-05 14:44 陈二逼：怎么才711MB
+- 07-05 14:44 朱浩宇：三个文件夹
+- 07-05 14:44 陈二逼：你发的是没肉之乡
+- 07-05 14:44 朱浩宇：捞女游戏
+- 07-05 14:45 朱浩宇：pro Max
+- 07-05 14:46 朱浩宇：新建文件夹 (2).zip
+- 07-05 14:46 陈二逼：[图片]
+- 07-05 14:46 朱浩宇：捞女游戏pro Max
+- 07-05 14:47 朱浩宇：看看老一辈的捞女
+- 07-05 14:47 陈二逼：等下
+- 07-05 14:56 unknown："陈二逼" 撤回了一条消息
+- 07-05 14:56 陈二逼：[图片]
+- 07-05 14:56 朱浩宇：竟然有番外
+- 07-05 14:56 朱浩宇：太好了
+- 07-05 14:57 陈二逼：https://gal.saop.cc/p/25735/
+
+### EVENT: group-20260705-02-13班CS分部.md
+TITLE: CS闲聊·聊玩狙风格
+DATE: 2026-07-05
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-05 09:24 陈二逼：桂
+- 07-05 11:45 曾浩鑫：[图片]
+- 07-05 11:46 曾浩鑫：[流泪]
+- 07-05 11:46 曾浩鑫：不是monesy
+- 07-05 12:02 朱浩宇：你的狙不是很激进
+- 07-05 12:02 朱浩宇：确实更像载大哥
+- 07-05 12:03 朱浩宇：不过你A小总是顶出去，所以又比细弱要激进一点
+- 07-05 12:15 曾浩鑫：进攻方就不知道怎么玩狙了
+- 07-05 12:15 曾浩鑫：除了暗道a坑
+- 07-05 12:16 曾浩鑫：其他地方很难对
+
+### EVENT: group-20260709-02-SOS团.md
+TITLE: 聊游戏社团·吐槽打呼噜
+DATE: 2026-07-09
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-09 16:03 朱浩宇：[图片]
+- 07-09 16:49 金晟恺：[表情]
+- 07-09 17:22 金晟恺：[图片]
+- 07-09 17:22 金晟恺：[图片]
+- 07-09 17:22 金晟恺：这部游戏你们两个知道吗？
+- 07-09 17:22 朱浩宇：布
+- 07-09 17:22 金晟恺：帮我查一下什么社团的
+- 07-09 17:25 朱浩宇：卷心菜社
+- 07-09 17:29 金晟恺：懂了
+- 07-09 19:41 陈二逼：[图片]
+- 07-09 19:43 金晟恺：你个傻逼
+- 07-09 19:43 金晟恺：他妈的，我那个服务员在旁边上菜
+- 07-09 19:43 陈二逼：[破涕为笑]
+- 07-09 19:49 朱浩宇：你看这种和你妹妹差不多大的女生也会开心吗
+- 07-09 19:55 金晟恺：为什么要把这种东西发到群里
+- 07-09 19:56 金晟恺：太露骨啦
+- 07-09 19:56 金晟恺：银灰一点的还好
+- 07-09 19:56 陈二逼：？
+- 07-09 19:57 金晟恺：这个如果是qq的话你会被封号的
+- 07-09 19:57 朱浩宇：<msg><img hdlength="0" length="86272" aeskey="8b73c8955471f73e8f44ff2620ed6fa2" encryver="1" md5="56a91f7e168f282dc654e0cb7ac6e379" originsourcemd5="2c30862498f84226747f9fb7b7ccb624" filekey="43920336404@chatroom_2367_1783584180" uploadcontinuecount="0" imgsourceurl="" hevc_mid_size="86272" cdnbigimgurl="" cdnmidimgurl="305f020100044b3049020100020421c3c9b902032e1e410204598ae47302046a4f55b4042462373930326132352d363737382d343465642d383637612d343930383732313833303765020425290802020100040d004c4ff1000000000000000000" cdnthumburl="305f020100044b3049020100020421c3c9b902032e1e410204598ae47302046a4f55b4042462373930326132352d363737382d343465642d383637612d343930383732313833303765020425290802020100040d004c4ff1000000000000000000" cdnthumblength="12674" cdnthumbwidth="157" cdnthumbheight="210" cdnthumbaeskey="8b73c8955471f73e8f44ff2620ed6fa2"><secHashInfoBase64>eyJwaGFzaCI6IjcwZjA1MDAwMTAwMDAwMDAiLCJwZHFoYXNoIjoiYjQwMjRiNjg4MmZlOTkxZmI3ZmFmYTdlMWUwM2IyMWVhNGZmMTY0ZjAyZDBiMGQwOWYwZDY5NDljM2UwMzQ5NyJ9</secHashInfoBase64></img><appinfo><appid></appid><appname></appname><version>0</version><isforceupdate>1</isforceupdate><mediatagname></mediatagname><messageext></messageext><messageaction></messageaction></appinfo><MMAsset><m_assetUrlForSystem><![CDATA[E03FB846-5E34-4E39-B140-6BA7FD6D4BB4/L0/001]]></m_assetUrlForSystem><m_isNeedOriginImage>0</m_isNeedOriginImage><m_isFailedFromIcloud>0</m_isFailedFromIcloud><m_isLoadingFromIcloud>0</m_isLoadingFromIcloud><m_isUseLivePhoto>0</m_isUseLivePhoto></MMAsset></msg>
+前天陈嘉铭在我家睡的
+- 07-09 19:57 朱浩宇：真的超
+- 07-09 19:57 朱浩宇：吵死了
+- 07-09 19:58 金晟恺：六
+- 07-09 19:58 朱浩宇：呼噜声比我爸喝醉了还要响
+- 07-09 19:58 金晟恺：[表情]
+- 07-09 19:58 朱浩宇：以后尽量不要和陈一起睡
+- 07-09 19:58 朱浩宇：太折磨了
+- 07-09 19:58 朱浩宇：一个晚上被他吵醒好几次
+- 07-09 19:58 朱浩宇：白天看动漫把我吵醒
+- 07-09 19:59 朱浩宇：以后女朋友打呼噜怎么办
+- 07-09 20:00 金晟恺：好好
+- 07-09 20:00 金晟恺：听劝
+- 07-09 20:14 金晟恺：[图片]
+- 07-09 20:14 陈二逼：[强]
+- 07-09 20:14 金晟恺：食不厌精
+
+### EVENT: group-20260710-01-13班CS分部.md
+TITLE: CS开黑·约人
+DATE: 2026-07-10
+SOURCE: 13班CS分部
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-10 14:38 曾浩鑫：等一下
+- 07-10 14:43 曾浩鑫：cs来人
+- 07-10 14:43 吴泽楷：我换个国际服
+- 07-10 14:43 吴泽楷：在开
+- 07-10 14:43 吴泽楷：稍等
+- 07-10 14:43 曾浩鑫：👌
+
+### EVENT: group-20260711-01-SOS团.md
+TITLE: 转发视频·诺姆
+DATE: 2026-07-11
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-11 15:13 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+死库水诺姆，百万伏特来袭 #绝区零 #诺姆 #死库水 #我不是萝莉控
+https://support.weixin.qq.com/update/
+- 07-11 15:15 金晟恺：好好
+- 07-11 15:15 金晟恺：诺姆好啊
+- 07-11 15:15 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+4人一起挑战我的世界最折磨的整合包！ #我的世界 #BTW比狼好
+https://support.weixin.qq.com/update/
+- 07-11 15:26 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+#彩虹圈教学 #彩虹圈奔哥
+https://support.weixin.qq.com/update/
+- 07-11 15:30 陈二逼：当前微信版本不支持展示该内容，请升级至最新版本。
+诺姆对邦布的喜好超出你的想象#绝区零 #绝区零创作激励计划 #绝区零诺姆 #游戏内容风向标
+https://support.weixin.qq.com/update/
+
+### EVENT: group-20260712-01-SOS团.md
+TITLE: 闲聊·金晟恺返程
+DATE: 2026-07-12
+SOURCE: SOS团
+BODY:
+> 群聊事件草稿（按群·按天），待人工整理，定稿把 draft 改为 false
+
+- 07-12 13:23 朱浩宇：[视频]
+- 07-12 13:24 陈二逼：哪来的空调
+- 07-12 17:26 朱浩宇：上海回了没
+- 07-12 17:32 金晟恺：明天下午回来
+- 07-12 21:10 金晟恺：[图片]
+- 07-12 21:17 朱浩宇：[呲牙]
+- 07-12 21:18 unknown：[视频]
+- 07-12 21:20 朱浩宇：我应该这辈子也见不到王紫伊了
+- 07-12 21:20 陈二逼：[图片]
+- 07-12 21:20 陈二逼：🐸

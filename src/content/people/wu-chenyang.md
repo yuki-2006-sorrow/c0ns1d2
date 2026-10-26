@@ -6,6 +6,8 @@ major: 师范类
 role: 视频剪辑，写《大浴缸历险记》
 color: "#f39c12"
 messages: 2878
+group: ""
+featured: true
 personality:
   openness: 88
   conscientiousness: 80

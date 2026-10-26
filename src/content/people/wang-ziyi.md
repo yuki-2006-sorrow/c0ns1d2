@@ -6,6 +6,8 @@ major: 未知
 role: 11班，陈二逼暗恋对象
 color: "#e91e63"
 messages: 8
+group: 陈二逼线
+featured: false
 personality:
   openness: 60
   conscientiousness: 65

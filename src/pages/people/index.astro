@@ -2,7 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const people = await getCollection('people');
+const people = (await getCollection('people')).sort((a, b) => b.data.messages - a.data.messages);
+const main = people.filter(p => p.data.featured);
+const sub = people.filter(p => !p.data.featured);
+const groups = [];
+for (const p of sub) {
+  const g = p.data.group || '其他';
+  let found = groups.find(x => x.name === g);
+  if (!found) { found = { name: g, items: [] }; groups.push(found); }
+  found.items.push(p);
+}
 ---
 
 <BaseLayout title="人物">
@@ -10,20 +19,41 @@ const people = await getCollection('people');
     <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">人物档案</h1>
     <p style="color: rgba(255,255,255,0.5); margin-bottom: 40px;">记忆里出现的人们</p>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-      {people.map(person => (
-        <a href={`/people/${person.slug}`} style="display: block; padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; transition: all 0.3s;">
-          <div style="width: 50px; height: 50px; border-radius: 50%; background: {person.data.color}; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3em; font-weight: 600;">
-            {person.data.name[0]}
-          </div>
-          <h3 style="color: #fff; font-size: 1.2em; margin-bottom: 6px;">{person.data.name}</h3>
-          <div style="color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 12px;">{person.data.nickname} · {person.data.role}</div>
-          <div style="color: rgba(255,255,255,0.4); font-size: 0.85em;">{person.data.university} · {person.data.major}</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 60px;">
+      {main.map(person => (
+        <a href={`/people/${person.slug}`} class="person-card">
+          <div class="avatar" style="background: {person.data.color};">{person.data.name[0]}</div>
+          <h3>{person.data.name}</h3>
+          <div class="meta">{person.data.nickname} · {person.data.role}</div>
+          <div class="sub">{person.data.university} · {person.data.major}</div>
         </a>
       ))}
     </div>
+
+    {groups.map(g => (
+      <div style="margin-bottom: 36px;">
+        <div style="color: rgba(255,255,255,0.4); font-size: 0.85em; letter-spacing: 2px; margin-bottom: 14px;">{g.name}</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          {g.items.map(person => (
+            <a href={`/people/${person.slug}`} class="person-chip">
+              <span class="dot" style="background: {person.data.color};"></span>
+              {person.data.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
   </div>
+
   <style is:global>
-    a[href^="/people/"]:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.15) !important; transform: translateY(-2px); }
+    .person-card { display: block; padding: 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; transition: all 0.3s; }
+    .person-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .person-card .avatar { width: 50px; height: 50px; border-radius: 50%; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3em; font-weight: 600; }
+    .person-card h3 { color: #fff; font-size: 1.2em; margin-bottom: 6px; }
+    .person-card .meta { color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 12px; }
+    .person-card .sub { color: rgba(255,255,255,0.4); font-size: 0.85em; }
+    .person-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 999px; color: rgba(255,255,255,0.7); font-size: 0.9em; transition: all 0.25s; }
+    .person-chip:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .person-chip .dot { width: 8px; height: 8px; border-radius: 50%; }
   </style>
 </BaseLayout>

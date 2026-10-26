@@ -6,6 +6,8 @@ major: 未知
 role: 新认识的 CS 开黑搭子
 color: "#95a5a6"
 messages: 277
+group: 同学线
+featured: false
 personality:
   openness: 75
   conscientiousness: 50

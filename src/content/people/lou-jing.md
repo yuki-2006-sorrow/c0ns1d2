@@ -6,6 +6,8 @@ major: 未知
 role: 请朱浩宇给女儿补物理的老师
 color: "#7f8c8d"
 messages: 88
+group: 师长线
+featured: false
 personality:
   openness: 70
   conscientiousness: 80

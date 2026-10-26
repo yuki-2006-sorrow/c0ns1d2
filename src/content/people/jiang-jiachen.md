@@ -6,6 +6,8 @@ major: 未知
 role: 骑行/RoboMaster，CS 皮肤玩家
 color: "#1abc9c"
 messages: 238
+group: ""
+featured: true
 personality:
   openness: 80
   conscientiousness: 70

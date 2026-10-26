@@ -6,6 +6,8 @@ major: 语文
 role: 语文老师，长期补习
 color: "#16a085"
 messages: 780
+group: 师长线
+featured: false
 personality:
   openness: 75
   conscientiousness: 78

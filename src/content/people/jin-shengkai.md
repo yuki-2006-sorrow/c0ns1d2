@@ -6,6 +6,8 @@ major: 计算机
 role: 5月23日入群，接成语达人
 color: "#9b59b6"
 messages: 1916
+group: ""
+featured: true
 personality:
   openness: 70
   conscientiousness: 35
