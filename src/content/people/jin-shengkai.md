@@ -5,7 +5,7 @@ university: 海南大学
 major: 计算机
 role: 5月23日入群，接成语达人
 color: "#9b59b6"
-messages: 2538
+messages: 1916
 personality:
   openness: 70
   conscientiousness: 35

@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const show = import.meta.env.SHOW_DRAFTS === 'true';
+let drafts = [];
+if (show) {
+  drafts = (await getCollection('events', e => e.data.draft))
+    .sort((a, b) => a.data.date.localeCompare(b.data.date));
+}
+---
+<BaseLayout title="草稿浏览（本地）">
+  {show ? (
+    <div style="max-width: 860px; margin: 0 auto; padding: 40px 20px 120px;">
+      <div style="margin-bottom: 25px;">
+        <h1 style="font-size: 1.6em; color: #fff; margin-bottom: 6px;">事件草稿（{drafts.length}）</h1>
+        <div style="color: rgba(255,255,255,0.45); font-size: 0.9em; margin-bottom: 16px;">
+          本地浏览，不公开。整理请编辑 src/content/events/auto/ 下对应文件，定稿把 draft 改为 false。
+        </div>
+        <input id="draftSearch" type="text" placeholder="搜索关键词 / 人名 / 日期…"
+          style="width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-size: 0.95em; outline: none;" />
+      </div>
+
+      <div id="draftList" style="display: flex; flex-direction: column; gap: 18px;">
+        {drafts.map(async d => {
+          const { Content } = await render(d);
+          return (
+            <section class="draft-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 22px;">
+              <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                <span style="color: #4ca1af; font-size: 0.95em; font-weight: 600;">{d.data.date}</span>
+                <span style="color: rgba(255,255,255,0.55); font-size: 0.85em;">{d.data.source}</span>
+                <span style="color: rgba(255,255,255,0.3); font-size: 0.8em;">{d.data.size} 条 · {d.slug}</span>
+              </div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;">
+                {d.data.persons.map(p => (
+                  <span style="background: rgba(76,161,175,0.13); color: #4ca1af; padding: 2px 11px; border-radius: 12px; font-size: 0.8em;">{p}</span>
+                ))}
+              </div>
+              <div class="draft-body">
+                <Content />
+              </div>
+            </section>
+          );
+        })}
+      </div>
+      <div id="draftEmpty" style="display: none; text-align: center; color: rgba(255,255,255,0.4); padding: 40px;">没有匹配的草稿</div>
+    </div>
+  ) : (
+    <div style="max-width: 600px; margin: 0 auto; padding: 100px 20px; text-align: center;">
+      <h1 style="color: #fff; font-size: 1.4em; margin-bottom: 14px;">草稿浏览未启用</h1>
+      <p style="color: rgba(255,255,255,0.5);">在项目根目录的 <code>.env</code> 中设置 <code>SHOW_DRAFTS=true</code> 后重启 dev。</p>
+    </div>
+  )}
+</BaseLayout>
+
+<script is:inline>
+  const search = document.getElementById('draftSearch');
+  if (search) {
+    const cards = Array.from(document.querySelectorAll('.draft-card'));
+    const empty = document.getElementById('draftEmpty');
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(c => {
+        const hit = !q || c.textContent.toLowerCase().includes(q);
+        c.style.display = hit ? '' : 'none';
+        if (hit) visible++;
+      });
+      empty.style.display = visible ? 'none' : 'block';
+    });
+  }
+</script>
+
+<style is:global>
+  .draft-body { color: rgba(255,255,255,0.75); font-size: 0.92em; line-height: 1.85; }
+  .draft-body blockquote {
+    background: rgba(255,255,255,0.04); border-left: 3px solid rgba(76,161,175,0.5);
+    padding: 8px 14px; margin: 0 0 12px; border-radius: 0 6px 6px 0;
+    color: rgba(255,255,255,0.4); font-size: 0.85em;
+  }
+  .draft-body ul { list-style: none; }
+  .draft-body li { padding: 2px 0; }
+</style>

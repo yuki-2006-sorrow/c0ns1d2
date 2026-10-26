@@ -5,7 +5,7 @@ university: 北京师范大学
 major: 强基计划
 role: niko铁粉，群内发言量第一
 color: "#e74c3c"
-messages: 3611
+messages: 2696
 personality:
   openness: 75
   conscientiousness: 40

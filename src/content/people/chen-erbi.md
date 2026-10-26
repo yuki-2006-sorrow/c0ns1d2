@@ -1,11 +1,11 @@
 ---
 name: 陈二逼
 nickname: 群主
-university: 山东某大学
+university: 中国石油大学（华东）
 major: 未知
 role: 建群人，校史馆潜入策划者
 color: "#2ecc71"
-messages: 2069
+messages: 2086
 personality:
   openness: 80
   conscientiousness: 30
@@ -23,4 +23,4 @@ tags: [群主, 策划, 冒险, 山东, 改名]
 
 他在群内的名字混用：陈嘉铭/陈佳明/陈嘉詺，连自己的名字都不太确定。
 
-9月去山东上大学。
+9月去中国石油大学（华东）上大学，在山东青岛。

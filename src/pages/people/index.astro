@@ -7,8 +7,8 @@ const people = await getCollection('people');
 
 <BaseLayout title="人物">
   <div style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
-    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">五人档案</h1>
-    <p style="color: rgba(255,255,255,0.5); margin-bottom: 40px;">惊天魔盗团的五位成员</p>
+    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">人物档案</h1>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 40px;">记忆里出现的人们</p>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
       {people.map(person => (

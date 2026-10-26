@@ -11,6 +11,7 @@ const events = defineCollection({
     color: z.string().default('#4ca1af'),
     size: z.number().default(30),
     related: z.array(z.string()).default([]),
+    source: z.string().default(''),
     images: z.array(z.string()).default([]),
     videos: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
