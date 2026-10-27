@@ -10,6 +10,13 @@ dist/
 image/
 intro-shots/
 intro-source/
+previews/
+
+# AI 数据脚本与验证截图（本地工具，不提交）
+data-tools/
 
 # AI 工作记忆（含账号/路径等，不提交）
 agent-memory/
+
+# 交接文档（含人名/学校/本地路径等隐私，不提交、不 push）
+DSH-交接文档.md

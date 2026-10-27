@@ -73,7 +73,7 @@ const personEvents = allEvents
         <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">参与的事件 ({personEvents.length})</h2>
         <div style="display: flex; flex-direction: column; gap: 8px;">
           {personEvents.map(e => (
-            <a href={`/events/${e.slug}`} style="display: flex; align-items: center; gap: 15px; padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
+            <a href={`/events/${e.slug.split('/').pop()}`} style="display: flex; align-items: center; gap: 15px; padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
               <div style="width: 10px; height: 10px; border-radius: 50%; background: {e.data.color}; flex-shrink: 0;"></div>
               <div style="flex: 1;">
                 <div style="color: #fff; font-size: 0.98em;">{e.data.title}</div>

@@ -2,55 +2,384 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const events = await getCollection('events', ({ data }) => !data.draft);
-events.sort((a, b) => a.data.date.localeCompare(b.data.date));
+// 上线前：把过滤条件改为 ({ data }) => !data.draft（目前全部是草稿，先展示全部以预览）
+const events = (await getCollection('events')).map((e) => {
+  const slug = e.slug.split('/').pop();
+  return {
+    slug,
+    major: !e.data.draft, // 大事件 = 照片墙事件（非草稿）
+    medium: e.data.medium,
+    date: e.data.date,
+    title: e.data.title,
+    color: e.data.color,
+    source: e.data.source,
+    persons: e.data.persons,
+    summary: e.data.summary,
+  };
+});
 
-const categoryColors = {
-  core: '#4ca1af',
-  food: '#e74c3c',
-  exam: '#f39c12',
-  other: '#9b59b6',
-};
+// 文件夹 slug（文件名，去掉 .md）→ { 显示名, 父级 }
+const mediumMeta = Object.fromEntries(
+  (await getCollection('mediums')).map((m) => [m.id.replace(/\.md$/, ''), { title: m.data.title, parent: m.data.parent || '' }])
+);
 ---
 
 <BaseLayout title="时间线">
-  <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px 80px;">
-    <h1 style="font-size: 2em; margin-bottom: 10px; color: #fff;">时间线</h1>
-    <p style="color: rgba(255,255,255,0.5); margin-bottom: 50px;">2026.01 — 2026.10 · 共 {events.length} 个事件</p>
-
-    <div style="position: relative; padding-left: 30px;">
-      <!-- 时间线竖线 -->
-      <div style="position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1);"></div>
-
-      {events.map(event => (
-        <div style="position: relative; margin-bottom: 35px;">
-          <!-- 圆点 -->
-          <div style="position: absolute; left: -30px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: {categoryColors[event.data.category]}; border: 3px solid #0a0e17; box-shadow: 0 0 10px {categoryColors[event.data.category]}60;"></div>
-
-          <a href={`/events/${event.slug}`} style="display: block; padding: 18px 22px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; transition: all 0.3s;">
-            <div style="color: {categoryColors[event.data.category]}; font-size: 0.85em; margin-bottom: 6px; letter-spacing: 1px;">
-              {event.data.date}
-            </div>
-            <div style="color: #fff; font-size: 1.1em; margin-bottom: 8px;">{event.data.title}</div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              {event.data.persons.map(p => (
-                <span style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); padding: 2px 10px; border-radius: 10px; font-size: 0.78em;">{p}</span>
-              ))}
-            </div>
-            {event.data.tags.length > 0 && (
-              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
-                {event.data.tags.map(tag => (
-                  <span style="color: #4ca1af; font-size: 0.78em;">#{tag}</span>
-                ))}
-              </div>
-            )}
-          </a>
-        </div>
-      ))}
+  <div id="tl" class="tl">
+    <div id="tl-world" class="tl-world"></div>
+    <div class="tl-ui">
+      <div class="tl-hint">拖拽平移 · 滚轮缩放 · 点击文件夹进入 · 点击节点看事件</div>
+      <div class="tl-info" id="tl-info"></div>
+      <button class="tl-jump" id="tl-jump-latest" type="button">跳到最近</button>
+      <button class="tl-jump" id="tl-back" type="button" style="display:none">← 返回</button>
     </div>
   </div>
 
+  <script define:vars={{ events, mediumMeta }}>
+    // ===== 无限画布时间轴引擎（零依赖） =====
+    const world = document.getElementById('tl-world');
+    const info = document.getElementById('tl-info');
+    const tl = document.getElementById('tl');
+
+    const DAY = 86400000;
+    const SEAL = 360;   // 两端"记忆之外"封锁带宽度（px）
+    const CARD_W = 300, CARD_H = 230, CARD_GAP_X = 16, CARD_GAP_Y = 14;
+
+    // 日期解析：支持 完整(YYYY-MM-DD) / 部分(YYYY-MM / YYYY) / 未知(?)，未知返回 null
+    function parseDate(s) {
+      s = String(s || '').trim();
+      if (!s || s === '?' || s === '未知' || s === '不详') return null;
+      let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+      if (m) return new Date(+m[1], +m[2] - 1, +m[3]).getTime();
+      m = s.match(/^(\d{4})-(\d{1,2})/);
+      if (m) return new Date(+m[1], +m[2] - 1, 1).getTime();
+      m = s.match(/^(\d{4})/);
+      if (m) return new Date(+m[1], 0, 1).getTime();
+      const t = new Date(s).getTime();
+      return isNaN(t) ? null : t;
+    }
+    const undatedCount = events.filter((e) => parseDate(e.date) == null).length;
+    if (undatedCount > 0) {
+      const hintEl = document.querySelector('.tl-hint');
+      if (hintEl) hintEl.textContent += ` · ${undatedCount} 个日期未知（未显示）`;
+    }
+
+    const list = events
+      .map((e) => ({ ...e, t: parseDate(e.date) }))
+      .filter((e) => e.t != null)
+      .sort((a, b) => a.t - b.t);
+
+    // 聚合每个文件夹：名称/显示名/父级/最早/最晚/数量
+    const allFolders = [...new Set(list.filter((e) => e.medium).map((e) => e.medium))].map((name) => {
+      const evs = list.filter((e) => e.medium === name);
+      return {
+        name,
+        title: (mediumMeta[name] || {}).title || name,
+        parent: (mediumMeta[name] || {}).parent || '',
+        first: evs[0].t,
+        last: evs[evs.length - 1].t,
+        count: evs.length,
+      };
+    });
+
+    const T0 = list[0].t;
+    const T1 = list[list.length - 1].t;
+    const totalDays = (T1 - T0) / DAY + 1;
+    const dayOf = (t) => (t - T0) / DAY;
+    const px = (day) => SEAL + day * scale;   // 数据区从 SEAL 开始，两端留出封锁带
+
+    let scale = 3;   // px / 天（连续缩放档位）
+    let scroll = 0;  // 视口左缘对应的 world px（横向）
+    let scrollY = 0; // 视口上缘对应的 world px（纵向）
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    let raf = 0;
+    let focused = null;          // 当前聚焦的文件夹 medium（null=根视图）
+    let expandedSet = new Set(); // 聚焦视图内已展开的子文件夹
+
+    function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 33 + s.charCodeAt(i)) >>> 0; return h; }
+    function colorFor(e) {
+      if (e.color && e.color !== '#888888') return e.color;
+      const key = e.source || (e.persons && e.persons[0]) || e.slug;
+      return `hsl(${hash(key) % 360}, 55%, 62%)`;
+    }
+    function el(tag, cls, style, text) {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (style) Object.assign(n.style, style);
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    function render() {
+      const vw = tl.clientWidth;
+      const vh = tl.clientHeight;
+      const axisY = vh * 0.55;
+      const worldW = totalDays * scale + SEAL * 2;
+
+      // 横向边界封锁
+      scroll = Math.max(0, Math.min(scroll, Math.max(0, worldW - vw, px(dayOf(T1)) - vw * 0.55)));
+
+      world.innerHTML = '';
+      world.style.width = worldW + 'px';
+
+      const M = 200;
+      const visible = (x) => x >= scroll - M && x <= scroll + vw + M;
+
+      // 两端封锁带
+      const sealL = el('div', 'tl-seal', { left: 0, top: 0, width: SEAL + 'px', height: vh + 'px' });
+      sealL.appendChild(el('div', 'tl-seal-label', { left: '50%', top: '50%' }, '· 记忆之外 ·'));
+      world.appendChild(sealL);
+      const sealR = el('div', 'tl-seal', { left: (SEAL + totalDays * scale) + 'px', top: 0, width: SEAL + 'px', height: vh + 'px' });
+      sealR.appendChild(el('div', 'tl-seal-label', { left: '50%', top: '50%' }, '· 记忆之外 ·'));
+      world.appendChild(sealR);
+
+      // 年份分段 + 标签
+      for (let y = 2024; y <= 2026; y++) {
+        const xs = px(dayOf(new Date(y, 0, 1).getTime()));
+        const xe = px(dayOf(new Date(y + 1, 0, 1).getTime()));
+        if (!visible(xs) && !visible(xe)) continue;
+        const band = el('div', 'tl-year-band', { left: xs + 'px', width: (xe - xs) + 'px', top: 0, height: vh + 'px' });
+        if (y % 2 === 0) band.style.background = 'rgba(255,255,255,0.02)';
+        world.appendChild(band);
+        if (xe - xs > 60) world.appendChild(el('div', 'tl-year', { left: (xs + 12) + 'px', top: (vh * 0.1) + 'px' }, String(y)));
+      }
+
+      // 月份刻度
+      if (scale * 30 > 55) {
+        for (let y = 2024; y <= 2026; y++) for (let m = 0; m < 12; m++) {
+          const d = new Date(y, m, 1).getTime();
+          if (d < T0 - DAY * 31 || d > T1 + DAY * 31) continue;
+          const x = px(dayOf(d));
+          if (!visible(x)) continue;
+          world.appendChild(el('div', 'tl-month', { left: x + 'px', top: (vh * 0.26) + 'px' }, `${m + 1}月`));
+        }
+      }
+
+      // 日刻度
+      if (scale > 12) {
+        for (let d = 0; d <= totalDays; d++) {
+          const x = px(d);
+          if (!visible(x)) continue;
+          world.appendChild(el('div', 'tl-day', { left: x + 'px', top: (axisY - 4) + 'px' }));
+        }
+      }
+
+      // 主轴
+      world.appendChild(el('div', 'tl-axis', { left: SEAL + 'px', top: axisY + 'px', width: totalDays * scale + 'px' }));
+
+      // === 当前上下文（聚焦文件夹后，时间轴上只剩它的内容） ===
+      const contextFolders = !focused
+        ? allFolders.filter((f) => !f.parent)
+        : allFolders.filter((f) => f.parent === focused);
+      const contextEvents = !focused
+        ? list.filter((e) => !e.medium)
+        : list.filter((e) => e.medium === focused);
+
+      // 事件节点（螺旋：点沿时间轴正弦缠绕，像围着轴转）
+      const PITCH = 80; // 每 80 天绕一圈
+      const AMP = 80;   // 螺旋上下幅度
+      contextEvents.forEach((e) => {
+        const x = px(dayOf(e.t));
+        if (!visible(x)) return;
+        const angle = (dayOf(e.t) * 2 * Math.PI) / PITCH;
+        const jitter = (hash(e.slug) % 17) - 8; // 密集处稍微错开 ±8px
+        const offset = Math.sin(angle) * AMP + jitter;
+        const depth = Math.cos(angle); // 1=近(前), -1=远(后)
+        const big = !!e.major;
+        const ds = big ? 16 : 10;
+        const size = ds * (0.7 + 0.3 * (depth + 1) / 2);
+        const opacity = 0.5 + 0.5 * (depth + 1) / 2;
+        const dot = el('a', big ? 'tl-dot tl-dot-major' : 'tl-dot', { left: (x - size / 2) + 'px', top: (axisY - size / 2 + offset) + 'px', width: size + 'px', height: size + 'px', background: colorFor(e), opacity: opacity });
+        dot.href = `/events/${e.slug}`;
+        dot.title = `${e.date} · ${e.title}`;
+        world.appendChild(dot);
+
+        if ((big && scale > 8) || (!big && scale > 20 && scale <= 55)) {
+          const lbl = el('a', big ? 'tl-title tl-title-major' : 'tl-title', { left: (x + 12) + 'px', top: (axisY - 15 + offset) + 'px' }, e.title);
+          lbl.href = `/events/${e.slug}`;
+          world.appendChild(lbl);
+        }
+      });
+
+      // 当前上下文的文件夹 → 区间条（并行分道，跨度越大越粗；点击：根视图=进入，聚焦视图=展开子文件夹）
+      {
+        const folderArr = contextFolders.slice().sort((a, b) => a.first - b.first);
+        const laneEnd = [];
+        const baseY = vh * 0.28;
+        const laneH = 26;
+        for (const f of folderArr) {
+          const x1 = px(dayOf(f.first));
+          const x2 = px(dayOf(f.last));
+          let lane = 0;
+          while (laneEnd[lane] != null && laneEnd[lane] > x1) lane++;
+          laneEnd[lane] = x2 + 12;
+          f.lane = lane;
+        }
+        for (const f of folderArr) {
+          const x1 = px(dayOf(f.first));
+          const x2 = px(dayOf(f.last));
+          if (x2 < scroll - M || x1 > scroll + vw + M) continue; // 完全在视野外才跳过
+          const spanDays = (f.last - f.first) / DAY;
+          const h = Math.min(10 + spanDays * 0.06, 22); // 跨度越大越粗
+          const y = baseY + f.lane * laneH;
+          const w = Math.max(x2 - x1, 6);
+          const isOpen = focused === f.name || expandedSet.has(f.name);
+          const color = `hsl(${hash(f.name) % 360}, 55%, 60%)`;
+          const bar = el('div', 'tl-folder-bar', { left: x1 + 'px', top: (y - h / 2) + 'px', width: w + 'px', height: h + 'px' });
+          bar.style.background = isOpen ? `hsla(${hash(f.name) % 360}, 60%, 60%, 0.4)` : `hsla(${hash(f.name) % 360}, 55%, 60%, 0.15)`;
+          bar.style.borderColor = color;
+          bar.title = !focused ? `点击进入「${f.title}」` : (expandedSet.has(f.name) ? `点击收起「${f.title}」` : `点击展开「${f.title}」的 ${f.count} 个子事件`);
+          bar.style.cursor = 'pointer';
+          bar.addEventListener('pointerdown', (e) => e.stopPropagation()); // 阻止拖拽手势吞掉点击
+          bar.addEventListener('click', () => {
+            if (!focused) focused = f.name;
+            else if (expandedSet.has(f.name)) expandedSet.delete(f.name);
+            else expandedSet.add(f.name);
+            render();
+          });
+          world.appendChild(bar);
+          const lbl = el('div', 'tl-folder', { left: (x1 + 6) + 'px', top: y + 'px' }, `📁 ${f.title} · ${f.count}`);
+          lbl.style.borderColor = color;
+          world.appendChild(lbl);
+        }
+      }
+
+      // 事件卡片：深缩放显示 contextEvents；已展开的子文件夹显示它们的事件
+      let maxLane = 0;
+      {
+        const cardEvents = [];
+        if (scale > 55) for (const e of contextEvents) cardEvents.push(e);
+        for (const name of expandedSet) for (const e of list) if (e.medium === name) cardEvents.push(e);
+        if (cardEvents.length) {
+          const laneEnds = [];
+          for (const e of cardEvents) {
+            const x = px(dayOf(e.t));
+            if (!visible(x)) continue;
+            let lane = 0;
+            while (laneEnds[lane] != null && laneEnds[lane] > x) lane++;
+            laneEnds[lane] = x + CARD_W + CARD_GAP_X;
+            if (lane > maxLane) maxLane = lane;
+            const card = el('a', 'tl-card', { left: x + 'px', top: (axisY + 18 + lane * (CARD_H + CARD_GAP_Y)) + 'px', width: CARD_W + 'px', borderLeft: '3px solid ' + (e.major ? '#f5c518' : colorFor(e)) });
+            card.href = `/events/${e.slug}`;
+            if (e.summary) card.title = e.summary;
+            card.appendChild(el('div', 'tl-card-date', {}, e.major ? `${e.date} · 大事件` : e.date));
+            card.appendChild(el('div', 'tl-card-title', {}, e.title));
+            if (e.summary) card.appendChild(el('div', 'tl-card-summary', {}, e.summary));
+            world.appendChild(card);
+          }
+        }
+      }
+
+      // 世界高度（容纳螺旋幅度 + 卡片纵向堆叠）+ 纵向滚动钳制
+      const cardExtent = (maxLane + 1) * (CARD_H + CARD_GAP_Y);
+      const worldH = Math.max(vh, axisY + Math.max(AMP, cardExtent) + 60);
+      scrollY = Math.max(0, Math.min(scrollY, worldH - vh));
+      world.style.height = worldH + 'px';
+      sealL.style.height = worldH + 'px';
+      sealR.style.height = worldH + 'px';
+      world.style.transform = `translate(${-scroll}px, ${-scrollY}px)`;
+
+      // 返回按钮：聚焦时显示
+      const backBtn = document.getElementById('tl-back');
+      if (backBtn) {
+        if (focused) { backBtn.style.display = ''; backBtn.textContent = `← 返回全部（${(mediumMeta[focused] || {}).title || focused}）`; }
+        else backBtn.style.display = 'none';
+      }
+
+      const level = scale < 2 ? '年份' : scale < 20 ? '月份' : scale < 45 ? '日' : scale < 55 ? '事件' : '事件卡片';
+      info.textContent = focused
+        ? `「${(mediumMeta[focused] || {}).title || focused}」内 ${contextEvents.length} 个事件 · ${level}视图`
+        : `${list.length} 个记忆节点 · ${level}视图 · ${Math.round(scale * 10) / 10}px/天`;
+    }
+
+    function schedule() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+
+    tl.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; lastY = e.clientY; tl.setPointerCapture(e.pointerId); });
+    tl.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      scroll -= (e.clientX - lastX);
+      scrollY -= (e.clientY - lastY);
+      lastX = e.clientX; lastY = e.clientY;
+      schedule();
+    });
+    tl.addEventListener('pointerup', () => { dragging = false; });
+    tl.addEventListener('pointercancel', () => { dragging = false; });
+    tl.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const cursorX = e.clientX - tl.getBoundingClientRect().left;
+      const dayAtCursor = (scroll - SEAL + cursorX) / scale;
+      const factor = Math.exp(-e.deltaY * 0.0015);
+      scale = Math.max(0.5, Math.min(200, scale * factor));
+      scroll = dayAtCursor * scale + SEAL - cursorX;
+      schedule();
+    }, { passive: false });
+
+    // 底部 UI 栏交互不触发画布拖拽
+    document.querySelector('.tl-ui').addEventListener('pointerdown', (e) => e.stopPropagation());
+
+    // 跳到最近事件（平滑滚动，最新事件居中）
+    function animateTo(target) {
+      const start = scroll;
+      const t0 = performance.now();
+      const dur = 450;
+      cancelAnimationFrame(raf);
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        const e = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        scroll = start + (target - start) * e;
+        render();
+        if (t < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    }
+    document.getElementById('tl-jump-latest').addEventListener('click', () => {
+      // 跳到当前视野之后的"下一个事件"（相对前进，不是绝对跳到最新）
+      const vw = tl.clientWidth;
+      const centerT = T0 + ((scroll + vw / 2 - SEAL) / scale) * DAY;
+      const next = list.find((e) => e.t > centerT);
+      if (next) animateTo(px(dayOf(next.t)) - vw / 2);
+    });
+    document.getElementById('tl-back').addEventListener('click', () => {
+      focused = null;
+      expandedSet.clear();
+      render();
+    });
+
+    window.addEventListener('resize', schedule);
+    render();
+  </script>
+
   <style is:global>
-    .timeline-item a:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(76,161,175,0.3) !important; transform: translateX(5px); }
+    .tl { position: fixed; inset: 80px 0 0 0; background: #0a0e17; overflow: hidden; cursor: grab; user-select: none; touch-action: none; }
+    .tl:active { cursor: grabbing; }
+    .tl-world { position: relative; will-change: transform; }
+    .tl-seal { position: absolute; background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.045) 0 12px, rgba(0,0,0,0.25) 12px 24px); border-left: 1px solid rgba(255,255,255,0.14); }
+    .tl-seal:last-child { border-left: none; border-right: 1px solid rgba(255,255,255,0.14); }
+    .tl-seal-label { position: absolute; transform: translate(-50%, -50%); color: rgba(255,255,255,0.22); font-size: 0.85rem; letter-spacing: 3px; white-space: nowrap; }
+    .tl-year-band { position: absolute; }
+    .tl-year { position: absolute; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.07); letter-spacing: 2px; }
+    .tl-month { position: absolute; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .tl-day { position: absolute; width: 1px; height: 8px; background: rgba(255,255,255,0.12); }
+    .tl-axis { position: absolute; height: 2px; background: rgba(255,255,255,0.15); }
+    .tl-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 8px rgba(0,0,0,0.4); transition: transform 0.15s; }
+    .tl-dot:hover { transform: scale(1.8); z-index: 5; }
+    .tl-dot-major { box-shadow: 0 0 0 2px rgba(245,197,24,0.65), 0 0 14px rgba(245,197,24,0.35); }
+    .tl-title { position: absolute; font-size: 0.85rem; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .tl-title:hover { color: #4ca1af; }
+    .tl-title-major { font-weight: 700; color: #fff; }
+    .tl-folder { position: absolute; transform: translateY(-50%); padding: 3px 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.28); border-radius: 999px; font-size: 0.78rem; color: rgba(255,255,255,0.88); white-space: nowrap; pointer-events: none; }
+    .tl-folder-bar { position: absolute; height: 16px; border-radius: 8px; border: 1px solid; pointer-events: auto; cursor: pointer; }
+    .tl-card { position: absolute; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px; display: block; transition: background 0.2s; box-sizing: border-box; }
+    .tl-card:hover { background: rgba(255,255,255,0.09); }
+    .tl-card-date { font-size: 0.72rem; color: rgba(255,255,255,0.42); margin-bottom: 3px; }
+    .tl-card-title { font-size: 0.92rem; color: #fff; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+    .tl-card-summary { font-size: 0.78rem; color: rgba(255,255,255,0.62); line-height: 1.5; }
+    .tl-ui { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; align-items: center; padding: 10px 18px; background: rgba(10,14,23,0.85); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; backdrop-filter: blur(10px); z-index: 10; }
+    .tl-hint { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+    .tl-info { color: #4ca1af; font-size: 0.8rem; white-space: nowrap; }
+    .tl-jump { padding: 5px 14px; background: rgba(76,161,175,0.15); color: #4ca1af; border: 1px solid rgba(76,161,175,0.3); border-radius: 999px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+    .tl-jump:hover { background: rgba(76,161,175,0.3); color: #fff; }
   </style>
 </BaseLayout>

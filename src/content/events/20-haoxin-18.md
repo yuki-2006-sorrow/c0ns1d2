@@ -5,6 +5,7 @@ persons: [曾浩鑫, 金晟恺]
 category: food
 color: "#e74c3c"
 size: 28
+draft: true
 ---
 
 金晟恺在群里说"生日快乐"。

@@ -20,7 +20,7 @@ const categoryNames = {
 
     <div style="display: flex; flex-direction: column; gap: 2px;">
       {events.map(event => (
-        <a href={`/events/${event.slug}`} style="display: flex; align-items: center; gap: 20px; padding: 20px; border-radius: 12px; transition: background 0.3s; border: 1px solid transparent;">
+        <a href={`/events/${event.slug.split('/').pop()}`} style="display: flex; align-items: center; gap: 20px; padding: 20px; border-radius: 12px; transition: background 0.3s; border: 1px solid transparent;">
           <div style="width: 12px; height: 12px; border-radius: 50%; background: {event.data.color}; flex-shrink: 0;"></div>
           <div style="flex: 1;">
             <div style="color: #fff; font-size: 1.05em; margin-bottom: 4px;">{event.data.title}</div>

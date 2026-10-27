@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>c0ns1d2 编辑后台</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0d1117; color: #e6e6e6; display: flex; height: 100vh; overflow: hidden; }
+  .sidebar { width: 320px; min-width: 280px; background: #11161f; border-right: 1px solid #1e2632; display: flex; flex-direction: column; }
+  .sidebar h1 { font-size: 1.05rem; padding: 16px 18px; color: #4ca1af; border-bottom: 1px solid #1e2632; letter-spacing: 1px; }
+  .search { padding: 12px 14px; }
+  .search input { width: 100%; padding: 9px 12px; background: #0d1117; border: 1px solid #2a3441; border-radius: 8px; color: #e6e6e6; font-size: 0.9rem; outline: none; }
+  .search input:focus { border-color: #4ca1af; }
+  .folders { border-bottom: 1px solid #1e2632; padding: 10px 12px; }
+  .folders-head { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #8a97a8; margin-bottom: 6px; }
+  .mini-btn { background: #1f2a3a; color: #e6e6e6; border: 1px solid #2a3441; border-radius: 6px; padding: 2px 9px; font-size: 0.72rem; cursor: pointer; }
+  .mini-btn:hover { border-color: #4ca1af; color: #4ca1af; }
+  .folders-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .folder-item { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; background: #1a2230; border-radius: 6px; font-size: 0.75rem; color: #e6e6e6; cursor: pointer; }
+  .folder-item:hover { background: #1f2a3a; }
+  .folder-item .cnt { color: #4ca1af; font-size: 0.7rem; }
+  .medium-form { display: flex; flex-direction: column; gap: 6px; }
+  .medium-form input, .medium-form textarea, .medium-form select { padding: 6px 9px; background: #0d1117; border: 1px solid #2a3441; border-radius: 6px; color: #e6e6e6; font-size: 0.82rem; outline: none; font-family: inherit; }
+  .list { flex: 1; overflow-y: auto; padding: 0 8px 8px; }
+  .list-count { font-size: 0.72rem; color: #5d6b7d; padding: 2px 4px 6px; }
+  .item { padding: 10px 12px; border-radius: 8px; cursor: pointer; margin-bottom: 2px; transition: background .15s; }
+  .item:hover { background: #1a2230; }
+  .item.active { background: #1f2a3a; }
+  .item .t { font-size: 0.92rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .m { font-size: 0.75rem; color: #8a97a8; margin-top: 3px; display: flex; gap: 8px; align-items: center; }
+  .item .m .draft-tag { font-size: 0.7rem; padding: 1px 6px; border-radius: 4px; background: rgba(245,197,24,.15); color: #f5c518; }
+  .item .m .minor-tag { font-size: 0.7rem; padding: 1px 6px; border-radius: 4px; background: rgba(255,255,255,.06); color: #8a97a8; }
+  .main { flex: 1; overflow-y: auto; padding: 24px 32px 60px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 0.8rem; color: #8a97a8; margin-bottom: 6px; }
+  .field input, .field textarea, .field select { width: 100%; padding: 9px 12px; background: #11161f; border: 1px solid #2a3441; border-radius: 8px; color: #e6e6e6; font-size: 0.95rem; outline: none; font-family: inherit; }
+  .field textarea { resize: vertical; line-height: 1.6; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: #4ca1af; }
+  .row { display: flex; gap: 16px; }
+  .row .field { flex: 1; }
+  .checks { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+  .checks input { width: auto; }
+  .imgs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .img-box { position: relative; width: 96px; height: 96px; border-radius: 8px; overflow: hidden; border: 1px solid #2a3441; background: #0d1117; }
+  .img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-box .del { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; background: rgba(0,0,0,.7); color: #fff; border: none; border-radius: 50%; cursor: pointer; font-size: 0.75rem; line-height: 20px; }
+  .img-add { width: 96px; height: 96px; border-radius: 8px; border: 1px dashed #3a4757; background: transparent; color: #8a97a8; cursor: pointer; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; }
+  .img-add:hover { border-color: #4ca1af; color: #4ca1af; }
+  .drop-hint { font-size: 0.75rem; color: #5d6b7d; margin-top: 6px; }
+  .btn-bar { position: sticky; bottom: 0; background: #0d1117; padding: 14px 0; border-top: 1px solid #1e2632; display: flex; align-items: center; gap: 14px; }
+  .btn { padding: 10px 22px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.95rem; font-weight: 600; }
+  .btn-save { background: #4ca1af; color: #fff; }
+  .btn-save:hover { background: #5dbac9; }
+  .btn-build { background: #1f2a3a; color: #e6e6e6; }
+  .btn-build:hover { background: #2a3441; }
+  .status { font-size: 0.85rem; color: #8a97a8; }
+  .status.ok { color: #4ca1af; }
+  .empty { color: #5d6b7d; text-align: center; padding: 40px 20px; font-size: 0.9rem; }
+  .hint-top { font-size: 0.78rem; color: #5d6b7d; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+  <div class="sidebar">
+    <h1>c0ns1d2 编辑后台</h1>
+    <div style="padding: 10px 12px 0;"><button id="new-event" class="btn btn-save" style="width:100%; padding:8px; border-radius:8px;">＋ 新建事件</button></div>
+    <div class="search"><input id="q" type="text" placeholder="搜索标题/人名/日期/摘要，空格多关键词"></div>
+    <div class="folders" id="folders"></div>
+    <div class="list" id="list"><div class="empty">加载中…</div></div>
+  </div>
+  <div class="main" id="main">
+    <div class="empty">← 左侧选择一个事件开始编辑</div>
+  </div>
+
+<script>
+let events = [];
+let current = null; // 当前编辑的事件 rel
+let currentData = null;
+
+const $ = (s) => document.querySelector(s);
+const listEl = $('#list');
+const mainEl = $('#main');
+const qEl = $('#q');
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  return r.json();
+}
+
+async function loadEvents() {
+  events = await api('/api/events');
+  events.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  renderList();
+}
+
+function renderList() {
+  const kws = qEl.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const filtered = events.filter((e) => {
+    if (!kws.length) return true;
+    const hay = `${e.title} ${e.persons.join(' ')} ${e.date} ${e.summary} ${e.category} ${e.medium} ${e.source || ''}`.toLowerCase();
+    return kws.every((k) => hay.includes(k));
+  });
+  if (!filtered.length) { listEl.innerHTML = '<div class="empty">无匹配</div>'; return; }
+  const re = new RegExp('(' + kws.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
+  const hl = (t) => kws.length ? esc(t).replace(re, '<mark style="background:rgba(76,161,175,.35);color:#7fd6e0;padding:0 1px;border-radius:2px;">$1</mark>') : esc(t);
+  listEl.innerHTML = `<div class="list-count">${filtered.length} / ${events.length} 个</div>` + filtered.map((e) => `
+    <div class="item ${e.rel === current ? 'active' : ''}" data-rel="${e.rel}">
+      <div class="t">${hl(e.title) || '(无标题)'}</div>
+      <div class="m">
+        <span>${hl(e.date)}</span>
+        <span>${esc(e.category)}</span>
+        ${e.medium ? `<span>📁${esc(e.medium)}</span>` : ''}
+        <span class="${e.draft ? 'minor-tag' : 'draft-tag'}">${e.draft ? '小事件' : '大事件'}</span>
+      </div>
+    </div>`).join('');
+  listEl.querySelectorAll('.item').forEach((el) => el.addEventListener('click', () => selectEvent(el.dataset.rel)));
+}
+
+async function selectEvent(rel) {
+  current = rel;
+  currentData = await api('/api/event?rel=' + encodeURIComponent(rel));
+  renderList();
+  renderEditor(currentData);
+}
+
+function newEvent() {
+  current = null;
+  currentData = {
+    rel: '', title: '', date: new Date().toISOString().slice(0, 10),
+    category: 'other', persons: [], summary: '', images: [], medium: '', draft: true, body: ''
+  };
+  renderList();
+  renderEditor(currentData);
+}
+
+function renderEditor(d) {
+  mainEl.innerHTML = `
+    <div class="hint-top">${d.rel ? `文件：<code>src/content/events/${esc(d.rel)}</code>　·　保存后会自动重建，刷新预览即可看` : '新建事件：填好后点「创建」'}</div>
+    <div class="row">
+      <div class="field" style="flex:2"><label>标题</label><input id="f-title" value="${escAttr(d.title)}"></div>
+      <div class="field"><label>日期（可只写 2024 / 2024-03，未知写 ?）</label><input id="f-date" value="${escAttr(d.date)}" placeholder="2024-01-01 / 2024-03 / 2024 / ?"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>分类</label>
+        <select id="f-category">
+          ${['core','food','exam','other'].map((c) => `<option value="${c}" ${d.category === c ? 'selected' : ''}>${catName(c)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field" style="flex:2"><label>参与人（逗号或空格分隔）</label><input id="f-persons" value="${escAttr(d.persons.join(', '))}"></div>
+    </div>
+    <div class="field"><label>所属文件夹（中事件）</label>
+      <select id="f-medium">
+        <option value="">（无）</option>
+        ${mediums.map((m) => `<option value="${escAttr(m.slug)}" ${d.medium === m.slug ? 'selected' : ''}>${esc(m.title)}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field"><label>摘要</label><textarea id="f-summary" rows="3">${esc(d.summary)}</textarea></div>
+    <div class="field">
+      <label>照片</label>
+      <div class="imgs" id="f-imgs">${(d.images || []).map((u) => `
+        <div class="img-box" data-url="${escAttr(u)}"><img src="${escAttr(u)}"><button class="del" data-url="${escAttr(u)}">×</button></div>`).join('')}
+      </div>
+      <div class="imgs" style="margin-top:0"><button class="img-add" id="add-img" title="上传照片">+</button></div>
+      <div class="drop-hint">点击 + 上传，或把图片拖到 + 上；支持多张。保存进 public/photos/</div>
+    </div>
+    <div class="field"><label>正文（可自由码字）</label><textarea id="f-body" rows="10">${esc(d.body || '')}</textarea></div>
+    <div class="checks field"><input type="checkbox" id="f-major" ${!d.draft ? 'checked' : ''}><label for="f-major" style="margin:0">上照片墙（大事件）</label></div>
+    <div class="btn-bar">
+      <button class="btn btn-save" id="save">${d.rel ? '保存' : '创建'}</button>
+      <button class="btn btn-build" id="build">重建网站</button>
+      <span class="status" id="status"></span>
+    </div>
+  `;
+  bindEditor(d);
+}
+
+function catName(c) { return { core: '核心', food: '聚餐/生日', exam: '考试', other: '其他' }[c] || c; }
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m])); }
+function escAttr(s) { return esc(s).replace(/'/g, '&#39;'); }
+
+function bindEditor(d) {
+  // 图片删除
+  mainEl.querySelectorAll('.img-box .del').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const url = b.dataset.url;
+    d.images = (d.images || []).filter((u) => u !== url);
+    renderEditor(d);
+  }));
+  // 图片上传
+  const addBtn = mainEl.querySelector('#add-img');
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file'; fileInput.accept = 'image/*'; fileInput.multiple = true;
+  fileInput.addEventListener('change', () => uploadFiles(fileInput.files, d));
+  addBtn.addEventListener('click', () => fileInput.click());
+  // 拖拽上传
+  addBtn.addEventListener('dragover', (e) => { e.preventDefault(); });
+  addBtn.addEventListener('drop', (e) => { e.preventDefault(); uploadFiles(e.dataTransfer.files, d); });
+  // 保存
+  mainEl.querySelector('#save').addEventListener('click', () => save(d));
+  // 重建
+  mainEl.querySelector('#build').addEventListener('click', async () => {
+    const status = mainEl.querySelector('#status');
+    status.textContent = '正在重建网站…';
+    status.className = 'status';
+    const r = await api('/api/rebuild', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    status.textContent = r.ok ? '重建已触发，等几秒后刷新预览' : ('重建失败：' + r.error);
+    status.className = r.ok ? 'status ok' : 'status';
+  });
+}
+
+async function uploadFiles(files, d) {
+  const status = mainEl.querySelector('#status');
+  for (const f of files) {
+    status.textContent = `上传 ${f.name} …`;
+    const data = await fileToBase64(f);
+    const r = await api('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filename: f.name, data }) });
+    d.images = d.images || [];
+    d.images.push(r.url);
+  }
+  renderEditor(d);
+  status.textContent = '上传完成，记得保存';
+  status.className = 'status ok';
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(fr.result.split(',')[1]);
+    fr.readAsDataURL(file);
+  });
+}
+
+async function save(d) {
+  const status = mainEl.querySelector('#status');
+  const payload = {
+    title: mainEl.querySelector('#f-title').value,
+    date: mainEl.querySelector('#f-date').value,
+    category: mainEl.querySelector('#f-category').value,
+    persons: mainEl.querySelector('#f-persons').value.split(/[,，、\s]+/).map((s) => s.trim()).filter(Boolean),
+    summary: mainEl.querySelector('#f-summary').value,
+    body: mainEl.querySelector('#f-body').value,
+    images: d.images || [],
+    medium: mainEl.querySelector('#f-medium').value,
+    draft: !mainEl.querySelector('#f-major').checked,
+  };
+  if (current) payload.rel = current; // 更新已有事件才带 rel，不带则创建
+  const r = await api('/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  if (r.ok) {
+    status.textContent = current ? '已保存 ✓' : '已创建 ✓';
+    status.className = 'status ok';
+    await loadEvents();
+    if (!current && r.rel) {
+      current = r.rel;
+      currentData.rel = r.rel;
+      renderList();
+      const hint = mainEl.querySelector('.hint-top');
+      if (hint) hint.innerHTML = `文件：<code>src/content/events/${esc(r.rel)}</code>　·　保存后会自动重建，刷新预览即可看`;
+      const btn = mainEl.querySelector('#save');
+      if (btn) btn.textContent = '保存';
+    }
+    // 保存后自动重建，不用再手动点「重建网站」
+    status.textContent = (current ? '已保存 ✓' : '已创建 ✓') + ' · 正在重建…';
+    await api('/api/rebuild', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    status.textContent = (current ? '已保存 ✓' : '已创建 ✓') + ' · 已重建，去预览刷新即可看';
+  } else {
+    status.textContent = '保存失败：' + (r.error || '');
+    status.className = 'status';
+  }
+}
+
+// ---------- 文件夹（中事件） ----------
+let mediums = [];
+async function loadMediums() {
+  mediums = await api('/api/mediums');
+  renderMediums();
+}
+function renderMediums() {
+  const el = document.querySelector('#folders');
+  el.innerHTML = `
+    <div class="folders-head"><span>文件夹（中事件）</span><button id="new-medium" class="mini-btn">+ 新建</button></div>
+    <div class="folders-list">${mediums.map((m) => `<span class="folder-item" data-slug="${escAttr(m.slug)}" title="点击编辑/改名/设父级">${esc(m.title)}<span class="cnt">${m.count}</span></span>`).join('') || '<span style="font-size:.72rem;color:#5d6b7d">暂无</span>'}</div>`;
+  document.querySelector('#new-medium').addEventListener('click', () => editMediumForm(null));
+  document.querySelectorAll('.folder-item').forEach((n) => n.addEventListener('click', () => {
+    const m = mediums.find((x) => x.slug === n.dataset.slug);
+    if (m) editMediumForm(m);
+  }));
+}
+function editMediumForm(m) {
+  const el = document.querySelector('#folders');
+  el.innerHTML = `
+    <div class="folders-head"><span>${m ? '编辑文件夹' : '新建文件夹'}</span><button id="cancel-medium" class="mini-btn">×</button></div>
+    <div class="medium-form">
+      <input id="nm-title" placeholder="名称" value="${m ? escAttr(m.title) : ''}">
+      <textarea id="nm-summary" placeholder="介绍（可选）" rows="2">${m ? esc(m.summary) : ''}</textarea>
+      <select id="nm-parent">
+        <option value="">（无父文件夹）</option>
+        ${mediums.filter((x) => !m || x.slug !== m.slug).map((x) => `<option value="${escAttr(x.slug)}" ${m && m.parent === x.slug ? 'selected' : ''}>${esc(x.title)}</option>`).join('')}
+      </select>
+      <button id="nm-save" class="btn btn-save" style="padding:6px 12px">${m ? '保存' : '创建'}</button>
+    </div>`;
+  document.querySelector('#cancel-medium').addEventListener('click', renderMediums);
+  document.querySelector('#nm-save').addEventListener('click', async () => {
+    const body = {
+      slug: m ? m.slug : '',
+      title: document.querySelector('#nm-title').value,
+      summary: document.querySelector('#nm-summary').value,
+      parent: document.querySelector('#nm-parent').value,
+    };
+    const r = await api('/api/medium', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    if (r.ok) { await loadMediums(); if (currentData) renderEditor(currentData); }
+    else alert(r.error || '失败');
+  });
+}
+
+document.querySelector('#new-event').addEventListener('click', newEvent);
+qEl.addEventListener('input', renderList);
+
+loadEvents();
+loadMediums();
+</script>
+</body>
+</html>
