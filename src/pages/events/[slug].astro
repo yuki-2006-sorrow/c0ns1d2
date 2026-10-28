@@ -10,6 +10,7 @@ export async function getStaticPaths() {
 }
 const { event } = Astro.props;
 const { Content } = await render(event);
+const people = await getCollection('people');
 ---
 <BaseLayout title={event.data.title}>
   <article class="reading-page">
@@ -17,7 +18,7 @@ const { Content } = await render(event);
       <a href="/events" class="reading-back">← 记忆</a>
       <p class="archive-eyebrow">{event.data.date}</p>
       <h1>{event.data.title}</h1>
-      <details class="reading-meta"><summary>这段记忆里的人与线索</summary><div>{event.data.persons.join(' · ')}</div>{event.data.tags.length > 0 && <div>{event.data.tags.map(tag => <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}　</a>)}</div>}</details>
+      {event.data.persons.length > 0 && <details class="reading-meta"><summary>这段记忆里的人</summary><div>{event.data.persons.map((name, index) => { const person = people.find(entry => entry.data.name === name); return <>{index > 0 && ' · '}{person ? <a href={`/people/${encodeURIComponent(person.slug)}`}>{name}</a> : name}</>; })}</div></details>}
       <ThoughtCapture type="event" id={eventReference(event)} />
     </header>
     <div class="reading-layout">

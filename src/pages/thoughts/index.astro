@@ -2,7 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { publicThoughts } from '../../lib/associations.mjs';
-const [events, works, associations] = await Promise.all([getCollection('events'), getCollection('works'), getCollection('associations')]);
+import { contentPreview } from '../../lib/content-preview.mjs';
+const [events, works, associations, journals] = await Promise.all([getCollection('events'), getCollection('works'), getCollection('associations'), getCollection('journal', ({ data }) => !data.draft)]);
 const thoughts = publicThoughts(events, works, associations);
 ---
-<BaseLayout title="联想"><section class="reading-page thought-index"><header class="reading-header"><p class="archive-eyebrow">读着读着，又想到了一些</p><h1>联想</h1></header>{thoughts.length === 0 && <p class="reading-meta">暂时还没有公开的联想。</p>}{thoughts.map(thought => <article><p class="reading-meta">从 <a href={thought.origin.href}>{thought.origin.title}</a> 想到的</p><h2><a href={thought.thoughtHref}>{thought.title}</a></h2>{thought.text && <p>{thought.text.slice(0,180)}{thought.text.length > 180 && '…'}</p>}<a href={thought.thoughtHref} class="thought-index-read">读这段联想 ↗</a></article>)}</section><style>.thought-index { max-width: 820px; } article { padding: 28px 0; border-top: 1px solid var(--archive-line); } h2 { font-size: 1.5rem; font-weight: 400; line-height: 1.7; margin: 16px 0; } article > p { color: var(--archive-muted); line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; } .thought-index-read { display: inline-block; margin-top: 22px; font-size: .85rem; color: #d2b5a6; }</style></BaseLayout>
+<BaseLayout title="想法">
+  <section class="reading-page thought-index">
+    <header class="reading-header"><p class="archive-eyebrow">想到哪里，写到哪里</p><h1>想法</h1><p class="reading-meta">可以从一段记忆开始，也可以只记下此刻想说的。</p></header>
+    {thoughts.length === 0 && journals.length === 0 && <p class="reading-meta">暂时还没有公开的想法。</p>}
+    {thoughts.map(thought => <article>
+      {thought.origin && <p class="reading-meta">从 <a href={thought.origin.href}>{thought.origin.title}</a> 想到的</p>}
+      <h2><a href={thought.thoughtHref}>{thought.title}</a></h2>
+      {thought.text && <p>{contentPreview('', thought.text, 180)}</p>}
+      <a href={thought.thoughtHref} class="thought-index-read">接着读 ↗</a>
+    </article>)}
+    {journals.map(journal => <article><p class="reading-meta">{journal.data.date}</p><h2><a href={'/journal/' + journal.slug}>{journal.data.title}</a></h2><p>{contentPreview('', journal.body, 180)}</p><a href={'/journal/' + journal.slug} class="thought-index-read">接着读 ↗</a></article>)}
+  </section>
+  <style>
+    .thought-index { max-width: 820px; } article { padding: 28px 0; border-top: 1px solid var(--archive-line); } h2 { font-size: 1.5rem; font-weight: 400; line-height: 1.7; margin: 16px 0; } article > p { color: var(--archive-muted); line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; } .thought-index-read { display: inline-block; margin-top: 22px; font-size: .85rem; color: #d2b5a6; }
+  </style>
+</BaseLayout>

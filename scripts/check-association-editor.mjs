@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { cpSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { cpSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { reviseContent } from '../admin/content-tools.mjs';
+import { verifyTimeline } from './verify-timeline-browser.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
+if (process.argv.includes('--timeline')) process.env.EDITOR_CHECK_ONLY = 'timeline';
 const fixture = mkdtempSync(join(tmpdir(), 'c0ns1d2-editor-'));
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 const chromePath = process.env.CHROME_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
@@ -15,6 +17,7 @@ let chrome;
 let socket;
 let serverLog = '';
 const errors = [];
+let fixtureEventCount = 0;
 
 async function until(check, label, timeout = 60000) {
   const started = Date.now();
@@ -40,10 +43,29 @@ async function run(executable, args, cwd) {
 try {
   assert.ok(existsSync(chromePath), 'Chrome not found; set CHROME_PATH');
   for (const name of ['src', 'admin', 'scripts']) cpSync(join(root, name), join(fixture, name), { recursive: true });
+  const fixtureEvents = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => entry.isDirectory() ? fixtureEvents(join(directory, entry.name)) : entry.name.endsWith('.md') ? [join(directory, entry.name)] : []);
+  const eventFiles = fixtureEvents(join(fixture, 'src/content/events'));
+  fixtureEventCount = eventFiles.length;
+  // Keep the disposable public/private test scenario stable while the user edits the real archive.
+  const publicFixtureIds = new Set(['06-winter-dinner-west.md', '11-museum-heist.md', 'dm-20251231-21-吴晨阳.md']);
+  for (const file of eventFiles) writeFileSync(file, reviseContent(readFileSync(file, 'utf8'), { draft: !publicFixtureIds.has(basename(file)) }));
+  writeFileSync(join(fixture, 'src/content/journal/legacy-check.md'), '---\ntitle: 旧随笔兼容验证\ndate: 2024-01-01\ndraft: false\n---\n\n以前写下的文字也在想法里。\n');
   const taggedEvent = join(fixture, 'src/content/events/auto/dm-20251231-21-吴晨阳.md');
   writeFileSync(taggedEvent, reviseContent(readFileSync(taggedEvent, 'utf8'), { tags: ['回归标签'] }));
   for (const name of ['package.json', 'astro.config.mjs', 'tsconfig.json']) copyFileSync(join(root, name), join(fixture, name));
   mkdirSync(join(fixture, 'public'));
+  if (process.env.EDITOR_CHECK_ONLY === 'timeline') {
+    for (const [id,parent] of [['timeline-check-parent',''],['timeline-check-child','timeline-check-parent']]) {
+      writeFileSync(join(fixture,'src/content/mediums',id+'.md'), '---\ntitle: '+id+'\ndate: "2022"\nparent: "'+parent+'"\ndraft: false\n---\n');
+    }
+    writeFileSync(join(fixture,'public/timeline-test.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="#55483b"/><circle cx="330" cy="190" r="100" fill="#bda480"/></svg>');
+    for (let i=0;i<26;i++) {
+      const date = i === 25 ? '?' : i === 24 ? '2022' : i < 3 ? '2022-02-01' : '2022-02-'+String(i).padStart(2,'0');
+      const medium = i === 24 ? 'timeline-check-parent' : 'timeline-check-child';
+      const images = i === 0 ? '["/timeline-test.svg"]' : i === 1 ? '["/missing-timeline-test.jpg"]' : '[]';
+      writeFileSync(join(fixture,'src/content/events','timeline-check-'+String(i).padStart(2,'0')+'.md'), '---\ntitle: "时间长卷验证 '+i+'"\ndate: "'+date+'"\npersons: []\nmedium: '+medium+'\nimages: '+images+'\ndraft: false\n---\n\n仅存在于临时副本中的记忆，用于检查日期、照片、分组与卡片位置。\n');
+    }
+  }
   symlinkSync(join(root, 'node_modules'), join(fixture, 'node_modules'), 'junction');
   await run(process.execPath, [join(root, 'node_modules/astro/astro.js'), 'build', '--root', fixture], fixture);
   await run(process.execPath, [join(fixture, 'scripts/check-public-build.mjs')], fixture);
@@ -109,15 +131,77 @@ try {
   await send('Runtime.enable');
   await send('Network.enable');
   await send('Network.setBlockedURLs', { urls: ['https://*'] });
+  if (process.env.EDITOR_CHECK_ONLY === 'timeline') {
+    await verifyTimeline({send,evaluate,navigate,click,fill,until,screenshot,synthetic:true});
+    assert.deepEqual(errors, [], 'Timeline runtime exceptions');
+  } else {
+  if (process.env.EDITOR_CHECK_ONLY !== 'simplify') {
   await navigate('/admin');
-  await until(() => evaluate('events.length === 540 && !!window.newWork'), 'editor loaded');
+  await until(() => evaluate(`events.length === ${fixtureEventCount} && !!window.newWork`), 'editor loaded');
+  // All event removal below happens in this disposable project, never the real archive.
+  await until(() => evaluate(`!!document.getElementById('event-source-filter')`), 'event tools');
+  await fill('#event-source-filter', 'auto');
+  assert.ok(await evaluate(`window.filteredEvents.length > 0 && window.filteredEvents.every(entry => /^auto[\\\\/]/.test(entry.rel))`));
+  await click('#event-batch');
+  const fragmentRel = await evaluate(`window.filteredEvents.find(entry => entry.draft).rel`);
+  const fragmentCheckbox = `[data-event-select=${JSON.stringify(fragmentRel)}]`;
+  await checked(fragmentCheckbox, true);
+  await evaluate(`selectEvent(${JSON.stringify(fragmentRel)})`);
+  assert.equal(await evaluate(`document.querySelector(${JSON.stringify(fragmentCheckbox)}).checked`), true, 'reading an event preserves multi-selection');
+  await fill('#event-source-filter', 'all');
+  await checked('[data-event-select="06-winter-dinner-west.md"]', true);
+  await fill('#q', 'museum');
+  assert.ok(await evaluate(`document.getElementById('event-tools').textContent.includes('已选 2 项')`), 'search must not silently change the selection');
+  await click('#event-batch-action');
+  await until(() => evaluate(`!!document.querySelector('.trash-dialog[open]')`), 'trash review');
+  assert.equal(await evaluate(`document.querySelectorAll('.trash-dialog li').length`), 2);
+  await screenshot('event-trash-review.png');
+  await click('#trash-cancel');
+  assert.equal((await (await fetch(origin + '/api/events')).json()).length, fixtureEventCount, 'cancel must not remove records');
+  await click('#event-batch-action');
+  await until(() => evaluate(`!!document.querySelector('.trash-dialog[open]')`), 'trash review again');
+  await click('#trash-confirm');
+  await completeBuild('#trash-status');
+  await until(() => evaluate(`!window.editorSaving && events.length === ${fixtureEventCount - 2}`), 'removal complete');
+  assert.equal((await fetch(origin + '/events/06-winter-dinner-west')).status, 404, 'published event is removed from generated pages');
+  await click('#event-trash-toggle');
+  await until(() => evaluate(`document.querySelectorAll('[data-event-restore]').length === 2 && !document.getElementById('event-batch').disabled`), 'trash list');
+  await click('#event-batch');
+  await click('#event-select-visible');
+  await screenshot('event-trash-desktop.png');
+  await send('Emulation.setDeviceMetricsOverride', {width:390,height:844,deviceScaleFactor:1,mobile:true});
+  assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), 'trash fits mobile viewport');
+  await screenshot('event-trash-mobile.png');
+  await send('Emulation.clearDeviceMetricsOverride');
+  await click('#event-batch-action');
+  await completeBuild('#trash-status');
+  await until(() => evaluate(`!window.editorSaving && events.length === ${fixtureEventCount}`), 'restore complete');
+  assert.equal((await fetch(origin + '/events/06-winter-dinner-west')).status, 200, 'public route returns after restore');
+  await click('#mode-works');
+  await until(() => evaluate(`window.editorMode === 'works' && document.getElementById('event-tools').hidden`), 'works after trash');
+  await click('#mode-events');
+  await fill('#q', '');
   await evaluate(`selectEvent('11-museum-heist.md')`);
   await until(() => evaluate(`document.querySelectorAll('#f-imgs .img-box').length === 8`), 'legacy images');
   const originalTitle = await evaluate(`document.getElementById('f-title').value`);
   const originalBody = await evaluate(`document.getElementById('f-body').value`);
   await fill('#f-title', originalTitle + ' 临时编辑');
+  assert.equal(await evaluate(`document.getElementById('f-category').type`), 'hidden', 'legacy categories are no longer another choice');
+  assert.ok(await evaluate(`document.getElementById('f-date').getClientRects().length > 0 && document.getElementById('event-photos').getClientRects().length > 0`), 'date and photos are directly available');
+  assert.equal(await evaluate(`document.getElementById('event-organization').open`), false);
+  assert.equal(await evaluate(`document.getElementById('event-preview').open`), false);
+  await screenshot('simplify-event-editor-desktop.png');
+  await click('.medium-groups > summary');
   await click('.folder-item');
   await fill('#nm-summary', '文件夹临时验证');
+  const offlineMessage = await evaluate(`(async () => { const originalFetch = window.fetch; window.fetch = async () => { throw new TypeError('Failed to fetch'); }; try { await api('/api/events'); } catch (error) { return error.message; } finally { window.fetch = originalFetch; } })()`);
+  assert.ok(offlineMessage.includes('本地编辑服务未连接'));
+  assert.equal(await evaluate(`document.getElementById('connection-notice').hidden`), false);
+  await click('#connection-retry');
+  await until(() => evaluate(`document.getElementById('connection-notice').hidden && !document.getElementById('connection-retry').disabled`), 'reconnected without reloading');
+  assert.equal(await evaluate(`document.getElementById('f-title').value`), originalTitle + ' 临时编辑');
+  assert.equal(await evaluate(`document.getElementById('nm-summary').value`), '文件夹临时验证');
+  assert.equal(await evaluate(`Boolean(window.editorDirty)`), true, 'reconnect preserves unsaved state');
   await evaluate(`document.querySelector('.medium-form').requestSubmit()`);
   await completeBuild('#admin-notice');
   assert.equal(await evaluate(`getComputedStyle(document.getElementById('admin-notice')).position`), 'fixed', 'notice must not shrink the editor');
@@ -206,7 +290,7 @@ try {
   await click('[data-kind="film"]');
   assert.equal(await evaluate(`document.querySelectorAll('[data-work-kind]:not([hidden])').length`), 1);
   await navigate('/admin');
-  await until(() => evaluate('events.length === 540 && !!window.newWork'), 'mobile editor');
+  await until(() => evaluate(`events.length === ${fixtureEventCount} && !!window.newWork`), 'mobile editor');
   await screenshot('association-editor-mobile.png');
   assert.ok(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), 'Editor mobile overflow');
   await click('#mode-works');
@@ -273,32 +357,44 @@ try {
   await until(() => evaluate('document.activeElement.className === "gallery-trigger"'), 'restore photo focus');
   assert.equal(await evaluate('document.activeElement.className'), 'gallery-trigger');
   assert.equal(await evaluate('document.body.style.overflow'), '');
-  await navigate('/timeline');
-  await until(() => evaluate(`document.querySelectorAll('.tl-dot,.tl-folder-bar').length > 0`), 'timeline render');
-  assert.ok(await evaluate(`document.querySelector('.tl-ui').getBoundingClientRect().left >= 0 && document.querySelector('.tl-ui').getBoundingClientRect().right <= innerWidth`), 'timeline mobile toolbar');
-  const beforeZoom = await evaluate(`document.getElementById('tl-info').textContent`);
-  await click('#tl-zoom-in');
-  await sleep(100);
-  assert.notEqual(await evaluate(`document.getElementById('tl-info').textContent`), beforeZoom);
-  await click('#tl-jump-latest');
-  await sleep(550);
-  const latestPosition = await evaluate(`document.getElementById('tl-world').style.transform`);
-  await click('#tl-jump-latest');
-  await sleep(550);
-  assert.equal(await evaluate(`document.getElementById('tl-world').style.transform`), latestPosition);
-  await send('Emulation.setDeviceMetricsOverride', {width:1440,height:1100,deviceScaleFactor:1,mobile:false});
-  await navigate('/timeline');
-  await click('#tl-fit');
-  const point = await evaluate(`(() => {const target=document.querySelector('.tl-dot');if(!target)return null;const box=target.getBoundingClientRect();return {x:box.x+box.width/2,y:box.y+box.height/2,href:target.getAttribute('href')};})()`);
-  if (point) {
-    await send('Input.dispatchMouseEvent', {type:'mousePressed',x:point.x,y:point.y,button:'left',clickCount:1});
-    await send('Input.dispatchMouseEvent', {type:'mouseReleased',x:point.x,y:point.y,button:'left',clickCount:1});
-    await until(() => evaluate(`decodeURIComponent(location.pathname) === decodeURIComponent(${JSON.stringify(point.href)})`), 'timeline native click');
+  await verifyTimeline({send,evaluate,navigate,click,fill,until,screenshot});
   }
+  await navigate('/thoughts');
+  assert.ok(await evaluate(`document.body.textContent.includes('旧随笔兼容验证')`), 'old journals join the same thought index');
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.nav-links > a')].map(link => link.textContent)`), ['记忆', '作品', '想法']);
+  await navigate('/events');
+  assert.ok(await evaluate(`!!document.querySelector('.memory-views a[href="/timeline"]')`), 'list and timeline are views of the same memories');
+  await send('Page.navigate', { url: origin + '/stats' });
+  await until(() => evaluate(`(location.pathname === '/events' || location.pathname === '/events/') && document.readyState === 'complete'`), 'retired stats redirect');
+  await navigate('/admin');
+  await until(() => evaluate(`!!window.newThought && events.length === ${fixtureEventCount}`), 'thought library ready');
+  await click('#mode-thoughts');
+  await until(() => evaluate(`window.editorMode === 'thoughts' && document.getElementById('folders').hidden`), 'thought mode');
+  await click('#new-event');
+  await until(() => evaluate(`!!document.getElementById('a-note')`), 'standalone thought editor');
+  await fill('#a-note', '独立想法验证：不需要先选一件事。');
+  await send('Emulation.setDeviceMetricsOverride', {width:390,height:844,deviceScaleFactor:1,mobile:true});
+  assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'), 'simplified thought editor fits mobile');
+  await screenshot('simplify-thought-editor-mobile.png');
+  await evaluate(`document.querySelector('.association-form').requestSubmit()`);
+  await until(() => evaluate(`!!document.querySelector('[data-thought].active') && document.getElementById('a-note')?.value.includes('独立想法验证') && !window.editorDirty`), 'standalone thought saved and selected');
+  const standalone = (await (await fetch(origin + '/api/associations')).json()).find(entry => entry.body.includes('独立想法验证'));
+  assert.ok(standalone?.draft); assert.equal(standalone.fromType, ''); assert.equal(standalone.fromId, '');
+  assert.equal((await fetch(origin + '/thoughts/' + standalone.id)).status, 404, 'standalone draft remains private');
+  await checked('#a-public', true);
+  await evaluate(`document.querySelector('.association-form').requestSubmit()`);
+  await until(async () => (await fetch(origin + '/thoughts/' + standalone.id)).status === 200, 'published standalone thought');
+  await until(() => evaluate(`!window.editorDirty && document.getElementById('a-public')?.checked`), 'published thought editor clean');
+  await navigate('/thoughts/' + standalone.id);
+  assert.ok(await evaluate(`document.body.textContent.includes('独立想法验证')`));
+  assert.ok(await evaluate(`!!document.querySelector('a[href="/thoughts"]')`));
+  await navigate('/thoughts');
+  assert.ok(await evaluate(`document.body.textContent.includes('独立想法验证')`));
   await run(process.execPath, [join(fixture, 'scripts/check-public-build.mjs')], fixture);
   assert.deepEqual(errors, [], 'Browser runtime exceptions');
-  console.log('Browser verified: works and links; input preservation during uploads/folder edits; undo/shortcuts; selection races; legacy photos; stale writes; date/cycle validation; intro controls; photo focus/keyboard; timeline click/zoom/latest; mobile layout; flat event links in tag pages.');
-  console.log('Screenshots: data-tools/association-{editor,work}-{desktop,mobile}.png');
+  console.log('Browser verified: simplified navigation and list/timeline views; journal merge and retired statistics redirect; standalone thought draft/publish/read; mobile thought editor.' + (process.env.EDITOR_CHECK_ONLY === 'simplify' ? '' : ' Full regression: event hierarchy, source filter, selection, trash/cancel/restore, works and links, connection recovery with unsaved input, uploads/folders, shortcuts, races, revision/date/cycle checks, intro controls, photo focus, timeline and mobile layout.'));
+  console.log('Screenshots: data-tools/simplify-{event-editor-desktop,thought-editor-mobile}.png');
+  }
 } finally {
   socket?.close();
   chrome?.kill();

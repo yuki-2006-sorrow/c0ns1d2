@@ -1,5 +1,5 @@
 // c0ns1d2 本地内容编辑后台（零依赖 Node 服务器）
-// 运行：node admin/server.mjs  然后打开 http://localhost:4322/
+// 运行：node admin/server.mjs  然后打开 http://127.0.0.1:4323/admin
 import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSync } from 'node:fs';
 import { spawn } from 'node:child_process';
@@ -10,6 +10,7 @@ import { createAssociationStore } from './association-store.mjs';
 import { parseFm, reviseContent, revision, contentPath, validateEvent } from './content-tools.mjs';
 import { slug as githubSlug } from 'github-slugger';
 import { serveVideo } from './media-response.mjs';
+import { createEventTrashStore } from './event-trash-store.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -17,7 +18,7 @@ const EVENTS_DIR = join(ROOT, 'src', 'content', 'events');
 const MEDIUMS_DIR = join(ROOT, 'src', 'content', 'mediums');
 const PHOTOS_DIR = join(ROOT, 'public', 'photos');
 const ADMIN_HTML = join(__dirname, 'admin.html');
-const PORT = Number(process.env.PORT || 4322);
+const PORT = Number(process.env.PORT || 4323);
 const buildStatus = { state: 'idle', queued: false, error: '' };
 
 mkdirSync(PHOTOS_DIR, { recursive: true });
@@ -48,13 +49,15 @@ function readEvent(rel) {
 function listEvents() {
   return walkEvents(EVENTS_DIR).map(({ rel }) => {
     try {
-      const d = parseFm(readFileSync(join(EVENTS_DIR, rel), 'utf8'));
-      return { rel, slug: basename(rel).replace(/\.md$/, ''), title: d.title, date: d.date, category: d.category, source: d.source, draft: d.draft, major: d.major, images: d.images, persons: d.persons, summary: d.summary, medium: d.medium };
+      const source = readFileSync(join(EVENTS_DIR, rel), 'utf8');
+      const d = parseFm(source);
+      return { rel, revision: revision(source), slug: basename(rel).replace(/\.md$/, ''), title: d.title, date: d.date, category: d.category, source: d.source, draft: d.draft, major: d.major, images: d.images, persons: d.persons, summary: d.summary, medium: d.medium };
     } catch { return null; }
   }).filter(Boolean);
 }
 
 const associationStore = createAssociationStore(ROOT, listEvents);
+const eventTrash = createEventTrashStore(ROOT, listEvents, associationStore.listAssociations);
 
 function rebuild() {
   if (buildStatus.state === 'running') {
@@ -233,9 +236,18 @@ const server = createServer(async (req, res) => {
   try { p = decodeURIComponent(url.pathname); } catch { return send(res, 400, { error: '页面地址不完整' }); }
   if (req.method === 'OPTIONS') { res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' }); return res.end(); }
   try {
+    if (p === '/api/health' && req.method === 'GET') return send(res, 200, { app: 'c0ns1d2-admin', root: resolve(ROOT) });
     if (p === '/admin/associations.js' && req.method === 'GET') return serveFile(res, join(__dirname, 'associations.js'));
+    if (p === '/admin/thoughts.js' && req.method === 'GET') return serveFile(res, join(__dirname, 'thoughts.js'));
     if (p === '/admin/editor.js' && req.method === 'GET') return serveFile(res, join(__dirname, 'editor.js'));
     if (p === '/admin/writing.js' && req.method === 'GET') return serveFile(res, join(__dirname, 'writing.js'));
+    if (p === '/admin/event-trash.js' && req.method === 'GET') return serveFile(res, join(__dirname, 'event-trash.js'));
+    if (p === '/api/event-trash' && req.method === 'GET') return send(res, 200, eventTrash.list());
+    if (['/api/event-trash/plan', '/api/event-trash/move', '/api/event-trash/restore'].includes(p) && req.method === 'POST') {
+      const data = await readBody(req);
+      const action = p.split('/').pop();
+      return send(res, 200, eventTrash[action](data.items));
+    }
     if (p === '/api/works' && req.method === 'GET') return send(res, 200, associationStore.listWorks());
     if (p === '/api/associations' && req.method === 'GET') return send(res, 200, associationStore.listAssociations());
     if ((p === '/api/work' || p === '/api/association') && req.method === 'POST') {

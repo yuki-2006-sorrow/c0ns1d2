@@ -1,14 +1,15 @@
 ---
 title: "定名·金晟恺入群"
-date: 2026-05-23
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "金晟恺", "陈二逼"]
-category: core
+date: "2026-05-23"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","金晟恺","陈二逼"]
+category: "core"
 color: "#4ca1af"
 size: 35
-draft: true
+draft: false
 summary: ""
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 潜入校史馆的第二天，陈二逼把金晟恺拉进群。吴晨阳把群名正式改成了"惊天魔盗团"。
 

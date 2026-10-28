@@ -1,14 +1,15 @@
 ---
 title: "朱浩宇生日"
-date: 2026-02-12
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "陈二逼"]
-category: food
+date: "2026-02-12"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","陈二逼"]
+category: "food"
 color: "#e74c3c"
 size: 32
-draft: true
+draft: false
 summary: ""
 images: []
 medium: "生日"
+major: false
 ---
 2月12日是朱浩宇的生日。
 

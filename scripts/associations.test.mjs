@@ -6,6 +6,7 @@ import test from 'node:test';
 import { createAssociationStore } from '../admin/association-store.mjs';
 import { publicConnections, publicThoughts } from '../src/lib/associations.mjs';
 import { parseFm, reviseContent, validateDate, contentPath } from '../admin/content-tools.mjs';
+import { contentPreview } from '../src/lib/content-preview.mjs';
 
 test('manual works and associations persist, validate references, and remain private by default', () => {
   const root = mkdtempSync(join(tmpdir(), 'c0ns1d2-associations-'));
@@ -98,4 +99,34 @@ test('a long thought can exist before any target and later acquire one without r
     assert.equal(publicConnections('event','memory',events,[],[orphan])[0].href, '/thoughts/free-thought');
     assert.equal(publicThoughts([{...events[0],data:{...events[0].data,draft:true}}],[],[orphan]).length, 0);
   } finally { assert.ok(basename(root).startsWith('c0ns1d2-associations-')); rmSync(root,{recursive:true,force:true}); }
+});
+
+test('standalone thoughts remain private by default and can later reference a public work', () => {
+  const root = mkdtempSync(join(tmpdir(), 'c0ns1d2-associations-'));
+  try {
+    const store = createAssociationStore(root, () => []);
+    const saved = store.saveAssociation({ body: '今天只想记下一句话。' });
+    const thought = store.listAssociations().find(entry => entry.id === saved.id);
+    assert.equal(thought.fromType, ''); assert.equal(thought.fromId, ''); assert.equal(thought.draft, true);
+    assert.throws(() => store.saveAssociation({ fromType: 'event', body: '缺少完整起点' }), /完整/);
+    assert.throws(() => store.saveAssociation({}), /先记下/);
+    const entry = { slug: saved.id, body: thought.body, data: thought };
+    assert.deepEqual(publicThoughts([], [], [entry]), []);
+    const published = { ...entry, data: { ...thought, draft: false } };
+    assert.equal(publicThoughts([], [], [published])[0].origin, null);
+    const work = store.saveWork({ title: '一本书', kind: 'book' });
+    store.saveAssociation({ ...thought, toType: 'work', toId: work.id, draft: false });
+    const linked = { ...entry, data: store.listAssociations()[0] };
+    const works = [{ slug: work.id, data: { title: '一本书', kind: 'book', draft: true } }];
+    assert.deepEqual(publicThoughts([], works, [linked]), []);
+    works[0].data.draft = false;
+    assert.equal(publicConnections('work', work.id, [], works, [linked])[0].thoughtHref, '/thoughts/' + saved.id);
+  } finally { assert.ok(basename(root).startsWith('c0ns1d2-associations-')); rmSync(root, { recursive: true, force: true }); }
+});
+
+test('list previews use body text without changing an explicit introduction or returning raw Markdown', () => {
+  assert.equal(contentPreview(' 手写介绍 ', '# 原文'), '手写介绍');
+  assert.equal(contentPreview('', '# 某一天\n\n![照片](/photos/a.png)\n\n想到 **一段话**，以及[一部作品](/works/a)。'), '某一天 想到 一段话，以及一部作品。');
+  assert.equal(contentPreview('', ''), '');
+  assert.equal(contentPreview('', 'abcdef', 3), 'abc…');
 });

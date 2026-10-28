@@ -109,16 +109,58 @@
   .association-editor { margin-top: 0; border-top: 0; padding-top: 0; }
   .association-item strong { font-weight: 500; }
   [hidden] { display: none !important; }
+  .event-tools { padding: 0 12px 12px; display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid #ffffff18; }
+  .event-tools select { min-width: 0; flex: 1; background: #19191f; color: #e7e1d6; border: 1px solid #ffffff24; padding: 7px; border-radius: 4px; }
+  .connection-notice { margin: 10px 12px 0; padding: 12px; border: 1px solid #a56e78; border-radius: 4px; color: #e8c8bd; font-size: .82rem; line-height: 1.7; }
+  .connection-notice button { display: block; margin-top: 8px; padding: 6px 10px; }
+  .editor-intro { color: #b8aaa0; font-size: .85rem; line-height: 1.8; margin-bottom: 26px; }
+  .thought-writing { max-width: 940px; margin: auto; }
+  .field-help { color: #afa59d; font-size: .8rem; line-height: 1.8; margin: 8px 0 16px; }
+  .date-field { max-width: 360px; }
+  .visibility-setting { border-top: 1px solid #ffffff18; padding-top: 20px; margin-top: 28px; }
+  .visibility-setting input { accent-color: #a56e78; }
+  .editor-actions { position: relative; }
+  .editor-actions summary { color: #b8aaa0; font-size: .82rem; cursor: pointer; padding: 10px 0; }
+  .editor-actions[open] { display: flex; flex-wrap: wrap; gap: 8px; }
+  .medium-groups summary { cursor: pointer; font-size: .82rem; color: #d4c5bc; padding: 6px 0; }
+  .medium-groups summary span { color: #afa59d; }
+  .medium-groups .folders-list { margin-top: 12px; display: grid; gap: 4px; max-height: 200px; overflow: auto; }
+  .medium-groups .folder-item { justify-content: flex-start; text-align: left; padding: 8px; flex-wrap: wrap; }
+  .folder-item small { font-size: .68rem; color: #b8aaa0; }
+  .folder-item .cnt { margin-left: auto; }
+  .medium-form label { color: #afa59d; font-size: .75rem; margin-top: 6px; }
+  .event-tools .mini-btn { padding: 7px 9px; }
+  .event-batch-tools { flex-basis: 100%; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .event-batch-tools span { font-size: .75rem; color: #c4b5aa; }
+  .event-row { display: flex; align-items: center; min-width: 0; }
+  .event-row .item { min-width: 0; flex: 1; }
+  .event-select { padding: 12px 6px; cursor: pointer; }
+  .event-select input { width: 18px; height: 18px; accent-color: #a56e78; cursor: pointer; }
+  .trash-restore { flex-shrink: 0; margin-right: 4px; }
+  .trash-dialog { margin: auto; width: min(640px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); overflow: auto; padding: 26px; background: #19191f; border: 1px solid #76555f; border-radius: 8px; color: #e7e1d6; }
+  .trash-dialog::backdrop { background: #08080bc9; }
+  .trash-dialog h2 { font-size: 1.2rem; font-weight: 500; margin-bottom: 12px; }
+  .trash-dialog p, .trash-dialog li { font-size: .9rem; line-height: 1.7; }
+  .trash-dialog ul { margin: 18px 0; list-style: none; max-height: 40dvh; overflow: auto; }
+  .trash-dialog li { padding: 10px 0; border-bottom: 1px solid #ffffff18; overflow-wrap: anywhere; }
+  .trash-dialog small { display: block; color: #b9a99f; }
+  .trash-dialog .blocked { color: #edbda9; }
+  .trash-dialog .btn-bar { position: static; background: transparent; margin-top: 18px; flex-wrap: wrap; }
+  .trash-help { max-width: 680px; margin: 12px auto; line-height: 1.9; color: #c4b5aa; }
+  .trash-help h2 { font-size: 1.3rem; font-weight: 500; color: #e7e1d6; margin-bottom: 16px; }
+  .trash-help p { margin-bottom: 16px; }
   @media(max-width: 720px) { #f-body, #w-body, #a-note { min-height: 300px; padding: 14px; } }
 </style>
 </head>
 <body>
   <div class="sidebar">
     <h1>c0ns1d2 编辑后台</h1>
-    <nav class="editor-tabs" aria-label="编辑内容"><button type="button" id="mode-events" class="mini-btn" aria-pressed="true">事件</button><button type="button" id="mode-works" class="mini-btn" aria-pressed="false">书·影·游戏</button></nav>
-    <div style="padding: 10px 12px 0;"><button id="new-event" class="btn btn-build" style="width:100%; padding:8px; border-radius:4px;">＋ 新建事件</button></div>
-    <div class="search"><input id="q" type="text" placeholder="搜索标题/人名/日期/摘要，空格多关键词"></div>
+    <div id="connection-notice" class="connection-notice" role="status" hidden><p>本地编辑服务未连接。请双击项目中的「启动.bat」，然后点「重新连接」。当前已输入的文字可以先留在页面中。</p><button type="button" class="mini-btn" id="connection-retry">重新连接</button></div>
+    <nav class="editor-tabs" aria-label="编辑内容"><button type="button" id="mode-events" class="mini-btn" aria-pressed="true">记忆</button><button type="button" id="mode-works" class="mini-btn" aria-pressed="false">作品</button><button type="button" id="mode-thoughts" class="mini-btn" aria-pressed="false">想法</button></nav>
+    <div style="padding: 10px 12px 0;"><button id="new-event" class="btn btn-build" style="width:100%; padding:8px; border-radius:4px;">＋ 新建记忆</button></div>
+    <div class="search"><input id="q" type="text" placeholder="搜索事件、人物或日期"></div>
     <div class="folders" id="folders"></div>
+    <div id="event-tools" class="event-tools" aria-label="整理事件"></div>
     <div class="list" id="list"><div class="empty">加载中…</div></div>
   </div>
   <div class="main" id="main">
@@ -127,7 +169,9 @@
 
 <script src="/admin/editor.js"></script>
 <script src="/admin/associations.js"></script>
+<script src="/admin/thoughts.js"></script>
 <script src="/admin/writing.js"></script>
+<script src="/admin/event-trash.js"></script>
 <div id="admin-notice" class="global-notice" role="status" aria-live="polite"></div>
 </body>
 </html>

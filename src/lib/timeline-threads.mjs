@@ -1,40 +1,16 @@
-// Layout all entries before viewport culling so lanes do not jump while panning.
-export function layoutThreadCards(events, { xFor, axisY, width, height, gapX = 28, gapY = 44, maxShift = width * .65 }) {
-  const ends = [];
-  return events.map(event => {
-    const anchorX = xFor(event);
-    const desiredLeft = anchorX - width / 2;
-    let lane = 0;
-    while (ends[lane] != null && ends[lane] - desiredLeft > maxShift) ++lane;
-    const left = Math.max(desiredLeft, ends[lane] ?? desiredLeft);
-    ends[lane] = left + width + gapX;
-    const top = axisY + 84 + lane * (height + gapY);
-    return { event, anchorX, left, top, lane, width, height };
-  });
+// All coordinates are measured inside the list, never relative to the viewport.
+// Scrolling moves cards and their cords together without rebuilding either.
+export function dateThreadPath(anchor, pin, mobile = false) {
+  return mobile
+    ? 'M ' + anchor.x + ' ' + anchor.y + ' C ' + anchor.x + ' ' + (anchor.y + 28) + ', ' + (pin.x - 20) + ' ' + pin.y + ', ' + pin.x + ' ' + pin.y
+    : 'M ' + anchor.x + ' ' + anchor.y + ' C ' + (anchor.x + 12) + ' ' + (anchor.y + 25) + ', ' + (pin.x - 14) + ' ' + (pin.y - 22) + ', ' + pin.x + ' ' + pin.y;
 }
 
-export function dateThreadPath(x, axisY, endX, endY, bend = 12) {
-  const distance = endY - axisY;
-  return `M ${x} ${axisY} C ${x + bend} ${axisY + distance * .34}, ${endX - bend} ${endY - distance * .24}, ${endX} ${endY}`;
-}
-
-// Different rows are connected outside the cards, rather than through the text.
-export function eventThreadPath(first, second, { leftBound = -Infinity, rightBound = Infinity } = {}) {
-  const firstRight = first.left + first.width + 3;
-  const nextLeft = second.left - 3;
-  const y1 = first.top + 48;
-  const y2 = second.top + 48;
-  if (nextLeft >= firstRight) {
-    const gap = nextLeft - firstRight;
-    const sag = Math.min(48, Math.max(18, gap * .12));
-    return { d: `M ${firstRight} ${y1} C ${firstRight + gap * .35} ${y1 + sag}, ${nextLeft - gap * .35} ${y2 + sag}, ${nextLeft} ${y2}`, from: [firstRight, y1], to: [nextLeft, y2] };
-  }
-  const nextRight = second.left + second.width + 3;
-  const rail = Math.max(firstRight, nextRight) + 28;
-  const leftRail = Math.min(first.left, second.left) - 31;
-  if (rail > rightBound && leftRail >= leftBound) {
-    const firstLeft = first.left - 3, secondLeft = second.left - 3;
-    return { d: `M ${firstLeft} ${y1} C ${leftRail} ${y1}, ${leftRail} ${y2}, ${secondLeft} ${y2}`, from: [firstLeft, y1], to: [secondLeft, y2] };
-  }
-  return { d: `M ${firstRight} ${y1} C ${rail} ${y1}, ${rail} ${y2}, ${nextRight} ${y2}`, from: [firstRight, y1], to: [nextRight, y2] };
+export function eventThreadPath(first, second, mobile = false) {
+  const from = mobile ? { x: first.left, y: first.bottom - 24 } : { x: first.right, y: first.top + 68 };
+  const to = mobile ? { x: second.left, y: second.top + 30 } : { x: second.left, y: second.top + 68 };
+  const d = mobile
+    ? 'M ' + from.x + ' ' + from.y + ' C ' + (Math.min(from.x, to.x) - 24) + ' ' + (from.y + 30) + ', ' + (Math.min(from.x, to.x) - 24) + ' ' + (to.y - 30) + ', ' + to.x + ' ' + to.y
+    : 'M ' + from.x + ' ' + from.y + ' C ' + (from.x + (to.x - from.x) * .32) + ' ' + (from.y + 24) + ', ' + (to.x - (to.x - from.x) * .32) + ' ' + (to.y + 24) + ', ' + to.x + ' ' + to.y;
+  return { from, to, d };
 }

@@ -57,26 +57,28 @@ export function createAssociationStore(root, listEvents) {
     return save('works', { id: input.id, title, kind: input.kind, creator: text(input.creator, '作者/创作者', 300), year: text(input.year, '年份', 40), cover, summary: text(input.summary, '简介'), draft: flag(input.draft), body: text(input.body, '正文', 100000) }, input.revision);
   }
   function saveAssociation(input) {
-    if (!types.has(input.fromType)) throw new Error('请选择这段联想的起点');
+    const fromType = input.fromType || '';
     const fromId = text(input.fromId, '起点', 300);
+    const hasOrigin = !!(fromType || fromId);
+    if (hasOrigin && (!types.has(fromType) || !fromId)) throw new Error('请选择完整的出发记录，或暂时留空');
     const toId = text(input.toId, '终点', 300);
     const toType = input.toType || '';
     const hasTarget = !!(toType || toId);
     if (hasTarget && (!types.has(toType) || !toId)) throw new Error('请选择完整的关联条目，或暂时留空');
-    if (hasTarget && input.fromType === toType && fromId === toId) throw new Error('请选择另一条记忆或作品');
+    if (hasTarget && fromType === toType && fromId === toId) throw new Error('请选择另一条记忆或作品');
     const lookup = { event: new Set(listEvents().map((entry) => entry.slug)), work: new Set(list('works').map((entry) => entry.id)) };
-    if (!lookup[input.fromType].has(fromId) || hasTarget && !lookup[toType].has(toId)) throw new Error('关联条目不存在，请先保存条目');
+    if (hasOrigin && !lookup[fromType].has(fromId) || hasTarget && !lookup[toType].has(toId)) throw new Error('关联条目不存在，请先保存条目');
     const title = text(input.title, '标题', 300);
     text(input.body, '联想正文', 100000);
     const body = input.body || '';
     const note = text(input.note, '随记', 100000);
     const excerpt = text(input.excerpt, '片段', 30000);
-    if (!hasTarget && !title && !body.trim() && !note && !excerpt) throw new Error('先记下一点想法，或选择一条关联');
+    if ((!hasTarget || !hasOrigin) && !title && !body.trim() && !note && !excerpt) throw new Error('先记下一点想法，或从一段记录中选择关联');
     if (hasTarget && !title && !body.trim() && !note && !excerpt) {
       const duplicate = list('associations').find(entry => entry.id !== input.id && !entry.title && !entry.body?.trim() && !entry.note && !entry.excerpt && ((entry.fromType === input.fromType && entry.fromId === fromId && entry.toType === toType && entry.toId === toId) || (entry.fromType === toType && entry.fromId === toId && entry.toType === input.fromType && entry.toId === fromId)));
       if (duplicate) throw new Error('这两个条目已有联想，请编辑原记录');
     }
-    return save('associations', { id: input.id, title, fromType: input.fromType, fromId, toType, toId, note, excerpt, locator: text(input.locator, '片段位置', 300), draft: flag(input.draft), body }, input.revision);
+    return save('associations', { id: input.id, title, fromType, fromId, toType, toId, note, excerpt, locator: text(input.locator, '片段位置', 300), draft: flag(input.draft), body }, input.revision);
   }
   return { listWorks: () => list('works'), listAssociations: () => list('associations'), saveWork, saveAssociation };
 }

@@ -1,14 +1,15 @@
 ---
 title: "多次回学校"
-date: 2026-06-12
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "金晟恺", "陈二逼"]
-category: exam
+date: "2026-06-12"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","金晟恺","陈二逼"]
+category: "exam"
 color: "#f39c12"
 size: 32
-draft: true
+draft: false
 summary: ""
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 高考后他们多次回学校跑手续、拿东西。朱浩宇报了强基计划，还要回学校办手续。
 

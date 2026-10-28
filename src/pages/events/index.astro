@@ -1,19 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { contentPreview } from '../../lib/content-preview.mjs';
 const events = await getCollection('events', ({ data }) => !data.draft);
 events.sort((first, second) => second.data.date.localeCompare(first.data.date));
 const years = [...new Set(events.map(event => /^\d{4}/.test(event.data.date) ? event.data.date.slice(0,4) : '时间未定'))];
 ---
 <BaseLayout title="记忆">
   <section class="memory-index">
-    <header><p class="archive-eyebrow">那些留了下来的片刻</p><h1>记忆</h1><p class="index-intro">从一件小事开始，慢慢想起别的。</p></header>
+    <header><p class="archive-eyebrow">那些留了下来的片刻</p><h1>记忆</h1><p class="index-intro">从一件小事开始，慢慢想起别的。</p><nav class="memory-views" aria-label="记忆浏览方式"><a href="/events" aria-current="page">列表</a><a href="/timeline">绳子时间线</a></nav></header>
     {events.length === 0 && <p class="index-intro">暂时还没有公开的记忆。</p>}
     {years.map(year => <section class="memory-year"><h2>{year}</h2><div>
       {events.filter(event => (/^\d{4}/.test(event.data.date) ? event.data.date.slice(0,4) : '时间未定') === year).map(event =>
         <a class:list={['memory-row', {'with-image': event.data.images.length > 0}]} href={`/events/${encodeURIComponent(event.slug.split('/').pop()!)}`}>
           {event.data.images[0] && <img src={event.data.images[0]} alt="" loading="lazy" />}
-          <div><span class="memory-date">{event.data.date}</span><h3>{event.data.title}</h3>{event.data.summary && <p>{event.data.summary}</p>}<span class="memory-people">{event.data.persons.join(' · ')}</span></div>
+          <div><span class="memory-date">{event.data.date}</span><h3>{event.data.title}</h3>{contentPreview(event.data.summary, event.body) && <p>{contentPreview(event.data.summary, event.body)}</p>}<span class="memory-people">{event.data.persons.join(' · ')}</span></div>
           <span class="memory-arrow" aria-hidden="true">↗</span>
         </a>)}
     </div></section>)}

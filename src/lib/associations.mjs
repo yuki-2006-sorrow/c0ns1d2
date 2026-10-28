@@ -20,9 +20,10 @@ export function publicThoughts(events, works, associations) {
     const fromKey = `${data.fromType}:${data.fromId}`;
     const toKey = `${data.toType}:${data.toId}`;
     const hasTarget = !!(data.toType || data.toId);
-    if (!entries.has(fromKey) || hasTarget && (fromKey === toKey || !entries.has(toKey))) return [];
+    const hasOrigin = !!(data.fromType || data.fromId);
+    if (hasOrigin && !entries.has(fromKey) || hasTarget && (fromKey === toKey || !entries.has(toKey))) return [];
     const text = entry.body?.trim() || data.note || '';
-    return [{ id: entry.slug, entry, origin: entries.get(fromKey), target: hasTarget ? entries.get(toKey) : null, fromKey, toKey: hasTarget ? toKey : '', text, preview: text.replace(/^#{1,6}\s+/gm, '').slice(0,360), title: data.title || text.split('\n').find(line => line.trim())?.replace(/^#+\s*/, '').slice(0, 36) || '一段联想', thoughtHref: `/thoughts/${encodeURIComponent(entry.slug)}`, note: data.note || '', excerpt: data.excerpt || '', locator: data.locator || '' }];
+    return [{ id: entry.slug, entry, origin: hasOrigin ? entries.get(fromKey) : null, target: hasTarget ? entries.get(toKey) : null, fromKey: hasOrigin ? fromKey : '', toKey: hasTarget ? toKey : '', text, preview: text.replace(/^#{1,6}\s+/gm, '').slice(0,360), title: data.title || text.split('\n').find(line => line.trim())?.replace(/^#+\s*/, '').slice(0, 36) || '一个想法', thoughtHref: `/thoughts/${encodeURIComponent(entry.slug)}`, note: data.note || '', excerpt: data.excerpt || '', locator: data.locator || '' }];
   });
 }
 

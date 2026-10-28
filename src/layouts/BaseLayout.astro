@@ -18,25 +18,18 @@ const { title } = Astro.props;
     .nav { position: fixed; inset: 0 0 auto; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 40px; background: #101014f5; border-bottom: 1px solid var(--archive-line); }
     .nav-logo { font-size: 1.1rem; font-weight: 500; letter-spacing: 2px; color: #c3948f; }
     .nav-links { display: flex; align-items: center; gap: 30px; }
-    .nav-links a, .nav-more summary { font-size: .88rem; color: var(--archive-muted); }
+    .nav-links a { font-size: .88rem; color: var(--archive-muted); }
     .nav-links a:hover, .nav-links a[aria-current="page"] { color: #e0b5a8; }
-    .nav-more { position: relative; }
-    .nav-more summary { cursor: pointer; padding: 8px 0; }
-    .nav-more > div { position: absolute; right: 0; top: calc(100% + 12px); min-width: 150px; display: grid; background: var(--archive-surface); border: 1px solid var(--archive-line); padding: 8px; box-shadow: 0 12px 28px #0005; }
-    .nav-more:not([open]) > div { display: none; }
-    .nav-more a { padding: 12px; }
-    .nav-more a:hover { background: #ffffff08; }
     .content { padding-top: var(--site-nav-height, 76px); min-height: 100vh; }
     .footer { text-align: center; padding: 36px 20px; color: var(--archive-muted); font-size: .75rem; border-top: 1px solid var(--archive-line); }
-    @media(max-width: 600px) { .nav { padding: 12px 16px; gap: 12px; } .nav-logo { font-size: .95rem; } .nav-links { gap: 17px; } .nav-links a, .nav-more summary { font-size: .8rem; } }
+    @media(max-width: 600px) { .nav { padding: 12px 16px; gap: 12px; } .nav-logo { font-size: .95rem; } .nav-links { gap: 17px; } .nav-links a { font-size: .8rem; } }
   </style>
 </head>
 <body>
   <nav class="nav" id="siteNav" aria-label="主导航">
     <a href="/" class="nav-logo">c0ns1d2</a>
     <div class="nav-links">
-      <a href="/events">记忆</a><a href="/works">作品</a><a href="/people">人物</a>
-      <details class="nav-more"><summary>更多</summary><div><a href="/thoughts">联想</a><a href="/timeline">时间索引</a><a href="/tags">分类</a><a href="/stats">统计</a><a href="/journal">随笔</a></div></details>
+      <a href="/events">记忆</a><a href="/works">作品</a><a href="/thoughts">想法</a>
     </div>
   </nav>
   <main class="content"><slot /></main>
@@ -48,11 +41,8 @@ const { title } = Astro.props;
       new ResizeObserver(updateHeight).observe(navigation); updateHeight();
       navigation.querySelectorAll<HTMLAnchorElement>('a').forEach(link => {
         const path = link.getAttribute('href');
-        if (path && (path === '/' ? location.pathname === '/' : location.pathname === path || location.pathname.startsWith(path + '/'))) link.setAttribute('aria-current', 'page');
+        if (path && (path === '/' ? location.pathname === '/' : location.pathname === path || location.pathname.startsWith(path + '/') || path === '/events' && location.pathname === '/timeline')) link.setAttribute('aria-current', 'page');
       });
-      const more = navigation.querySelector<HTMLDetailsElement>('.nav-more');
-      document.addEventListener('click', event => { if (more?.open && event.target instanceof Node && !more.contains(event.target)) more.open = false; });
-      document.addEventListener('keydown', event => { if (event.key === 'Escape' && more?.open) { more.open = false; more.querySelector('summary')?.focus(); } });
     }
   </script>
 </body>

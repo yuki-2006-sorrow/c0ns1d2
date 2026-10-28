@@ -90,8 +90,8 @@ const works = defineCollection({
 const associations = defineCollection({
   type: 'content',
   schema: z.object({
-    fromType: z.enum(['event', 'work']),
-    fromId: z.string(),
+    fromType: z.enum(['', 'event', 'work']).default(''),
+    fromId: z.string().default(''),
     title: z.string().default(''),
     toType: z.enum(['', 'event', 'work']).default(''),
     toId: z.string().default(''),

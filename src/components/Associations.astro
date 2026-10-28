@@ -13,7 +13,7 @@ const connections = publicConnections(type, id, events, works, associations);
     {connection.text && <p class="thought-preview">{connection.preview}{connection.text.length > 360 && '…'}</p>}
     {connection.text && (connection.text.length > 360 || connection.text.includes('\n')) && <a class="thought-read" href={connection.thoughtHref}>读完这段联想 ↗</a>}
     {connection.target && <a class="thought-target" href={connection.href}>{connection.label} · {connection.title} ↗</a>}
-    {connection.reverse && <span class="thought-locator">写于 {connection.origin.title} 旁</span>}
+    {connection.reverse && connection.origin && <span class="thought-locator">写于 {connection.origin.title} 旁</span>}
   </article>)}
 </aside>}
 <style>

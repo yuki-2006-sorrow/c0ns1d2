@@ -1,18 +1,9 @@
 @echo off
 cd /d "%~dp0"
-echo ============================================
-echo   c0ns1d2  -  one-click start
-echo   site:  http://localhost:4322/
-echo   admin: http://localhost:4322/admin
-echo ============================================
-echo Building site (first time may be slow)...
-call npm.cmd run build
+echo Starting c0ns1d2 local editor...
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0admin\start-local.ps1"
 if errorlevel 1 (
-  echo Build failed. Please check the message above.
+  echo Start failed. Please check the message above.
   pause
   exit /b 1
 )
-echo Opening browser...
-start "" cmd /c "timeout /t 1 /nobreak >nul & start http://localhost:4322/admin"
-echo Server running. Press Ctrl+C to stop.
-node admin\server.mjs

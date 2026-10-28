@@ -19,6 +19,9 @@
 .reading-prose ul, .reading-prose ol { padding-left: 1.6em; margin-bottom: 22px; }
 .reading-prose pre { overflow: auto; padding: 18px; background: var(--archive-surface); font-size: .85rem; }
 .reading-summary { color: #d0b7a8; font-size: 1.05rem; line-height: 1.95; margin-bottom: 38px; white-space: pre-wrap; }
+.memory-views { display: flex; gap: 20px; font-size: .8rem; color: var(--archive-muted); margin-top: 24px; }
+.memory-views a { padding: 8px 0; border-bottom: 1px solid transparent; }
+.memory-views a[aria-current="page"] { color: var(--archive-ink); border-color: var(--archive-accent); }
 .reading-meta { color: var(--archive-muted); font-size: .85rem; line-height: 1.9; margin: 22px 0; }
 .reading-meta summary { cursor: pointer; }
 .reading-meta > div { margin-top: 14px; }

@@ -1,14 +1,15 @@
 ---
 title: "惊天魔盗团之前"
-date: 2026-01-08
-persons: ["陈二逼", "曾浩鑫", "吴晨阳", "朱浩宇"]
-category: core
+date: "2026-01-08"
+persons: ["陈二逼","曾浩鑫","吴晨阳","朱浩宇"]
+category: "core"
 color: "#4ca1af"
 size: 35
-draft: true
+draft: false
 summary: "首考完一起去吃和风。曾浩鑫第一次打CS2"
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 群是在首考前最紧张的时候建起来的，一开始更像个地下资源站。
 

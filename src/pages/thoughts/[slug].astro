@@ -11,10 +11,10 @@ const { Content } = await render(thought.entry);
 ---
 <BaseLayout title={thought.title}>
   <article class="reading-page thought-document" data-thought-id={thought.id}>
-    <header class="reading-header"><a class="reading-back" href={thought.origin.href}>← {thought.origin.title}</a><p class="archive-eyebrow">从这里想到的</p><h1>{thought.title}</h1><p class="reading-meta">写在 <a href={thought.origin.href}>{thought.origin.title}</a> 旁边</p></header>
+    <header class="reading-header"><a class="reading-back" href={thought.origin?.href || '/thoughts'}>← {thought.origin?.title || '想法'}</a><p class="archive-eyebrow">{thought.origin ? '从这里想到的' : '随手记下的'}</p><h1>{thought.title}</h1>{thought.origin && <p class="reading-meta">写在 <a href={thought.origin.href}>{thought.origin.title}</a> 旁边</p>}</header>
     <div class="reading-prose">{thought.entry.body?.trim() ? <Content /> : <p class="legacy-note">{thought.entry.data.note}</p>}</div>
     {thought.excerpt && <blockquote class="thought-excerpt">{thought.excerpt}{thought.locator && <footer>{thought.locator}</footer>}</blockquote>}
-    <footer class="reading-footer"><a href={thought.origin.href}>← 回到出发的地方</a>{thought.target && <a href={thought.target.href}>{thought.target.label} · {thought.target.title} ↗</a>}<a href="/thoughts">其他联想</a></footer>
+    <footer class="reading-footer">{thought.origin && <a href={thought.origin.href}>← 回到出发的地方</a>}{thought.target && <a href={thought.target.href}>{thought.target.label} · {thought.target.title} ↗</a>}<a href="/thoughts">其他想法</a></footer>
   </article>
   <style>.thought-document { max-width: 760px; } .legacy-note { white-space: pre-wrap; } .thought-excerpt { margin: 36px 0; border-left: 1px solid var(--archive-accent); padding-left: 24px; white-space: pre-wrap; line-height: 2; color: #d0b6aa; } .thought-excerpt footer { font-size: .8rem; color: var(--archive-muted); margin-top: 14px; }</style>
 </BaseLayout>

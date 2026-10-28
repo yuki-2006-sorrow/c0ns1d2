@@ -1,14 +1,15 @@
 ---
 title: "各自上大学"
-date: 2026-09-01
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "金晟恺", "陈二逼"]
-category: core
+date: "2026-09-01"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","金晟恺","陈二逼"]
+category: "core"
 color: "#4ca1af"
 size: 42
-draft: true
+draft: false
 summary: ""
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 9月开学，他们散了。
 

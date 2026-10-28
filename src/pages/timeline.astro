@@ -1,104 +1,88 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { contentPreview } from '../lib/content-preview.mjs';
+import { prepareTimeline } from '../lib/timeline-model.mjs';
+import '../styles/timeline.css';
 
-const events = (await getCollection('events', ({ data }) => !data.draft)).map((e) => {
-  const slug = e.slug.split('/').pop();
-  return {
-    slug,
-    major: e.data.major,
-    medium: e.data.medium,
-    date: e.data.date,
-    title: e.data.title,
-    color: e.data.color,
-    source: e.data.source,
-    persons: e.data.persons,
-    summary: e.data.summary,
-  };
-});
-
-// 文件夹 slug（文件名，去掉 .md）→ { 显示名, 父级 }
-const mediumMeta = Object.fromEntries(
-  (await getCollection('mediums', ({ data }) => !data.draft)).map((m) => [m.id.replace(/\.md$/, ''), { title: m.data.title, parent: m.data.parent || '' }])
-);
+const events = (await getCollection('events', ({ data }) => !data.draft)).map(event => ({
+  slug: event.slug.split('/').pop(),
+  title: event.data.title,
+  date: event.data.date,
+  major: event.data.major,
+  medium: event.data.medium,
+  summary: contentPreview(event.data.summary, event.body, 170),
+  image: event.data.images[0] || '',
+}));
+const folders = Object.fromEntries((await getCollection('mediums', ({ data }) => !data.draft))
+  .map(folder => [folder.id.replace(/\.md$/, ''), { title: folder.data.title, parent: folder.data.parent || '' }]));
+const model = prepareTimeline(events, folders);
 ---
 
-<BaseLayout title="时间线">
-  <div id="tl" class="tl" role="region" aria-label="记忆时间索引，方向键平移，加减键缩放" tabindex="0">
-    <div class="tl-intro"><h1>时间与记忆</h1><p><span class="tl-legend-date">浅绳系日期</span><span class="tl-legend-order">红绳按发生顺序串起事件</span></p></div>
-    <div id="tl-world" class="tl-world"></div>
-    <div class="tl-ui">
-      <div class="tl-hint">拖动看远处 · 滚轮缩放 · 点卡片进入</div>
-      <div class="tl-info" id="tl-info"></div>
-      <button class="tl-jump" id="tl-order" type="button" aria-pressed="true">事件串绳</button>
-      <button class="tl-jump" id="tl-jump-latest" type="button">最近一件</button>
-      <button class="tl-jump" id="tl-fit" type="button">总览</button>
-      <button class="tl-jump" id="tl-zoom-out" type="button" aria-label="缩小时间线">−</button>
-      <button class="tl-jump" id="tl-zoom-in" type="button" aria-label="放大时间线">＋</button>
-      <button class="tl-jump" id="tl-back" type="button" style="display:none">← 返回</button>
+<BaseLayout title="时间与记忆">
+  <section class="timeline" id="tl" aria-labelledby="timeline-title">
+    <header class="tl-header">
+      <div>
+        <p class="archive-eyebrow">沿着时间，慢慢想起</p>
+        <h1 id="timeline-title">时间与记忆<span aria-hidden="true"> / </span></h1>
+        <p class="tl-description">有些事连成一段，有些事只留下一个瞬间。</p>
+      </div>
+      <nav class="memory-views" aria-label="记忆浏览方式">
+        <a href="/events">列表</a><a href="/timeline" aria-current="page">绳子时间线</a>
+      </nav>
+    </header>
+
+    <div class="tl-controls" hidden>
+      <nav id="tl-years" class="tl-years" aria-label="选择年份">
+        <button type="button" data-year="all" aria-pressed="true">全部</button>
+        {model.years.map(year => <button type="button" data-year={year} aria-pressed="false">{year === 'undated' ? '日期未定' : year}</button>)}
+      </nav>
+      {model.groups.length > 0 && <label class="tl-group-label">分组
+        <select id="tl-group"><option value="">全部记忆</option>{model.groups.map(group => <option value={group.id}>{group.title}（{group.count}）</option>)}</select>
+      </label>}
     </div>
-  </div>
 
-  <script id="timeline-data" type="application/json" set:html={JSON.stringify({ events, mediumMeta }).replace(/</g, '\\u003c')} />
+    <div class="tl-caption">
+      <p id="tl-info" role="status" aria-live="polite">{model.entries.length} 段记忆</p>
+      <p class="tl-legend"><span>日期挂绳</span><span>事件串绳</span></p>
+      <div class="tl-paging" hidden>
+        <button id="tl-prev" type="button" aria-label="往前翻阅">←</button>
+        <button id="tl-latest" type="button">最近一件</button>
+        <button id="tl-next" type="button" aria-label="往后翻阅">→</button>
+      </div>
+    </div>
+    <div id="tl-scroll" class="tl-scroll" role="region" aria-label="挂绳记忆，左右方向键翻阅" tabindex="0">
+      <div id="tl-sheet" class="tl-sheet">
+        <svg id="tl-cords" class="tl-cords" aria-hidden="true"></svg>
+        <ol id="tl-list" class="tl-list">
+          {model.entries.map((event, index) => <li class="tl-item" data-event={event.slug}>
+            <div class="tl-date">{event.time.label}</div>
+            <a class:list={['tl-card', { 'tl-card-major': event.major, 'tl-card-photo': !!event.image }]}
+              href={'/events/' + encodeURIComponent(event.slug)} aria-labelledby={'title-' + index} aria-describedby={'date-' + index}>
+              <span class="tl-pin" aria-hidden="true"></span>
+              {event.image && <div class="tl-photo"><img src={event.image} alt="" loading="lazy" decoding="async" /><span class="tl-photo-fallback">照片暂时未能载入</span></div>}
+              <div class="tl-card-text">
+                <div class="tl-card-meta"><span>{event.major ? '重要记忆' : event.trail.at(-1)?.title || '记忆片段'}</span><span class="tl-number" aria-hidden="true">{String(index + 1).padStart(3, '0')}</span></div>
+                <h2 id={'title-' + index}>{event.title}</h2>
+                {event.summary && <p class="tl-summary">{event.summary}</p>}
+                <span id={'date-' + index} class="tl-sr-only">{event.time.label}</span>
+                <span class="tl-enter">打开这段记忆 <span aria-hidden="true">↗</span></span>
+              </div>
+            </a>
+          </li>)}
+        </ol>
+      </div>
+      <p class="tl-empty" id="tl-empty" hidden={model.entries.length > 0}>这一段还没有公开的记忆。<button id="tl-reset" type="button" hidden>查看全部记忆</button></p>
+    </div>
+
+    <div class="tl-bottom">
+      <p class="tl-note"><span class="tl-desktop-hint">横向滚动，或用箭头翻阅。 </span>实线按时间串联，虚线不区分先后。间隔为阅读留白。</p>
+    </div>
+    <noscript><p class="tl-note">当前显示全部公开记忆。启用 JavaScript 后可按年份和分组翻阅。</p></noscript>
+  </section>
+  <script id="timeline-data" type="application/json" set:html={JSON.stringify({
+    entries: model.entries.map(({ slug, time, trail }) => ({ slug, time, trail })),
+    years: model.years, groups: model.groups.map(group => group.id),
+  }).replace(/</g, '\\u003c')} />
   <script>import '../scripts/timeline.js';</script>
-
-  <style is:global>
-    html:has(#tl), body:has(#tl) { overflow: hidden; }
-    .tl { position: fixed; inset: var(--site-nav-height, 80px) 0 0; background: radial-gradient(ellipse at 50% 48%, #211b20 0, #141217 58%, #101014 100%); overflow: hidden; cursor: grab; user-select: none; touch-action: none; }
-    .tl:active { cursor: grabbing; }
-    .tl-world { position: relative; will-change: transform; isolation: isolate; }
-    .tl-intro { position: absolute; left: 30px; top: 24px; z-index: 6; pointer-events: none; }
-    .tl-intro::before { content: ''; position: absolute; inset: -24px -20px -14px; z-index: -1; background: linear-gradient(#141217 0%, #141217f2 74%, #14121700); }
-    .tl-intro h1 { font-family: var(--archive-serif); font-size: 1.65rem; font-weight: 400; color: #e4dbce; letter-spacing: .06em; margin: 0 0 12px; }
-    .tl-intro p { display: flex; gap: 20px; flex-wrap: wrap; font-size: .73rem; color: #a99e95; }
-    .tl-intro span::before { content: ''; display: inline-block; width: 23px; height: 1px; vertical-align: middle; margin-right: 8px; background: #baa78c; transform: rotate(-8deg); }
-    .tl-intro .tl-legend-order::before { background: #b56d77; transform: rotate(8deg); }
-    .tl-seal { position: absolute; background: repeating-linear-gradient(-45deg, #ffffff02 0 12px, #0000000a 12px 24px); border-left: 1px solid #ffffff0a; }
-    .tl-seal-label { position: absolute; transform: translate(-50%, -50%); color: #c7b6a02b; font-size: .75rem; letter-spacing: 3px; white-space: nowrap; }
-    .tl-year-band { position: absolute; pointer-events: none; }
-    .tl-year { position: absolute; font-family: var(--archive-serif); font-size: 4rem; font-weight: 400; color: #ddc3ad10; letter-spacing: 2px; }
-    .tl-month { position: absolute; font-size: .72rem; color: #bcae9f70; }
-    .tl-day { position: absolute; width: 1px; height: 8px; background: #c7b29838; }
-    .tl-axis { position: absolute; height: 2px; z-index: 1; background: linear-gradient(90deg, #cbb28f4d, #cbb28f8c, #cbb28f4d); box-shadow: 0 2px 2px #0008; }
-    .tl-cords { position: absolute; inset: 0 auto auto 0; z-index: 0; overflow: visible; pointer-events: none; }
-    .tl-rope { opacity: .82; transition: opacity .18s; }
-    .tl-rope path { fill: none; stroke-linecap: round; }
-    .tl-cord-shadow { stroke: #0009; stroke-width: 4.5; transform: translateY(2px); }
-    .tl-cord-fiber { stroke: #b7a084; stroke-width: 1.8; transition: stroke .18s; }
-    .tl-cord-twist { stroke: #f3dfbb80; stroke-width: .7; stroke-dasharray: 1.2 4; }
-    .tl-rope-order .tl-cord-fiber { stroke: #a75f6a; stroke-width: 2; }
-    .tl-rope-order .tl-cord-twist { stroke: #e0b0ad88; }
-    .tl-knot { fill: #bba487; stroke: #292127; stroke-width: 1.5; }
-    .tl-rope-order .tl-knot { fill: #a76672; }
-    .tl-has-active .tl-rope:not(.is-active) { opacity: .2; }
-    .tl-rope.is-active { opacity: 1; }
-    .tl-rope-date.is-active .tl-cord-fiber { stroke: #edd7b3; }
-    .tl-rope-order.is-active .tl-cord-fiber { stroke: #e49ba8; }
-    .tl-hide-order .tl-rope-order { display: none; }
-    .tl-dot { position: absolute; z-index: 3; border: 2px solid #c5ad8b; background: #31282a; border-radius: 50%; box-shadow: 0 0 0 4px #171318; transition: background .18s; }
-    .tl-dot::after { content: ''; position: absolute; inset: -11px; border-radius: 50%; }
-    .tl-dot:hover, .tl-dot.is-active { background: #e0c397; }
-    .tl-dot-major { border-color: #dfc49d; }
-    .tl-date-label { position: absolute; z-index: 3; transform: translateX(-50%); font-family: monospace; font-size: .73rem; letter-spacing: .03em; color: #b5a58f; white-space: nowrap; padding: 3px 0; }
-    .tl-date-label:hover, .tl-date-label.is-active { color: #f2ddbf; }
-    .tl-folder { position: absolute; z-index: 4; transform: translateY(-50%); padding: 3px 11px; background: #201b24; border: 1px solid #ffffff47; border-radius: 999px; font-size: .78rem; color: #ffffffe0; white-space: nowrap; pointer-events: none; max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
-    .tl-folder-bar { position: absolute; z-index: 3; min-width: 44px; height: 16px; border-radius: 8px; border: 1px solid; cursor: pointer; padding: 0; }
-    .tl-card { position: absolute; z-index: 2; background: linear-gradient(140deg, #252025, #1b191e); border: 1px solid #74615477; border-radius: 3px; padding: 23px 20px 16px; display: flex; flex-direction: column; box-shadow: 0 10px 26px #0003; transition: border-color .18s, background .18s; box-sizing: border-box; }
-    .tl-card::before { content: ''; position: absolute; top: -6px; left: calc(50% - 5px); width: 10px; height: 10px; border: 2px solid #d3b891; background: #4a3b32; border-radius: 50%; box-shadow: 0 2px 3px #0008; }
-    .tl-card-major { background: linear-gradient(140deg, #2c2228, #211c22); border-color: #a17b6780; }
-    .tl-card:hover, .tl-card.is-active { border-color: #d0ae88; background: #30242c; }
-    .tl-card-date { font-family: monospace; font-size: .67rem; color: #ae9b88; margin-bottom: 10px; letter-spacing: .03em; }
-    .tl-card-title { font-family: var(--archive-serif); font-size: 1.12rem; font-weight: 400; color: #e9dfd2; line-height: 1.55; margin-bottom: 10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; flex-shrink: 0; }
-    .tl-card-summary { font-size: .75rem; color: #b7a99f; line-height: 1.75; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
-    .tl-card-enter { margin-top: auto; padding-top: 8px; font-size: .68rem; color: #b99a8e; }
-    .tl-card:focus-visible, .tl-date-label:focus-visible, .tl-dot:focus-visible, .tl-folder-bar:focus-visible { outline: 2px solid #e4bf9d; outline-offset: 6px; }
-    .tl-ui { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; width: max-content; max-width: calc(100% - 24px); padding: 10px 16px; background: #151217eb; border: 1px solid #b68d6a26; border-radius: 12px; backdrop-filter: blur(10px); z-index: 10; }
-    .tl-hint { color: #a99b8e; font-size: .73rem; }
-    .tl-info { color: var(--archive-muted); font-size: .73rem; white-space: normal; }
-    .tl-jump { padding: 5px 12px; min-height: 40px; background: #38262b; border: 1px solid #a6586155; border-radius: 999px; color: #e0c7bd; font-size: .78rem; cursor: pointer; transition: background .18s; }
-    .tl-jump:hover { background: #4b3039; color: #f0dfd3; }
-    .tl-jump[aria-pressed="false"] { background: transparent; border-color: #6d5a5a; color: #ab9a94; }
-    @media(max-width: 700px) { .tl-intro { left: 20px; top: 20px; } .tl-intro h1 { font-size: 1.35rem; } .tl-intro p { gap: 8px 16px; max-width: 330px; font-size: .67rem; } .tl-hint { display: none; } .tl-ui { gap: 6px; padding: 8px; bottom: 12px; } .tl-jump { padding: 5px 10px; } .tl-info { flex-basis: 100%; text-align: center; } }
-    @media(prefers-reduced-motion: reduce) { .tl-rope, .tl-cord-fiber, .tl-card, .tl-dot, .tl-jump { transition: none; } }
-  </style>
 </BaseLayout>

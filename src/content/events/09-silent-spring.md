@@ -1,14 +1,15 @@
 ---
 title: "模考季·沉默"
-date: 2026-03-15
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "陈二逼"]
-category: exam
+date: "2026-03-15"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","陈二逼"]
+category: "exam"
 color: "#f39c12"
 size: 30
-draft: true
+draft: false
 summary: ""
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 春天来了，群里安静了很多。两个月合计不到50条。
 

@@ -3,7 +3,7 @@
   let works = [];
   let workId = '';
   let selectionVersion = 0;
-  const searches = { events: '', works: '' };
+  const searches = { events: '', works: '', thoughts: '' };
   window.editorMode = 'events';
   let entryDirty = false;
   let associationDirty = false;
@@ -26,13 +26,14 @@
   window.showEditor = () => { mainEl.scrollTop = 0; if (matchMedia('(max-width: 720px)').matches) mainEl.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' }); };
 
   async function request(path, data) {
-    const response = await fetch(path, data === undefined ? undefined : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-    const result = await response.json();
-    if (!response.ok || result.error) throw new Error(result.error || '请求失败');
-    return result;
+    return api(path, data === undefined ? undefined : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   }
+  window.reloadWorksForConnection = async () => {
+    works = await request('/api/works');
+    if (window.editorMode === 'works') window.renderWorkList();
+  };
   window.rebuildAndWait = async (status) => {
-    status.textContent = '已保存，正在重建预览…';
+    status.textContent = '已保存，正在更新页面预览…';
     status.classList.add('status');
     status.classList.remove('ok');
     await request('/api/rebuild', {});
@@ -59,6 +60,7 @@
   };
   window.setEditorMode = (mode) => {
     window.navigationToken = (window.navigationToken || 0) + 1;
+    window.updateEventToolsMode?.(mode);
     if (mode !== window.editorMode) {
       searches[window.editorMode] = qEl.value;
       qEl.value = searches[mode];
@@ -66,9 +68,10 @@
     window.editorMode = mode;
     document.getElementById('mode-events').setAttribute('aria-pressed', String(mode === 'events'));
     document.getElementById('mode-works').setAttribute('aria-pressed', String(mode === 'works'));
-    document.getElementById('new-event').textContent = mode === 'works' ? '＋ 新建作品' : '＋ 新建事件';
-    document.getElementById('folders').hidden = mode === 'works';
-    qEl.placeholder = mode === 'works' ? '搜索作品、作者、类型' : '搜索标题/人名/日期/摘要，空格多关键词';
+    document.getElementById('mode-thoughts').setAttribute('aria-pressed', String(mode === 'thoughts'));
+    document.getElementById('new-event').textContent = mode === 'works' ? '＋ 记一部作品' : mode === 'thoughts' ? '＋ 写一个想法' : '＋ 新建记忆';
+    document.getElementById('folders').hidden = mode !== 'events';
+    qEl.placeholder = mode === 'works' ? '搜索作品或作者' : mode === 'thoughts' ? '搜索写过的想法' : '搜索事件、人物或日期';
   };
   mainEl.addEventListener('input', event => {
     if (event.target.closest('#associations-editor')) {
@@ -94,6 +97,7 @@
       const associationForm = event.target.closest('.association-form');
       const folderForm = event.target.closest('.medium-form');
       if (associationForm || folderForm) (associationForm || folderForm).requestSubmit();
+      else if (window.editorMode === 'thoughts') mainEl.querySelector('.association-form')?.requestSubmit();
       else if (window.editorMode === 'works') mainEl.querySelector('#work-form')?.requestSubmit();
       else mainEl.querySelector('#save')?.click();
     }
@@ -189,7 +193,7 @@
   window.renderAssociationEditor = async function thoughtEditor(type, id, editId) {
   const host = document.getElementById('associations-editor');
   if (!host || associationDirty && host.querySelector('.association-form')) return;
-  if (!id) { host.innerHTML = '<p class="hint-top">先保存这条记忆，再记录由它想到的内容。</p>'; return; }
+  if (type && !id) { host.innerHTML = '<p class="hint-top">先保存这条记录，再写从这里想到的。</p>'; return; }
   const version = String(Number(host.dataset.loadVersion || 0) + 1);
   host.dataset.loadVersion = version;
   try {
@@ -197,14 +201,15 @@
     if (!host.isConnected || host.dataset.loadVersion !== version) return;
     const entries = [...eventEntries.map(entry => ({type:'event', id:entry.slug, title:entry.title, draft:entry.draft, label:'记忆'})), ...workEntries.map(entry => ({type:'work', id:entry.id, title:entry.title, draft:entry.draft, label:kinds[entry.kind]}))];
     const currentEntry = entries.find(entry => entry.type === type && entry.id === id);
-    const attached = associations.filter(link => link.fromType === type && link.fromId === id || link.toType === type && link.toId === id);
-    host.innerHTML = '<h2>从这里想到的</h2><p class="hint-top">可以写很多，也可以只留一个连接。先记下来，关联以后再补。</p><button type="button" class="btn btn-build" id="add-association">＋ 记下一段联想</button><div id="association-form"></div><div id="association-list"></div>';
+    const attached = associations.filter(link => type ? link.fromType === type && link.fromId === id || link.toType === type && link.toId === id : !link.fromType && !link.fromId);
+    host.innerHTML = `<h2>${currentEntry ? '从这里想到的' : '写一个想法'}</h2><p class="hint-top">${currentEntry ? `写在「${esc(currentEntry.title)}」旁边。` : ''}一句话或长文都可以，不用分类，也不用先选关联。</p><button type="button" class="btn btn-build" id="add-association">＋ 再写一点</button><div id="association-form"></div><div id="association-list"></div>`;
+    if (window.editorMode === 'thoughts') { host.querySelector('#add-association').hidden = true; host.querySelector('#association-list').hidden = true; }
     host.querySelector('#association-list').innerHTML = attached.map(link => {
       const isFrom = link.fromType === type && link.fromId === id;
       const other = entries.find(entry => entry.type === (isFrom ? link.toType : link.fromType) && entry.id === (isFrom ? link.toId : link.fromId));
       const state = link.draft ? '草稿' : currentEntry?.draft || other?.draft ? '待条目公开' : '已公开';
       const writing = link.body?.trim() || link.note || '';
-      return `<div class="association-item"><div><strong>${esc(link.title || other?.title || '一段未命名的联想')}</strong><span class="hint-top"> / ${state}</span>${writing ? `<p>${esc(writing.slice(0,160))}${writing.length > 160 ? '…' : ''}</p>` : ''}${other ? `<p class="hint-top">关联：${esc(other.title)}</p>` : '<p class="hint-top">还没有关联到其他条目</p>'}</div><button type="button" class="mini-btn" data-edit-link="${escAttr(link.id)}">继续写</button></div>`;
+      return `<div class="association-item"><div><strong>${esc(link.title || other?.title || writing.slice(0,30) || '一个想法')}</strong><span class="hint-top"> / ${state}</span>${writing ? `<p>${esc(writing.slice(0,160))}${writing.length > 160 ? '…' : ''}</p>` : ''}${other ? `<p class="hint-top">想到：${esc(other.title)}</p>` : ''}</div><button type="button" class="mini-btn" data-edit-link="${escAttr(link.id)}">继续写</button></div>`;
     }).join('');
     function edit(link = {}) {
       if (associationDirty && !confirm('放弃尚未保存的联想文字，编辑另一条吗？')) return;
@@ -213,16 +218,16 @@
       const isFrom = !link.id || link.fromType === type && link.fromId === id;
       const selectedKey = link.id && link.toType ? `${isFrom ? link.toType : link.fromType}:${isFrom ? link.toId : link.fromId}` : '';
       container.innerHTML = `<form class="association-form">
-        <div class="field"><label for="a-title">标题（可选）</label><input id="a-title" value="${escAttr(link.title)}" maxlength="300" placeholder="可以以后再起标题"></div>
-        <div class="field"><label for="a-note">想到的内容</label><textarea id="a-note" rows="14" maxlength="100000" placeholder="想到哪里就写到哪里；长文支持 Markdown。">${esc(link.body?.trim() ? link.body : link.note || '')}</textarea></div>
-        <details class="association-reference" ${selectedKey ? 'open' : ''}><summary>关联与摘录（可以以后再补）</summary>
+        <div class="field"><label for="a-note">此刻想到的</label><textarea id="a-note" rows="14" maxlength="100000" placeholder="想到哪里就写到哪里。">${esc(link.body?.trim() ? link.body : link.note || '')}</textarea></div>
+        <details class="association-reference" ${selectedKey ? 'open' : ''}><summary>标题、关联和摘录（可选）</summary>
+          <div class="field"><label for="a-title">给它起个标题（可选）</label><input id="a-title" value="${escAttr(link.title)}" maxlength="300" placeholder="不填时用开头的文字"></div>
           <div class="field"><label for="a-search">找一条记忆或作品</label><input type="search" id="a-search" placeholder="输入名称筛选"></div>
           <div class="field"><label for="a-target">关联到（可选）</label><select id="a-target"></select></div>
           <div class="field"><label for="a-excerpt">摘录 / 镜头 / 游戏片段（可选）</label><textarea id="a-excerpt" rows="3">${esc(link.excerpt)}</textarea></div>
           <div class="field"><label for="a-locator">页码 / 时间点 / 章节（可选）</label><input id="a-locator" value="${escAttr(link.locator)}"></div>
         </details>
-        <label class="checks field"><input type="checkbox" id="a-public" ${link.id && !link.draft ? 'checked' : ''}>公开这段联想</label>
-        <div class="btn-bar"><button type="submit" class="btn btn-save">保存联想</button><button type="button" class="btn btn-build" id="a-cancel">收起</button><span id="a-status" class="status" role="status"></span></div>
+        <label class="checks field"><input type="checkbox" id="a-public" ${link.id && !link.draft ? 'checked' : ''}>在网站上公开这段想法</label>
+        <div class="btn-bar"><button type="submit" class="btn btn-save">保存想法</button><button type="button" class="mini-btn" id="a-cancel">收起</button><span id="a-status" class="status" role="status"></span></div>
       </form>`;
       const select = container.querySelector('#a-target');
       let chosen = selectedKey;
@@ -256,6 +261,7 @@
           associationBaseline = snapshot(container, ['a-search', 'a-kind']); unlock();
           await window.rebuildAndWait(status);
           await window.renderAssociationEditor(type,id);
+          await window.onThoughtSaved?.(result.id);
         } catch (error) { status.textContent = (persisted ? '已记录，预览更新失败：' : '记录失败：') + error.message; }
         finally { unlock(); }
       });

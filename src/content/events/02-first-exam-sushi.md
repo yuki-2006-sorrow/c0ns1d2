@@ -1,14 +1,15 @@
 ---
 title: "首考结束·日料"
-date: 2026-01-10
-persons: ["曾浩鑫", "吴晨阳", "朱浩宇", "陈二逼"]
-category: food
+date: "2026-01-10"
+persons: ["曾浩鑫","吴晨阳","朱浩宇","陈二逼"]
+category: "food"
 color: "#e74c3c"
 size: 32
-draft: true
+draft: false
 summary: "青海摇"
 images: []
 medium: "惊天魔盗团"
+major: false
 ---
 首考最后一门考完，他们立刻约了出来。
 

@@ -85,7 +85,8 @@ for (const association of records('associations')) {
   const from = `${association.fromType}:${association.fromId}`;
   const to = `${association.toType}:${association.toId}`;
   const hasTarget = !!(association.toType || association.toId);
-  const visible = association.draft === false && publicKeys.has(from) && (!hasTarget || from !== to && publicKeys.has(to));
+  const hasOrigin = !!(association.fromType || association.fromId);
+  const visible = association.draft === false && (!hasOrigin || publicKeys.has(from)) && (!hasTarget || from !== to && publicKeys.has(to));
   if (visible) visibleThoughtCount++;
   assert.equal(output.includes(association.id), visible, `Unexpected association visibility: ${association.id}`);
   assert.equal(existsSync(join(dist, 'thoughts', association.id, 'index.html')), visible, `Unexpected thought route: ${association.id}`);
