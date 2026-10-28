@@ -31,7 +31,7 @@ const personEvents = allEvents
 <BaseLayout title={person.data.name}>
   <article style="max-width: 750px; margin: 0 auto; padding: 40px 20px 80px;">
     <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 40px;">
-      <div style="width: 80px; height: 80px; border-radius: 50%; background: {person.data.color}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2em; font-weight: 600; flex-shrink: 0;">
+      <div style={`width: 80px; height: 80px; border-radius: 50%; background: ${person.data.color}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2em; font-weight: 600; flex-shrink: 0;`}>
         {person.data.name[0]}
       </div>
       <div>
@@ -47,10 +47,10 @@ const personEvents = allEvents
         <div style="margin-bottom: 14px;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
             <span style="color: rgba(255,255,255,0.7); font-size: 0.9em;">{trait.label}</span>
-            <span style="color: {person.data.color}; font-size: 0.9em;">{person.data.personality[trait.key]}%</span>
+            <span style={`color: ${person.data.color}; font-size: 0.9em;`}>{person.data.personality[trait.key]}%</span>
           </div>
           <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
-            <div style="height: 100%; width: {person.data.personality[trait.key]}%; background: {person.data.color}; border-radius: 3px;"></div>
+            <div style={`height: 100%; width: ${person.data.personality[trait.key]}%; background: ${person.data.color}; border-radius: 3px;`}></div>
           </div>
         </div>
       ))}
@@ -74,7 +74,7 @@ const personEvents = allEvents
         <div style="display: flex; flex-direction: column; gap: 8px;">
           {personEvents.map(e => (
             <a href={`/events/${e.slug.split('/').pop()}`} style="display: flex; align-items: center; gap: 15px; padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: {e.data.color}; flex-shrink: 0;"></div>
+              <div style={`width: 10px; height: 10px; border-radius: 50%; background: ${e.data.color}; flex-shrink: 0;`}></div>
               <div style="flex: 1;">
                 <div style="color: #fff; font-size: 0.98em;">{e.data.title}</div>
                 <div style="color: rgba(255,255,255,0.4); font-size: 0.8em;">{e.data.date}</div>

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const events = await getCollection('events', ({ data }) => !data.draft);
+const events = await getCollection('events', ({ data }) => !data.draft && data.major);
 events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 ---
 
@@ -17,20 +17,26 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       <div class="cinema-vignette"></div>
       <div class="cinema-ui">
         <div class="c-brand">c0ns1d2 · 惊天魔盗团记忆库</div>
-        <div class="c-hint" id="cHint">点击开始</div>
+        <button type="button" class="c-hint" id="cHint">点击开始</button>
         <div class="c-dots" id="cDots"><span class="on"></span><span></span><span></span></div>
       </div>
+      <button type="button" id="introSkip" class="skip-intro">直接进入 →</button>
     </div>
 
     <!-- 主区域 -->
-    <div class="main-view" id="mainView">
+    <div class="main-view" id="mainView" inert>
+      <nav class="archive-exits" aria-label="继续探索">
+        <a href="/events">记忆</a><a href="/works">书·影·游戏</a><a href="/timeline">时间索引</a><button type="button" id="replayIntro">重看开场</button>
+      </nav>
       <!-- 卡片堆叠 -->
       <div class="cards-container" id="cardsContainer">
         {events.map((event, i) => (
-          <div class="card" data-index={i}>
-            <div class="card-img" style="background: #f0f0f0;"></div>
+          <button type="button" class="card" data-index={i} aria-label={`查看 ${event.data.title}`}>
+            <div class="card-img">
+              {event.data.images[0] ? <img src={event.data.images[0]} alt={event.data.title} loading="lazy" /> : <span class="card-placeholder"><small>{event.data.date}</small>{event.data.title}</span>}
+            </div>
             <div class="card-shine"></div>
-          </div>
+          </button>
         ))}
       </div>
 
@@ -41,20 +47,20 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
             <span class="text-date">{event.data.date}</span>
             <h2 class="text-title">{event.data.title}</h2>
             <p class="text-desc">{event.data.persons.join(' · ')}</p>
-            <a href={`/events/${event.slug}`} class="text-enter">进入事件 →</a>
+            <a href={`/events/${event.slug.split('/').pop()}`} class="text-enter">进入事件 →</a>
           </div>
         ))}
       </div>
 
       <!-- 底部控制 -->
       <div class="controls">
-        <button class="ctrl-btn" id="prevBtn">←</button>
+        <button class="ctrl-btn" id="prevBtn" aria-label="上一段记忆">←</button>
         <div class="counter">
-          <span id="currentNum">01</span>
+          <span id="currentNum" aria-live="polite">01</span>
           <span class="counter-divider">/</span>
           <span id="totalNum">{String(events.length).padStart(2, '0')}</span>
         </div>
-        <button class="ctrl-btn" id="nextBtn">→</button>
+        <button class="ctrl-btn" id="nextBtn" aria-label="下一段记忆">→</button>
       </div>
 
       <!-- 进度条 -->
@@ -77,6 +83,20 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     .content { padding-top: 0; }
 
     .gallery-page { position: relative; height: 100vh; width: 100vw; overflow: hidden; }
+    .archive-exits { position: absolute; top: 28px; left: 28px; display: flex; gap: 22px; z-index: 30; font-size: .8rem; color: #d4c2b2; }
+    .archive-exits a { padding: 8px 0; }
+    .archive-exits button { background: transparent; border: 0; color: inherit; font: inherit; padding: 8px 0; cursor: pointer; }
+    .skip-intro { position: absolute; right: 24px; top: 24px; z-index: 8; background: #111b; color: #e1d3c7; border: 1px solid #ffffff35; padding: 10px 16px; cursor: pointer; font: inherit; }
+    .cinema-ui .c-hint { border: 0; background: transparent; padding: 12px; font-family: inherit; pointer-events: auto; cursor: pointer; }
+    .cinema-ui .c-hint.hide { pointer-events: none; }
+    .ctrl-btn:disabled { opacity: .3; cursor: default; }
+    .card { border: 0; padding: 0; background: #201b20; text-align: left; }
+    @media(prefers-reduced-motion: reduce) { .card, .text-item, .main-view, .cinema { transition: none !important; } .c-hint { animation: none !important; } }
+    @media(max-width: 768px) { .gallery-page, .main-view { height: 100dvh; } .archive-exits { gap: 14px; font-size: .75rem; } .cards-container { top: 30dvh !important; height: 32dvh !important; width: min(64vw, 260px) !important; } .text-stack { top: 55dvh !important; transform: translateX(-50%) !important; height: 25dvh; } .text-item { max-height: 100%; overflow-y: auto; } .text-desc { margin-bottom: 12px; } }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-placeholder { height: 100%; display: flex; flex-direction: column; justify-content: end; gap: 22px; padding: 36px; color: #d8c2ac; font-family: 'Songti SC', 'SimSun', serif; font-size: 1.8rem; line-height: 1.6; background: linear-gradient(145deg, #35262c, #151316); }
+    .card-placeholder small { font: .75rem sans-serif; letter-spacing: .18em; color: #b6a197; }
+    @media(max-width: 768px) { .archive-exits { top: 12px; left: 20px; gap: 20px; } .top-hint { display: none; } }
 
     /* ===== 电影开场 ===== */
     .cinema {
@@ -90,6 +110,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     .shot {
       position: absolute; inset: 0;
       opacity: 0;
+      background: #050607 url('/intro/k1.png') center / cover no-repeat;
     }
     .shot.is-active { opacity: 1; }
     /* 素材首尾帧已逐段对齐，只做最简单的淡入叠化，不做任何网页端推近/缩放 */
@@ -98,7 +119,9 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       width: 100%; height: 100%;
       object-fit: cover; -webkit-user-drag: none;
       background: #050607;
+      opacity: 0;
     }
+    .shot video.sv.is-ready { opacity: 1; }
     .red-flash {
       position: absolute; inset: 0;
       background: radial-gradient(circle at 50% 45%, #9c2f35 0%, #7d252a 55%, #56171c 100%);
@@ -283,7 +306,8 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     }
   </style>
 
-  <script is:inline>
+  <script>
+    import { createIntroController } from '../scripts/intro-controller.js';
     const cards = document.querySelectorAll('.card');
     const textItems = document.querySelectorAll('.text-item');
     const total = cards.length;
@@ -294,7 +318,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     const currentNum = document.getElementById('currentNum');
     const progressFill = document.getElementById('progressFill');
 
-    /* ===== 电影开场：单个 1080P 长视频（12.08s），点击三次推进；接缝在播放中跨过，红铺满接照片墙 ===== */
+    /* ===== 保留单个开场视频及三段点击，只在初次准备和重看时定位 ===== */
     let introScrolled = false;
     const cinema = document.getElementById('cinema');
     const cHint = document.getElementById('cHint');
@@ -302,116 +326,59 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     const cDots = document.querySelectorAll('#cDots span');
     const v = document.getElementById('introVideo');
 
-    const RATE = 1.12;        // 播放速率（运镜偏慢，整体提速）
-    const HEAD = 1.2;         // 初始窗外远景定格点
-    const STOP1 = 4.1;        // 接缝1约 4.03，停点紧贴接缝后（卡在极限），让跳帧在播放中跨过
-    const STOP2 = 8.0;        // P2 尾（俯视徽章）；接缝2约 8.06，停在接缝前
-    const FINALE_TRIG = 0.4;  // 结尾前多少秒触发红铺满
-    let step = 0;             // 0=外景/将到P1尾 1=将到P2尾 2=P3 3=done
-    let mode = 'head';        // head | headhold | play | hold | done
-    let rafId = null;
-
-    v.muted = true; v.disablePictureInPicture = true;
-    function showHint(t) { if (t) { cHint.textContent = t; cHint.classList.remove('hide'); } else { cHint.classList.add('hide'); } }
-    const playV = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    const setRate = (r) => { try { if (Math.abs(v.playbackRate - r) > 1e-6) v.playbackRate = r; } catch (e) {} };
-    function stopRaf() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
-
-    function tick() {
-      try {
-        const d = v.duration || 0;
-        if (mode === 'head') {
-          if (v.readyState < 2) { if (!v.paused) v.pause(); }
-          else if (d && (v.ended || v.currentTime >= HEAD)) {
-            v.pause(); v.currentTime = HEAD; holdHere('headhold', '点击开始', 0);
-          } else {
-            setRate(1); if (v.paused && !v.ended) playV();
-          }
-        } else if (mode === 'play') {
-          if (v.readyState < 3) { if (!v.paused) v.pause(); }   // 缓冲不足先停，避免卡顿
-          else {
-            if (step === 2) {
-              if (d && (v.ended || v.currentTime >= d - FINALE_TRIG)) { finish(); return; }
-            } else {
-              const target = step === 0 ? STOP1 : STOP2;
-              if (d && (v.ended || v.currentTime >= target)) {
-                v.pause(); v.currentTime = target;
-                holdHere('hold', '点击继续', step + 1);
-              }
-            }
-            if (mode === 'play') { setRate(RATE); if (v.paused && !v.ended) playV(); }
-          }
-        }
-        // headhold / hold：时间轴静止，待机不续循环（holdHere 已 stopRaf）
-        if (mode === 'headhold' || mode === 'hold') return;
-        rafId = requestAnimationFrame(tick);
-      } catch (e) { console.warn('[cinema tick]', e); rafId = requestAnimationFrame(tick); }
-    }
-
-    function holdHere(nextMode, hint, dotIndex) {
-      mode = nextMode;
-      if (nextMode === 'hold' && cDots[dotIndex]) cDots[dotIndex].classList.add('on');
-      showHint(hint);
-      stopRaf();   // 待机时彻底停止循环，杜绝任何 JS 干扰导致的画面抽搐
-    }
-
-    function finish() {
-      mode = 'done'; step = 3;
-      stopRaf();
-      v.ontimeupdate = null; v.pause();
-      redFlash.style.transition = 'opacity 0.5s ease';
-      redFlash.style.opacity = '1';   // 与视频结尾暗红无缝铺满
-      setTimeout(enterGallery, 700);
-    }
+    const intro = createIntroController({ video: v, hint: cHint, dots: cDots, redFlash, onFinish: enterGallery });
 
     function enterGallery() {
       if (introScrolled) return;
       introScrolled = true;
-      stopRaf();
+      cinema.inert = true;
+      mainView.inert = false;
+      intro.stop();
       try { localStorage.setItem('introPlayed', '1'); } catch (e) {}
-      v.ontimeupdate = null; v.onended = null; v.pause();
       cinema.classList.add('cinema-out');
       mainView.classList.add('visible');
-      setTimeout(() => updateView(), 700);
+      updateView();
     }
 
-    // 点击推进：从当前定格点继续播放（不重置、不跳回首帧）
-    function startPlay() {
-      playV();
-      stopRaf();
-      rafId = requestAnimationFrame(tick);
-    }
-    function advance() {
-      if (introScrolled || mode === 'done' || mode === 'play') return;
-      if (mode === 'head' || mode === 'headhold') { step = 0; mode = 'play'; showHint(null); startPlay(); }
-      else if (mode === 'hold') {
-        if (step === 0) { step = 1; mode = 'play'; showHint(null); startPlay(); }
-        else if (step === 1) { step = 2; mode = 'play'; showHint(null); startPlay(); }
-      }
-    }
-    cinema.addEventListener('click', advance);
+    cinema.addEventListener('click', () => { if (!introScrolled) intro.advance(); });
+    document.getElementById('introSkip').addEventListener('click', event => { event.stopPropagation(); enterGallery(); document.getElementById('replayIntro').focus({ preventScroll: true }); });
+    document.getElementById('replayIntro').addEventListener('click', () => {
+      introScrolled = false;
+      intro.reset();
+      mainView.inert = true; cinema.inert = false;
+      mainView.classList.remove('visible'); cinema.classList.remove('cinema-out');
+      cHint.focus({ preventScroll: true });
+    });
 
     // 初始：本次会话已看过开场则直接进照片墙；否则定格在 HEAD 等点击（不自动播放，避免启动抽搐）
-    mode = 'headhold';
     let alreadyPlayed = false;
     try { alreadyPlayed = localStorage.getItem('introPlayed') === '1'; } catch (e) {}
     if (alreadyPlayed) {
       introScrolled = true;
+      cinema.inert = true;
+      mainView.inert = false;
       v.pause();
       cinema.classList.add('cinema-out');
       mainView.classList.add('visible');
       updateView();
     } else {
-      const goHead = () => { v.pause(); v.currentTime = HEAD; showHint('点击开始'); };
-      if (v.readyState >= 2) goHead();
-      else v.addEventListener('loadeddata', goHead, { once: true });
+      intro.reset();
     }
 
     // 开场播放期间，滚轮不直接进照片墙（严格点击推进）
-    window.addEventListener('wheel', (e) => { if (!introScrolled) e.preventDefault(); }, { passive: false });
+    window.addEventListener('wheel', (e) => { if (!introScrolled && !e.ctrlKey && !e.metaKey) e.preventDefault(); }, { passive: false });
 
     function updateView() {
+      if (!total) {
+        document.getElementById('prevBtn').disabled = true;
+        document.getElementById('nextBtn').disabled = true;
+        currentNum.textContent = '00';
+        progressFill.style.width = '0%';
+        document.getElementById('textStack').textContent = '暂无已公开的精选记忆';
+        return;
+      }
       cards.forEach((card, i) => {
+        card.tabIndex = i === current ? 0 : -1;
         const offset = i - current;
         const absOffset = Math.abs(offset);
 
@@ -437,6 +404,8 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       });
 
       textItems.forEach((item, i) => {
+        item.inert = i !== current;
+        item.setAttribute('aria-hidden', String(i !== current));
         const offset = i - current;
         const absOffset = Math.abs(offset);
 
@@ -455,11 +424,14 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
       });
 
       currentNum.textContent = String(current + 1).padStart(2, '0');
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').disabled = current === total - 1;
       progressFill.style.width = ((current + 1) / total * 100) + '%';
     }
 
-    let lastGoTime = 0;
+    let lastGoTime = -Infinity;
     function goTo(index) {
+      if (!total) return false;
       const now = performance.now();
       if (now - lastGoTime < 100) return false;   // 短节流防同一手势瞬间翻多页，不阻塞连续翻页
       const target = Math.max(0, Math.min(total - 1, index));
@@ -475,7 +447,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     let wheelResetTimer = null;
     const STEP_DELTA = 90;
     window.addEventListener('wheel', (e) => {
-      if (!introScrolled) return;
+      if (!introScrolled || e.ctrlKey || e.metaKey || e.target.closest('.archive-exits, .text-item')) return;
       wheelAccum += e.deltaY;
       clearTimeout(wheelResetTimer);
       wheelResetTimer = setTimeout(() => { wheelAccum = 0; }, 180);
@@ -491,7 +463,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 
     // 点击卡片切换
     cards.forEach((card, i) => {
-      card.addEventListener('click', () => goTo(i));
+      card.addEventListener('click', () => { if (i === current) location.assign(textItems[i].querySelector('a').href); else goTo(i); });
     });
 
     // 按钮
@@ -500,21 +472,23 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 
     // 键盘
     document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('button, a, input, textarea, select')) return;
       if (!introScrolled) {
         if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); cinema.click(); }
         return;
       }
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
     });
 
     // 触摸
     let touchStartY = 0;
     window.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.text-item, .archive-exits, .controls') || e.touches.length !== 1) { touchStartY = null; return; }
       touchStartY = e.touches[0].clientY;
     });
     window.addEventListener('touchend', (e) => {
-      if (!introScrolled) return;
+      if (!introScrolled || touchStartY == null) return;
       const diff = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(diff) > 50) {
         goTo(diff > 0 ? current + 1 : current - 1);

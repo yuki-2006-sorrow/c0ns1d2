@@ -23,7 +23,8 @@ const events = defineCollection({
     images: z.array(z.string()).default([]),
     videos: z.array(z.string()).default([]),
     medium: z.string().default(''),
-    draft: z.boolean().default(false),
+    major: z.boolean().default(false),
+    draft: z.boolean().default(true),
   }),
 });
 
@@ -73,4 +74,32 @@ const mediums = defineCollection({
   }),
 });
 
-export const collections = { events, people, journal, mediums };
+const works = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    kind: z.enum(['book', 'film', 'game']),
+    creator: z.string().default(''),
+    year: z.string().default(''),
+    cover: z.string().default(''),
+    summary: z.string().default(''),
+    draft: z.boolean().default(true),
+  }),
+});
+
+const associations = defineCollection({
+  type: 'content',
+  schema: z.object({
+    fromType: z.enum(['event', 'work']),
+    fromId: z.string(),
+    title: z.string().default(''),
+    toType: z.enum(['', 'event', 'work']).default(''),
+    toId: z.string().default(''),
+    note: z.string().default(''),
+    excerpt: z.string().default(''),
+    locator: z.string().default(''),
+    draft: z.boolean().default(true),
+  }),
+});
+
+export const collections = { events, people, journal, mediums, works, associations };

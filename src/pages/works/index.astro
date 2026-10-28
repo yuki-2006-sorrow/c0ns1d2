@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { workKinds } from '../../lib/associations.mjs';
+const works = await getCollection('works', ({ data }) => !data.draft);
+works.sort((first, second) => first.data.title.localeCompare(second.data.title, 'zh-CN'));
+---
+<BaseLayout title="书、电影与游戏">
+  <section class="works-shelf">
+    <p class="shelf-label">留在生活里的作品</p>
+    <h1>书、电影与游戏</h1>
+    <p class="shelf-intro">某个故事，某个镜头，某次漫长的游玩。后来，又在生活里遇见。</p>
+    {works.length > 0 ? (
+      <>
+        <nav class="shelf-filters" aria-label="作品类型">
+          <button type="button" data-kind="all" aria-pressed="true">全部</button>
+          {Object.entries(workKinds).map(([kind, label]) => <button type="button" data-kind={kind} aria-pressed="false">{label}</button>)}
+        </nav>
+        <div class="works-grid">
+          {works.map(work => (
+            <a class="work-entry" data-work-kind={work.data.kind} href={`/works/${encodeURIComponent(work.slug)}`}>
+              <div class="work-cover">
+                {work.data.cover ? <img src={work.data.cover} alt={`${work.data.title}封面`} loading="lazy" /> : <span>{work.data.title}</span>}
+              </div>
+              <div class="work-meta">{workKinds[work.data.kind]}{work.data.year && ` / ${work.data.year}`}</div>
+              <h2>{work.data.title}</h2>
+              {work.data.creator && <p>{work.data.creator}</p>}
+            </a>
+          ))}
+        </div>
+        <p id="works-empty" class="shelf-empty" hidden>这一格，暂时还是空的。</p>
+      </>
+    ) : <p class="shelf-empty">书架还空着，留给那些值得记下的作品。</p>}
+  </section>
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.shelf-filters button');
+    const entries = document.querySelectorAll<HTMLElement>('[data-work-kind]');
+    const empty = document.getElementById('works-empty');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+      let count = 0;
+      entries.forEach(entry => {
+        entry.hidden = button.dataset.kind !== 'all' && entry.dataset.workKind !== button.dataset.kind;
+        if (!entry.hidden) count++;
+      });
+      if (empty) empty.hidden = count > 0;
+    }));
+  </script>
+  <style>
+    .works-shelf { max-width: 1060px; padding: 55px 24px 90px; margin: auto; }
+    .shelf-label { color: #bc9490; font-size: .75rem; letter-spacing: .22em; margin-bottom: 18px; }
+    h1 { color: #ede3d6; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 400; margin-bottom: 20px; }
+    .shelf-intro { color: #b6ada5; line-height: 1.9; max-width: 520px; margin-bottom: 36px; }
+    .shelf-filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    .shelf-filters button { background: transparent; color: #b7ada4; border: 1px solid #ffffff24; padding: 9px 17px; font: inherit; cursor: pointer; border-radius: 2px; }
+    .shelf-filters button[aria-pressed="true"] { background: #38262b; border-color: #9c5962; color: #f0dfd4; }
+    .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: 40px 32px; }
+    .work-entry { min-width: 0; overflow-wrap: anywhere; }
+    .work-cover { aspect-ratio: 3 / 4; max-height: 300px; background: #211c20; border: 1px solid #ffffff14; margin-bottom: 17px; display: grid; place-items: center; overflow: hidden; }
+    .work-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .work-cover span { font-family: 'Songti SC', 'SimSun', serif; color: #ccb7aa; padding: 24px; font-size: 1.2rem; line-height: 1.8; writing-mode: vertical-rl; max-height: 260px; }
+    .work-meta { color: #b69e94; font-size: .75rem; margin-bottom: 9px; }
+    h2 { font-size: 1.2rem; line-height: 1.6; font-weight: 400; color: #e6d9ca; }
+    .work-entry p { font-size: .85rem; color: #afa49c; margin-top: 7px; }
+    .work-entry:hover h2 { text-decoration: underline; text-underline-offset: 5px; }
+    .shelf-empty { padding: 64px 0; border-top: 1px solid #ffffff18; color: #b6aaa0; line-height: 1.9; }
+    [hidden] { display: none !important; }
+  </style>
+</BaseLayout>

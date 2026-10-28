@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 
-const show = import.meta.env.SHOW_DRAFTS === 'true';
+const show = import.meta.env.DEV && import.meta.env.SHOW_DRAFTS === 'true';
 let drafts = [];
 if (show) {
   drafts = (await getCollection('events', e => e.data.draft))

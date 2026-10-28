@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import { publicConnections } from '../lib/associations.mjs';
+const { type, id } = Astro.props;
+const [events, works, associations] = await Promise.all([getCollection('events', ({ data }) => !data.draft), getCollection('works', ({ data }) => !data.draft), getCollection('associations', ({ data }) => !data.draft)]);
+const connections = publicConnections(type, id, events, works, associations);
+---
+{connections.length > 0 && <aside class="thoughts-margin" aria-label="从这里想到的"><h2>从这里想到的</h2>
+  {connections.map(connection => <article class="thought-note" data-association-id={connection.id}>
+    {connection.entry.data.title && <h3><a href={connection.thoughtHref}>{connection.entry.data.title}</a></h3>}
+    {connection.excerpt && <blockquote>{connection.excerpt}</blockquote>}
+    {connection.locator && <span class="thought-locator">{connection.locator}</span>}
+    {connection.text && <p class="thought-preview">{connection.preview}{connection.text.length > 360 && '…'}</p>}
+    {connection.text && (connection.text.length > 360 || connection.text.includes('\n')) && <a class="thought-read" href={connection.thoughtHref}>读完这段联想 ↗</a>}
+    {connection.target && <a class="thought-target" href={connection.href}>{connection.label} · {connection.title} ↗</a>}
+    {connection.reverse && <span class="thought-locator">写于 {connection.origin.title} 旁</span>}
+  </article>)}
+</aside>}
+<style>
+  .thoughts-margin { border-top: 1px solid var(--archive-line); padding-top: 22px; }
+  .thoughts-margin > h2 { font-family: inherit; font-size: .8rem; letter-spacing: .14em; color: var(--archive-muted); font-weight: 400; margin-bottom: 30px; }
+  .thought-note { border-left: 1px solid var(--archive-accent); padding-left: 18px; margin-bottom: 32px; overflow-wrap: anywhere; }
+  .thought-note h3 { font-size: 1.1rem; font-family: var(--archive-serif); font-weight: 400; margin-bottom: 14px; line-height: 1.7; }
+  .thought-note blockquote { font-family: var(--archive-serif); color: var(--archive-ink); line-height: 1.9; font-size: 1.1rem; white-space: pre-wrap; margin: 12px 0; }
+  .thought-preview { color: var(--archive-muted); line-height: 1.95; white-space: pre-wrap; font-size: .9rem; margin: 12px 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+  .thought-locator { display: block; font-size: .75rem; color: var(--archive-muted); line-height: 1.8; margin: 8px 0; }
+  .thought-target, .thought-read { display: block; color: var(--archive-ink); font-size: .85rem; margin-top: 14px; line-height: 1.8; }
+  a:hover { text-decoration: underline; text-underline-offset: 5px; }
+</style>

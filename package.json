@@ -5,13 +5,21 @@
   "description": "惊天魔盗团 · 个人记忆库",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/check-public-build.mjs",
+    "check:public": "node scripts/check-public-build.mjs",
+    "test:associations": "node --test scripts/associations.test.mjs",
+    "check:editor": "node scripts/check-association-editor.mjs",
+    "test:intro": "node --test scripts/intro.test.mjs",
+    "check:intro": "node scripts/check-intro.mjs",
+    "test:timeline": "node --test scripts/timeline-threads.test.mjs",
     "preview": "astro preview",
     "admin": "node admin/server.mjs"
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.5.5",
     "astro": "^5.0.0",
+    "github-slugger": "2.0.0",
+    "js-yaml": "4.3.2",
     "three": "^0.186.1"
   }
 }

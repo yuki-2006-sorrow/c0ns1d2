@@ -1,5 +1,7 @@
 ---
 title: 惊天魔盗团·潜入校史馆
+draft: false
+major: true
 date: 2026-05-22
 persons: [曾浩鑫, 吴晨阳, 朱浩宇, 金晟恺, 陈二逼]
 category: core

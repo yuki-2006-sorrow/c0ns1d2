@@ -9,6 +9,7 @@ summary: "死寂，CS，西餐，熬夜泰拉瑞亚。另一边，强基，物�
 images: []
 medium: ""
 draft: false
+major: true
 ---
 放寒假又聚了一次，2月6日约得仓促，最后定在离吴晨阳家很近的一家西餐厅。
 

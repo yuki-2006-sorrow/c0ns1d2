@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { publicThoughts } from '../../lib/associations.mjs';
+const [events, works, associations] = await Promise.all([getCollection('events'), getCollection('works'), getCollection('associations')]);
+const thoughts = publicThoughts(events, works, associations);
+---
+<BaseLayout title="联想"><section class="reading-page thought-index"><header class="reading-header"><p class="archive-eyebrow">读着读着，又想到了一些</p><h1>联想</h1></header>{thoughts.length === 0 && <p class="reading-meta">暂时还没有公开的联想。</p>}{thoughts.map(thought => <article><p class="reading-meta">从 <a href={thought.origin.href}>{thought.origin.title}</a> 想到的</p><h2><a href={thought.thoughtHref}>{thought.title}</a></h2>{thought.text && <p>{thought.text.slice(0,180)}{thought.text.length > 180 && '…'}</p>}<a href={thought.thoughtHref} class="thought-index-read">读这段联想 ↗</a></article>)}</section><style>.thought-index { max-width: 820px; } article { padding: 28px 0; border-top: 1px solid var(--archive-line); } h2 { font-size: 1.5rem; font-weight: 400; line-height: 1.7; margin: 16px 0; } article > p { color: var(--archive-muted); line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; } .thought-index-read { display: inline-block; margin-top: 22px; font-size: .85rem; color: #d2b5a6; }</style></BaseLayout>

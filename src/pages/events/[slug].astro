@@ -1,165 +1,61 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
-
+import Associations from '../../components/Associations.astro';
+import ThoughtCapture from '../../components/ThoughtCapture.astro';
+import { eventReference } from '../../lib/associations.mjs';
 export async function getStaticPaths() {
-  const events = await getCollection('events'); // 预览期：生成全部事件页（含草稿）；上线前改回 ({ data }) => !data.draft
-  return events.map(event => ({
-    params: { slug: event.slug.split('/').pop() },
-    props: { event, allEvents: events },
-  }));
+  const events = await getCollection('events', ({ data }) => !data.draft);
+  return events.map(event => ({params:{slug:event.slug.split('/').pop()},props:{event}}));
 }
-
-const { event, allEvents } = Astro.props;
+const { event } = Astro.props;
 const { Content } = await render(event);
-
-const categoryNames = {
-  core: '核心事件',
-  food: '聚餐/生日',
-  exam: '高考相关',
-  other: '日常/其他'
-};
-
-// 找相关事件（共同人物最多的前3个）
-const relatedEvents = allEvents
-  .filter(e => e.slug !== event.slug)
-  .map(e => ({
-    ...e,
-    common: e.data.persons.filter(p => event.data.persons.includes(p)).length,
-  }))
-  .filter(e => e.common > 0)
-  .sort((a, b) => b.common - a.common)
-  .slice(0, 3);
 ---
-
 <BaseLayout title={event.data.title}>
-  <article style="max-width: 750px; margin: 0 auto; padding: 40px 20px 80px;">
-    <div style="color: {event.data.color}; font-size: 0.9em; margin-bottom: 8px; letter-spacing: 1px;">
-      {event.data.date} · {categoryNames[event.data.category]}
-    </div>
-    <h1 style="font-size: 2.2em; color: #fff; margin-bottom: 20px; line-height: 1.3;">{event.data.title}</h1>
-
-    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
-      {event.data.persons.map(p => (
-        <span style="background: rgba(76,161,175,0.15); color: #4ca1af; padding: 4px 14px; border-radius: 14px; font-size: 0.85em;">{p}</span>
-      ))}
-    </div>
-
-    {event.data.tags.length > 0 && (
-      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 35px;">
-        {event.data.tags.map(tag => (
-          <a href={`/tags/${encodeURIComponent(tag)}`} style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); padding: 4px 14px; border-radius: 14px; font-size: 0.85em; transition: all 0.3s;">#{tag}</a>
-        ))}
+  <article class="reading-page">
+    <header class="reading-header">
+      <a href="/events" class="reading-back">← 记忆</a>
+      <p class="archive-eyebrow">{event.data.date}</p>
+      <h1>{event.data.title}</h1>
+      <details class="reading-meta"><summary>这段记忆里的人与线索</summary><div>{event.data.persons.join(' · ')}</div>{event.data.tags.length > 0 && <div>{event.data.tags.map(tag => <a href={`/tags/${encodeURIComponent(tag)}`}>#{tag}　</a>)}</div>}</details>
+      <ThoughtCapture type="event" id={eventReference(event)} />
+    </header>
+    <div class="reading-layout">
+      <div class="reading-main">
+        {event.data.summary && <p class="reading-summary">{event.data.summary}</p>}
+        <div class="reading-prose"><Content /></div>
+        {event.data.quotes.length > 0 && <details class="reading-meta"><summary>原话与片段（{event.data.quotes.length}）</summary><div class="reading-prose">{event.data.quotes.map(quote => <blockquote>{quote}</blockquote>)}</div></details>}
+        {event.data.images.length > 0 && <section class="reading-media"><h2>留下的照片</h2><div class="reading-media-grid">{event.data.images.map((image,index) => <button type="button" class="gallery-trigger" aria-label={`查看照片 ${index + 1}`}><img src={image} alt={`${event.data.title} · 照片 ${index + 1}`} class="gallery-img" loading="lazy" /></button>)}</div></section>}
+        {event.data.videos.length > 0 && <section class="reading-media"><h2>影像</h2>{event.data.videos.map(video => <video controls preload="metadata" src={video} style="width:100%"></video>)}</section>}
+        <footer class="reading-footer"><a href="/events">← 回到记忆</a><a href="/timeline">在时间里找一找 ↗</a></footer>
       </div>
-    )}
-
-    <div class="event-content">
-      <Content />
-    </div>
-
-    {event.data.images.length > 0 && (
-      <div style="margin-top: 50px;">
-        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">照片 ({event.data.images.length})</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
-          {event.data.images.map((img, i) => (
-            <img src={img} alt="" class="gallery-img" data-index={i} style="width: 100%; border-radius: 10px; cursor: pointer; opacity: 0.9; transition: all 0.3s;" loading="lazy" />
-          ))}
-        </div>
-      </div>
-    )}
-
-    {event.data.videos.length > 0 && (
-      <div style="margin-top: 50px;">
-        <h2 style="color: #fff; font-size: 1.3em; margin-bottom: 20px;">视频 ({event.data.videos.length})</h2>
-        {event.data.videos.map(vid => (
-          <video controls style="width: 100%; border-radius: 10px; margin-bottom: 15px; background: #000;">
-            <source src={vid} type="video/mp4">
-          </video>
-        ))}
-      </div>
-    )}
-
-    {relatedEvents.length > 0 && (
-      <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
-        <h2 style="color: #fff; font-size: 1.2em; margin-bottom: 20px;">相关事件</h2>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          {relatedEvents.map(e => (
-            <a href={`/events/${e.slug.split('/').pop()}`} style="display: flex; align-items: center; gap: 15px; padding: 15px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: {e.data.color}; flex-shrink: 0;"></div>
-              <div style="flex: 1;">
-                <div style="color: #fff; font-size: 0.98em;">{e.data.title}</div>
-                <div style="color: rgba(255,255,255,0.4); font-size: 0.8em;">{e.data.date}</div>
-              </div>
-              <div style="color: rgba(255,255,255,0.3);">→</div>
-            </a>
-          ))}
-        </div>
-      </div>
-    )}
-
-    <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between;">
-      <a href="/events" style="color: #4ca1af; font-size: 0.9em;">← 全部事件</a>
-      <a href="/timeline" style="color: #4ca1af; font-size: 0.9em;">时间线 →</a>
+      <div class="reading-rail"><Associations type="event" id={eventReference(event)} /></div>
     </div>
   </article>
+  <dialog id="lightbox" aria-label="事件照片">
+    <button type="button" id="lightbox-close" class="lightbox-control" aria-label="关闭照片">×</button>
+    <button type="button" id="lightbox-prev" class="lightbox-control" aria-label="上一张照片">←</button>
+    <img id="lightbox-img" alt="事件照片" />
+    <button type="button" id="lightbox-next" class="lightbox-control" aria-label="下一张照片">→</button>
+    <div id="lightbox-counter" role="status" aria-live="polite"></div>
+    <div id="lightbox-error" role="status"></div>
+  </dialog>
+  <script>import '../../scripts/lightbox';</script>
 
-  <!-- 图片灯箱 -->
-  <div id="lightbox" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; align-items: center; justify-content: center; cursor: pointer;">
-    <span id="lightbox-close" style="position: absolute; top: 25px; right: 35px; color: white; font-size: 2em; cursor: pointer;">&times;</span>
-    <img id="lightbox-img" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
-    <div id="lightbox-counter" style="position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.9em;"></div>
-  </div>
-
-  <script is:inline>
-    const images = document.querySelectorAll('.gallery-img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCounter = document.getElementById('lightbox-counter');
-    let currentIndex = 0;
-
-    images.forEach((img, i) => {
-      img.addEventListener('click', () => {
-        currentIndex = i;
-        lightboxImg.src = img.src;
-        lightboxCounter.textContent = (i + 1) + ' / ' + images.length;
-        lightbox.style.display = 'flex';
-      });
-    });
-
-    function closeLightbox() { lightbox.style.display = 'none'; }
-    lightbox.addEventListener('click', closeLightbox);
-    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-
-    document.addEventListener('keydown', (e) => {
-      if (lightbox.style.display !== 'flex') return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        currentIndex--;
-        lightboxImg.src = images[currentIndex].src;
-        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
-      }
-      if (e.key === 'ArrowRight' && currentIndex < images.length - 1) {
-        currentIndex++;
-        lightboxImg.src = images[currentIndex].src;
-        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length;
-      }
-    });
-  </script>
 
   <style is:global>
-    .event-content { color: rgba(255,255,255,0.8); line-height: 2; font-size: 1.02em; }
-    .event-content p { margin-bottom: 18px; }
-    .event-content strong { color: #fff; }
-    .event-content blockquote {
-      background: rgba(255,255,255,0.05);
-      border-left: 3px solid #4ca1af;
-      padding: 15px 20px;
-      margin: 20px 0;
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
-      color: rgba(255,255,255,0.6);
-    }
-    .gallery-img:hover { opacity: 1 !important; transform: scale(1.02); }
-    a[href^="/events/"]:hover { background: rgba(255,255,255,0.06) !important; border-color: rgba(76,161,175,0.3) !important; }
+    .gallery-trigger { border: 0; padding: 0; background: transparent; cursor: pointer; }
+    .gallery-img { display: block; width: 100%; border-radius: 8px; }
+    #lightbox { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 65px 60px; border: 0; background: #08080af5; color: #eee; }
+    #lightbox[open] { display: grid; place-items: center; }
+    #lightbox-img { max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; }
+    .lightbox-control { position: absolute; min-width: 44px; height: 44px; border: 1px solid #ffffff40; background: #18181d; color: #eee; font-size: 1.4rem; cursor: pointer; border-radius: 4px; }
+    .lightbox-control:disabled { opacity: .25; cursor: default; }
+    #lightbox-close { right: 18px; top: 16px; }
+    #lightbox-prev { left: 8px; top: calc(50% - 22px); }
+    #lightbox-next { right: 8px; top: calc(50% - 22px); }
+    #lightbox-counter { position: absolute; bottom: 28px; text-align: center; left: 0; right: 0; }
+    #lightbox-error { position: absolute; bottom: 60px; text-align: center; left: 60px; right: 60px; font-size: .85rem; }
+
   </style>
 </BaseLayout>

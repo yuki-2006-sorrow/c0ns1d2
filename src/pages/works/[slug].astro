@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Associations from '../../components/Associations.astro';
+import ThoughtCapture from '../../components/ThoughtCapture.astro';
+import { getCollection, render } from 'astro:content';
+import { workKinds } from '../../lib/associations.mjs';
+export async function getStaticPaths() {
+  const works = await getCollection('works', ({ data }) => !data.draft);
+  return works.map(work => ({params:{slug:work.slug},props:{work}}));
+}
+const { work } = Astro.props;
+const { Content } = await render(work);
+---
+<BaseLayout title={work.data.title}>
+  <article class="reading-page">
+    <header class="reading-header">
+      <a class="reading-back" href="/works">← 书、电影与游戏</a>
+      <p class="archive-eyebrow">{workKinds[work.data.kind]}{work.data.year && ` / ${work.data.year}`}</p>
+      <h1>{work.data.title}</h1>
+      {work.data.creator && <p class="reading-meta">{work.data.creator}</p>}
+      <ThoughtCapture type="work" id={work.slug} />
+    </header>
+    <div class="reading-layout"><div class="reading-main">
+      {work.data.cover && <img class="work-reading-cover" src={work.data.cover} alt={`${work.data.title}封面`} />}
+      {work.data.summary && <p class="reading-summary">{work.data.summary}</p>}
+      <div class="reading-prose"><Content /></div>
+      <footer class="reading-footer"><a href="/works">← 回到作品</a></footer>
+    </div><div class="reading-rail"><Associations type="work" id={work.slug} /></div></div>
+  </article>
+  <style>.work-reading-cover { float: left; max-width: 140px; max-height: 220px; object-fit: cover; margin: 0 26px 24px 0; } .reading-footer { clear: both; } @media(max-width: 560px) { .work-reading-cover { max-width: 100px; } }</style>
+</BaseLayout>
