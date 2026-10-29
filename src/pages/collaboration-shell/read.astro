@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="记忆">
+  <div class="bridge-reading-root"><!--archive:reading:start--><!--archive:reading:end--></div>
+  <dialog id="lightbox" aria-label="记忆照片">
+    <button type="button" id="lightbox-close" class="lightbox-control" aria-label="关闭照片">×</button>
+    <button type="button" id="lightbox-prev" class="lightbox-control" aria-label="上一张照片">←</button>
+    <img id="lightbox-img" alt="记忆照片" />
+    <button type="button" id="lightbox-next" class="lightbox-control" aria-label="下一张照片">→</button>
+    <div id="lightbox-counter" role="status" aria-live="polite"></div><div id="lightbox-error" role="status"></div>
+  </dialog>
+  <script>import '../../scripts/lightbox';</script>
+</BaseLayout>

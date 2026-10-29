@@ -28,6 +28,8 @@ test('manual works and associations persist, validate references, and remain pri
     assert.throws(() => store.saveWork({ title: 'test', kind: 'other' }), /请选择/);
     assert.throws(() => store.saveWork({ title: 'test', kind: 'film', draft: 'false' }), /布尔/);
     store.saveWork({ ...work, draft: false });
+    assert.throws(() => store.saveWork({ ...work, revision: undefined, title: '省略版本覆盖' }), /版本信息/);
+    assert.throws(() => store.saveAssociation({ ...store.listAssociations()[0], revision: undefined, note: '省略版本覆盖' }), /版本信息/);
     assert.throws(() => store.saveWork({ ...work, title: '旧窗口的修改' }), /其他窗口/);
     store.saveAssociation({ ...store.listAssociations()[0], id: link.id, draft: false, note: '随手记下\n后来补充', excerpt: '片段', locator: '某章' });
     const restored = createAssociationStore(root, () => [{ slug: 'memory-a' }]);

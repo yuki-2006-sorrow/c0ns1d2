@@ -99,8 +99,9 @@ function listMediums() {
   for (const f of readdirSync(MEDIUMS_DIR)) {
     if (!f.endsWith('.md')) continue;
     const slug = f.replace(/\.md$/, '');
-    const d = parseFm(readFileSync(join(MEDIUMS_DIR, f), 'utf8'));
-    out.push({ slug, title: d.title, summary: d.summary, color: d.color, parent: d.parent || '', draft: d.draft, count: counts[slug] || 0 });
+    const source = readFileSync(join(MEDIUMS_DIR, f), 'utf8');
+    const d = parseFm(source);
+    out.push({ slug, revision: revision(source), title: d.title, summary: d.summary, color: d.color, parent: d.parent || '', draft: d.draft, count: counts[slug] || 0 });
   }
   out.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
   return out;
@@ -122,11 +123,13 @@ function saveMedium(data) {
     ancestor = folders.get(ancestor) || '';
   }
   if (existsSync(fp)) {
+    const source = readFileSync(fp, 'utf8');
+    if (!data.revision || data.revision !== revision(source)) throw new Error('这组记录已被修改，或缺少版本信息。请先保留当前文字，重新打开后再保存');
     // 改名/改摘要/改父级：只替换字段，保留日期等其余字段
     const fields = { title, summary: String(data.summary || ''), parent };
     if (data.color) fields.color = data.color;
     if ('draft' in data) fields.draft = data.draft;
-    writeFileSync(fp, reviseContent(readFileSync(fp, 'utf8'), fields), 'utf8');
+    writeFileSync(fp, reviseContent(source, fields), 'utf8');
     return { ok: true, slug };
   }
   const eol = '\n';
@@ -146,7 +149,7 @@ function saveMedium(data) {
 function saveEvent(rel, edits) {
   const p = contentPath(EVENTS_DIR, rel);
   const text = readFileSync(p, 'utf8');
-  if (edits.revision && edits.revision !== revision(text)) throw new Error('文件已在其他窗口修改，请先复制当前文字，再重新打开该事件');
+  if (!edits.revision || edits.revision !== revision(text)) throw new Error('文件已在其他窗口修改，或缺少版本信息，请先复制当前文字，再重新打开该事件');
   const { body, ...fields } = validateEvent(edits);
   writeFileSync(p, reviseContent(text, fields, body), 'utf8');
 }

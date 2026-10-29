@@ -39,7 +39,7 @@ export function createAssociationStore(root, listEvents) {
     const directory = directories[collection];
     const target = join(directory, `${id}.md`);
     if (data.id && !existsSync(target)) throw new Error('条目不存在，请刷新后重试');
-    if (expectedRevision && existsSync(target) && expectedRevision !== createHash('sha256').update(readFileSync(target, 'utf8').replace(/\r/g, '')).digest('hex')) throw new Error('条目已在其他窗口修改，请先保留当前文字并重新打开');
+    if (existsSync(target) && (!expectedRevision || expectedRevision !== createHash('sha256').update(readFileSync(target, 'utf8').replace(/\r/g, '')).digest('hex'))) throw new Error('条目已在其他窗口修改，或缺少版本信息，请先保留当前文字并重新打开');
     mkdirSync(directory, { recursive: true });
     const { body = '', id: ignored, ...fields } = data;
     const source = '---\n' + Object.entries(fields).map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n') + '\n---\n\n' + body + '\n';

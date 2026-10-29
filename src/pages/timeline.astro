@@ -5,7 +5,7 @@ import { contentPreview } from '../lib/content-preview.mjs';
 import { prepareTimeline } from '../lib/timeline-model.mjs';
 import '../styles/timeline.css';
 
-const events = (await getCollection('events', ({ data }) => !data.draft)).map(event => ({
+const events = (Astro.props.collaborationShell ? [] : await getCollection('events', ({ data }) => !data.draft)).map(event => ({
   slug: event.slug.split('/').pop(),
   title: event.data.title,
   date: event.data.date,
@@ -24,7 +24,7 @@ const model = prepareTimeline(events, folders);
     <header class="tl-header">
       <div>
         <p class="archive-eyebrow">沿着时间，慢慢想起</p>
-        <h1 id="timeline-title">时间与记忆<span aria-hidden="true"> / </span></h1>
+        <h1 id="timeline-title">时间与记忆</h1>
         <p class="tl-description">有些事连成一段，有些事只留下一个瞬间。</p>
       </div>
       <nav class="memory-views" aria-label="记忆浏览方式">
@@ -34,27 +34,34 @@ const model = prepareTimeline(events, folders);
 
     <div class="tl-controls" hidden>
       <nav id="tl-years" class="tl-years" aria-label="选择年份">
+        <!--archive:years:start-->
         <button type="button" data-year="all" aria-pressed="true">全部</button>
         {model.years.map(year => <button type="button" data-year={year} aria-pressed="false">{year === 'undated' ? '日期未定' : year}</button>)}
+        <!--archive:years:end-->
       </nav>
+      <!--archive:groups:start-->
       {model.groups.length > 0 && <label class="tl-group-label">分组
         <select id="tl-group"><option value="">全部记忆</option>{model.groups.map(group => <option value={group.id}>{group.title}（{group.count}）</option>)}</select>
       </label>}
+      <!--archive:groups:end-->
     </div>
 
     <div class="tl-caption">
       <p id="tl-info" role="status" aria-live="polite">{model.entries.length} 段记忆</p>
-      <p class="tl-legend"><span>日期挂绳</span><span>事件串绳</span></p>
       <div class="tl-paging" hidden>
+        <button id="tl-scale-less" type="button" aria-label="缩小时间线">−</button>
+        <button id="tl-scale-reset" type="button" aria-label="恢复原始大小">100%</button>
+        <button id="tl-scale-more" type="button" aria-label="放大时间线">＋</button>
         <button id="tl-prev" type="button" aria-label="往前翻阅">←</button>
         <button id="tl-latest" type="button">最近一件</button>
         <button id="tl-next" type="button" aria-label="往后翻阅">→</button>
       </div>
     </div>
-    <div id="tl-scroll" class="tl-scroll" role="region" aria-label="挂绳记忆，左右方向键翻阅" tabindex="0">
+    <div id="tl-scroll" class="tl-scroll" role="region" aria-label="按时间排列的记忆卡片" tabindex="0">
       <div id="tl-sheet" class="tl-sheet">
         <svg id="tl-cords" class="tl-cords" aria-hidden="true"></svg>
         <ol id="tl-list" class="tl-list">
+          <!--archive:timeline-cards:start-->
           {model.entries.map((event, index) => <li class="tl-item" data-event={event.slug}>
             <div class="tl-date">{event.time.label}</div>
             <a class:list={['tl-card', { 'tl-card-major': event.major, 'tl-card-photo': !!event.image }]}
@@ -70,13 +77,15 @@ const model = prepareTimeline(events, folders);
               </div>
             </a>
           </li>)}
+          <!--archive:timeline-cards:end-->
         </ol>
       </div>
       <p class="tl-empty" id="tl-empty" hidden={model.entries.length > 0}>这一段还没有公开的记忆。<button id="tl-reset" type="button" hidden>查看全部记忆</button></p>
     </div>
 
     <div class="tl-bottom">
-      <p class="tl-note"><span class="tl-desktop-hint">横向滚动，或用箭头翻阅。 </span>实线按时间串联，虚线不区分先后。间隔为阅读留白。</p>
+      <p class="tl-legend"><span>日期挂绳</span><span>事件串绳</span></p>
+      <p class="tl-note"><span class="tl-desktop-hint">按住拖动 · 滚轮缩放 · 双击空白复位。 </span>实线按时间串联，虚线不区分先后。间隔为阅读留白。</p>
     </div>
     <noscript><p class="tl-note">当前显示全部公开记忆。启用 JavaScript 后可按年份和分组翻阅。</p></noscript>
   </section>

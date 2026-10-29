@@ -21,6 +21,21 @@ export async function verifyTimeline({ send, evaluate, navigate, click, fill, un
     assert.equal(await evaluate('window.timelineFirstRope.querySelector("path").getAttribute("d")'),await evaluate('window.timelineFirstPath'), 'cord path remains in list coordinates');
   }
   await click('#tl-latest');
+  await click('#tl-scale-more');
+  assert.ok(await evaluate('Number(document.querySelector("#tl-sheet").style.zoom) > 1'), 'zoom enlarges the timeline');
+  await click('#tl-scale-reset');
+  assert.equal(await evaluate('document.querySelector("#tl-scale-reset").textContent'), '100%');
+  await evaluate('document.querySelector("#tl-scroll").scrollLeft = 0');
+  if (hasOverflow) {
+    const drag = await evaluate('(() => { const box=document.querySelector(".tl-item:not([hidden]) .tl-card").getBoundingClientRect(); return {x:box.left+180,y:box.top+40}; })()');
+    await send('Input.dispatchMouseEvent', {type:'mouseMoved',x:drag.x,y:drag.y});
+    await send('Input.dispatchMouseEvent', {type:'mousePressed',x:drag.x,y:drag.y,button:'left',clickCount:1});
+    await send('Input.dispatchMouseEvent', {type:'mouseMoved',x:drag.x-100,y:drag.y,button:'left',buttons:1});
+    await send('Input.dispatchMouseEvent', {type:'mouseReleased',x:drag.x-100,y:drag.y,button:'left',clickCount:1});
+    assert.ok(await evaluate('document.querySelector("#tl-scroll").scrollLeft > 30'), 'drag pans the timeline');
+    assert.equal(await evaluate('location.pathname'), '/timeline', 'dragging a card must not open it');
+  }
+  await click('#tl-latest');
   await until(() => evaluate('document.activeElement.classList.contains("tl-card")'), 'latest memory is focusable');
   const selected = await evaluate('({href:document.activeElement.getAttribute("href"),slug:document.activeElement.closest(".tl-item").dataset.event,left:document.querySelector("#tl-scroll").scrollLeft})');
   assert.ok(selected.href.startsWith('/events/'));

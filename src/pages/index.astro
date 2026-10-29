@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const events = await getCollection('events', ({ data }) => !data.draft && data.major);
+const events = Astro.props.collaborationShell ? [] : await getCollection('events', ({ data }) => !data.draft && data.major);
 events.sort((a, b) => a.data.date.localeCompare(b.data.date));
 ---
 
@@ -27,9 +27,11 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     <div class="main-view" id="mainView" inert>
       <nav class="archive-exits" aria-label="继续探索">
         <a href="/events">记忆</a><a href="/works">书·影·游戏</a><a href="/timeline">时间索引</a><button type="button" id="replayIntro">重看开场</button>
+        <!--archive:account:start--><!--archive:account:end-->
       </nav>
       <!-- 卡片堆叠 -->
       <div class="cards-container" id="cardsContainer">
+        <!--archive:cards:start-->
         {events.map((event, i) => (
           <button type="button" class="card" data-index={i} aria-label={`查看 ${event.data.title}`}>
             <div class="card-img">
@@ -38,10 +40,12 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
             <div class="card-shine"></div>
           </button>
         ))}
+        <!--archive:cards:end-->
       </div>
 
       <!-- 文字堆叠 -->
       <div class="text-stack" id="textStack">
+        <!--archive:texts:start-->
         {events.map((event, i) => (
           <div class="text-item" data-index={i}>
             <span class="text-date">{event.data.date}</span>
@@ -50,6 +54,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
             <a href={`/events/${event.slug.split('/').pop()}`} class="text-enter">进入事件 →</a>
           </div>
         ))}
+        <!--archive:texts:end-->
       </div>
 
       <!-- 底部控制 -->
@@ -374,7 +379,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
         document.getElementById('nextBtn').disabled = true;
         currentNum.textContent = '00';
         progressFill.style.width = '0%';
-        document.getElementById('textStack').textContent = '暂无已公开的精选记忆';
+        if (!document.getElementById('homeEmpty')) document.getElementById('textStack').textContent = '暂无已公开的精选记忆';
         return;
       }
       cards.forEach((card, i) => {

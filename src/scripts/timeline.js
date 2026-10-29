@@ -1,5 +1,6 @@
 import { selectTimeline, hasChronologicalOrder } from '../lib/timeline-model.mjs';
 import { dateThreadPath, eventThreadPath } from '../lib/timeline-threads.mjs';
+import { installTimelineNavigation } from './timeline-navigation.js';
 
 const model = JSON.parse(document.getElementById('timeline-data').textContent);
 const root = document.getElementById('tl');
@@ -10,7 +11,7 @@ const groupSelect = document.getElementById('tl-group');
 const items = new Map([...document.querySelectorAll('.tl-item')].map(node => [node.dataset.event, node]));
 const mobile = matchMedia('(max-width: 760px)');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-const storageKey = 'memory-scroll-v2';
+const storageKey = 'memory-scroll-v3:' + (model.viewKey || 'public');
 const defaultYear = model.years.filter(year => year !== 'undated').at(-1) || model.years[0] || 'all';
 let saved = null;
 try { saved = JSON.parse(sessionStorage.getItem(storageKey)); } catch {}
@@ -50,14 +51,15 @@ function draw() {
   drawFrame = 0;
   if (!visible.length) { geometryKey = ''; svg.replaceChildren(); updatePaging(); return; }
   const origin = sheet.getBoundingClientRect();
+  const visualScale = origin.width / sheet.offsetWidth || 1;
   const boxes = visible.map(event => {
     const item = items.get(event.slug);
     const card = item.querySelector('.tl-card').getBoundingClientRect();
     const date = item.querySelector('.tl-date').getBoundingClientRect();
     return {
-      event, left: card.left - origin.left, right: card.right - origin.left,
-      top: card.top - origin.top, bottom: card.bottom - origin.top,
-      dateY: date.top - origin.top + date.height / 2,
+      event, left: (card.left - origin.left) / visualScale, right: (card.right - origin.left) / visualScale,
+      top: (card.top - origin.top) / visualScale, bottom: (card.bottom - origin.top) / visualScale,
+      dateY: (date.top - origin.top + date.height / 2) / visualScale,
     };
   });
   const nextKey = JSON.stringify([sheet.offsetWidth, sheet.offsetHeight, mobile.matches, boxes.map(box => [box.event.slug, box.left, box.right, box.top, box.bottom, box.dateY])]);
@@ -157,6 +159,7 @@ document.querySelectorAll('.tl-photo img').forEach(image => {
 document.querySelector('.tl-controls').hidden = false;
 document.querySelector('.tl-paging').hidden = false;
 root.dataset.enhanced = '';
+installTimelineNavigation({ viewport, sheet, mobile, onChange: scheduleDraw });
 render({ reset: false });
 new ResizeObserver(scheduleDraw).observe(sheet);
 mobile.addEventListener('change', () => { viewport.scrollLeft = 0; scheduleDraw(); });

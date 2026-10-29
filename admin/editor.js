@@ -219,7 +219,7 @@ function editMediumForm(folder) {
     const status = host.querySelector('#folder-status');
     button.disabled = true;
     try {
-      await api('/api/medium', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug: folder?.slug || '', title: host.querySelector('#nm-title').value, summary: host.querySelector('#nm-summary').value, parent: host.querySelector('#nm-parent').value }) });
+      await api('/api/medium', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug: folder?.slug || '', revision: folder?.revision || '', title: host.querySelector('#nm-title').value, summary: host.querySelector('#nm-summary').value, parent: host.querySelector('#nm-parent').value }) });
       window.folderDirty = false;
       await loadMediums();
       const select = mainEl.querySelector('#f-medium');

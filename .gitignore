@@ -20,6 +20,7 @@ agent-memory/
 
 # 可恢复的本地事件回收站（不发布、不提交）
 .local-trash/
+.local-collaboration/
 
 # 交接文档（含人名/学校/本地路径等隐私，不提交、不 push）
 DSH-交接文档.md
