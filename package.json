@@ -17,7 +17,7 @@
     "preview": "astro preview",
     "admin": "node admin/server.mjs",
     "collaboration": "node admin/collaboration-server.mjs",
-    "test:collaboration": "node --test scripts/collaboration.test.mjs scripts/collaboration-frontend.test.mjs"
+    "test:collaboration": "node --test scripts/collaboration.test.mjs scripts/collaboration-frontend.test.mjs scripts/collaboration-ui.test.mjs"
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.5.5",

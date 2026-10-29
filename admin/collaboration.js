@@ -2,26 +2,35 @@ const app=document.getElementById('app'), account=document.getElementById('accou
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const setupToken=new URLSearchParams(location.hash.slice(1)).get('setup')||'';
 if(location.hash)history.replaceState(null,'',location.pathname);
-let me=null,records=[],people=[],filter='event',query='',dirty=false;
+let me=null,records=[],people=[],filter='event',query='',dirty=false,submitting=false;
 const notify=value=>{statusBox.textContent=value;};
 statusBox.addEventListener('click',()=>notify(''));
-window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
+window.addEventListener('beforeunload',event=>{if(dirty||submitting){event.preventDefault();event.returnValue='';}});
 async function api(path,body,raw=false){
   const options=body===undefined?{}:{method:'POST',headers:{'X-Archive-Client':'1','Content-Type':raw?body.type:'application/json'},body:raw?body:JSON.stringify(body)};
   let response;
   try{response=await fetch(path,options);}catch{throw new Error('协作服务未连接。请确认站主电脑和协作后台正在运行，当前输入可以先保留。');}
-  const data=await response.json();
+  let data;
+  try{data=await response.json();}catch{throw new Error('服务返回了无法读取的内容，请稍后重试；当前输入仍保留。');}
+  if(response.status===401&&path!=='/api/login')throw new Error('登录已过期。请在新标签页打开 /shared 重新登录，再回到这里重试；不要刷新当前编辑页。');
   if(!response.ok)throw new Error(data.error||'请求失败');
   return data;
 }
 function swap(html){if(dirty&&!confirm('当前文字尚未保存，是否离开？'))return false;dirty=false;app.innerHTML=html;return true;}
-function formAction(form,action){form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('[type=submit]');if(button)button.disabled=true;notify('');try{await action(new FormData(form));}catch(error){notify(error.message);}finally{if(button)button.disabled=false;}});}
+function formAction(form,action){form.addEventListener('submit',async event=>{
+  event.preventDefault();if(submitting)return;
+  const data=new FormData(form),button=form.querySelector('[type=submit]');
+  submitting=true;app.inert=true;account.inert=true;form.setAttribute('aria-busy','true');
+  if(button)button.disabled=true;notify('');
+  try{await action(data);}catch(error){notify(error.message);}
+  finally{submitting=false;app.inert=false;account.inert=false;form.removeAttribute('aria-busy');if(button)button.disabled=false;}
+});}
 function accountBar(){
   account.innerHTML=me?'<a class="button subtle" href="/">网站首页</a><span>'+escape(me.name)+'</span><button class="subtle" id="home">记忆库</button>'+(me.role==='owner'?'<button class="subtle" id="manage">管理</button>':'')+'<button class="subtle" id="password">改密码</button><button class="subtle" id="logout">退出</button>':'<a class="button subtle" href="/guest">访客浏览</a>';
   account.querySelector('#home')?.addEventListener('click',()=>loadLibrary().catch(e=>notify(e.message)));
   account.querySelector('#manage')?.addEventListener('click',()=>manage().catch(e=>notify(e.message)));
   account.querySelector('#password')?.addEventListener('click',passwordPage);
-  account.querySelector('#logout')?.addEventListener('click',async()=>{if(dirty&&!confirm('尚未保存，是否退出？'))return;await api('/api/logout',{});dirty=false;me=null;records=[];people=[];notify('');await initialize();});
+  account.querySelector('#logout')?.addEventListener('click',async()=>{if(dirty&&!confirm('尚未保存，是否退出？'))return;try{await api('/api/logout',{});dirty=false;me=null;records=[];people=[];notify('');await initialize();}catch(error){notify(error.message);}});
 }
 function passwordPage(){
   if(!swap('<section class="auth"><h1>更改密码</h1><form id="password-form"><label>当前密码<input name="currentPassword" type="password" autocomplete="current-password" required></label><label>新密码（至少12个字符）<input name="password" type="password" minlength="12" autocomplete="new-password" required></label><button type="submit">保存并重新登录</button></form></section>'))return;
