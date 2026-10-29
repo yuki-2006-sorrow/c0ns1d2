@@ -1,10 +1,16 @@
 // Keep gestures separate from filtering and rope geometry.
-export function installTimelineNavigation({ viewport, sheet, mobile, onChange }) {
+export function installTimelineNavigation({ viewport, sheet, mobile, onChange, clock = globalThis }) {
   let scale = 1, gesture = null, suppressClick = false;
+  let wheelFrame = null, pendingZoom = null;
+  function cancelWheel() {
+    if (wheelFrame !== null) clock.cancelAnimationFrame(wheelFrame);
+    wheelFrame = null; pendingZoom = null;
+  }
   const reset = document.getElementById('tl-scale-reset');
   const less = document.getElementById('tl-scale-less');
   const more = document.getElementById('tl-scale-more');
   function zoom(value, x = viewport.clientWidth / 2, y = viewport.clientHeight / 2) {
+    cancelWheel();
     if (mobile.matches) return;
     const next = Math.min(1.8, Math.max(.55, value));
     const targetX = (viewport.scrollLeft + x) / scale * next - x;
@@ -24,7 +30,11 @@ export function installTimelineNavigation({ viewport, sheet, mobile, onChange })
     event.preventDefault();
     const box = viewport.getBoundingClientRect();
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientHeight : 1);
-    zoom(scale * Math.exp(-delta * .0015), event.clientX - box.left, event.clientY - box.top);
+    pendingZoom = { scale: Math.min(1.8, Math.max(.55, (pendingZoom?.scale ?? scale) * Math.exp(-delta * .0015))), x: event.clientX - box.left, y: event.clientY - box.top };
+    if (wheelFrame === null) wheelFrame = clock.requestAnimationFrame(() => {
+      const next = pendingZoom; wheelFrame = null; pendingZoom = null;
+      if (next) zoom(next.scale, next.x, next.y);
+    });
   }, { passive: false });
   viewport.addEventListener('pointerdown', event => {
     if (mobile.matches || event.pointerType !== 'mouse' || event.button !== 0) return;
@@ -35,10 +45,12 @@ export function installTimelineNavigation({ viewport, sheet, mobile, onChange })
     if (!gesture || gesture.id !== event.pointerId) return;
     const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
     if (!gesture.dragging && Math.hypot(dx, dy) < 6) return;
-    gesture.dragging = true;
+    if (!gesture.dragging) {
+      gesture.dragging = true;
+      viewport.setPointerCapture(event.pointerId);
+      viewport.classList.add('is-dragging');
+    }
     suppressClick = true;
-    viewport.setPointerCapture(event.pointerId);
-    viewport.classList.add('is-dragging');
     viewport.scrollTo({ left: gesture.left - dx, top: gesture.top - dy, behavior: 'instant' });
   });
   function end(event) {
@@ -62,6 +74,7 @@ export function installTimelineNavigation({ viewport, sheet, mobile, onChange })
     }
   });
   mobile.addEventListener('change', () => {
+    cancelWheel();
     scale = 1; sheet.style.zoom = '1'; reset.textContent = '100%'; less.disabled = false; more.disabled = false; onChange();
   });
 }

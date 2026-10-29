@@ -11,7 +11,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
     <!-- 电影开场：三段点击播放（静态帧 Ken Burns 运镜占位，视频齐了把对应 .shot 内换成 <video>） -->
     <div class="cinema" id="cinema">
       <div class="shots" id="shots">
-        <div class="shot is-active"><video class="sv" id="introVideo" src="/intro/intro.mp4" poster="/intro/k1.png" muted playsinline preload="auto" disablepictureinpicture></video></div>
+        <div class="shot is-active"><video class="sv" id="introVideo" data-src="/intro/intro.mp4" poster="/intro/k1.png" muted playsinline preload="none" disablepictureinpicture></video></div>
       </div>
       <div class="red-flash" id="redFlash"></div>
       <div class="cinema-vignette"></div>
@@ -35,7 +35,7 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
         {events.map((event, i) => (
           <button type="button" class="card" data-index={i} aria-label={`查看 ${event.data.title}`}>
             <div class="card-img">
-              {event.data.images[0] ? <img src={event.data.images[0]} alt={event.data.title} loading="lazy" /> : <span class="card-placeholder"><small>{event.data.date}</small>{event.data.title}</span>}
+              {event.data.images[0] ? <img data-src={event.data.images[0]} alt={event.data.title} decoding="async" /> : <span class="card-placeholder"><small>{event.data.date}</small>{event.data.title}</span>}
             </div>
             <div class="card-shine"></div>
           </button>
@@ -386,6 +386,11 @@ events.sort((a, b) => a.data.date.localeCompare(b.data.date));
         card.tabIndex = i === current ? 0 : -1;
         const offset = i - current;
         const absOffset = Math.abs(offset);
+        const image = card.querySelector('img[data-src]');
+        if (image && absOffset <= 2 && !image.getAttribute('src')) {
+          image.fetchPriority = i === current ? 'high' : 'low';
+          image.src = image.dataset.src;
+        }
 
         if (absOffset > 3) {
           card.style.opacity = '0';

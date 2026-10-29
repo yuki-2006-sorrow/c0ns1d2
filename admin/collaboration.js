@@ -8,13 +8,17 @@ statusBox.addEventListener('click',()=>notify(''));
 window.addEventListener('beforeunload',event=>{if(dirty||submitting){event.preventDefault();event.returnValue='';}});
 async function api(path,body,raw=false){
   const options=body===undefined?{}:{method:'POST',headers:{'X-Archive-Client':'1','Content-Type':raw?body.type:'application/json'},body:raw?body:JSON.stringify(body)};
-  let response;
-  try{response=await fetch(path,options);}catch{throw new Error('协作服务未连接。请确认站主电脑和协作后台正在运行，当前输入可以先保留。');}
-  let data;
-  try{data=await response.json();}catch{throw new Error('服务返回了无法读取的内容，请稍后重试；当前输入仍保留。');}
-  if(response.status===401&&path!=='/api/login')throw new Error('登录已过期。请在新标签页打开 /shared 重新登录，再回到这里重试；不要刷新当前编辑页。');
-  if(!response.ok)throw new Error(data.error||'请求失败');
-  return data;
+  const controller=new AbortController(),timer=body===undefined?setTimeout(()=>controller.abort(),15000):null;
+  options.signal=controller.signal;
+  try{
+    let response;
+    try{response=await fetch(path,options);}catch{throw new Error(controller.signal.aborted?'连接等待过久，请稍后重试；当前输入仍保留。':'协作服务未连接。请确认站主电脑和协作后台正在运行，当前输入可以先保留。');}
+    let data;
+    try{data=await response.json();}catch{throw new Error(controller.signal.aborted?'连接等待过久，请稍后重试；当前输入仍保留。':'服务返回了无法读取的内容，请稍后重试；当前输入仍保留。');}
+    if(response.status===401&&path!=='/api/login')throw Object.assign(new Error('登录已过期。请在新标签页打开 /shared 重新登录，再回到这里重试；不要刷新当前编辑页。'),{status:401});
+    if(!response.ok)throw new Error(data.error||'请求失败');
+    return data;
+  }finally{if(timer!==null)clearTimeout(timer);}
 }
 function swap(html){if(dirty&&!confirm('当前文字尚未保存，是否离开？'))return false;dirty=false;app.innerHTML=html;return true;}
 function formAction(form,action){form.addEventListener('submit',async event=>{
@@ -22,8 +26,9 @@ function formAction(form,action){form.addEventListener('submit',async event=>{
   const data=new FormData(form),button=form.querySelector('[type=submit]');
   submitting=true;app.inert=true;account.inert=true;form.setAttribute('aria-busy','true');
   if(button)button.disabled=true;notify('');
+  const waiting=setTimeout(()=>notify('仍在处理，请保留此页，避免重复提交。'),4000);
   try{await action(data);}catch(error){notify(error.message);}
-  finally{submitting=false;app.inert=false;account.inert=false;form.removeAttribute('aria-busy');if(button)button.disabled=false;}
+  finally{clearTimeout(waiting);if(statusBox.textContent==='仍在处理，请保留此页，避免重复提交。')notify('');submitting=false;app.inert=false;account.inert=false;form.removeAttribute('aria-busy');if(button)button.disabled=false;}
 });}
 function accountBar(){
   account.innerHTML=me?'<a class="button subtle" href="/">网站首页</a><span>'+escape(me.name)+'</span><button class="subtle" id="home">记忆库</button>'+(me.role==='owner'?'<button class="subtle" id="manage">管理</button>':'')+'<button class="subtle" id="password">改密码</button><button class="subtle" id="logout">退出</button>':'<a class="button subtle" href="/guest">访客浏览</a>';
@@ -37,8 +42,8 @@ function passwordPage(){
   formAction(document.getElementById('password-form'),async data=>{await api('/api/password',Object.fromEntries(data));me=null;await initialize();notify('密码已更改，请重新登录。');});
 }
 async function initialize(){
-  const state=await api('/api/status');
-  try{me=await api('/api/me');}catch{me=null;}
+  const [state,profile]=await Promise.all([api('/api/status'),api('/api/me').catch(error=>{if(error.status===401)return null;throw error;})]);
+  me=profile;
   accountBar();
   if(me)return enterRecords();
   if(!state.setup){
@@ -92,8 +97,7 @@ function mediaUrl(entry,reference,index){
 }
 async function read(id){
   const viewer=me?.id;
-  const entry=await api('/api/entry?id='+encodeURIComponent(id));
-  const latestRecords=await api('/api/entries');
+  const [entry,latestRecords]=await Promise.all([api('/api/entry?id='+encodeURIComponent(id)),api('/api/entries')]);
   if(me?.id!==viewer)return;
   records=latestRecords;
   if(!swap('<section class="reading"><button class="subtle" id="back">← 返回</button><p class="muted">'+escape(entry.date)+' · '+escape(entry.authorName)+' · '+scopeLabel(entry)+'</p><h1>'+escape(entry.title)+'</h1><div class="prose">'+escape(entry.body)+'</div><div class="media">'+entry.images.map((ref,index)=>{const url=mediaUrl(entry,ref,index);return url?'<a href="'+escape(url)+'" target="_blank" rel="noopener"><img src="'+escape(url)+'" alt="记忆中的照片" loading="lazy"></a>':'';}).join('')+entry.videos.map(ref=>/^\/api\/media\/[a-f0-9-]+$/.test(ref)?'<video controls preload="metadata" src="'+escape(ref)+'"></video>':'').join('')+'</div><div class="actions">'+(entry.editable?'<button id="edit">编辑我的原文</button>':'')+(entry.type!=='thought'&&me.canCreate?'<button class="subtle" id="connect">从这里想到的</button>':'')+(entry.editable||me.role==='owner'?'<button class="subtle" id="history">修改历史</button><button class="subtle" id="archive">移入回收站</button>':'')+'</div><div id="history-list"></div></section>'))return;
@@ -171,4 +175,12 @@ async function manage(){
   document.querySelectorAll('[data-restore]').forEach(button=>button.onclick=async()=>{try{const entry=data.archived.find(entry=>entry.id===button.dataset.restore);await api('/api/archive',{id:entry.id,revision:entry.revision,archived:false});await manage();}catch(error){notify(error.message);}});
   document.getElementById('audit').innerHTML=data.audit.map(item=>'<p><small>'+escape(item.at)+' · '+escape(data.members.find(user=>user.id===item.actor)?.name||'账号')+' · '+escape(({setup:'建立站主',login:'登录',admitted:'答题通过',save:'保存记录',member:'调整权限',questions:'修改准入题目',archive:'移入回收站',restore:'恢复记录',upload:'上传文件',password:'更改密码','visitor-access':'调整访客开放'})[item.action]||item.action)+'</small></p>').join('');
 }
-initialize().catch(error=>notify(error.message));
+function connect(){
+  initialize().catch(error=>{
+    notify(error.message);
+    if(me||dirty)return;
+    app.innerHTML='<section class="auth"><h1>暂时没有连上记忆库</h1><p class="muted">请确认站主电脑与共享通道正在运行。</p><button type="button" id="retry-connection">重新连接</button></section>';
+    document.getElementById('retry-connection').onclick=()=>{app.innerHTML='<p class="muted">正在重新连接…</p>';connect();};
+  });
+}
+connect();

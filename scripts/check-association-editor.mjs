@@ -62,8 +62,8 @@ try {
     for (let i=0;i<26;i++) {
       const date = i === 25 ? '?' : i === 24 ? '2022' : i < 3 ? '2022-02-01' : '2022-02-'+String(i).padStart(2,'0');
       const medium = i === 24 ? 'timeline-check-parent' : 'timeline-check-child';
-      const images = i === 0 ? '["/timeline-test.svg"]' : i === 1 ? '["/missing-timeline-test.jpg"]' : '[]';
-      writeFileSync(join(fixture,'src/content/events','timeline-check-'+String(i).padStart(2,'0')+'.md'), '---\ntitle: "时间长卷验证 '+i+'"\ndate: "'+date+'"\npersons: []\nmedium: '+medium+'\nimages: '+images+'\ndraft: false\n---\n\n仅存在于临时副本中的记忆，用于检查日期、照片、分组与卡片位置。\n');
+      const images = i === 1 ? '["/missing-timeline-test.jpg"]' : i < 9 ? '["/timeline-test.svg?photo='+i+'"]' : '[]';
+      writeFileSync(join(fixture,'src/content/events','timeline-check-'+String(i).padStart(2,'0')+'.md'), '---\ntitle: "时间长卷验证 '+i+'"\ndate: "'+date+'"\npersons: []\nmajor: '+(i<9)+'\nmedium: '+medium+'\nimages: '+images+'\ndraft: false\n---\n\n仅存在于临时副本中的记忆，用于检查日期、照片、分组与卡片位置。\n');
     }
   }
   symlinkSync(join(root, 'node_modules'), join(fixture, 'node_modules'), 'junction');
@@ -133,6 +133,15 @@ try {
   await send('Network.setBlockedURLs', { urls: ['https://*'] });
   if (process.env.EDITOR_CHECK_ONLY === 'timeline') {
     await verifyTimeline({send,evaluate,navigate,click,fill,until,screenshot,synthetic:true});
+    await evaluate('localStorage.setItem("introPlayed","1")');
+    await navigate('/');
+    await until(() => evaluate('document.getElementById("mainView").classList.contains("visible")'), 'returning visitor gallery');
+    assert.equal(await evaluate('document.querySelectorAll(".card img[data-src][src]").length'),3,'only current and adjacent photos load initially');
+    assert.equal(await evaluate('document.getElementById("introVideo").getAttribute("src")'),null,'hidden intro does not download');
+    await click('#nextBtn');
+    assert.equal(await evaluate('document.querySelectorAll(".card img[data-src][src]").length'),4,'turning a card loads the next nearby photo');
+    await until(() => evaluate('document.querySelector(".card img").complete && document.querySelector(".card img").naturalWidth > 0'), 'gallery photo loaded');
+    console.log('Gallery verified: returning visitors skip video download, nearby photos load on demand and cards remain usable.');
     assert.deepEqual(errors, [], 'Timeline runtime exceptions');
   } else {
   if (process.env.EDITOR_CHECK_ONLY !== 'simplify') {

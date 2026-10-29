@@ -5,15 +5,36 @@ Set-Location -LiteralPath $archiveDirectory
 $localAddress = 'http://127.0.0.1:4324'
 $remoteFile = Join-Path $archiveDirectory '.local-collaboration/remote-access.json'
 $tunnelExecutable = Join-Path $archiveDirectory 'data-tools/bin/cloudflared.exe'
+function Test-RemoteArchive($origin) {
+  for ($probe = 0; $probe -lt 3; $probe++) {
+    try {
+      $remoteHealth = Invoke-RestMethod -Uri ($origin + '/api/health') -TimeoutSec 8
+      if ($remoteHealth.app -eq 'c0ns1d2-collaboration') { return $true }
+    } catch {}
+    Start-Sleep -Milliseconds 500
+  }
+  return $false
+}
+function Save-RemoteEntry($origin) {
+  $entryConfiguration = @{upstream=$origin;publicOrigin='https://c0ns1d2.pages.dev'} | ConvertTo-Json
+  [IO.File]::WriteAllText((Join-Path $archiveDirectory 'deployment/remote-origin.json'),$entryConfiguration,(New-Object Text.UTF8Encoding($false)))
+}
 try {
   if (!(Test-Path -LiteralPath $tunnelExecutable)) { throw 'Cloudflare tool missing: data-tools/bin/cloudflared.exe. See docs/公网试用.md.' }
-  $health = Invoke-RestMethod -Uri "$localAddress/api/health" -TimeoutSec 3
+  try { $health = Invoke-RestMethod -Uri "$localAddress/api/health" -TimeoutSec 3 } catch { $health = $null }
+  if (!$health) {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'start-collaboration.ps1') -NoBrowser
+    if ($LASTEXITCODE -ne 0) { throw 'Local archive could not start.' }
+    $health = Invoke-RestMethod -Uri "$localAddress/api/health" -TimeoutSec 3
+  }
   if ($health.app -ne 'c0ns1d2-collaboration' -or $health.root -ne $archiveDirectory) { throw 'Local archive identity mismatch.' }
   if (!(Invoke-RestMethod -Uri "$localAddress/api/status").setup) { throw 'Create your owner account locally before starting remote access.' }
   if (Test-Path -LiteralPath $remoteFile) {
     $previous = Get-Content -LiteralPath $remoteFile -Raw | ConvertFrom-Json
     $previousProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$([int]$previous.tunnelPid)"
     if ($previousProcess -and $previousProcess.ExecutablePath -eq $tunnelExecutable -and $health.publicOrigin -eq $previous.origin) {
+      if (!(Test-RemoteArchive $previous.origin)) { throw 'The tunnel process exists but its public address is not responding. Close the remote trial and start it again; do not share this address yet.' }
+      Save-RemoteEntry $previous.origin
       Write-Output "Remote archive: $($previous.origin)"
       if (!$NoBrowser) { Start-Process $previous.origin }
       exit 0
@@ -32,8 +53,6 @@ try {
   }
   if (!$remoteOrigin) { Stop-Process -Id $tunnelProcess.Id; throw 'Cloudflare did not return an address in time.' }
   @{origin=$remoteOrigin;tunnelPid=$tunnelProcess.Id;startedAt=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath $remoteFile -Encoding utf8
-  $entryConfiguration = @{upstream=$remoteOrigin;publicOrigin='https://c0ns1d2.pages.dev'} | ConvertTo-Json
-  [IO.File]::WriteAllText((Join-Path $archiveDirectory 'deployment/remote-origin.json'),$entryConfiguration,(New-Object Text.UTF8Encoding($false)))
   $archiveHash = (Get-FileHash -LiteralPath .local-collaboration/archive.json -Algorithm SHA256).Hash
   $archiveProcessId = [int](Get-Content -LiteralPath .local-collaboration/server.lock -Raw).Trim()
   $archiveProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$archiveProcessId"
@@ -45,6 +64,8 @@ try {
   $ready = Invoke-RestMethod -Uri "$localAddress/api/health"
   if ($ready.publicOrigin -ne $remoteOrigin) { throw 'Remote address was not loaded.' }
   if ((Get-FileHash -LiteralPath .local-collaboration/archive.json -Algorithm SHA256).Hash -ne $archiveHash) { throw 'Archive data changed during restart; verify your saved content.' }
+  if (!(Test-RemoteArchive $remoteOrigin)) { throw 'The public address is not responding. The website deployment configuration has not been changed; see the tunnel log before publishing.' }
+  Save-RemoteEntry $remoteOrigin
   Write-Output "Remote archive: $remoteOrigin"
   Write-Output 'Keep this computer and tunnel running. Restarting the tunnel changes its address.'
   Write-Output 'A new address also needs the updated deployment/remote-origin.json published to the main website.'

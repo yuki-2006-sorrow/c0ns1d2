@@ -115,6 +115,12 @@ export function createIntroController({ video, hint, dots, redFlash, onFinish, c
     redFlash.style.opacity = '0';
     dots.forEach((dot, index) => dot.classList.toggle('on', index === 0));
     showHint('正在准备画面…');
+    // Returning visitors never request the video until they choose to replay it.
+    if (video.dataset?.src && !video.getAttribute('src')) {
+      video.preload = 'auto';
+      video.src = video.dataset.src;
+      video.load();
+    }
     if (video.error) fail();
     else prepareHead();
   }
@@ -139,6 +145,8 @@ export function createIntroController({ video, hint, dots, redFlash, onFinish, c
   video.addEventListener('loadeddata', settleHead);
   video.addEventListener('seeked', settleHead);
   video.addEventListener('canplay', settleHead);
+  video.addEventListener('waiting', () => { if (mode === 'play') { showHint('正在缓冲，可直接进入 →'); hint.disabled = true; } });
+  video.addEventListener('playing', () => { if (mode === 'play') showHint(null); });
   video.addEventListener('ended', () => checkProgress(video.currentTime));
   video.addEventListener('error', fail);
   return { advance, reset, stop };

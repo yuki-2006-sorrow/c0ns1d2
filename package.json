@@ -11,7 +11,7 @@
     "check:editor": "node scripts/check-association-editor.mjs",
     "test:intro": "node --test scripts/intro.test.mjs",
     "check:intro": "node scripts/check-intro.mjs",
-    "test:timeline": "node --test scripts/timeline-threads.test.mjs",
+    "test:timeline": "node --test scripts/timeline-threads.test.mjs scripts/timeline-navigation.test.mjs",
     "check:timeline": "node scripts/check-association-editor.mjs --timeline",
     "test:trash": "node --test scripts/event-trash.test.mjs",
     "preview": "astro preview",

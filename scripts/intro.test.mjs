@@ -69,6 +69,20 @@ test('three clicks keep the displayed stop frames without backward seeks or buff
   assert.equal(finished(), 1);
 });
 
+test('video is requested only when the intro is opened and buffering keeps the current play request', () => {
+  const {intro,video,hint}=fixture();
+  let loads=0;
+  video.dataset={src:'/intro/intro.mp4'};video.getAttribute=()=>video.src||null;video.load=()=>++loads;
+  assert.equal(loads,0);
+  intro.reset();video.prepared();intro.advance();
+  assert.equal(loads,1);assert.equal(video.src,'/intro/intro.mp4');
+  video.dispatchEvent(new Event('waiting'));
+  assert.match(hint.textContent,/缓冲/);assert.equal(hint.disabled,true);
+  video.dispatchEvent(new Event('playing'));
+  assert.equal(hint.classList.contains('hide'),true);assert.equal(video.plays,1);
+  intro.reset();assert.equal(loads,1);
+});
+
 test('an early click waits for the prepared frame; a late loadeddata cannot rewind playback', () => {
   const { intro, video, hint } = fixture();
   video.readyState = 0;

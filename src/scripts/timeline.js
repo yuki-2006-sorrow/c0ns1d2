@@ -25,8 +25,17 @@ let visible = [];
 let active = '';
 let drawFrame = 0;
 let geometryKey = '';
+let layoutKey = '';
 let saveTimer = 0;
 const svgNS = 'http://www.w3.org/2000/svg';
+const ropes = new Map();
+const axis = document.createElementNS(svgNS, 'path');
+axis.setAttribute('class', 'tl-axis');
+let drawnNodes = [];
+
+function attribute(node, name, value) {
+  if (node.getAttribute(name) !== String(value)) node.setAttribute(name, String(value));
+}
 
 function element(tag, attributes) {
   const node = document.createElementNS(svgNS, tag);
@@ -35,13 +44,21 @@ function element(tag, attributes) {
 }
 
 function rope(d, kind, from, to, endpoints, uncertain = false) {
-  const node = element('g', { class: 'tl-rope tl-rope-' + kind + (uncertain ? ' is-uncertain' : ''), 'data-from': from, 'data-to': to || '' });
-  for (const layer of ['shadow', 'fiber', 'twist']) node.append(element('path', { d, class: 'tl-cord-' + layer }));
-  for (const point of endpoints) node.append(element('circle', { cx: point.x, cy: point.y, r: 3, class: 'tl-knot' }));
-  svg.append(node);
+  const key = JSON.stringify([kind, from, to]);
+  let node = ropes.get(key);
+  if (!node) {
+    node = element('g', { class: 'tl-rope tl-rope-' + kind + (uncertain ? ' is-uncertain' : ''), 'data-from': from, 'data-to': to || '' });
+    for (const layer of ['shadow', 'fiber', 'twist']) node.append(element('path', { class: 'tl-cord-' + layer }));
+    for (const point of endpoints) node.append(element('circle', { r: 3, class: 'tl-knot' }));
+    ropes.set(key, node);
+  }
+  node.querySelectorAll('path').forEach(path => attribute(path, 'd', d));
+  node.querySelectorAll('circle').forEach((circle, index) => { attribute(circle, 'cx', endpoints[index].x); attribute(circle, 'cy', endpoints[index].y); });
+  drawnNodes.push(node);
 }
 
-function highlight(slug = '') {
+function highlight(slug = '', force = false) {
+  if (!force && active === slug) return;
   active = slug;
   if (active) root.dataset.active = active; else delete root.dataset.active;
   svg.querySelectorAll('.tl-rope').forEach(node => node.classList.toggle('is-active', node.dataset.from === active || node.dataset.to === active));
@@ -49,7 +66,11 @@ function highlight(slug = '') {
 
 function draw() {
   drawFrame = 0;
-  if (!visible.length) { geometryKey = ''; svg.replaceChildren(); updatePaging(); return; }
+  if (!visible.length) { layoutKey = ''; geometryKey = ''; svg.replaceChildren(); ropes.clear(); updatePaging(); return; }
+  // CSS zoom scales the cards and ropes together; it does not need new paths.
+  const nextLayout = JSON.stringify([sheet.offsetWidth, sheet.offsetHeight, mobile.matches]);
+  if (layoutKey === nextLayout) { updatePaging(); return; }
+  layoutKey = nextLayout;
   const origin = sheet.getBoundingClientRect();
   const visualScale = origin.width / sheet.offsetWidth || 1;
   const boxes = visible.map(event => {
@@ -65,14 +86,14 @@ function draw() {
   const nextKey = JSON.stringify([sheet.offsetWidth, sheet.offsetHeight, mobile.matches, boxes.map(box => [box.event.slug, box.left, box.right, box.top, box.bottom, box.dateY])]);
   if (nextKey === geometryKey) { updatePaging(); return; }
   geometryKey = nextKey;
-  svg.replaceChildren();
+  drawnNodes = [axis];
   svg.setAttribute('width', String(sheet.offsetWidth));
   svg.setAttribute('height', String(sheet.offsetHeight));
   const first = boxes[0], last = boxes.at(-1);
   const rail = mobile.matches
     ? 'M 12 ' + first.dateY + ' L 12 ' + last.bottom
     : 'M 12 56 L ' + (sheet.offsetWidth - 12) + ' 56';
-  svg.append(element('path', { d: rail, class: 'tl-axis' }));
+  attribute(axis, 'd', rail);
   boxes.forEach((box, index) => {
     const anchor = mobile.matches ? { x: 12, y: box.dateY } : { x: (box.left + box.right) / 2, y: 56 };
     const pin = mobile.matches ? { x: box.left, y: box.top + 30 } : { x: anchor.x, y: box.top };
@@ -82,7 +103,11 @@ function draw() {
       rope(connection.d, 'order', boxes[index - 1].event.slug, box.event.slug, [connection.from, connection.to], !hasChronologicalOrder(boxes[index - 1].event, box.event));
     }
   });
-  highlight(active);
+  const included = new Set(drawnNodes);
+  for (const child of [...svg.children]) if (!included.has(child)) child.remove();
+  drawnNodes.forEach((node, index) => { if (svg.children[index] !== node) svg.insertBefore(node, svg.children[index] || null); });
+  for (const [key, node] of ropes) if (!included.has(node)) ropes.delete(key);
+  highlight(active, true);
   updatePaging();
 }
 function scheduleDraw() {
@@ -100,6 +125,7 @@ function remember() {
 function rememberSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(remember, 120); }
 
 function render({ reset = true } = {}) {
+  layoutKey = '';
   visible = selectTimeline(model.entries, year, group);
   const included = new Set(visible.map(event => event.slug));
   for (const [slug, node] of items) node.hidden = !included.has(slug);
@@ -163,7 +189,7 @@ installTimelineNavigation({ viewport, sheet, mobile, onChange: scheduleDraw });
 render({ reset: false });
 new ResizeObserver(scheduleDraw).observe(sheet);
 mobile.addEventListener('change', () => { viewport.scrollLeft = 0; scheduleDraw(); });
-document.fonts?.ready.then(scheduleDraw);
+document.fonts?.ready.then(() => { layoutKey = ''; scheduleDraw(); });
 requestAnimationFrame(() => {
   // Explicit links select a view; returning from a card restores the last reading position.
   if (saved && saved.year === year && saved.group === group && saved.mobile === mobile.matches) {

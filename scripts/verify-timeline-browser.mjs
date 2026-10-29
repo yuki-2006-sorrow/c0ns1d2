@@ -23,6 +23,8 @@ export async function verifyTimeline({ send, evaluate, navigate, click, fill, un
   await click('#tl-latest');
   await click('#tl-scale-more');
   assert.ok(await evaluate('Number(document.querySelector("#tl-sheet").style.zoom) > 1'), 'zoom enlarges the timeline');
+  await evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+  assert.ok(await evaluate('window.timelineFirstRope === document.querySelector(".tl-rope")'), 'zoom reuses rope geometry instead of rebuilding it');
   await click('#tl-scale-reset');
   assert.equal(await evaluate('document.querySelector("#tl-scale-reset").textContent'), '100%');
   await evaluate('document.querySelector("#tl-scroll").scrollLeft = 0');

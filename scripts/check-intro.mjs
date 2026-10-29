@@ -110,6 +110,12 @@ try {
   await until(async () => (await state()).gallery, 'natural transition to memory cards');
   assert.equal(await evaluate(`document.getElementById('mainView').inert`), false);
   assert.equal(await evaluate(`localStorage.getItem('introPlayed')`), '1');
+  await send('Page.reload');
+  await until(() => evaluate(`document.readyState === 'complete' && document.getElementById('mainView')?.classList.contains('visible')`), 'returning visitor');
+  assert.equal(await evaluate(`document.getElementById('introVideo').getAttribute('src')`), null, 'returning visitors do not download the hidden intro');
+  assert.equal(await evaluate(`performance.getEntriesByType('resource').filter(entry=>entry.name.includes('/intro/intro.mp4')).length`), 0);
+  await click('#replayIntro');
+  await waitHold(1.2);
   assert.deepEqual(errors, [], 'Browser runtime errors');
   console.log('Intro verified: actual MP4; no stop-point seeks or repeated play; replay after finale/skip; natural transition to memory cards.');
 } finally {
