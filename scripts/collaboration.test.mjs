@@ -115,11 +115,21 @@ test('attachments inherit entry sharing; password reset and disk reload preserve
 
 test('HTTP blocks unauthenticated reads, cross-origin posts, unsafe hosts and revoked sessions',async()=>{
   const root=fixture();
+  mkdirSync(join(root,'.local-collaboration'),{recursive:true});
+  const remoteOrigin='https://remote-test.trycloudflare.com';
+  writeFileSync(join(root,'.local-collaboration/remote-access.json'),'\uFEFF'+JSON.stringify({origin:remoteOrigin}));
   const child=spawn(process.execPath,[resolve('admin/collaboration-server.mjs')],{env:{...process.env,COLLAB_ROOT:root,COLLAB_PORT:'0'},windowsHide:true,stdio:['ignore','pipe','pipe']});
   let logs='';child.stdout.on('data',chunk=>logs+=chunk);child.stderr.on('data',chunk=>logs+=chunk);
   const until=async check=>{for(let i=0;i<150;i++){const result=await check();if(result)return result;await new Promise(resolve=>setTimeout(resolve,50));}throw new Error('timeout '+logs);};
   try{
     const origin=await until(()=>logs.match(/http:\/\/127\.0\.0\.1:\d+/)?.[0]);
+    const remote=async(path,body,cookie='')=>new Promise((resolve,reject)=>{
+      const call=request(origin+path,{method:body===undefined?'GET':'POST',headers:{Host:new URL(remoteOrigin).host,Origin:remoteOrigin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie}},response=>{
+        let text='';response.on('data',chunk=>text+=chunk);response.on('end',()=>resolve({status:response.statusCode,headers:response.headers,data:JSON.parse(text)}));
+      });call.on('error',reject);call.end(body===undefined?undefined:JSON.stringify(body));
+    });
+    assert.equal((await remote('/api/setup',{})).status,403,'remote callers cannot initialize the owner');
+    assert.equal((await remote('/api/health')).data.root,undefined,'remote health never reveals the filesystem path');
     let cookie='';
     const post=async(path,body,extra={})=>{const response=await fetch(origin+path,{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie,...extra},body:JSON.stringify(body)});const setCookie=response.headers.get('set-cookie');if(setCookie)cookie=setCookie.split(';')[0];return {status:response.status,data:await response.json()};};
     assert.equal((await fetch(origin+'/api/entries')).status,401);
@@ -127,6 +137,9 @@ test('HTTP blocks unauthenticated reads, cross-origin posts, unsafe hosts and re
     assert.equal((await post('/api/setup',{}, {Origin:'https://evil.example'})).status,403);
     const token=readFileSync(join(root,'.local-collaboration/setup-token'),'utf8');
     assert.equal((await post('/api/setup',{username:'owner',name:'站主',password,token})).status,200);
+    const remoteLogin=await remote('/api/login',{username:'owner',password});
+    assert.equal(remoteLogin.status,200);assert.ok(remoteLogin.headers['set-cookie'][0].includes('; Secure'));
+    assert.equal((await remote('/api/entries',undefined,remoteLogin.headers['set-cookie'][0].split(';')[0])).status,200);
     assert.equal((await fetch(origin+'/api/entries',{headers:{Cookie:cookie}})).status,200);
     const badHostStatus=await new Promise((resolve,reject)=>{const call=request(origin+'/api/entries',{headers:{Host:'evil.example',Cookie:cookie}},response=>{response.resume();resolve(response.statusCode);});call.on('error',reject);call.end();});
     assert.equal(badHostStatus,403);

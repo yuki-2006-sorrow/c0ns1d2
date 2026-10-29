@@ -11,7 +11,8 @@ import { createCollaborationFrontend } from './collaboration-frontend.mjs';
 
 const ROOT = resolve(process.env.COLLAB_ROOT || fileURLToPath(new URL('../', import.meta.url)));
 const PORT = Number(process.env.COLLAB_PORT || 4324);
-const publicOrigin = process.env.COLLAB_PUBLIC_ORIGIN || '';
+const remoteConfig=join(ROOT,'.local-collaboration/remote-access.json');
+const publicOrigin = process.env.COLLAB_PUBLIC_ORIGIN || (existsSync(remoteConfig)?JSON.parse(readFileSync(remoteConfig,'utf8').replace(/^\uFEFF/,'')).origin:'') || '';
 if (publicOrigin && (new URL(publicOrigin).origin !== publicOrigin || !publicOrigin.startsWith('https://'))) throw new Error('远程入口必须是完整HTTPS来源地址');
 const store = createCollaborationStore(ROOT);
 const frontend=createCollaborationFrontend(ROOT,store);
@@ -82,7 +83,7 @@ const server=createServer(async(req,res)=>{
     if(!['GET','HEAD','POST'].includes(req.method))return reply(res,405,{error:'请求方式不支持'});
     if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     const path=url.pathname;
-    if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT});
+    if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,publicOrigin:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:publicOrigin});
     if(['GET','HEAD'].includes(req.method)&&frontend.resource(req,res,path))return;
     if(path==='/bridge.css'||path==='/bridge-client.js'){
       res.writeHead(200,{'Content-Type':path.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'});

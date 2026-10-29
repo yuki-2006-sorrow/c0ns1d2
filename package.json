@@ -5,7 +5,7 @@
   "description": "惊天魔盗团 · 个人记忆库",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-public-build.mjs",
+    "build": "astro build && node scripts/prepare-remote-entry.mjs && node scripts/check-public-build.mjs",
     "check:public": "node scripts/check-public-build.mjs",
     "test:associations": "node --test scripts/associations.test.mjs",
     "check:editor": "node scripts/check-association-editor.mjs",
