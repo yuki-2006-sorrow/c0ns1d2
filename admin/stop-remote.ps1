@@ -2,10 +2,10 @@ $ErrorActionPreference = 'Stop'
 $archiveDirectory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $remoteFile = Join-Path $archiveDirectory '.local-collaboration/remote-access.json'
 try {
-  if (!(Test-Path -LiteralPath $remoteFile)) { Write-Output 'No temporary tunnel is configured.'; exit 0 }
+  if (!(Test-Path -LiteralPath $remoteFile)) { Write-Output 'No public connection is configured.'; exit 0 }
   $remote = Get-Content -LiteralPath $remoteFile -Raw | ConvertFrom-Json
   $tunnelProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$([int]$remote.tunnelPid)"
-  if (!$tunnelProcess) { Write-Output 'Temporary tunnel is already stopped.'; exit 0 }
+  if (!$tunnelProcess) { Write-Output 'The public connection is already stopped.'; exit 0 }
   $expectedExecutable = Join-Path $archiveDirectory 'data-tools/bin/cloudflared.exe'
   $expectedCommand = if ($remote.mode -eq 'fixed') {
     $remote.tunnelId -match '^[a-fA-F0-9-]{36}$' -and $tunnelProcess.CommandLine.Contains((Join-Path $archiveDirectory '.local-collaboration/fixed-tunnel.yml')) -and $tunnelProcess.CommandLine.Contains($remote.tunnelId)

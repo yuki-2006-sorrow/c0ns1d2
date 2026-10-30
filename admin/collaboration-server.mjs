@@ -14,9 +14,9 @@ const PORT = Number(process.env.COLLAB_PORT || 4324);
 const remoteConfig=join(ROOT,'.local-collaboration/remote-access.json');
 const publicOrigin = process.env.COLLAB_PUBLIC_ORIGIN || (existsSync(remoteConfig)?JSON.parse(readFileSync(remoteConfig,'utf8').replace(/^\uFEFF/,'')).origin:'') || '';
 if (publicOrigin && (new URL(publicOrigin).origin !== publicOrigin || !publicOrigin.startsWith('https://'))) throw new Error('远程入口必须是完整HTTPS来源地址');
-const store = createCollaborationStore(ROOT);
-const frontend=createCollaborationFrontend(ROOT,store);
-const lock = join(store.directory,'server.lock');
+const privateDirectory = join(ROOT, '.local-collaboration');
+mkdirSync(privateDirectory, { recursive: true });
+const lock = join(privateDirectory,'server.lock');
 try {
   if(existsSync(lock)){
     const pid = Number(readFileSync(lock,'utf8'));
@@ -28,6 +28,9 @@ try {
   const fd=openSync(lock,'wx',0o600); writeFileSync(fd,String(process.pid)); closeSync(fd);
 } catch(error) { throw new Error('无法取得协作资料写入锁：'+error.message); }
 process.on('exit',()=>{try{rmSync(lock);}catch{}});
+// Acquire the exclusive writer lock before a storage migration can run.
+const store = createCollaborationStore(ROOT);
+const frontend=createCollaborationFrontend(ROOT,store);
 const sessions = new Map(), attempts = new Map();
 const allowedOrigin = req => {
   const local = ['http://127.0.0.1:' + server.address().port,'http://localhost:' + server.address().port];
@@ -84,7 +87,7 @@ const server=createServer(async(req,res)=>{
     if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     const path=url.pathname;
     if(path==='/admin'&&['GET','HEAD'].includes(req.method)){res.writeHead(303,{Location:'/shared?view=library'});return res.end();}
-    if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,publicOrigin:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:publicOrigin});
+    if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,storageVersion:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:store.schemaVersion(),publicOrigin:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:publicOrigin});
     if(['GET','HEAD'].includes(req.method)&&frontend.resource(req,res,path))return;
     if(path==='/bridge.css'||path==='/bridge-client.js'){
       res.writeHead(200,{'Content-Type':path.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'});
@@ -144,6 +147,14 @@ const server=createServer(async(req,res)=>{
     if(path==='/api/me')return reply(res,200,store.profile(user.id));
     if(path==='/api/logout'&&req.method==='POST'){sessions.delete(token);res.setHeader('Set-Cookie',sessionCookieName()+'=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return reply(res,200,{ok:true});}
     if(path==='/api/entries'&&req.method==='GET')return reply(res,200,store.entries(user));
+    if(path==='/api/catalog'&&req.method==='GET')return reply(res,200,store.catalog(user));
+    if(path==='/api/catalog'&&req.method==='POST')return reply(res,200,store.saveCatalog(user,await json(req)));
+    if(path==='/api/archive-batch'&&req.method==='POST')return reply(res,200,store.archiveBatch(user,await json(req)));
+    if(path==='/api/export'&&req.method==='GET'){
+      const data=store.exportContent(user);
+      res.setHeader('Content-Disposition','attachment; filename="c0ns1d2-content.json"');
+      return reply(res,200,data);
+    }
     if(path==='/api/entry'&&req.method==='POST')return reply(res,200,store.saveEntry(user,await json(req)));
     if(path==='/api/entry'&&req.method==='GET')return reply(res,200,store.readEntry(user,url.searchParams.get('id')));
     if(path==='/api/history'&&req.method==='GET')return reply(res,200,store.history(user,url.searchParams.get('id')));

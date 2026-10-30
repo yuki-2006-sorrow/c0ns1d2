@@ -1,7 +1,8 @@
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual, createHmac } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync, renameSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseFm } from './content-tools.mjs';
+import { parseFm, validateDate } from './content-tools.mjs';
+import { importCatalog, originalDetails, originalExtras } from './archive-catalog.mjs';
 
 const fail = (message, status = 400) => { throw Object.assign(new Error(message), { status }); };
 const clean = (value, max = 1000) => typeof value === 'string' && value.length <= max ? value.trim() : fail('文字格式不正确或过长');
@@ -14,7 +15,7 @@ export function createCollaborationStore(root) {
   mkdirSync(directory, { recursive: true });
   const file = join(directory, 'archive.json');
   let state = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : {
-    version: 1, answerKey: randomBytes(32).toString('hex'), users: [], entries: [], media: [],
+    version: 2, catalog: importCatalog(root), catalogHistory: [], answerKey: randomBytes(32).toString('hex'), users: [], entries: [], media: [],
     questions: [], threshold: 0, defaultAccess: 'selected', defaultCreate: false, history: [], audit: [],
   };
   function persist() {
@@ -27,6 +28,25 @@ export function createCollaborationStore(root) {
     const before = structuredClone(state);
     try { const result = action(); persist(); return result; } catch (error) { state = before; throw error; }
   }
+  if (state.version === 1) {
+    // Keep an exact private recovery copy before changing the storage format.
+    const before = readFileSync(file);
+    const catalog = importCatalog(root);
+    const extras = state.entries.map(entry => originalExtras(originalDetails(root, entry), entry.source));
+    const backupName = 'archive-v1-' + randomUUID() + '.json';
+    const backups = join(directory, 'backups');
+    mkdirSync(backups, { recursive: true });
+    writeFileSync(join(backups, backupName), before, { flag: 'wx', mode: 0o600 });
+    transaction(() => {
+      state.catalog = catalog; state.catalogHistory = []; state.version = 2;
+      state.entries.forEach((entry, index) => {
+        if (!Array.isArray(entry.quotes)) entry.quotes = extras[index].quotes;
+        if (!('sourceKind' in entry)) entry.sourceKind = extras[index].sourceKind;
+      });
+      state.migration = { from: 1, at: new Date().toISOString(), backup: backupName };
+    });
+  }
+  if (state.version !== 2 || !state.catalog || !Array.isArray(state.catalog.groups) || !Array.isArray(state.catalog.people)) throw new Error('不支持的资料库版本，请保留文件并检查迁移记录');
   function audit(actor, action, target) { state.audit.push({ at: new Date().toISOString(), actor: actor?.id || '', action, target }); }
   function owner(user) { if (user?.role !== 'owner' || user.access === 'blocked') fail('仅站主可操作', 403); }
   function active(user) { if (!user || user.access === 'blocked') fail('账号未获准访问', 403); }
@@ -72,7 +92,7 @@ export function createCollaborationStore(root) {
           persons: data.persons || [], major: !!data.major, kind: data.kind || '', fromType: data.fromType || '', fromId: data.fromId || '',
           toType: data.toType || '', toId: data.toId || '', published: !data.draft,
           scope: data.draft ? 'private' : 'members', recipients: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
-          source: path.slice(base.length + 1).replaceAll('\\','/') });
+          source: path.slice(base.length + 1).replaceAll('\\','/'), ...originalExtras(data, path.slice(base.length + 1).replaceAll('\\','/')) });
       }
     }
     for(const entry of state.entries.filter(entry=>entry.type==='thought')){
@@ -153,6 +173,7 @@ export function createCollaborationStore(root) {
     if (!existing && !user.canCreate) fail('尚未获得投稿资格',403);
     if (existing && (!input.revision || input.revision !== existing.revision)) fail('记录已更新，请先保留当前文字再重新打开',409);
     const body = clean(input.body || '',200000);
+    const summary = 'summary' in input ? clean(input.summary, 5000) : existing?.summary || '';
     let title=clean(input.title||'',300);
     if (!title && input.type!=='thought') fail('请填写标题');
     if (!['event','work','thought'].includes(input.type) || !['private','members','selected'].includes(input.scope)) fail('类型或分享范围不正确');
@@ -175,7 +196,7 @@ export function createCollaborationStore(root) {
       const now = new Date().toISOString();
       if (existing) state.history.push({ entry: structuredClone(existing), at:now, actor:user.id });
       const entry = { ...(existing || {}), id:existing?.id || randomUUID(), author:user.id, revision:randomUUID(), title, body,
-        type:input.type, date:clean(input.date || '?',40), scope:input.scope, recipients,
+        type:input.type, date:validateDate(input.date || '?'), summary, scope:input.scope, recipients,
         medium:clean(input.medium || '',300), persons:Array.isArray(input.persons)?input.persons.map(person=>clean(person,100)):[],major:input.major===true,
         fromId,toId,kind,
         visitorVisible:user.role==='owner'&&input.visitorVisible===true&&input.published===true&&input.scope==='members',
@@ -219,9 +240,74 @@ export function createCollaborationStore(root) {
     return item;
   }
   function guest(){return {id:'__visitor__',role:'guest',access:'guest',canCreate:false,name:'访客'};}
+  function catalog(user) {
+    active(user);
+    if (user.role === 'owner') return structuredClone(state.catalog);
+    const visible = new Set();
+    for (const entry of state.entries.filter(entry => canRead(user, entry))) {
+      let id = entry.medium;
+      while (id && !visible.has(id)) { visible.add(id); id = state.catalog.groups.find(group => group.slug === id)?.parent; }
+    }
+    return { groups: state.catalog.groups.filter(group => visible.has(group.slug)).map(({slug,title,parent}) => ({slug,title,parent})), people: [] };
+  }
+  function saveCatalog(user, input) {
+    owner(user);
+    const key = input.kind === 'group' ? 'groups' : input.kind === 'person' ? 'people' : fail('资料类型不正确');
+    const existing = input.slug ? state.catalog[key].find(item => item.slug === input.slug) : null;
+    if (input.slug && !existing) fail('资料不存在', 404);
+    if (existing && input.revision !== existing.revision) fail('资料已更新，请先保留文字再重新打开', 409);
+    const item = { ...(existing || {}), slug: existing?.slug || randomUUID(), revision: randomUUID() };
+    if (key === 'groups') {
+      item.title = clean(input.title, 300); item.parent = clean(input.parent || '', 300);
+      if (!item.title) fail('请填写分组名称');
+      if (item.parent && !state.catalog.groups.some(group => group.slug === item.parent)) fail('上级分组不存在');
+      const visited = new Set([item.slug]); let parent = item.parent;
+      while (parent) { if (visited.has(parent)) fail('分组不能循环嵌套'); visited.add(parent); parent = state.catalog.groups.find(group => group.slug === parent)?.parent; }
+    } else {
+      item.name = clean(input.name, 100);
+      if (!item.name) fail('请填写人物姓名');
+      if (existing && item.name !== existing.name) fail('已有姓名用于关联记忆，请保持姓名，使用昵称字段补充称呼');
+      if (state.catalog.people.some(person => person.slug !== item.slug && person.name === item.name)) fail('这个人物已经存在');
+      for (const field of ['nickname','university','major','role']) item[field] = clean(input[field] || '', 300);
+      item.body = clean(input.body || '', 200000);
+      item.personality = { ...(existing?.personality || {}) };
+      for (const field of ['openness','conscientiousness','extraversion','agreeableness','neuroticism']) {
+        const value = Number(input.personality?.[field] ?? item.personality[field] ?? 0);
+        if (!Number.isFinite(value) || value < 0 || value > 100) fail('人格数值应在0到100之间');
+        item.personality[field] = value;
+      }
+    }
+    return transaction(() => {
+      if (existing) { state.catalogHistory.push({ kind: input.kind, item: structuredClone(existing), at: new Date().toISOString() }); state.catalog[key][state.catalog[key].indexOf(existing)] = item; }
+      else state.catalog[key].push(item);
+      audit(user, 'catalog', item.slug); return structuredClone(item);
+    });
+  }
+  function archiveBatch(user, input) {
+    owner(user);
+    if (!Array.isArray(input.items) || !input.items.length || input.items.length > 1000) fail('请选择1—1000条记录');
+    const ids = new Set(input.items.map(item => item.id));
+    if (ids.size !== input.items.length) fail('记录重复');
+    const targets = input.items.map(item => {
+      const entry = state.entries.find(entry => entry.id === item.id);
+      if (!entry) fail('记录不存在', 404);
+      if (entry.revision !== item.revision) fail('有记录已更新，请刷新后重新选择', 409);
+      return entry;
+    });
+    if (input.archived !== false && state.entries.some(entry => !entry.archived && entry.type === 'thought' && !ids.has(entry.id) && [entry.fromId,entry.toId].some(id => ids.has(id)))) fail('还有想法关联所选记录，请先整理关联，或同时选择相关想法');
+    return transaction(() => {
+      for (const entry of targets) { state.history.push({ entry: structuredClone(entry), at: new Date().toISOString(), actor: user.id }); entry.archived = input.archived !== false; entry.archivedBy = entry.archived ? user.id : ''; entry.revision = randomUUID(); audit(user, entry.archived ? 'archive' : 'restore', entry.id); }
+      return { ok: true, count: targets.length };
+    });
+  }
+  function exportContent(user) {
+    owner(user);
+    return structuredClone({ format: 'c0ns1d2-content', version: 2, exportedAt: new Date().toISOString(), entries: state.entries, catalog: state.catalog,
+      note: '文字资料导出，不含账号凭据或附件文件；完整恢复需要备份整个项目的私有资料与照片目录。' });
+  }
   return { directory, setupFile, isSetup:()=>state.users.length>0, setup, questions, configure, register, login, checkedUser,
     profile:id=>safeUser(checkedUser(id)), entries, readEntry, saveEntry, members, updateMember, history, archive, mediaAdd, mediaRead, changePassword,setVisitorAccess,
-    guest,
+    guest, catalog, saveCatalog, archiveBatch, exportContent, schemaVersion:()=>state.version,
     ownerOverview(user){owner(user);return {members:state.users.map(safeUser),audit:state.audit.slice(-200).reverse(),archived:state.entries.filter(e=>e.archived),settings:{...questions(),defaultAccess:state.defaultAccess,defaultCreate:state.defaultCreate},notice:'站主可查看本机保存的全部记录，包括私人记录。'};},
   };
 }

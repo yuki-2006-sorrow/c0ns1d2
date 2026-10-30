@@ -8,12 +8,27 @@ function Get-Collaboration {
   catch { return $null }
 }
 try {
+  $frontendPrepared = $false
   $currentServer = Get-Collaboration
   if ($currentServer -and ($currentServer.app -ne 'c0ns1d2-collaboration' -or $currentServer.root -ne $projectDirectory)) {
     throw 'Port 4324 belongs to another service.'
   }
-  if (!$currentServer) {
+  if ($currentServer -and $currentServer.storageVersion -ne 2) {
     if (!$SkipBuild) {
+      Write-Output 'Preparing the updated frontend while the existing archive stays online...'
+      & npm.cmd run build
+      if ($LASTEXITCODE -ne 0) { throw 'The frontend could not be prepared. The existing service remains running.' }
+      $frontendPrepared = $true
+    }
+    $archivePid = [int](Get-Content -LiteralPath (Join-Path $projectDirectory '.local-collaboration/server.lock') -Raw).Trim()
+    $oldProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$archivePid"
+    if (!$oldProcess -or $oldProcess.Name -ne 'node.exe' -or !$oldProcess.CommandLine.Contains((Join-Path $PSScriptRoot 'collaboration-server.mjs'))) { throw 'Process identity mismatch; no service was stopped.' }
+    Stop-Process -Id $archivePid
+    Start-Sleep -Milliseconds 400
+    $currentServer = $null
+  }
+  if (!$currentServer) {
+    if (!$SkipBuild -and !$frontendPrepared) {
       Write-Output 'Preparing the archive frontend...'
       & npm.cmd run build
       if ($LASTEXITCODE -ne 0) { throw 'The frontend could not be prepared. Your saved archive has not been changed.' }

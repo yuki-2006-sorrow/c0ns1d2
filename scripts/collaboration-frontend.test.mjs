@@ -73,6 +73,14 @@ test('real frontend routes contain only readable records; media and guest previe
     assert.ok(origin,logs);
     const login=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json'},body:JSON.stringify({username:'owner',password})});
     const cookie=login.headers.get('set-cookie').split(';')[0];assert.equal(login.status,200);
+    for(const path of ['/api/catalog','/api/export'])assert.equal((await fetch(origin+path)).status,401);
+    const memberLogin=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json'},body:JSON.stringify({username:'alice',password})});
+    const memberCookie=memberLogin.headers.get('set-cookie').split(';')[0];
+    const memberCatalog=await(await fetch(origin+'/api/catalog',{headers:{Cookie:memberCookie}})).json();assert.deepEqual(memberCatalog.people,[]);
+    assert.equal((await fetch(origin+'/api/export',{headers:{Cookie:memberCookie}})).status,403);
+    for(const path of ['/api/catalog','/api/archive-batch'])assert.equal((await fetch(origin+path,{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:memberCookie},body:'{}'})).status,403);
+    const exportResponse=await fetch(origin+'/api/export',{headers:{Cookie:cookie}});assert.equal(exportResponse.status,200);assert.ok(exportResponse.headers.get('content-disposition').includes('attachment'));
+    assert.equal((await exportResponse.json()).users,undefined);
     assert.ok(cookie.startsWith('archive_session_'+new URL(origin).port+'='),'separate localhost services must not overwrite each other’s session cookie');
     for(const path of ['/','/guest','/events','/guest/events','/timeline','/guest/timeline','/works','/thoughts','/events/'+visible.id,'/guest/events/'+visible.id]){
       const response=await fetch(origin+path);assert.equal(response.status,200,path);

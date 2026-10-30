@@ -1,7 +1,6 @@
-import { readFileSync, existsSync, readdirSync, statSync, createReadStream } from 'node:fs';
+import { readFileSync, existsSync, statSync, createReadStream } from 'node:fs';
 import { resolve, join, relative, isAbsolute } from 'node:path';
 import MarkdownIt from 'markdown-it';
-import { parseFm } from './content-tools.mjs';
 import { prepareTimeline } from '../src/lib/timeline-model.mjs';
 import { contentPreview } from '../src/lib/content-preview.mjs';
 import { serveVideo } from './media-response.mjs';
@@ -41,17 +40,13 @@ export function createCollaborationFrontend(root,store){
   const cache=new Map();
   function template(name){
     const path=join(root,'dist/collaboration-shell',name,'index.html');
-    if(!existsSync(path))throw Object.assign(new Error('首次接回前台需要构建，请双击启动协作.bat'),{status:503});
+    if(!existsSync(path))throw Object.assign(new Error('前台需要构建，请双击启动.bat'),{status:503});
     const stamp=statSync(path).mtimeMs;
     if(cache.get(path)?.stamp!==stamp)cache.set(path,{stamp,html:readFileSync(path,'utf8')});
     return cache.get(path).html;
   }
-  function folders(entries){
-    const metadata={},directory=join(root,'src/content/mediums');
-    if(existsSync(directory))for(const name of readdirSync(directory).filter(name=>name.endsWith('.md'))){
-      const data=parseFm(readFileSync(join(directory,name),'utf8'));
-      metadata[name.slice(0,-3)]={title:data.title,parent:data.parent||''};
-    }
+  function folders(entries,user){
+    const metadata=Object.fromEntries(store.catalog(user).groups.map(group=>[group.slug,{title:group.title,parent:group.parent||''}]));
     const visible={};
     for(const entry of entries){
       let id=entry.medium;const visited=new Set();
@@ -60,28 +55,18 @@ export function createCollaborationFrontend(root,store){
     }
     return visible;
   }
-  function legacyFields(entry){
-    const folder={event:'events',work:'works',thought:'associations'}[entry.type];
-    if(!entry.source||!folder)return {};
-    const base=resolve(root,'src/content',folder),path=resolve(base,entry.source);
-    if(relative(base,path).startsWith('..')||isAbsolute(relative(base,path))||!existsSync(path))return {};
-    return parseFm(readFileSync(path,'utf8'));
-  }
-  function profiles(){
-    const base=join(root,'src/content/people');
-    return existsSync(base)?readdirSync(base).filter(name=>name.endsWith('.md')).map(name=>({slug:name.slice(0,-3),...parseFm(readFileSync(join(base,name),'utf8'))})):[];
-  }
+  function profiles(user){ return store.catalog(user).people; }
   function renderPerson(user,prefix,entries,slug){
     // Old biographies do not yet have per-record sharing controls. Keep them with the owner.
     if(user.role!=='owner')return null;
-    const person=profiles().find(person=>person.slug===slug);if(!person)return null;
+    const person=profiles(user).find(person=>person.slug===slug);if(!person)return null;
     const traits=[['openness','开放性'],['conscientiousness','尽责性'],['extraversion','外向性'],['agreeableness','宜人性'],['neuroticism','神经质']];
     const memories=entries.filter(entry=>entry.type==='event'&&entry.persons.includes(person.name));
     const reading='<article class="reading-page"><header class="reading-header"><a class="reading-back" href="/events">← 记忆</a><p class="archive-eyebrow">人物档案 · 站主可见</p><h1>'+escape(person.name)+'</h1><p class="reading-meta">'+[person.nickname,person.role,person.university,person.major].filter(Boolean).map(escape).join(' · ')+'</p></header><div class="reading-layout"><div class="reading-main"><details class="reading-meta"><summary>大五人格画像</summary>'+traits.map(([key,label])=>'<label class="bridge-trait">'+label+'<meter min="0" max="100" value="'+Math.min(100,Math.max(0,Number(person.personality?.[key])||0))+'"></meter></label>').join('')+'</details><div class="reading-prose">'+markdown.render(person.body||'')+'</div></div><aside class="reading-rail"><h2>参与的记忆</h2>'+memories.map(entry=>'<a href="'+urlFor(entry,prefix)+'">'+escape(entry.date)+' · '+escape(entry.title)+' ↗</a>').join('')+'</aside></div></article>';
     return chrome(slot(template('read'),'reading',reading),user,prefix,person.name);
   }
   function chrome(html,user,prefix,title){
-    const account=user.role==='guest'?'<a href="/shared?return=home">登录</a><a href="/shared?join=1&amp;return=home">答题加入</a>':'<details class="archive-account"><summary>'+escape(user.name)+' · '+(user.role==='owner'?'管理':'我的记录')+'</summary><div class="archive-account-links"><a href="/shared?view=library">我的记录与草稿</a>'+(user.canCreate?'<a href="/shared?new=event">留下一段记忆</a><a href="/shared?new=work">记一本书／一部作品</a><a href="/shared?new=thought">写一点想法</a>':'')+(user.role==='owner'?'<a href="/shared?view=manage">成员、准入与访客开放</a>':'')+'<a href="/shared?view=password">修改密码</a><a href="/guest">查看访客视角</a></div></details>';
+    const account=user.role==='guest'?'<a href="/shared?return=home">登录</a><a href="/shared?join=1&amp;return=home">答题加入</a>':'<details class="archive-account"><summary>'+escape(user.name)+' · '+(user.role==='owner'?'管理':'我的记录')+'</summary><div class="archive-account-links"><a href="/shared?view=library">我的记录与草稿</a>'+(user.canCreate?'<a href="/shared?new=event">留下一段记忆</a><a href="/shared?new=work">记一本书／一部作品</a><a href="/shared?new=thought">写一点想法</a>':'')+(user.role==='owner'?'<a href="/shared?view=organize">整理记忆、分组与人物</a><a href="/shared?view=manage">成员、准入与访客开放</a>':'')+'<a href="/shared?view=password">修改密码</a><a href="/guest">查看访客视角</a></div></details>';
     const start='<!--archive:account:start-->',end='<!--archive:account:end-->';
     html=html.split(start+end).join(start+account+end);
     if(prefix)html=html.replace(/href="\/(events|works|thoughts|timeline)(?=[/"])/g,'href="/guest/$1').replace('href="/" class="nav-logo"','href="/guest" class="nav-logo"');
@@ -103,7 +88,7 @@ export function createCollaborationFrontend(root,store){
   }
   function renderTimeline(user,prefix,entries){
     const events=entries.filter(entry=>entry.type==='event').map(entry=>({slug:entry.id,title:entry.title,date:entry.date,major:entry.major,medium:entry.medium,summary:preview(entry),image:imageUrl(entry,entry.images[0]||'',0,prefix)}));
-    const model=prepareTimeline(events,folders(events));
+    const model=prepareTimeline(events,folders(events,user));
     let html=template('timeline');
     html=slot(html,'years','<button type="button" data-year="all" aria-pressed="true">全部</button>'+model.years.map(year=>'<button type="button" data-year="'+escape(year)+'" aria-pressed="false">'+(year==='undated'?'日期未定':year)+'</button>').join(''));
     html=slot(html,'groups',model.groups.length?'<label class="tl-group-label">分组<select id="tl-group"><option value="">全部记忆</option>'+model.groups.map(group=>'<option value="'+escape(group.id)+'">'+escape(group.title)+'（'+group.count+'）</option>').join('')+'</select></label>':'');
@@ -126,8 +111,8 @@ export function createCollaborationFrontend(root,store){
     return chrome(slot(template('list'),'listing',content),user,prefix,labels[type]);
   }
   function renderRead(user,prefix,entries,entry){
-    const legacy=legacyFields(entry),knownPeople=user.role==='owner'?profiles():[];
-    const quotes=(entry.quotes||legacy.quotes||[]).map(quote=>'<blockquote>'+escape(quote)+'</blockquote>').join('');
+    const knownPeople=user.role==='owner'?profiles(user):[];
+    const quotes=(entry.quotes||[]).map(quote=>'<blockquote>'+escape(quote)+'</blockquote>').join('');
     const fragments=quotes?'<details class="reading-meta"><summary>原话与片段</summary><div class="reading-prose">'+quotes+'</div></details>':'';
     const related=entries.filter(other=>other.type==='thought'&&(other.fromId===entry.id||other.toId===entry.id)&&other.id!==entry.id);
     const targets=[['fromId','从这里出发'],['toId','又想到']].map(([key,label])=>{const target=entries.find(other=>other.id===entry[key]);return target?'<a href="'+urlFor(target,prefix)+'">'+label+' · '+escape(target.title)+' ↗</a>':'';}).join('');

@@ -14,6 +14,10 @@ import { createEventTrashStore } from './event-trash-store.mjs';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = join(__dirname, '..');
+const unifiedArchive = join(ROOT, '.local-collaboration', 'archive.json');
+if (existsSync(unifiedArchive)) {
+  throw new Error('资料已交由统一后台管理。请双击项目根目录的启动.bat，登录后编辑同一份记忆库。');
+}
 const EVENTS_DIR = join(ROOT, 'src', 'content', 'events');
 const MEDIUMS_DIR = join(ROOT, 'src', 'content', 'mediums');
 const PHOTOS_DIR = join(ROOT, 'public', 'photos');

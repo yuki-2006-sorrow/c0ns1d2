@@ -15,9 +15,9 @@
     "check:timeline": "node scripts/check-association-editor.mjs --timeline",
     "test:trash": "node --test scripts/event-trash.test.mjs",
     "preview": "astro preview",
-    "admin": "node admin/server.mjs",
+    "admin": "node admin/collaboration-server.mjs",
     "collaboration": "node admin/collaboration-server.mjs",
-    "test:collaboration": "node --test scripts/collaboration.test.mjs scripts/collaboration-frontend.test.mjs scripts/collaboration-ui.test.mjs"
+    "test:collaboration": "node --test scripts/collaboration.test.mjs scripts/collaboration-frontend.test.mjs scripts/collaboration-ui.test.mjs scripts/unified-archive.test.mjs"
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.5.5",

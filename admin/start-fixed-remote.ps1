@@ -109,10 +109,14 @@ try {
   if ((Get-FileHash -LiteralPath (Join-Path $privateDirectory 'archive.json') -Algorithm SHA256).Hash -ne $archiveHash) { throw 'Archive data changed during setup; verify saved content before publishing.' }
   [IO.File]::WriteAllText($remoteFile,($state | ConvertTo-Json),$utf8)
   $entry = Get-Content -LiteralPath $entryFile -Raw | ConvertFrom-Json
-  $entry.upstream = $fixedOrigin
-  [IO.File]::WriteAllText($entryFile,($entry | ConvertTo-Json -Depth 4),$utf8)
   Write-Output 'Fixed archive ready: https://backend.c0ns1d2.com'
-  Write-Output 'Publish the updated deployment/remote-origin.json once to connect Pages. Restarting this named tunnel keeps its address.'
+  if ($entry.upstream -ne $fixedOrigin) {
+    $entry.upstream = $fixedOrigin
+    [IO.File]::WriteAllText($entryFile,($entry | ConvertTo-Json -Depth 4),$utf8)
+    Write-Output 'First-time connection changed deployment/remote-origin.json. Publish that configuration once.'
+  } else {
+    Write-Output 'The fixed address is already configured. Routine startup needs no new authorization or deployment.'
+  }
   if (!$NoBrowser) { Start-Process 'https://c0ns1d2.com/' }
 } catch {
   Write-Output ('Fixed tunnel setup could not complete: ' + $_.Exception.Message)
