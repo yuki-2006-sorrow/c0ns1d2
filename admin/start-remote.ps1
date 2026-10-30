@@ -16,10 +16,13 @@ function Test-RemoteArchive($origin) {
   return $false
 }
 function Save-RemoteEntry($origin) {
-  $entryConfiguration = @{upstream=$origin;publicOrigin='https://c0ns1d2.pages.dev'} | ConvertTo-Json
-  [IO.File]::WriteAllText((Join-Path $archiveDirectory 'deployment/remote-origin.json'),$entryConfiguration,(New-Object Text.UTF8Encoding($false)))
+  $entryFile = Join-Path $archiveDirectory 'deployment/remote-origin.json'
+  $entryConfiguration = Get-Content -LiteralPath $entryFile -Raw | ConvertFrom-Json
+  $entryConfiguration.upstream = $origin
+  [IO.File]::WriteAllText($entryFile,($entryConfiguration | ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding($false)))
 }
 try {
+  if ((Test-Path -LiteralPath $remoteFile) -and ((Get-Content -LiteralPath $remoteFile -Raw | ConvertFrom-Json).mode -eq 'fixed')) { throw 'Fixed tunnel is configured. Use start-fixed-remote.ps1 instead of creating a temporary address.' }
   if (!(Test-Path -LiteralPath $tunnelExecutable)) { throw 'Cloudflare tool missing: data-tools/bin/cloudflared.exe. See docs/公网试用.md.' }
   try { $health = Invoke-RestMethod -Uri "$localAddress/api/health" -TimeoutSec 3 } catch { $health = $null }
   if (!$health) {

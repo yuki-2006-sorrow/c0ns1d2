@@ -1,8 +1,52 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createArchiveProxy} from '../deployment/pages-worker.mjs';
+import {createArchiveProxy,validateArchiveOrigins} from '../deployment/pages-worker.mjs';
 const configuration={upstream:'https://archive-test.trycloudflare.com',publicOrigin:'https://c0ns1d2.pages.dev'};
 const page=path=>configuration.publicOrigin+path;
+
+test('custom domains preserve their own login redirects and reject cross-domain writes',async()=>{
+  let calls=0;
+  const upstream='https://backend.c0ns1d2.com';
+  const proxy=createArchiveProxy({...configuration,upstream,publicAliases:['https://c0ns1d2.com','https://www.c0ns1d2.com']},async request=>{
+    calls++;assert.equal(new URL(request.url).origin,upstream);
+    if(request.method==='POST'){
+      assert.equal(request.headers.get('Origin'),upstream);assert.equal(await request.text(),'original text');
+      return new Response('{}',{headers:{'Set-Cookie':'archive_session_4324=test; HttpOnly; Secure; SameSite=Strict; Path=/'}});
+    }
+    return new Response(null,{status:303,headers:{Location:upstream+'/shared?return=home'}});
+  });
+  for(const origin of [configuration.publicOrigin,'https://c0ns1d2.com','https://www.c0ns1d2.com']){
+    const response=await proxy(new Request(origin+'/events/example'));
+    assert.equal(response.status,303);assert.equal(response.headers.get('Location'),origin+'/shared?return=home');
+    const saved=await proxy(new Request(origin+'/api/entry',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1'},body:'original text'}));
+    assert.equal(saved.status,200);assert.match(saved.headers.get('Set-Cookie'),/Secure/);assert.doesNotMatch(saved.headers.get('Set-Cookie'),/Domain=/i);
+  }
+  assert.equal(calls,6);
+  for(const origin of [configuration.publicOrigin,'https://www.c0ns1d2.com','https://evil.example']){
+    const response=await proxy(new Request('https://c0ns1d2.com/api/entry',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1'},body:'original text'}));
+    assert.equal(response.status,403);
+  }
+  for(const origin of ['https://preview.c0ns1d2.pages.dev','https://preview.c0ns1d2.com','https://backend.c0ns1d2.com','https://evil.example'])assert.equal((await proxy(new Request(origin+'/api/entries'))).status,503);
+  assert.equal(calls,6);
+});
+
+test('origin configuration only permits the owned public domains and the exact fixed backend',()=>{
+  for(const upstream of ['https://backend.c0ns1d2.com','https://valid-test.trycloudflare.com'])assert.doesNotThrow(()=>validateArchiveOrigins({...configuration,upstream,publicAliases:['https://c0ns1d2.com']}));
+  for(const upstream of ['http://backend.c0ns1d2.com','https://backend.c0ns1d2.com/','https://backend.c0ns1d2.com.evil.example','https://other.c0ns1d2.com','https://evil.example','https://user@backend.c0ns1d2.com','https://c0ns1d2.com','https://backend.c0ns1d2.com:8443'])assert.throws(()=>validateArchiveOrigins({...configuration,upstream}));
+  for(const publicAliases of [['https://evil.example'],['https://preview.c0ns1d2.com'],['http://c0ns1d2.com'],'https://c0ns1d2.com'])assert.throws(()=>validateArchiveOrigins({...configuration,publicAliases}));
+  assert.throws(()=>validateArchiveOrigins({...configuration,publicOrigin:'https://preview.pages.dev'}));
+});
+
+test('an offline custom domain only receives empty entry shells on that same origin',async()=>{
+  const origin='https://c0ns1d2.com';
+  const proxy=createArchiveProxy({...configuration,publicAliases:[origin]},async()=>{throw new Error('offline');},{fetch:async request=>{
+    assert.equal(new URL(request.url).origin,origin);assert.equal(request.headers.get('Cookie'),null);
+    return new Response('EMPTY_ENTRY',{headers:{'Content-Type':'text/html'}});
+  }});
+  const response=await proxy(new Request(origin+'/',{headers:{Cookie:'secret'}}));
+  assert.equal(response.status,200);assert.equal(await response.text(),'EMPTY_ENTRY');
+  assert.equal((await proxy(new Request(origin+'/events/private'))).status,503);
+});
 
 test('only explicitly listed fixed resources use Pages, preserving video ranges without forwarding cookies',async()=>{
   let forwarded=0,served=0;

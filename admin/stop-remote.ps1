@@ -7,7 +7,10 @@ try {
   $tunnelProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$([int]$remote.tunnelPid)"
   if (!$tunnelProcess) { Write-Output 'Temporary tunnel is already stopped.'; exit 0 }
   $expectedExecutable = Join-Path $archiveDirectory 'data-tools/bin/cloudflared.exe'
-  if ($tunnelProcess.ExecutablePath -ne $expectedExecutable -or $tunnelProcess.CommandLine -notlike '*http://127.0.0.1:4324*') { throw 'Process identity mismatch; no process was stopped.' }
+  $expectedCommand = if ($remote.mode -eq 'fixed') {
+    $remote.tunnelId -match '^[a-fA-F0-9-]{36}$' -and $tunnelProcess.CommandLine.Contains((Join-Path $archiveDirectory '.local-collaboration/fixed-tunnel.yml')) -and $tunnelProcess.CommandLine.Contains($remote.tunnelId)
+  } else { $tunnelProcess.CommandLine -like '*http://127.0.0.1:4324*' }
+  if ($tunnelProcess.ExecutablePath -ne $expectedExecutable -or !$expectedCommand) { throw 'Process identity mismatch; no process was stopped.' }
   Stop-Process -Id $tunnelProcess.ProcessId
-  Write-Output 'Temporary remote access stopped. Your local archive and saved content remain available.'
+  Write-Output 'Remote access stopped. Your local archive and saved content remain available.'
 } catch { Write-Output $_.Exception.Message; exit 1 }

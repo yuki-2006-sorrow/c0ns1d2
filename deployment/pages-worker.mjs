@@ -34,20 +34,28 @@ const unavailable=(request)=>{
   return new Response(api?JSON.stringify({error:'记忆库暂时离线或连接超时，请稍后重试。当前输入仍保留，请不要刷新编辑页。'}):'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记忆库暂时离线</title><body style="background:#101014;color:#d8c8b8;font:18px/1.9 sans-serif;padding:10vh 8vw"><h1>记忆库暂时离线</h1><p>站主的电脑或共享通道暂未连接，请稍后再来。</p><a href="" style="color:#e1b89c">重新连接 →</a></body></html>',{status:503,headers:{'Content-Type':api?'application/json; charset=utf-8':'text/html; charset=utf-8','Cache-Control':'no-store','Retry-After':'60','X-Content-Type-Options':'nosniff'}});
 };
 
-export function createArchiveProxy({upstream,publicOrigin,staticAssets=[],introSize=0},forward=fetch,assets,{readTimeoutMs=12000}={}){
-  const target=new URL(upstream),site=new URL(publicOrigin);
+export function validateArchiveOrigins({upstream,publicOrigin,publicAliases=[]}){
+  const approvedSites=new Set(['https://c0ns1d2.pages.dev','https://c0ns1d2.com','https://www.c0ns1d2.com']);
+  if(!Array.isArray(publicAliases)||![publicOrigin,...publicAliases].every(origin=>approvedSites.has(origin)))throw new Error('Invalid archive public origin');
+  const target=new URL(upstream);
+  const quick=/^https:\/\/[a-z0-9-]+\.trycloudflare\.com$/.test(upstream);
+  if(!quick&&upstream!=='https://backend.c0ns1d2.com')throw new Error('Invalid archive upstream');
+  return {target,origins:new Set([publicOrigin,...publicAliases])};
+}
+
+export function createArchiveProxy({upstream,publicOrigin,publicAliases=[],staticAssets=[],introSize=0},forward=fetch,assets,{readTimeoutMs=12000}={}){
+  const {target,origins}=validateArchiveOrigins({upstream,publicOrigin,publicAliases});
   const publicFiles=new Set(staticAssets.filter(path=>/^\/_astro\/[a-zA-Z0-9_.-]+\.(?:js|css|woff2?|svg|png)$/.test(path)||/^\/intro\/(?:intro\.mp4|k[1-9]\.png)$/.test(path)||/^\/(?:app|bridge)\.css$|^\/(?:app|bridge-client)\.js$/.test(path)));
-  if(target.origin!==upstream||target.protocol!=='https:'||!target.hostname.endsWith('.trycloudflare.com')||target.username||target.password||site.origin!==publicOrigin||site.protocol!=='https:')throw new Error('Invalid archive origin');
   return async request=>{
     const address=new URL(request.url);
-    if(address.origin!==publicOrigin)return unavailable(request);
+    if(!origins.has(address.origin))return unavailable(request);
     if(!['GET','HEAD','POST'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD, POST','Cache-Control':'no-store'}});
-    if(request.method==='POST'&&(request.headers.get('Origin')!==publicOrigin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
+    if(request.method==='POST'&&(request.headers.get('Origin')!==address.origin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
     if(address.pathname==='/admin'&&['GET','HEAD'].includes(request.method))return new Response(null,{status:303,headers:{Location:'/shared?view=library','Cache-Control':'no-store'}});
     const offline=async()=>{
       const shell=['/','/guest','/guest/'].includes(address.pathname)?'/archive-entry.html':address.pathname==='/shared'?'/archive-shared.html':null;
       if(assets&&shell&&['GET','HEAD'].includes(request.method))try{
-        const response=await assets.fetch(new Request(new URL(shell,publicOrigin),{method:request.method,headers:{Accept:'text/html'}}));
+        const response=await assets.fetch(new Request(new URL(shell,address.origin),{method:request.method,headers:{Accept:'text/html'}}));
         if(response.status===200&&/text\/html/i.test(response.headers.get('Content-Type')||'')){
           const returned=new Headers(response.headers);returned.delete('Set-Cookie');returned.set('Cache-Control','no-store');returned.set('X-Archive-Gateway','entry');returned.set('X-Archive-Connection','offline');
           returned.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
@@ -86,7 +94,7 @@ export function createArchiveProxy({upstream,publicOrigin,staticAssets=[],introS
       if(response.status>=500)return offline();
       const returned=new Headers(response.headers);returned.set('Cache-Control','no-store');returned.set('X-Archive-Gateway','collaboration');
       const location=returned.get('Location');
-      if(location){const redirect=new URL(location,upstream);if(redirect.origin!==upstream)return unavailable(request);returned.set('Location',publicOrigin+redirect.pathname+redirect.search+redirect.hash);}
+      if(location){const redirect=new URL(location,upstream);if(redirect.origin!==upstream)return unavailable(request);returned.set('Location',address.origin+redirect.pathname+redirect.search+redirect.hash);}
       return new Response(request.method==='HEAD'?null:response.body,{status:response.status,statusText:response.statusText,headers:returned});
     }catch{return offline();}
     finally{if(timer!==null)clearTimeout(timer);request.signal.removeEventListener('abort',cancel);}

@@ -1,10 +1,11 @@
 import {existsSync,readFileSync,writeFileSync,readdirSync,copyFileSync,statSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {createPublicEntry} from './public-entry.mjs';
+import {validateArchiveOrigins} from '../deployment/pages-worker.mjs';
 const path=new URL('../deployment/remote-origin.json',import.meta.url);
 if(existsSync(path)){
   const configuration=JSON.parse(readFileSync(path,'utf8'));
-  if(!/^https:\/\/[a-z0-9-]+\.trycloudflare\.com$/.test(configuration.upstream)||configuration.publicOrigin!=='https://c0ns1d2.pages.dev')throw new Error('Invalid remote entry configuration');
+  validateArchiveOrigins(configuration);
   const source=readFileSync(new URL('../deployment/pages-worker.mjs',import.meta.url),'utf8');
   const dist=new URL('../dist/',import.meta.url);
   writeFileSync(new URL('archive-entry.html',dist),createPublicEntry(fileURLToPath(new URL('../',import.meta.url))));
