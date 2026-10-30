@@ -72,3 +72,14 @@ test('offline opens only empty entry shells; content, API and preview domains st
   assert.equal((await proxy(new Request('https://preview.pages.dev/'))).status,503);assert.equal(requested.length,3);
   const oldAdmin=await proxy(new Request(page('/admin')));assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/shared?view=library');
 });
+
+test('intro seeking still returns exact ranges when the asset binding ignores Range',async()=>{
+  const proxy=createArchiveProxy({...configuration,staticAssets:['/intro/intro.mp4'],introSize:10},async()=>{throw new Error('must stay on Pages');},{fetch:async()=>new Response('0123456789',{headers:{'Content-Type':'video/mp4',ETag:'"video-v1"'}})});
+  for(const [range,text,header]of [['bytes=0-2','012','bytes 0-2/10'],['bytes=6-','6789','bytes 6-9/10'],['bytes=-3','789','bytes 7-9/10']]){
+    const response=await proxy(new Request(page('/intro/intro.mp4'),{headers:{Range:range}}));
+    assert.equal(response.status,206);assert.equal(response.headers.get('Content-Range'),header);assert.equal(await response.text(),text);
+  }
+  for(const range of ['bytes=10-','bytes=5-2','bytes=-0','bytes=0-1,3-4'])assert.equal((await proxy(new Request(page('/intro/intro.mp4'),{headers:{Range:range}}))).status,416);
+  const head=await proxy(new Request(page('/intro/intro.mp4'),{method:'HEAD',headers:{Range:'bytes=2-4'}}));assert.equal(head.status,206);assert.equal(await head.text(),'');
+  const changed=await proxy(new Request(page('/intro/intro.mp4'),{headers:{Range:'bytes=2-4','If-Range':'"older"'}}));assert.equal(changed.status,200);assert.equal(await changed.text(),'0123456789');
+});
