@@ -4,6 +4,14 @@ $remoteFile = Join-Path $archiveDirectory '.local-collaboration/remote-access.js
 try {
   if (!(Test-Path -LiteralPath $remoteFile)) { Write-Output 'No public connection is configured.'; exit 0 }
   $remote = Get-Content -LiteralPath $remoteFile -Raw | ConvertFrom-Json
+  # A cold connection can finish after an earlier readiness check timed out.
+  # Its process ID is already recorded here, even before remote-access updates.
+  $fixedFile = Join-Path $archiveDirectory '.local-collaboration/fixed-remote.json'
+  if ($remote.mode -eq 'fixed' -and (Test-Path -LiteralPath $fixedFile)) {
+    $fixed = Get-Content -LiteralPath $fixedFile -Raw | ConvertFrom-Json
+    if ($fixed.mode -ne 'fixed' -or $fixed.origin -ne $remote.origin -or $fixed.tunnelId -ne $remote.tunnelId) { throw 'Fixed connection identity mismatch; no process was stopped.' }
+    $remote = $fixed
+  }
   $tunnelProcess = Get-CimInstance Win32_Process -Filter "ProcessId=$([int]$remote.tunnelPid)"
   if (!$tunnelProcess) { Write-Output 'The public connection is already stopped.'; exit 0 }
   $expectedExecutable = Join-Path $archiveDirectory 'data-tools/bin/cloudflared.exe'

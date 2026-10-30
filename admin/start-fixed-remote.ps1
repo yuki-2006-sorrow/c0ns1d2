@@ -41,18 +41,21 @@ function Restart-Archive {
   if ($LASTEXITCODE -ne 0) { throw 'Archive could not start.' }
 }
 function Test-FixedArchive {
-  for ($probe=0; $probe -lt 5; $probe++) {
+  # A freshly started tunnel can return quick 1033/503 responses during its
+  # network precheck. Wait for elapsed time rather than only five fast probes.
+  $deadline = [DateTime]::UtcNow.AddSeconds(45)
+  do {
     try {
-      $health = Invoke-RestMethod -Uri ($fixedOrigin + '/api/health') -TimeoutSec 8
+      $health = Invoke-RestMethod -Uri ($fixedOrigin + '/api/health') -TimeoutSec 3
       if ($health.app -eq 'c0ns1d2-collaboration') { return $true }
     } catch {}
-    Start-Sleep -Milliseconds 500
-  }
+    Start-Sleep -Milliseconds 750
+  } while ([DateTime]::UtcNow -lt $deadline)
   return $false
 }
 try {
   if (!(Test-Path -LiteralPath $tunnelExecutable)) { throw 'Cloudflare executable is missing.' }
-  if (!(Test-Path -LiteralPath $certFile)) { throw 'Cloudflare authorization is missing. Run the login batch file in the project folder and select c0ns1d2.com.' }
+  if (!(Test-Path -LiteralPath $certFile)) { throw 'Cloudflare authorization is missing. Run admin/authorize-tunnel.ps1 locally and select c0ns1d2.com.' }
   if (!(Test-Path -LiteralPath (Join-Path $privateDirectory 'archive.json'))) { throw 'Set up your owner account locally before remote access.' }
   if (!(Test-Path -LiteralPath (Join-Path $archiveDirectory 'dist/collaboration-shell/home/index.html'))) { throw 'Build the archive frontend first: npm run build.' }
   New-Item -ItemType Directory -Path (Join-Path $archiveDirectory 'data-tools') -Force | Out-Null
@@ -90,6 +93,7 @@ try {
   $state = @{mode='fixed';origin=$fixedOrigin;tunnelId=$tunnelId;tunnelPid=$tunnelPid;startedAt=[DateTime]::UtcNow.ToString('o')}
   [IO.File]::WriteAllText($fixedStateFile,($state | ConvertTo-Json),$utf8)
   $previousRemote = if (Test-Path -LiteralPath $remoteFile) { [IO.File]::ReadAllBytes($remoteFile) } else { $null }
+  Write-Output 'Waiting for the fixed connection to become ready...'
   $archiveHash = (Get-FileHash -LiteralPath (Join-Path $privateDirectory 'archive.json') -Algorithm SHA256).Hash
   $changedBackend = !$health -or $health.publicOrigin -ne $fixedOrigin
   if ($changedBackend) {
