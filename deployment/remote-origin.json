@@ -1,5 +1,8 @@
 {
-    "upstream":  "https://yacht-corners-geneva-primarily.trycloudflare.com",
-    "publicOrigin":  "https://c0ns1d2.pages.dev",
-    "publicAliases": ["https://c0ns1d2.com", "https://www.c0ns1d2.com"]
+    "upstream":  "https://backend.c0ns1d2.com",
+    "publicOrigin":  "https://c0ns1d2.com",
+    "publicAliases":  [
+                          "https://c0ns1d2.pages.dev",
+                          "https://www.c0ns1d2.com"
+                      ]
 }
