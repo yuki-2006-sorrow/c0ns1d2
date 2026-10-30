@@ -81,7 +81,7 @@ export function createCollaborationFrontend(root,store){
     return chrome(slot(template('read'),'reading',reading),user,prefix,person.name);
   }
   function chrome(html,user,prefix,title){
-    const account=user.role==='guest'?'<a href="/shared">登录／答题加入</a>':'<a href="/shared">'+escape(user.name)+' · '+(user.role==='owner'?'管理':'我的记录')+'</a><a href="/guest">访客视角</a>';
+    const account=user.role==='guest'?'<a href="/shared?return=home">登录</a><a href="/shared?join=1&amp;return=home">答题加入</a>':'<details class="archive-account"><summary>'+escape(user.name)+' · '+(user.role==='owner'?'管理':'我的记录')+'</summary><div class="archive-account-links"><a href="/shared?view=library">我的记录与草稿</a>'+(user.canCreate?'<a href="/shared?new=event">留下一段记忆</a><a href="/shared?new=work">记一本书／一部作品</a><a href="/shared?new=thought">写一点想法</a>':'')+(user.role==='owner'?'<a href="/shared?view=manage">成员、准入与访客开放</a>':'')+'<a href="/shared?view=password">修改密码</a><a href="/guest">查看访客视角</a></div></details>';
     const start='<!--archive:account:start-->',end='<!--archive:account:end-->';
     html=html.split(start+end).join(start+account+end);
     if(prefix)html=html.replace(/href="\/(events|works|thoughts|timeline)(?=[/"])/g,'href="/guest/$1').replace('href="/" class="nav-logo"','href="/guest" class="nav-logo"');
@@ -95,7 +95,7 @@ export function createCollaborationFrontend(root,store){
     html=slot(html,'cards',cards.map((entry,index)=>'<button type="button" class="card" data-index="'+index+'" aria-label="查看 '+escape(entry.title)+'"><div class="card-img">'+(imageUrl(entry,entry.images[0]||'',0,prefix)?'<img data-src="'+escape(imageUrl(entry,entry.images[0],0,prefix))+'" alt="'+escape(entry.title)+'" decoding="async">':'<span class="card-placeholder"><small>'+escape(entry.date)+'</small>'+escape(entry.title)+'</span>')+'</div><div class="card-shine"></div></button>').join(''));
     html=slot(html,'texts',cards.length?cards.map((entry,index)=>'<div class="text-item" data-index="'+index+'"><span class="text-date">'+escape(entry.date)+'</span><h2 class="text-title">'+escape(entry.title)+'</h2><p class="text-desc">'+escape((entry.persons||[]).join(' · '))+'</p><a href="'+urlFor(entry,prefix)+'" class="text-enter">进入记忆 →</a></div>').join(''):'<div id="homeEmpty"><h2>这里还没有向你开放的精选记忆</h2><p>可以先从记忆列表浏览，或登录后继续探索。</p><a href="'+prefix+'/events">浏览可见记忆 →</a><a href="/shared">登录／答题加入 →</a></div>');
     html=html.replace(/(<span id="totalNum">)[\s\S]*?(<\/span>)/,(_,start,end)=>start+String(cards.length).padStart(2,'0')+end);
-    html=html.replace('<div class="shots"','<div class="cinema-entrances"><a href="'+(user.role==='guest'?prefix+'/events':'/guest')+'">'+(user.role==='guest'?'浏览开放内容':'访客浏览')+'</a><a href="/shared">'+(user.role==='guest'?'登录／答题加入':'我的记录／管理')+'</a></div><div class="shots"');
+    html=html.replace('<div class="shots"','<div class="cinema-entrances"><a href="'+(user.role==='guest'?'/guest/events':'/guest')+'">'+(user.role==='guest'?'访客浏览':'访客视角')+'</a><a href="'+(user.role==='guest'?'/shared?return=home':'/shared?view=library')+'">'+(user.role==='guest'?'登录／答题加入':'我的记录')+'</a></div><div class="shots"');
     return chrome(html,user,prefix,'时间与记忆');
   }
   function timelineCards(model,prefix){

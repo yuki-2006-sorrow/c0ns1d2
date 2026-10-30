@@ -38,3 +38,20 @@ test('read requests time out and writes remain single pending requests until the
   assert.equal(timers.size,0,'never abort or automatically replay writes');assert.equal(requestCount,2);
   finishWrite();assert.equal((await write).ok,true);
 });
+
+test('homepage tasks survive login, respect roles and only return to the site home',async()=>{
+  const handler=source.slice(source.indexOf('async function enterRecords('),source.indexOf('async function loadLibrary('));
+  for(const [search,user,expected]of [
+    ['?return=home',{role:'member',canCreate:true},'home'],
+    ['?view=manage',{role:'owner',canCreate:true},'manage'],
+    ['?view=manage',{role:'member',canCreate:true},'library'],
+    ['?view=password',{role:'member',canCreate:false},'password'],
+    ['?new=thought',{role:'member',canCreate:true},'thought'],
+    ['?new=event',{role:'member',canCreate:false},'denied'],
+    ['?return=https://evil.example',{role:'member',canCreate:true},'library'],
+  ]){
+    let action='';
+    const context=vm.createContext({URLSearchParams,me:user,records:[],filter:'event',location:{search,assign:path=>{assert.equal(path,'/');action='home';}},loadLibrary:async()=>action='library',manage:async()=>action='manage',passwordPage:()=>action='password',edit:entry=>action=entry.type,notify:()=>action='denied'});
+    vm.runInContext(handler,context);await context.enterRecords();assert.equal(action,expected,search);
+  }
+});

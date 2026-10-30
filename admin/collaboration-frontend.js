@@ -1,4 +1,6 @@
 document.querySelector('.cinema-entrances')?.addEventListener('click',event=>event.stopPropagation());
+document.addEventListener('click',event=>document.querySelectorAll('.archive-account[open]').forEach(menu=>{if(!menu.contains(event.target))menu.open=false;}));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.archive-account[open]').forEach(menu=>{menu.open=false;menu.querySelector('summary').focus();});});
 const search=document.getElementById('bridge-search');
 search?.addEventListener('input',()=>{
   const query=search.value.trim().toLocaleLowerCase();let count=0;

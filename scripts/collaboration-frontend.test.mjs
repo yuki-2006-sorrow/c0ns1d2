@@ -7,6 +7,8 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import { createCollaborationStore } from '../admin/collaboration-store.mjs';
+import {createPublicEntry} from './public-entry.mjs';
+import {verifyMainEntryBrowser} from './verify-main-entry-browser.mjs';
 
 const password='fixture-password-12345';
 function fixture(){
@@ -85,6 +87,14 @@ test('real frontend routes contain only readable records; media and guest previe
     }
     assert.equal((await fetch(origin+'/api/media/'+mediaId)).status,200);
     const ownerHtml=await(await fetch(origin+'/events',{headers:{Cookie:cookie}})).text();assert.ok(ownerHtml.includes('PRIVATE_TOKEN_984'));
+    const ownerHome=await(await fetch(origin+'/',{headers:{Cookie:cookie}})).text();
+    for(const link of ['/thoughts','/timeline','/shared?new=event','/shared?new=work','/shared?new=thought','/shared?view=manage'])assert.ok(ownerHome.includes('href="'+link+'"'),link);
+    const guestHome=await(await fetch(origin+'/')).text();
+    assert.ok(guestHome.includes('/shared?join=1&amp;return=home'));assert.ok(!guestHome.includes('/shared?new=event'));assert.ok(!guestHome.includes('/shared?view=manage'));
+    const offlineHome=createPublicEntry(root);
+    assert.ok(offlineHome.includes('共享资料暂时离线'));assert.ok(offlineHome.includes('id="introVideo"'));
+    for(const token of ['PRIVATE_TOKEN_984','IMPORTED_SECRET','Visible $&amp;','PROFILE_PRIVATE_971'])assert.ok(!offlineHome.includes(token),'empty offline shell leaked '+token);
+    const oldAdmin=await fetch(origin+'/admin',{redirect:'manual'});assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/shared?view=library');
     assert.equal((await fetch(origin+'/people/test-person')).status,404);
     assert.equal((await fetch(origin+'/guest/people/test-person',{headers:{Cookie:cookie}})).status,404);
     const profile=await fetch(origin+'/people/test-person',{headers:{Cookie:cookie}});assert.equal(profile.status,200);assert.ok((await profile.text()).includes('PROFILE_PRIVATE_971'));
@@ -99,6 +109,7 @@ test('real frontend routes contain only readable records; media and guest previe
     const openLegacy=await fetch(origin+'/api/guest-access',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({id:imported.id,revision:imported.revision,visible:true})});
     assert.equal(openLegacy.status,200);
     assert.equal((await fetch(origin+'/api/legacy-media?id='+imported.id+'&index=0')).status,200,'legacy photos inherit explicit guest permission');
+    if(process.env.CHECK_MAIN_BROWSER==='1')await verifyMainEntryBrowser(root,origin,password);
   }finally{
     if(child){child.kill();await once(child,'exit');}
     cleanup(root);

@@ -14,6 +14,20 @@ export function createArchiveProxy({upstream,publicOrigin,staticAssets=[]},forwa
     if(address.origin!==publicOrigin)return unavailable(request);
     if(!['GET','HEAD','POST'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD, POST','Cache-Control':'no-store'}});
     if(request.method==='POST'&&(request.headers.get('Origin')!==publicOrigin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
+    if(address.pathname==='/admin'&&['GET','HEAD'].includes(request.method))return new Response(null,{status:303,headers:{Location:'/shared?view=library','Cache-Control':'no-store'}});
+    const offline=async()=>{
+      const shell=['/','/guest','/guest/'].includes(address.pathname)?'/archive-entry.html':address.pathname==='/shared'?'/archive-shared.html':null;
+      if(assets&&shell&&['GET','HEAD'].includes(request.method))try{
+        const response=await assets.fetch(new Request(new URL(shell,publicOrigin),{method:request.method,headers:{Accept:'text/html'}}));
+        if(response.status===200&&/text\/html/i.test(response.headers.get('Content-Type')||'')){
+          const returned=new Headers(response.headers);returned.delete('Set-Cookie');returned.set('Cache-Control','no-store');returned.set('X-Archive-Gateway','entry');returned.set('X-Archive-Connection','offline');
+          returned.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
+          returned.set('X-Content-Type-Options','nosniff');
+          return new Response(request.method==='HEAD'?null:response.body,{status:200,headers:returned});
+        }
+      }catch{}
+      return unavailable(request);
+    };
     // Only build-listed, content-free resources bypass the authenticated backend.
     // Never use ASSETS as a fallback for pages, photos or private API responses.
     if(assets&&['GET','HEAD'].includes(request.method)&&publicFiles.has(address.pathname)){
@@ -38,12 +52,12 @@ export function createArchiveProxy({upstream,publicOrigin,staticAssets=[]},forwa
     const timer=['GET','HEAD'].includes(request.method)?setTimeout(cancel,readTimeoutMs):null;
     try{
       const response=await forward(new Request(destination,{method:request.method,headers,body:['GET','HEAD'].includes(request.method)?undefined:request.body,redirect:'manual',duplex:'half',signal:controller.signal}));
-      if(response.status>=500)return unavailable(request);
+      if(response.status>=500)return offline();
       const returned=new Headers(response.headers);returned.set('Cache-Control','no-store');returned.set('X-Archive-Gateway','collaboration');
       const location=returned.get('Location');
       if(location){const redirect=new URL(location,upstream);if(redirect.origin!==upstream)return unavailable(request);returned.set('Location',publicOrigin+redirect.pathname+redirect.search+redirect.hash);}
       return new Response(request.method==='HEAD'?null:response.body,{status:response.status,statusText:response.statusText,headers:returned});
-    }catch{return unavailable(request);}
+    }catch{return offline();}
     finally{if(timer!==null)clearTimeout(timer);request.signal.removeEventListener('abort',cancel);}
   };
 }

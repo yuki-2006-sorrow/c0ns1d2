@@ -133,7 +133,8 @@ test('HTTP blocks unauthenticated reads, cross-origin posts, unsafe hosts and re
     let cookie='';
     const post=async(path,body,extra={})=>{const response=await fetch(origin+path,{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie,...extra},body:JSON.stringify(body)});const setCookie=response.headers.get('set-cookie');if(setCookie)cookie=setCookie.split(';')[0];return {status:response.status,data:await response.json()};};
     assert.equal((await fetch(origin+'/api/entries')).status,401);
-    assert.equal((await fetch(origin+'/admin')).status,401);
+    const adminEntry=await fetch(origin+'/admin',{redirect:'manual'});
+    assert.equal(adminEntry.status,303);assert.equal(adminEntry.headers.get('Location'),'/shared?view=library');
     assert.equal((await post('/api/setup',{}, {Origin:'https://evil.example'})).status,403);
     const token=readFileSync(join(root,'.local-collaboration/setup-token'),'utf8');
     assert.equal((await post('/api/setup',{username:'owner',name:'站主',password,token})).status,200);

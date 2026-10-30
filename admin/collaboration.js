@@ -55,14 +55,26 @@ async function initialize(){
   app.innerHTML='<section class="auth"><p class="muted">每个人留下自己的那一部分</p><h1>共同留下</h1><form id="login"><label>账号<input name="username" autocomplete="username" required></label><label>密码<input name="password" type="password" autocomplete="current-password" required></label><div class="actions"><button type="submit">登录</button>'+(state.ready?'<button class="subtle" id="join" type="button">回答问题，加入记忆库</button>':'<span class="muted">站主尚未开放问答入口</span>')+'</div></form><p class="notice">'+escape(state.notice)+'</p><small>忘记密码时，请联系站主重置。</small></section>';
   formAction(document.getElementById('login'),async data=>{me=(await api('/api/login',Object.fromEntries(data))).user;accountBar();await enterRecords();});
   document.getElementById('join')?.addEventListener('click',()=>registration(state));
+  if(state.ready&&new URLSearchParams(location.search).get('join')==='1')registration(state);
 }
 function registration(state){
   app.innerHTML='<section class="auth"><h1>从几个问题开始</h1><p class="muted">回答至少 '+state.threshold+' 题正确后，可以建立个人账号。</p><p class="notice">'+escape(state.notice)+'</p><form id="register">'+state.questions.map(q=>'<label>'+escape(q.text)+'<input name="answer-'+escape(q.id)+'" autocomplete="off"></label>').join('')+'<label>账号<input name="username" autocomplete="username" pattern="[a-zA-Z0-9_-]{3,40}" required></label><label>昵称<input name="name" maxlength="60" required></label><label>密码（至少12个字符）<input name="password" type="password" autocomplete="new-password" minlength="12" required></label><label>再输入一次密码<input name="repeat" type="password" autocomplete="new-password" required></label><label class="checkbox"><input name="consent" type="checkbox" required>我已知悉站主可以管理、查看本机保存的内容。</label><div class="actions"><button type="submit">核对答案并加入</button><button type="button" id="back-login" class="subtle">返回登录</button></div></form></section>';
-  document.getElementById('back-login').onclick=()=>initialize().catch(e=>notify(e.message));
+  document.getElementById('back-login').onclick=()=>{const next=new URL(location.href);next.searchParams.delete('join');history.replaceState(null,'',next);initialize().catch(e=>notify(e.message));};
   formAction(document.getElementById('register'),async data=>{if(data.get('password')!==data.get('repeat'))throw new Error('两次密码不一致');const answers=Object.fromEntries(state.questions.map(q=>[q.id,data.get('answer-'+q.id)]));me=(await api('/api/register',{username:data.get('username'),name:data.get('name'),password:data.get('password'),consent:!!data.get('consent'),answers})).user;accountBar();await enterRecords();});
 }
 async function enterRecords(){
-  await loadLibrary();const request=new URLSearchParams(location.search),id=request.get('edit')||request.get('from');
+  const request=new URLSearchParams(location.search),id=request.get('edit')||request.get('from'),create=request.get('new');
+  if(!id&&!create){
+    if(request.get('view')==='manage'&&me.role==='owner')return manage();
+    if(request.get('view')==='password')return passwordPage();
+    if(request.get('return')==='home'){submitting=false;location.assign('/');return;}
+  }
+  if(['event','work','thought'].includes(create))filter=create;
+  await loadLibrary();
+  if(!id&&['event','work','thought'].includes(create)){
+    if(!me.canCreate)return notify('目前还没有投稿资格，可以先浏览或联系站主。');
+    return edit({type:create,scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''});
+  }
   if(!id)return;const entry=records.find(entry=>entry.id===id);
   if(!entry)return notify('这段记录不存在或当前无权访问。');
   if(request.has('edit')){if(entry.editable)edit(entry);else await read(entry.id);}
@@ -116,13 +128,13 @@ async function read(id){
 function edit(entry){
   if(!swap('<section class="reading"><h1>'+ (entry.id?'继续写自己的记录':'留下一段记忆')+'</h1><form id="entry-form"><label>标题<input name="title" required maxlength="300" value="'+escape(entry.title)+'"></label><div class="form-row"><label>类型<select name="type"><option value="event">记忆</option><option value="work">作品</option><option value="thought">想法</option></select></label><label>时间<input name="date" value="'+escape(entry.date||'?')+'"></label></div><div id="work-kind"><label>作品类型<select name="kind"><option value="book">书</option><option value="film">电影</option><option value="game">游戏</option></select></label></div><div id="thought-links"><p class="muted">关联可以留空；引用的记录也需获准阅读，才能看到这段关联想法。</p>'+['fromId','toId'].map(key=>'<label>'+(key==='fromId'?'从哪段记忆或作品出发':'又想到了哪段记忆或作品')+'<select name="'+key+'"><option value="">暂不关联</option>'+records.filter(record=>record.type!=='thought').map(record=>'<option value="'+record.id+'">'+escape(record.title)+'</option>').join('')+'</select></label>').join('')+'</div><label>文字<textarea name="body" rows="15">'+escape(entry.body)+'</textarea></label><label>添加照片或视频<input id="files" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm" '+(!me.canCreate?'disabled':'')+'></label><p class="muted">单个文件不超过500MB。上传后还需保存记录，才会随分享设置开放。</p><div id="attachments"></div><details><summary>分层整理（可选）</summary><label>中事件分组<input name="medium" value="'+escape(entry.medium||'')+'"></label><label>参与人（逗号分隔）<input name="persons" value="'+escape((entry.persons||[]).join('，'))+'"></label><label class="checkbox"><input name="major" type="checkbox" '+(entry.major?'checked':'')+'>大事件</label></details><label>分享范围<select name="scope"><option value="private">仅自己（站主仍可管理）</option><option value="members">有共同内容访问权的成员</option><option value="selected">指定成员</option></select></label><label id="recipient-label">分享给谁<select name="recipients" multiple size="5">'+people.filter(person=>person.id!==me.id).map(person=>'<option value="'+escape(person.id)+'">'+escape(person.name)+'</option>').join('')+'</select></label><label class="checkbox"><input name="published" type="checkbox" '+(entry.published?'checked':'')+'>发布到协作记忆库（不勾选则只留草稿）</label><div class="actions"><button type="submit">保存记录</button><button type="button" class="subtle" id="cancel">返回</button></div></form></section>'))return;
   const form=document.getElementById('entry-form');
+  form.elements.type.value=entry.type;form.elements.scope.value=entry.scope;
   if(me.role==='owner'){
     const label=document.createElement('label');label.className='checkbox';label.innerHTML='<input name="visitorVisible" type="checkbox">同时开放给未登录访客（仅适用于已发布的共同内容）';
     form.elements.published.closest('label').after(label);form.elements.visitorVisible.checked=entry.visitorVisible===true;
     const update=()=>{const eligible=form.elements.published.checked&&form.elements.scope.value==='members';form.elements.visitorVisible.disabled=!eligible;if(!eligible)form.elements.visitorVisible.checked=false;};
     form.addEventListener('change',update);update();
   }else if(entry.visitorVisible){const note=document.createElement('p');note.className='notice';note.textContent='这段记录当前对访客开放。修改保存后，需要站主重新确认访客开放。';form.prepend(note);}
-  form.elements.type.value=entry.type;form.elements.scope.value=entry.scope;
   form.elements.kind.value=entry.kind||'book';
   form.elements.fromId.value=entry.fromId||'';form.elements.toId.value=entry.toId||'';
   const showType=()=>{form.elements.title.required=form.elements.type.value!=='thought';form.elements.title.placeholder=form.elements.type.value==='thought'?'可留空，自动取文字开头':'';document.getElementById('work-kind').hidden=form.elements.type.value!=='work';document.getElementById('thought-links').hidden=form.elements.type.value!=='thought';};showType();form.elements.type.onchange=showType;

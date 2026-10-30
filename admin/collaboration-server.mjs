@@ -83,6 +83,7 @@ const server=createServer(async(req,res)=>{
     if(!['GET','HEAD','POST'].includes(req.method))return reply(res,405,{error:'请求方式不支持'});
     if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     const path=url.pathname;
+    if(path==='/admin'&&['GET','HEAD'].includes(req.method)){res.writeHead(303,{Location:'/shared?view=library'});return res.end();}
     if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,publicOrigin:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:publicOrigin});
     if(['GET','HEAD'].includes(req.method)&&frontend.resource(req,res,path))return;
     if(path==='/bridge.css'||path==='/bridge-client.js'){

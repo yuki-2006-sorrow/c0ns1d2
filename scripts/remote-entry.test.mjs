@@ -56,3 +56,19 @@ test('stalled reads end with a usable JSON error and a later request can recover
   assert.match((await response.json()).error,/当前输入仍保留/);
   stalled=false;assert.equal((await proxy(new Request(page('/api/entries')))).status,200);
 });
+
+test('offline opens only empty entry shells; content, API and preview domains stay closed',async()=>{
+  const requested=[];
+  const proxy=createArchiveProxy(configuration,async()=>new Response('offline',{status:502}),{fetch:async request=>{
+    requested.push(new URL(request.url).pathname);assert.equal(request.headers.get('Cookie'),null);
+    return new Response('<html>EMPTY_ARCHIVE_ENTRY</html>',{headers:{'Content-Type':'text/html'}});
+  }});
+  for(const path of ['/','/guest','/shared']){
+    const response=await proxy(new Request(page(path),{headers:{Cookie:'secret'}}));
+    assert.equal(response.status,200);assert.equal(response.headers.get('X-Archive-Connection'),'offline');assert.equal(response.headers.get('Cache-Control'),'no-store');
+  }
+  assert.deepEqual(requested,['/archive-entry.html','/archive-entry.html','/archive-shared.html']);
+  for(const path of ['/events/old','/api/entries','/photos/private.jpg','/archive-entry.html'])assert.equal((await proxy(new Request(page(path)))).status,503);
+  assert.equal((await proxy(new Request('https://preview.pages.dev/'))).status,503);assert.equal(requested.length,3);
+  const oldAdmin=await proxy(new Request(page('/admin')));assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/shared?view=library');
+});
