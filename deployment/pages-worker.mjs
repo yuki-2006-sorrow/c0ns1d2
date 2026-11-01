@@ -31,7 +31,7 @@ function videoResponse(request,response,headers,size){
 
 const unavailable=(request)=>{
   const api=request&&new URL(request.url).pathname.startsWith('/api/');
-  return new Response(api?JSON.stringify({error:'记忆库暂时离线或连接超时，请稍后重试。当前输入仍保留，请不要刷新编辑页。'}):'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记忆库暂时离线</title><body style="background:#101014;color:#d8c8b8;font:18px/1.9 sans-serif;padding:10vh 8vw"><h1>记忆库暂时离线</h1><p>站主的电脑或共享通道暂未连接，请稍后再来。</p><a href="" style="color:#e1b89c">重新连接 →</a></body></html>',{status:503,headers:{'Content-Type':api?'application/json; charset=utf-8':'text/html; charset=utf-8','Cache-Control':'no-store','Retry-After':'60','X-Content-Type-Options':'nosniff'}});
+  return new Response(api?JSON.stringify({error:'记忆库暂时离线或连接超时，请稍后重试。当前输入仍保留，请不要刷新编辑页。'}):'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记忆库暂时离线</title><body style="background:#fafaf9;color:#3a3a37;font:18px/1.9 sans-serif;padding:10vh 8vw"><h1>记忆库暂时离线</h1><p>站主的电脑或共享通道暂未连接，请稍后再来。</p><a href="" style="color:#1d1d1b">重新连接 →</a></body></html>',{status:503,headers:{'Content-Type':api?'application/json; charset=utf-8':'text/html; charset=utf-8','Cache-Control':'no-store','Retry-After':'60','X-Content-Type-Options':'nosniff'}});
 };
 
 export function validateArchiveOrigins({upstream,publicOrigin,publicAliases=[]}){
