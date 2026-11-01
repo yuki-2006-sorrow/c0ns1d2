@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 const fail=(message,status=400)=>{throw Object.assign(new Error(message),{status});};
-const string=(value,max)=>typeof value==='string'&&value.length<=max?value.trim():fail('作品文字格式不正确或过长');
+const string=(value,max)=>typeof value==='string'&&value.length<=max?value.trim():fail('帖子文字格式不正确或过长');
 export const isCreator=user=>!!user&&user.access!=='blocked'&&(user.role==='owner'||user.canCreate===true);
 export function createPostStore({getState,transaction,audit,canRead}){
   const creator=user=>{if(!isCreator(user))fail('只有创作者可以访问素材与剪辑台',403);};
@@ -15,16 +15,16 @@ export function createPostStore({getState,transaction,audit,canRead}){
     blocks:published.blocks.map((block,index)=>({kind:block.kind,text:block.text,caption:block.caption,author:block.author,
       ...(block.mediaRef?{media:'/api/post-media/'+post.id+'/'+index}:{} )}))};}
   function listPosts(user){return (getState().posts||[]).filter(post=>post.publication).map(publicPost);}
-  function readPost(user,id){const post=find(id);if(!post||!post.publication)fail('作品不存在',404);return publicPost(post);}
-  function editPost(user,id){creator(user);const post=find(id);if(!post||!editable(user,post))fail('作品不存在或未受邀协作',404);return {...structuredClone(post),blocks:post.blocks.map((block,index)=>({...block,viewMedia:block.mediaRef?'/api/post-draft-media/'+post.id+'/'+index:''})),history:(post.history||[]).map(version=>({...version,actorName:name(version.actor)})),authorName:name(post.author),canPublish:user.role==='owner'||post.author===user.id};}
+  function readPost(user,id){const post=find(id);if(!post||!post.publication)fail('帖子不存在',404);return publicPost(post);}
+  function editPost(user,id){creator(user);const post=find(id);if(!post||!editable(user,post))fail('帖子不存在或未受邀协作',404);return {...structuredClone(post),blocks:post.blocks.map((block,index)=>({...block,viewMedia:block.mediaRef?'/api/post-draft-media/'+post.id+'/'+index:''})),history:(post.history||[]).map(version=>({...version,actorName:name(version.actor)})),authorName:name(post.author),canPublish:user.role==='owner'||post.author===user.id};}
   function drafts(user){creator(user);return (getState().posts||[]).filter(post=>editable(user,post)).map(post=>({id:post.id,title:post.title,revision:post.revision,updatedAt:post.updatedAt,published:!!post.publication,authorName:name(post.author)}));}
   function savePost(user,input){
     creator(user);const old=input.id?find(input.id):null;
-    if(input.id&&(!old||!editable(user,old)))fail('作品不存在或未受邀协作',404);
+    if(input.id&&(!old||!editable(user,old)))fail('帖子不存在或未受邀协作',404);
     if(old&&input.revision!==old.revision)fail('另一位创作者已保存新版本。当前编排仍保留，请先保存本地副本再重新载入。',409);
     const title=string(input.title||'',180),subtitle=string(input.subtitle||'',600);
-    if(!title)fail('请给作品起一个标题');
-    if(!Array.isArray(input.clips)||input.clips.length>200)fail('作品最多编排200个片段');
+    if(!title)fail('请给帖子起一个标题');
+    if(!Array.isArray(input.clips)||input.clips.length>200)fail('帖子最多编排200个片段');
     const ids=new Set();
     const blocks=input.clips.map(clip=>{
       const id=string(clip.id||randomUUID(),100);if(ids.has(id))fail('片段重复');ids.add(id);
@@ -42,7 +42,7 @@ export function createPostStore({getState,transaction,audit,canRead}){
     });
     const action=input.action||'draft';if(!['draft','publish','unpublish'].includes(action))fail('保存方式不正确');
     const publisher=!old||old.author===user.id||user.role==='owner';
-    if(action!=='draft'&&!publisher)fail('发布与撤回由作品发起人或站主完成',403);
+    if(action!=='draft'&&!publisher)fail('发布与撤回由帖子发起人或站主完成',403);
     if(action==='publish'&&!blocks.length)fail('先加入一份素材或一段文字');
     if(input.collaborators!==undefined&&!Array.isArray(input.collaborators))fail('协作者格式不正确');
     const collaborators=old&&old.author!==user.id&&user.role!=='owner'?old.collaborators:[...new Set(input.collaborators||old?.collaborators||[])];
@@ -51,7 +51,7 @@ export function createPostStore({getState,transaction,audit,canRead}){
     return transaction(()=>{
       const at=new Date().toISOString(),post={...old,id:old?.id||randomUUID(),author:old?.author||user.id,title,subtitle,blocks,collaborators,revision:randomUUID(),updatedAt:at,
         history:[...(old?.history||[]),...(old?[{at,actor:user.id,title:old.title,subtitle:old.subtitle,blocks:structuredClone(old.blocks)}]:[])].slice(-50),
-        activity:[...(old?.activity||[]),{at,actorName:name(user.id),action:action==='publish'?'发布作品':action==='unpublish'?'撤回公开作品':old?'保存编排'+(fields.length?'：'+fields.join('、'):''):'创建作品'}].slice(-100),comments:old?.comments||[]};
+        activity:[...(old?.activity||[]),{at,actorName:name(user.id),action:action==='publish'?'发布帖子':action==='unpublish'?'撤回公开帖子':old?'保存编排'+(fields.length?'：'+fields.join('、'):''):'创建帖子'}].slice(-100),comments:old?.comments||[]};
       if(action==='publish')post.publication={title,subtitle,blocks:structuredClone(blocks),at,credits:[...new Set([post.author,...post.history.map(version=>version.actor),user.id].map(name))]};
       if(action==='unpublish')delete post.publication;
       getState().posts||=[];if(old)getState().posts.splice(getState().posts.indexOf(old),1,post);else getState().posts.push(post);

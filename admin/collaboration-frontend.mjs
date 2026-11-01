@@ -77,11 +77,11 @@ export function createCollaborationFrontend(root,store){
     const person=profiles(user).find(person=>person.slug===slug);if(!person)return null;
     const traits=[['openness','开放性'],['conscientiousness','尽责性'],['extraversion','外向性'],['agreeableness','宜人性'],['neuroticism','神经质']];
     const memories=entries.filter(entry=>entry.type==='event'&&entry.persons.includes(person.name));
-    const reading='<article class="reading-page"><header class="reading-header"><a class="reading-back" href="/topics">← 专题</a><p class="archive-eyebrow">人物档案 · 站主可见</p><h1>'+escape(person.name)+'</h1><p class="reading-meta">'+[person.nickname,person.role,person.university,person.major].filter(Boolean).map(escape).join(' · ')+'</p></header><div class="reading-layout"><div class="reading-main"><details class="reading-meta"><summary>大五人格画像</summary>'+traits.map(([key,label])=>'<label class="bridge-trait">'+label+'<meter min="0" max="100" value="'+Math.min(100,Math.max(0,Number(person.personality?.[key])||0))+'"></meter></label>').join('')+'</details><div class="reading-prose">'+markdown.render(person.body||'')+'</div></div><aside class="reading-rail"><h2>参与的记忆</h2>'+memories.map(entry=>'<a href="'+urlFor(entry,prefix)+'">'+escape(entry.date)+' · '+escape(entry.title)+' ↗</a>').join('')+'</aside></div></article>';
+    const reading='<article class="reading-page"><header class="reading-header"><a class="reading-back" href="/topics">← 专题</a><p class="archive-eyebrow">人物档案 · 站主可见</p><h1>'+escape(person.name)+'</h1><p class="reading-meta">'+[person.nickname,person.role,person.university,person.major].filter(Boolean).map(escape).join(' · ')+'</p></header><div class="reading-layout"><div class="reading-main"><details class="reading-meta"><summary>大五人格画像</summary>'+traits.map(([key,label])=>'<label class="bridge-trait">'+label+'<meter min="0" max="100" value="'+Math.min(100,Math.max(0,Number(person.personality?.[key])||0))+'"></meter></label>').join('')+'</details><div class="reading-prose">'+markdown.render(person.body||'')+'</div></div><aside class="reading-rail"><h2>参与的素材</h2>'+memories.map(entry=>'<a href="'+urlFor(entry,prefix)+'">'+escape(entry.date)+' · '+escape(entry.title)+' ↗</a>').join('')+'</aside></div></article>';
     return chrome(slot(template('read'),'reading',reading),user,prefix,person.name);
   }
   function chrome(html,user,prefix,title){
-    const account=user.role==='guest'?'<details class="archive-account"><summary>我的</summary><div class="archive-account-links"><a href="/shared?return=home">登录</a><a href="/shared?join=1&amp;return=home">答题加入</a><a href="'+prefix+'/timeline">按时间浏览</a></div></details>':'<details class="archive-account"><summary>'+escape(user.name)+'</summary><div class="archive-account-links"><a href="/shared?view=library">我的记录</a>'+(user.canCreate?'<a href="/shared?new=event">记一笔</a>':'')+'<a href="/timeline">按时间浏览</a>'+(user.role==='owner'?'<a href="/shared?view=organize">整理专题</a><a href="/shared?view=activity">改动记录</a><a href="/shared?view=manage">成员管理</a>':'')+'<a href="/shared?view=password">修改密码</a><a href="/guest/topics">查看访客视角</a></div></details>';
+    const account=user.role==='guest'?'<details class="archive-account"><summary>我的</summary><div class="archive-account-links"><a href="/shared?return=home">登录</a><a href="/shared?join=1&amp;return=home">答题加入</a><a href="'+prefix+'/timeline">按时间浏览</a></div></details>':'<details class="archive-account"><summary>'+escape(user.name)+'</summary><div class="archive-account-links"><a href="/shared?view=library">我的记录</a>'+(user.canCreate?'<a href="/shared?new=event">收录素材</a>':'')+'<a href="/timeline">按时间浏览</a>'+(user.role==='owner'?'<a href="/shared?view=organize">整理专题</a><a href="/shared?view=activity">改动记录</a><a href="/shared?view=manage">成员管理</a>':'')+'<a href="/shared?view=password">修改密码</a><a href="/guest/topics">查看访客视角</a></div></details>';
     const start='<!--archive:account:start-->',end='<!--archive:account:end-->';
     html=html.split(start+end).join(start+account+end);
     if(prefix)html=html.replace(/href="\/(topics|events|works|thoughts|timeline)(?=[/"])/g,'href="/guest/$1').replace('href="/" class="nav-logo"','href="/guest" class="nav-logo"');
@@ -97,23 +97,23 @@ export function createCollaborationFrontend(root,store){
     html=slot(html,'texts',cards.length?cards.map((entry,index)=>'<div class="text-item" data-index="'+index+'"><span class="text-date">'+escape(entry.date)+'</span><h2 class="text-title">'+escape(entry.title)+'</h2><p class="text-desc">'+escape((entry.persons||[]).join(' · '))+'</p><a href="'+urlFor(entry,prefix)+'" class="text-enter">打开记录 →</a></div>').join(''):'<div id="homeEmpty"><h2>这里还没有向你开放的精选记录</h2><p>可以先打开一个专题看看。</p><a href="'+prefix+'/topics">浏览专题 →</a></div>');
     html=html.replace(/(<span id="totalNum">)[\s\S]*?(<\/span>)/,(_,start,end)=>start+String(cards.length).padStart(2,'0')+end);
     html=html.replace('<div class="shots"','<div class="cinema-entrances"><a href="'+prefix+'/topics">进入专题 →</a></div><div class="shots"');
-    return chrome(html,user,prefix,'时间与记忆');
+    return chrome(html,user,prefix,'时间与素材');
   }
   function timelineCards(model,prefix){
-    return model.entries.map((entry,index)=>'<li class="tl-item" data-event="'+escape(entry.slug)+'"><div class="tl-date">'+escape(entry.time.label)+'</div><a class="tl-card'+(entry.major?' tl-card-major':'')+(entry.image?' tl-card-photo':'')+'" href="'+prefix+'/events/'+encodeURIComponent(entry.slug)+'" aria-labelledby="title-'+index+'" aria-describedby="date-'+index+'"><span class="tl-pin" aria-hidden="true"></span>'+(entry.image?'<div class="tl-photo"><img src="'+escape(entry.image)+'" alt="" loading="lazy" decoding="async"><span class="tl-photo-fallback">照片暂时未能载入</span></div>':'')+'<div class="tl-card-text"><div class="tl-card-meta"><span>'+escape(entry.major?'重要记忆':entry.trail.at(-1)?.title||'记忆片段')+'</span><span class="tl-number" aria-hidden="true">'+String(index+1).padStart(3,'0')+'</span></div><h2 id="title-'+index+'">'+escape(entry.title)+'</h2>'+(entry.summary?'<p class="tl-summary">'+escape(entry.summary)+'</p>':'')+'<span id="date-'+index+'" class="tl-sr-only">'+escape(entry.time.label)+'</span><span class="tl-enter">打开这段记忆 <span aria-hidden="true">↗</span></span></div></a></li>').join('');
+    return model.entries.map((entry,index)=>'<li class="tl-item" data-event="'+escape(entry.slug)+'"><div class="tl-date">'+escape(entry.time.label)+'</div><a class="tl-card'+(entry.major?' tl-card-major':'')+(entry.image?' tl-card-photo':'')+'" href="'+prefix+'/events/'+encodeURIComponent(entry.slug)+'" aria-labelledby="title-'+index+'" aria-describedby="date-'+index+'"><span class="tl-pin" aria-hidden="true"></span>'+(entry.image?'<div class="tl-photo"><img src="'+escape(entry.image)+'" alt="" loading="lazy" decoding="async"><span class="tl-photo-fallback">照片暂时未能载入</span></div>':'')+'<div class="tl-card-text"><div class="tl-card-meta"><span>'+escape(entry.major?'重要素材':entry.trail.at(-1)?.title||'素材片段')+'</span><span class="tl-number" aria-hidden="true">'+String(index+1).padStart(3,'0')+'</span></div><h2 id="title-'+index+'">'+escape(entry.title)+'</h2>'+(entry.summary?'<p class="tl-summary">'+escape(entry.summary)+'</p>':'')+'<span id="date-'+index+'" class="tl-sr-only">'+escape(entry.time.label)+'</span><span class="tl-enter">打开这段素材 <span aria-hidden="true">↗</span></span></div></a></li>').join('');
   }
   function renderTimeline(user,prefix,entries){
     const events=entries.filter(entry=>entry.type==='event').map(entry=>({slug:entry.id,title:entry.title,date:entry.date,major:entry.major,medium:entry.medium,summary:preview(entry),image:imageUrl(entry,entry.images[0]||'',0,prefix)}));
     const model=prepareTimeline(events,folders(events,user));
     let html=template('timeline');
     html=slot(html,'years','<button type="button" data-year="all" aria-pressed="true">全部</button>'+model.years.map(year=>'<button type="button" data-year="'+escape(year)+'" aria-pressed="false">'+(year==='undated'?'日期未定':year)+'</button>').join(''));
-    html=slot(html,'groups',model.groups.length?'<label class="tl-group-label">分组<select id="tl-group"><option value="">全部记忆</option>'+model.groups.map(group=>'<option value="'+escape(group.id)+'">'+escape(group.title)+'（'+group.count+'）</option>').join('')+'</select></label>':'');
+    html=slot(html,'groups',model.groups.length?'<label class="tl-group-label">分组<select id="tl-group"><option value="">全部素材</option>'+model.groups.map(group=>'<option value="'+escape(group.id)+'">'+escape(group.title)+'（'+group.count+'）</option>').join('')+'</select></label>':'');
     html=slot(html,'timeline-cards',timelineCards(model,prefix));
     const data={entries:model.entries.map(({slug,time,trail})=>({slug,time,trail})),years:model.years,groups:model.groups.map(group=>group.id),viewKey:user.id+':'+prefix};
     html=html.replace(/(<script id="timeline-data"[^>]*>)[\s\S]*?(<\/script>)/,(_,start,end)=>start+json(data)+end);
-    html=html.replace(/(<p id="tl-info"[^>]*>)[\s\S]*?(<\/p>)/,(_,start,end)=>start+model.entries.length+' 段记忆'+end);
+    html=html.replace(/(<p id="tl-info"[^>]*>)[\s\S]*?(<\/p>)/,(_,start,end)=>start+model.entries.length+' 段素材'+end);
     if(events.length)html=html.replace(/(<p class="tl-empty" id="tl-empty")(?! hidden)/,'$1 hidden');
-    return chrome(html,user,prefix,'时间与记忆');
+    return chrome(html,user,prefix,'时间与素材');
   }
   function recordRows(entries,prefix){
     return entries.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(entry=>{
@@ -125,7 +125,7 @@ export function createCollaborationFrontend(root,store){
     return topics.map(([slug,group])=>{
       const records=entries.filter(entry=>withinTopic(entry,slug,groups)).sort((a,b)=>b.date.localeCompare(a.date));
       const latest=records[0];
-      return '<a data-memory-row class="topic-card" href="'+topicUrl(slug,prefix)+'"><span class="topic-count">'+records.length+' 条记录</span><h2>'+escape(group.title)+'</h2><p>'+escape(latest?.title||'还没有记录，随时可以记一笔。')+'</p><span class="topic-enter">打开专题 ↗</span></a>';
+      return '<a data-memory-row class="topic-card" href="'+topicUrl(slug,prefix)+'"><span class="topic-count">'+records.length+' 条记录</span><h2>'+escape(group.title)+'</h2><p>'+escape(latest?.title||'还没有记录，随时可以收录素材。')+'</p><span class="topic-enter">打开专题 ↗</span></a>';
     }).join('');
   }
   function renderTopics(user,prefix,entries,selection){
@@ -137,13 +137,13 @@ export function createCollaborationFrontend(root,store){
     const parent=!index&&selection?groups[selection].parent:'';
     const children=Object.entries(groups).filter(([slug,group])=>index?!group.parent||!groups[group.parent]:selection!==''&&group.parent===selection&&slug!==selection).sort((a,b)=>a[1].title.localeCompare(b[1].title,'zh-CN'));
     if(index&&entries.some(entry=>!entry.medium))children.push(['',{title:'未归入专题',parent:''}]);
-    const write=user.canCreate&&!index?'<a class="archive-button" href="/shared?new=event'+(selection?'&amp;topic='+encodeURIComponent(selection):'')+'">记一笔</a>':'';
+    const write=user.canCreate&&!index?'<a class="archive-button" href="/shared?new=event'+(selection?'&amp;topic='+encodeURIComponent(selection):'')+'">收录素材</a>':'';
     const create=user.role==='owner'&&index?'<a class="archive-button" href="/shared?view=topic-new">新建专题</a>':'';
     const back=index?'':'<a class="reading-back" href="'+(parent?topicUrl(parent,prefix):prefix+'/topics')+'">← '+escape(parent&&groups[parent]?groups[parent].title:'全部专题')+'</a>';
-    const content='<header class="topic-heading">'+back+'<div class="topic-title"><h1>'+escape(title)+'</h1>'+create+write+'</div><p class="index-intro">'+(index?'把相关的经历、作品和随想放在一起，打开一个专题慢慢看。':selected.length+' 条记录，按时间放在一起。')+'</p><input class="bridge-search" id="bridge-search" type="search" placeholder="'+(index?'找一个专题':'搜索这个专题')+'" aria-label="'+(index?'搜索专题':'搜索专题内的记录')+'"></header>'+
+    const content='<header class="topic-heading">'+back+'<div class="topic-title"><h1>'+escape(title)+'</h1>'+create+write+'</div><p class="index-intro">'+(index?'将相关素材分组，供创作帖子时查找和引用。':selected.length+' 条记录，按时间放在一起。')+'</p><input class="bridge-search" id="bridge-search" type="search" placeholder="'+(index?'找一个专题':'搜索这个专题')+'" aria-label="'+(index?'搜索专题':'搜索专题内的记录')+'"></header>'+
       (children.length?'<div class="topic-grid" aria-label="'+(index?'专题':'子专题')+'">'+topicCards(children,entries,groups,prefix)+'</div>':'')+
       (!index&&selected.length?'<div class="topic-records">'+recordRows(selected,prefix)+'</div>':'')+
-      (index&&!children.length?'<p class="bridge-empty">'+(user.role==='owner'?'还没有专题，先建一个，再把相关记录放进来。':'暂时还没有向你开放的专题。')+'</p>':!index&&!selected.length?'<p class="bridge-empty">这里还没有记录。'+(user.canCreate?'点击“记一笔”，留下第一条。':'')+'</p>':'')+
+      (index&&!children.length?'<p class="bridge-empty">'+(user.role==='owner'?'还没有专题，先建一个，再把相关记录放进来。':'暂时还没有向你开放的专题。')+'</p>':!index&&!selected.length?'<p class="bridge-empty">这里还没有记录。'+(user.canCreate?'点击“收录素材”，留下第一条。':'')+'</p>':'')+
       '<p id="bridge-no-results" class="bridge-empty" hidden>没有找到匹配的内容。</p>';
     return chrome(slot(template('list'),'listing',content),user,prefix,title);
   }

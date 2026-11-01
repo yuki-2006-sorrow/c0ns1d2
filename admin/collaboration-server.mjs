@@ -95,7 +95,7 @@ const server=createServer(async(req,res)=>{
     if(creativeAssets[path]){const [file,type]=creativeAssets[path];res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./'+file,import.meta.url)));}
     if(path==='/studio'||path==='/materials'||path==='/drafts'){
       const user=requireCreator(identify(req).user);
-      const html=path==='/studio'?readFileSync(new URL('./post-studio.html',import.meta.url),'utf8').replace('<body>','<body data-connected="true">').replace('交互原型','创作者工作区').replace('示例素材 · 仅保存在此浏览器','共享素材 · 版本保存').replace('这是协作流程预览。此处记录你在当前浏览器的修改和留言；多人实时同步尚未接入。','受邀创作者共同编排作品。保存会核对版本；他人保存后需重新打开作品载入新版本。').replace('href="/topics"','href="/"'):path==='/materials'?renderMaterials(user):renderDrafts(store,user);
+      const html=path==='/studio'?readFileSync(new URL('./post-studio.html',import.meta.url),'utf8').replace('<body>','<body data-connected="true">').replace('交互原型','创作者工作区').replace('示例素材 · 仅保存在此浏览器','共享素材 · 版本保存').replace('这是协作流程预览。此处记录你在当前浏览器的修改和留言；多人实时同步尚未接入。','受邀创作者共同编排帖子。保存会核对版本；他人保存后需重新打开帖子载入新版本。').replace('href="/topics"','href="/"'):path==='/materials'?renderMaterials(user):renderDrafts(store,user);
       res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:html);
     }
     if((path==='/'||path==='/guest'||path==='/posts'||path.startsWith('/posts/'))&&['GET','HEAD'].includes(req.method)){
@@ -187,7 +187,7 @@ const server=createServer(async(req,res)=>{
     if(path==='/api/posts'&&req.method==='POST')return reply(res,200,store.savePost(user,await json(req)));
     if(path==='/api/post-comments'&&req.method==='POST')return reply(res,200,store.commentPost(user,await json(req)));
     if(['/api/entries','/api/entry','/api/catalog','/api/history','/api/archive','/api/archive-batch','/api/upload'].includes(path))requireCreator(user);
-    if(path==='/api/guest-access')return reply(res,410,{error:'原始素材不再直接对访客开放，请在剪辑台发布作品'});
+    if(path==='/api/guest-access')return reply(res,410,{error:'原始素材不再直接对访客开放，请在剪辑台发布帖子'});
     if(path==='/api/me')return reply(res,200,store.profile(user.id));
     if(path==='/api/logout'&&req.method==='POST'){sessions.delete(token);res.setHeader('Set-Cookie',sessionCookieName()+'=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return reply(res,200,{ok:true});}
     if(path==='/api/entries'&&req.method==='GET')return reply(res,200,store.entries(user));

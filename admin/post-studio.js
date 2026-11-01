@@ -15,7 +15,7 @@ function acceptSaved(post){postVersions=post.history||[];postId=post.id;postRevi
 if(connected){
  try{
   const [me,rows]=await Promise.all([request('/api/me'),request('/api/materials')]);profile=me;key='c0ns1d2-post-draft-'+me.id+'-'+(postId||'new');
-  state={...state,materials:librarySources(rows),title:'未命名作品',subtitle:'',clips:[],selectedId:null,activity:[],comments:[]};
+  state={...state,materials:librarySources(rows),title:'未命名帖子',subtitle:'',clips:[],selectedId:null,activity:[],comments:[]};
   if(postId){const post=await request('/api/posts?edit=1&id='+encodeURIComponent(postId));acceptSaved(post);state.title=post.title;state.subtitle=post.subtitle;
    state.clips=post.blocks.map(block=>{let source=state.materials.find(source=>source.entryId===block.sourceId&&(block.kind==='text'?source.id.startsWith('text:'):source.rawRef===block.mediaRef));
     if(!source&&block.sourceId){source={id:'snapshot:'+block.id,entryId:block.sourceId,type:block.kind==='text'?'essay':block.kind,title:'已引用片段',text:block.text,author:block.author,date:'',rawRef:block.mediaRef,...(block.kind==='image'?{image:block.viewMedia}:block.kind!=='text'?{media:block.viewMedia}:{})};state.materials.push(source);}
@@ -57,8 +57,8 @@ function renderMaterials() {
 }
 function readingNodes(interactive = false) {
   const fragment = document.createDocumentFragment();
-  fragment.append(element('span', 'post-eyebrow', '共同创作 · 作品草稿'), element('h1', '', state.title || '未命名帖子'), element('p', 'post-subtitle', state.subtitle));
-  if (!state.clips.length) fragment.append(element('p', 'editor-note', '从左侧加入第一份素材，或者添加一段自己的文字。'));
+  fragment.append(element('span', 'post-eyebrow', '共同创作 · 帖子草稿'), element('h1', '', state.title || '未命名帖子'), element('p', 'post-subtitle', state.subtitle));
+  if (!state.clips.length) fragment.append(element('p', 'editor-note', '从素材库加入片段，或在“片段”中写一段文字。'));
   for (const clip of state.clips) {
     const source = sourceFor(clip), block = element(source?.image ? 'figure' : 'section', 'post-block' + (interactive && clip.id === state.selectedId ? ' selected' : ''));
     block.dataset.clip = clip.id;
@@ -98,7 +98,7 @@ function renderEditor() {
   syncField('clip-editor', clip?.text || ''); syncField('clip-caption', clip?.caption || '');
   $('clip-source').textContent = !clip ? '' : source ? '原素材：' + source.title + ' / ' + source.author + '。这里修改的是帖子中的引用，素材原文不会改变。' : '这是你为帖子添加的串联文字。';
   $('move-left').disabled = !clip || index <= 0; $('move-right').disabled = !clip || index >= state.clips.length - 1; $('remove-clip').disabled = !clip;
-  if($('publish-post')){$('publish-post').disabled=!canPublish;$('publish-post').title=canPublish?'发布当前编排为公开成品':'由作品发起人或站主发布';}
+  if($('publish-post')){$('publish-post').disabled=!canPublish;$('publish-post').title=canPublish?'发布当前编排为公开成品':'由帖子发起人或站主发布';}
   if($('unpublish-post'))$('unpublish-post').hidden=!connected||!isPublished||!canPublish;
   $('undo').disabled = !state.undoStack.length; $('redo').disabled = !state.redoStack.length;
 }
@@ -159,13 +159,13 @@ async function saveLive(action='draft'){
   try{
   const clips=state.clips.map(clip=>{const source=sourceFor(clip);return {id:clip.id,sourceId:source?.entryId||null,kind:source?.image?'image':source?.media?source.type:'text',mediaRef:source?.rawRef||source?.media||'',text:clip.text,caption:clip.caption};});
   try{localStorage.setItem(key,serializeDraft(state));}catch{}
-  const post=await request('/api/posts',{id:postId||undefined,revision:postRevision,title:state.title,subtitle:state.subtitle,clips,collaborators,action});acceptSaved(post);dirty=false;history.replaceState(null,'','/studio?id='+postId);$('save-status').textContent=action==='publish'?'作品已发布，访客可以阅读':action==='unpublish'?'已撤回公开作品':'已保存到共享资料库';render();return post;
+  const post=await request('/api/posts',{id:postId||undefined,revision:postRevision,title:state.title,subtitle:state.subtitle,clips,collaborators,action});acceptSaved(post);dirty=false;history.replaceState(null,'','/studio?id='+postId);$('save-status').textContent=action==='publish'?'帖子已发布，访客可以阅读':action==='unpublish'?'已撤回公开帖子':'已保存到共享资料库';render();return post;
   }finally{saving=false;$('workspace').inert=false;}
 }
 $('save-draft').onclick=async()=>{const button=$('save-draft');button.disabled=true;try{if(connected){await saveLive();announce('草稿已保存，受邀创作者可继续编排。');}else{localStorage.setItem(key,serializeDraft(state));dirty=false;$('save-status').textContent='已保存到此浏览器 · 示例草稿';announce('示例草稿已保存，没有写入正式资料。');}}catch(error){announce(error.message+' 当前编排仍保留。');}finally{button.disabled=false;}};
-if($('publish-post')){$('publish-post').hidden=!connected;$('publish-post').onclick=async()=>{try{await saveLive('publish');announce('成品已发布到作品展厅。');}catch(error){announce(error.message);}};}
-if($('unpublish-post')){$('unpublish-post').hidden=!connected;$('unpublish-post').onclick=async()=>{try{await saveLive('unpublish');announce('作品已撤回，创作草稿继续保留。');}catch(error){announce(error.message);}};}
-if($('export-draft'))$('export-draft').onclick=()=>{const url=URL.createObjectURL(new Blob([serializeDraft(state)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='作品编排备份.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+if($('publish-post')){$('publish-post').hidden=!connected;$('publish-post').onclick=async()=>{try{await saveLive('publish');announce('成品已发布到帖子展厅。');}catch(error){announce(error.message);}};}
+if($('unpublish-post')){$('unpublish-post').hidden=!connected;$('unpublish-post').onclick=async()=>{try{await saveLive('unpublish');announce('帖子已撤回，创作草稿继续保留。');}catch(error){announce(error.message);}};}
+if($('export-draft'))$('export-draft').onclick=()=>{const url=URL.createObjectURL(new Blob([serializeDraft(state)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='帖子编排备份.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 if ($('embed-media')) $('embed-media').onclick = () => $('embed-dialog').showModal();
 if ($('close-embed')) $('close-embed').onclick = () => $('embed-dialog').close();
 if ($('embed-form')) $('embed-form').addEventListener('submit', event => {
@@ -180,7 +180,7 @@ $('preview-toggle').onclick = () => { const article = element('article', 'post-p
 $('close-reading').onclick = () => $('reading-dialog').close();
 $('collab-toggle').onclick = () => { const panel = $('collab-panel'); panel.hidden = !panel.hidden; $('collab-toggle').setAttribute('aria-expanded', String(!panel.hidden)); };
 if ($('close-collab')) $('close-collab').onclick = () => { $('collab-panel').hidden = true; $('collab-toggle').setAttribute('aria-expanded', 'false'); };
-$('comment-form').addEventListener('submit',async event=>{event.preventDefault();const input=$('comment-input');if(!input.value.trim())return;try{if(connected){if(!postId)await saveLive();const post=await request('/api/post-comments',{id:postId,text:input.value});state.comments=post.comments.map(row=>({actor:row.actorName,text:row.text,at:row.at}));renderCollaboration();announce('建议已保存到共享作品。');}else commit(addComment(state,input.value),'已留下本机演示讨论。');input.value='';}catch(error){announce(error.message);}});
+$('comment-form').addEventListener('submit',async event=>{event.preventDefault();const input=$('comment-input');if(!input.value.trim())return;try{if(connected){if(!postId)await saveLive();const post=await request('/api/post-comments',{id:postId,text:input.value});state.comments=post.comments.map(row=>({actor:row.actorName,text:row.text,at:row.at}));renderCollaboration();announce('建议已保存到共享帖子。');}else commit(addComment(state,input.value),'已留下本机演示讨论。');input.value='';}catch(error){announce(error.message);}});
 $('clip-track').addEventListener('dragover', event => event.preventDefault());
 $('clip-track').addEventListener('drop', event => {
   event.preventDefault(); const sourceId = event.dataTransfer.getData('application/x-studio-source'), clipId = event.dataTransfer.getData('application/x-studio-clip');

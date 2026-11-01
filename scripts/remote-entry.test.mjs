@@ -94,7 +94,7 @@ test('gateway checks the browser origin before forwarding writes, preserves data
 test('offline gateway fails closed and never falls back to the formerly public archive',async()=>{
   for(const forward of [async()=>{throw new Error('offline');},async()=>new Response('tunnel failed',{status:502}),async()=>new Response('',{status:302,headers:{Location:'https://evil.example'}})]){
     const response=await createArchiveProxy(configuration,forward)(new Request(page('/events/old-public-record')));
-    assert.equal(response.status,503);assert.ok((await response.text()).includes('记忆库暂时离线'));assert.equal(response.headers.get('Cache-Control'),'no-store');
+    assert.equal(response.status,503);assert.ok((await response.text()).includes('创作空间暂时离线'));assert.equal(response.headers.get('Cache-Control'),'no-store');
   }
 });
 
