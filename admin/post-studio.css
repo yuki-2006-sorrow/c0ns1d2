@@ -1,0 +1,260 @@
+/* =========================================================================
+   c0ns1d2 · 剪辑台（创作者工作区）—— 仅布局
+   颜色、字体、边框、背景见 minimal-system.css；本文件只写排版与定位。
+   ========================================================================= */
+@import url("/minimal-system.css");
+
+@layer layout {
+
+  /* ---- 整体网格：桌面三栏 ---- */
+  .studio-shell {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "topbar topbar"
+      "bin    workbench";
+    min-height: 100vh;
+  }
+
+  /* ---- 顶部栏 ---- */
+  .studio-topbar {
+    grid-area: topbar;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-5);
+  }
+  .studio-identity { display: flex; align-items: center; gap: var(--space-2); }
+  .top-actions { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+
+  /* ---- 左侧素材栏 ---- */
+  .material-bin {
+    grid-area: bin;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    overflow-y: auto;
+    border-right: 1px solid var(--line);
+  }
+  .bin-heading p { margin-top: var(--space-2); }
+  .bin-heading h1 { font-size: var(--fs-heading); }
+  .bin-heading p { font-size: var(--fs-small); }
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--space-3);
+  }
+  .search-box input { flex: 1; min-width: 0; }
+  .bin-filter { display: flex; align-items: center; gap: var(--space-2); }
+  .bin-filter select { flex: 1; }
+
+  .material-list { display: flex; flex-direction: column; gap: var(--space-3); }
+  .material-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-3);
+    text-align: left;
+  }
+  .material-card-head { display: flex; justify-content: space-between; align-items: center; }
+  .material-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+  .material-card h3 { font-size: var(--fs-heading); }
+  .material-card p { font-size: var(--fs-small); }
+  .bin-note { display: flex; gap: var(--space-2); }
+
+  /* ---- 中间工作台 ---- */
+  .workbench {
+    grid-area: workbench;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  .project-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+  .project-name { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+  .project-name input { width: 100%; }
+  .project-bar .preview-button { flex-shrink: 0; white-space: nowrap; }
+
+  .canvas-stage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    flex: 1;
+    min-height: 0;
+    padding: var(--space-5);
+  }
+  .canvas-caption { display: flex; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
+  .paper-scroll { flex: 1; overflow: auto; min-height: 0; }
+  .post-paper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-7);
+  }
+  .post-paper h1 { margin: var(--space-2) 0; }
+  .post-block { padding: var(--space-3); margin: var(--space-4) 0; }
+  .post-block img { width: 100%; }
+  .post-block audio, .post-block video { width: 100%; }
+  .post-deck-label { display: flex; flex-direction: column; gap: var(--space-2); }
+
+  /* ---- 片段编排 ---- */
+  .sequence-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+  .sequence-toolbar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+  .sequence-actions { display: flex; align-items: center; gap: var(--space-2); }
+  .clip-track {
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+  }
+  .clip-card {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    text-align: left;
+  }
+  .clip-card h3 { font-size: var(--fs-small); }
+  .clip-card p { font-size: var(--fs-small); }
+
+  .clip-inspector { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .selection-meta { display: flex; flex-direction: column; gap: var(--space-2); }
+  .selection-actions { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+  .clip-text-label, .clip-caption-label { display: flex; flex-direction: column; gap: var(--space-2); }
+
+  /* ---- 右侧协作面板（滑出，不挤压网格） ---- */
+  .collab-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    width: 380px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    overflow-y: auto;
+    border-left: 1px solid var(--line);
+  }
+  .collab-heading { display: flex; justify-content: space-between; align-items: center; }
+  .activity-list, .comment-list { display: flex; flex-direction: column; gap: var(--space-3); }
+  .activity-list > *, .comment-list > * { padding-bottom: var(--space-3); border-bottom: 1px solid var(--line); }
+  #comment-form { display: flex; flex-direction: column; gap: var(--space-3); }
+
+  /* ---- 底部 toast（居中） ---- */
+  .studio-toast {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-6);
+    transform: translateX(-50%);
+    z-index: 50;
+    max-width: 90vw;
+    padding: var(--space-3) var(--space-5);
+  }
+  .studio-toast:empty { display: none; }
+
+  /* ---- 对话框 ---- */
+  .reading-dialog, .embed-dialog { width: min(900px, 92vw); border: 1px solid var(--line); }
+  .reading-dialog { padding: 0; }
+  .reading-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+  .reading-content { padding: var(--space-5); max-height: 80vh; overflow: auto; }
+  .reading-content .post-paper { border: 0; padding: 0; }
+  .embed-dialog form { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-5); }
+  .embed-heading { display: flex; justify-content: space-between; align-items: center; }
+  .embed-dialog label { display: flex; flex-direction: column; gap: var(--space-2); }
+
+  /* ---- 断点：平板（641–1024）收窄素材栏 ---- */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .studio-shell { grid-template-columns: 240px minmax(0, 1fr); }
+    .material-bin { padding: var(--space-4); }
+    .post-paper { padding: var(--space-5); }
+  }
+
+  /* ---- 移动端分段导航（桌面/平板隐藏） ---- */
+  .studio-mobile-tabs { display: none; }
+
+  /* ---- 断点：移动（≤640）分段标签切换 ---- */
+  @media (max-width: 640px) {
+    .studio-topbar { flex-wrap: wrap; padding: var(--space-3) var(--space-4); }
+    .studio-identity { font-size: var(--fs-small); color: var(--muted); }
+    .top-actions { width: 100%; justify-content: flex-end; gap: var(--space-2); }
+    .top-actions button { padding: 0 var(--space-3); }
+    .studio-shell {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto minmax(0, 1fr);
+      grid-template-areas:
+        "topbar"
+        "tabs"
+        "content";
+    }
+    .studio-mobile-tabs {
+      grid-area: tabs;
+      display: flex;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-tab {
+      flex: 1 1 0;
+      padding: var(--space-3) var(--space-2);
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: var(--fs-small);
+      font-weight: 500;
+    }
+    .mobile-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+
+    /* 素材栏与工作台共用内容格，按标签显隐 */
+    .material-bin, .workbench { grid-area: content; }
+    .material-bin { border-right: 0; }
+
+    /* 素材标签：仅素材栏 */
+    .studio-shell[data-mobile-tab="materials"] .workbench { display: none; }
+    .studio-shell[data-mobile-tab="materials"] .material-bin { display: flex; }
+
+    /* 编排/片段标签：隐藏素材栏，显示工作台 */
+    .studio-shell[data-mobile-tab="arrange"] .material-bin,
+    .studio-shell[data-mobile-tab="clips"] .material-bin { display: none; }
+
+    /* 编排标签：项目栏+画布可见，片段面板隐藏 */
+    .studio-shell[data-mobile-tab="arrange"] .sequence-panel { display: none; }
+
+    /* 片段标签：片段面板可见，项目栏+画布隐藏 */
+    .studio-shell[data-mobile-tab="clips"] .project-bar,
+    .studio-shell[data-mobile-tab="clips"] .canvas-stage { display: none; }
+
+    .clip-inspector { grid-template-columns: 1fr; }
+    .top-actions .save-status { display: none; }
+  }
+}

@@ -47,11 +47,22 @@ test('homepage tasks survive login, respect roles and only return to the site ho
     ['?view=manage',{role:'member',canCreate:true},'library'],
     ['?view=password',{role:'member',canCreate:false},'password'],
     ['?new=thought',{role:'member',canCreate:true},'thought'],
-    ['?new=event',{role:'member',canCreate:false},'denied'],
+    ['?new=event',{role:'member',canCreate:false},'home'],
     ['?return=https://evil.example',{role:'member',canCreate:true},'library'],
   ]){
     let action='';
     const context=vm.createContext({URLSearchParams,me:user,records:[],filter:'event',location:{search,assign:path=>{assert.equal(path,'/');action='home';}},loadLibrary:async()=>action='library',manage:async()=>action='manage',passwordPage:()=>action='password',edit:entry=>action=entry.type,notify:()=>action='denied'});
     vm.runInContext(handler,context);await context.enterRecords();assert.equal(action,expected,search);
   }
+});
+
+test('writing from a topic keeps its context through the login entry route',async()=>{
+  const handler=source.slice(source.indexOf('async function enterRecords('),source.indexOf('async function loadLibrary('));
+  let draft;
+  const context=vm.createContext({URLSearchParams,me:{role:'member',canCreate:true},records:[],filter:'all',location:{search:'?new=event&topic=graduation'},loadLibrary:async()=>{},edit:entry=>draft=entry,notify:()=>assert.fail('unexpected rejection')});
+  vm.runInContext(handler,context);await context.enterRecords();
+  assert.equal(draft.medium,'graduation');
+  assert.equal(draft.type,'event');
+  assert.equal(draft.scope,'private');
+  assert.equal(draft.published,undefined);
 });

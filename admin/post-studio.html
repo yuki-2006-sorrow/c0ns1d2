@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafaf9">
+  <title>帖子剪辑台 · c0ns1d2</title>
+  <link rel="stylesheet" href="/post-studio.css">
+</head>
+<body>
+  <div class="studio-shell" id="workspace">
+    <header class="studio-topbar">
+      <a class="brand" href="/" aria-label="返回作品展厅">c0ns1d2<span>共同留下</span></a>
+      <div class="studio-identity"><span class="studio-dot"></span>帖子剪辑台<span class="prototype-label">交互原型</span></div>
+      <div class="top-actions"><span id="save-status" class="save-status">示例素材 · 仅保存在此浏览器</span><button id="collab-toggle" class="quiet-button" aria-expanded="false" aria-controls="collab-panel">协作记录 <span aria-hidden="true">↗</span></button><button id="publish-post" class="quiet-button" hidden>发布成品 ↗</button><button id="unpublish-post" class="quiet-button" hidden>撤回成品</button><button id="save-draft" class="save-button">保存草稿</button></div>
+    </header>
+
+    <nav class="studio-mobile-tabs" role="tablist" aria-label="剪辑台分区">
+      <button type="button" role="tab" id="tab-materials" aria-controls="material-bin" class="mobile-tab" data-tab="materials" aria-selected="false">素材</button>
+      <button type="button" role="tab" id="tab-arrange" class="mobile-tab" data-tab="arrange" aria-selected="true">编排</button>
+      <button type="button" role="tab" id="tab-clips" aria-controls="clip-track" class="mobile-tab" data-tab="clips" aria-selected="false">片段</button>
+    </nav>
+
+    <aside class="material-bin" aria-label="素材库">
+      <div class="bin-heading"><h1>素材库 <span id="material-count">0</span></h1><p>选择素材，加入作品。</p></div>
+      <label class="search-box"><span aria-hidden="true">⌕</span><input id="material-search" type="search" placeholder="找一份素材" aria-label="搜索素材"></label>
+      <div class="bin-filter"><label for="material-filter">当前素材</label><select id="material-filter"><option value="all">全部</option><option value="chat">聊天记录</option><option value="text">文字</option><option value="image">图片</option><option value="video">视频</option><option value="audio">音频</option></select></div>
+      <div id="material-list" class="material-list"></div>
+      <button id="embed-media" class="embed-button">＋ 嵌入音视频</button>
+      <div class="bin-note"><span aria-hidden="true">＋</span><p>点击素材，放进帖子。<br>原始记录会继续保留。</p></div>
+    </aside>
+
+    <main class="workbench">
+      <section class="project-bar" aria-label="帖子信息">
+        <div class="project-name"><span class="eyebrow">正在创作 / 帖子</span><input id="post-title" aria-label="帖子标题" value="毕业前的最后一个夏天" maxlength="160"></div>
+        <button id="preview-toggle" class="preview-button"><span aria-hidden="true">▷</span> 预览帖子</button>
+      </section>
+      <section class="canvas-stage" aria-label="帖子画布">
+        <div class="canvas-caption"><span>作品预览</span></div>
+        <div class="paper-scroll"><article id="post-preview" class="post-paper"></article></div>
+        <label class="post-deck-label">帖子简介<input id="post-subtitle" placeholder="给这件作品写一句开场白" value="把那些零散的片刻，剪成我们共同的夏天。" maxlength="300"></label>
+      </section>
+      <section class="sequence-panel" aria-label="片段编排">
+        <div class="sequence-toolbar"><div><h2>片段编排 <span id="clip-count">0</span></h2></div><div class="sequence-actions"><button id="undo" class="icon-button" title="撤销" aria-label="撤销">↶</button><button id="redo" class="icon-button" title="重做" aria-label="重做">↷</button><span class="toolbar-divider"></span><button id="add-note" class="quiet-button">＋ 写一段串联</button></div></div>
+        <p class="sequence-hint">从左到右排列，就是读者看到的顺序。选中片段后，可以调整位置和引用文字。</p>
+        <div id="clip-track" class="clip-track" aria-label="帖子中的片段"></div>
+        <div class="clip-inspector">
+          <div class="selection-meta"><span id="selection-label">选中一个片段</span><div id="clip-source" class="clip-source"></div><p id="empty-selection">点击轨道里的片段开始编辑。</p><div class="selection-actions"><button id="move-left" class="icon-button" aria-label="片段前移" title="前移（Alt + ←）">←</button><button id="move-right" class="icon-button" aria-label="片段后移" title="后移（Alt + →）">→</button><button id="remove-clip" class="quiet-button remove-button">移出帖子</button></div></div>
+          <label class="clip-text-label">片段文字<textarea id="clip-editor" rows="3" placeholder="选取你想留在帖子里的文字"></textarea></label>
+          <label class="clip-caption-label">编者注 / 图片说明<input id="clip-caption" placeholder="补上一点背景，或写下你的声音"></label>
+        </div>
+      </section>
+    </main>
+
+    <aside id="collab-panel" class="collab-panel" aria-label="协作与修改记录" hidden>
+      <div class="collab-heading"><div><span class="eyebrow">TOGETHER</span><h2>一起完成</h2></div><button id="close-collab" class="icon-button" aria-label="关闭协作记录">×</button></div>
+      <p class="collab-notice">这是协作流程预览。此处记录你在当前浏览器的修改和留言；多人实时同步尚未接入。</p>
+      <section id="collaborator-settings"><h3>邀请创作者</h3><div id="collaborator-list"></div><p>选择后保存草稿，对方可从“作品草稿”进入。</p></section><button id="export-draft" class="quiet-button">下载当前编排副本 ↓</button><h3>创作记录</h3><div id="activity-list" class="activity-list"></div>
+      <h3>留一句建议</h3><form id="comment-form"><textarea id="comment-input" rows="3" required maxlength="2000" aria-label="协作建议" placeholder="这段适合放在开头吗？"></textarea><button type="submit" class="save-button">留下建议</button></form><div id="comment-list" class="comment-list"></div>
+    </aside>
+  </div>
+  <p id="studio-status" class="studio-toast" role="status" aria-live="polite"></p>
+  <dialog id="reading-dialog" class="reading-dialog"><div class="reading-toolbar"><span>读者视角 · 帖子预览</span><button id="close-reading" class="quiet-button">返回剪辑台 ×</button></div><div id="reading-content" class="reading-content"></div></dialog>
+  <dialog id="embed-dialog" class="embed-dialog"><form id="embed-form"><div class="embed-heading"><h2>嵌入音视频</h2><button id="close-embed" type="button" class="icon-button" aria-label="关闭音视频窗口">×</button></div><p>添加可直接播放的媒体链接。片段会随帖子顺序展示，由读者点击播放。</p><label>媒体类型<select id="embed-kind"><option value="video">视频</option><option value="audio">音频</option></select></label><label>素材名称<input id="embed-title" required maxlength="120" placeholder="这段声音或画面的名字"></label><label>音视频地址<input id="embed-url" required placeholder="https://…/video.mp4 或 audio.mp3"></label><button type="submit" class="save-button">放入帖子</button></form></dialog>
+  <script type="module" src="/post-studio.js"></script>
+</body>
+</html>

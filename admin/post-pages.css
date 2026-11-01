@@ -1,0 +1,194 @@
+/* =========================================================================
+   c0ns1d2 · 展厅 / 阅读 / 素材库 / 草稿 —— 仅布局
+   颜色、字体、边框、背景见 minimal-system.css；本文件只写排版与定位。
+   ========================================================================= */
+@import url("/minimal-system.css");
+
+@layer layout {
+
+  /* ---- 顶部导航 ---- */
+  .exhibit-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--page-pad);
+  }
+  .exhibit-nav nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .exhibit-nav details { position: relative; }
+  .exhibit-nav details > div {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-2));
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-2);
+  }
+  .exhibit-nav details > div a { padding: var(--space-2) var(--space-3); }
+
+  /* ---- 展厅容器 ---- */
+  .exhibition { max-width: 1280px; margin: 0 auto; padding: var(--space-7) var(--page-pad) var(--space-8); }
+  .exhibit-hero { padding: var(--space-5) 0 var(--space-7); }
+  .issue-mark {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .exhibit-hero h1 {
+    font-size: var(--fs-display);
+    line-height: 1.25;
+    margin: 0 0 var(--space-3);
+  }
+  .hero-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-5);
+    align-items: end;
+  }
+  .hero-foot p { max-width: 32em; }
+
+  /* ---- 作品区 ---- */
+  .works-section { margin-top: 0; }
+  .section-rule {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+  .section-rule h2 { font-size: var(--fs-heading); }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-6);
+  }
+
+  /* ---- 卡片封面 ---- */
+  .exhibit-card { display: block; }
+  .work-cover {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    display: flex;
+    align-items: end;
+    justify-content: start;
+  }
+  .work-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .type-cover .cover-title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    text-align: left;
+  }
+  .cover-arrow {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+  }
+  .cover-excerpt { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
+  .work-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .exhibit-card h2 { font-size: 21px; margin-top: var(--space-2); line-height: 1.5; }
+  .work-copy { margin-top: var(--space-2); font-size: var(--fs-small); max-width: 36em; }
+  .exhibit-card > p { margin-top: var(--space-2); }
+  .exhibit-empty { padding: var(--space-7); }
+  .exhibit-empty h2 { font-size: var(--fs-title); margin: var(--space-3) 0; }
+  .exhibit-button { margin-top: var(--space-4); }
+
+  /* ---- 阅读页 ---- */
+  .finished-work { max-width: 720px; margin: 0 auto; padding: var(--space-8) var(--page-pad); }
+  .work-back { display: inline-block; margin-bottom: var(--space-5); }
+  .finished-work h1 {
+    font-size: var(--fs-title);
+    line-height: 1.3;
+    margin: var(--space-2) 0;
+  }
+  .work-deck { margin-bottom: var(--space-4); }
+  .finished-block { margin: var(--space-6) 0; }
+  .finished-block figure { margin: 0; }
+  .finished-block p { white-space: pre-line; overflow-wrap: anywhere; }
+  .finished-block img { width: 100%; }
+  .finished-block figcaption { margin-top: var(--space-2); }
+  .finished-block audio,
+  .finished-block video { width: 100%; }
+  .work-colophon { margin-top: var(--space-8); }
+
+  /* ---- 素材库 ---- */
+  .material-library { max-width: 1280px; margin: 0 auto; padding: var(--space-7) var(--page-pad); }
+  .material-library h1 { font-size: var(--fs-title); margin: var(--space-2) 0; }
+  .material-library > header p { max-width: 36em; margin-bottom: var(--space-5); }
+  .library-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-5);
+  }
+  .library-controls #library-query { flex: 1 1 240px; min-width: 0; }
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+  .library-item { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+  .library-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+  .library-item details summary { cursor: pointer; }
+  .library-item details video,
+  .library-item details audio { width: 100%; margin-top: var(--space-3); }
+
+  /* ---- 草稿 ---- */
+  .draft-list { display: flex; flex-direction: column; margin-top: var(--space-5); }
+  .draft-list a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+  }
+  .draft-list h2 { font-size: var(--fs-heading); }
+
+  /* ---- 页脚 ---- */
+  .exhibit-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    padding: var(--space-5) var(--page-pad);
+  }
+
+  /* ---- 断点：平板（641–1024）---- */
+  @media (max-width: 1024px) {
+    .works-grid, .library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* ---- 断点：移动（≤640）---- */
+  @media (max-width: 640px) {
+    .exhibit-nav { flex-wrap: wrap; gap: var(--space-3); }
+    .exhibit-nav nav { gap: var(--space-4); flex-wrap: wrap; width: 100%; font-size: var(--fs-small); }
+    .exhibition { padding-top: var(--space-6); }
+    .exhibit-hero { padding: 0 0 var(--space-6); }
+    .exhibit-hero h1 { font-size: 28px; }
+    .hero-foot p { font-size: var(--fs-small); }
+    .type-cover .cover-title { padding: var(--space-4) var(--space-5); font-size: 18px; overflow: hidden; }
+    .works-grid, .library-grid { grid-template-columns: minmax(0, 1fr); }
+    .hero-foot { grid-template-columns: 1fr; }
+    .draft-list a { flex-direction: column; gap: var(--space-1); }
+    .exhibit-footer { flex-direction: column; }
+  }
+}

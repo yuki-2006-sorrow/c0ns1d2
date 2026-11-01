@@ -1,3 +1,5 @@
+import { isCreator } from './post-store.mjs';
+import { renderGallery,renderPost,renderMaterials,renderDrafts } from './post-pages.mjs';
 import { createServer } from 'node:http';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { readFileSync, createReadStream, createWriteStream, existsSync, mkdirSync, rmSync, openSync, closeSync, writeFileSync } from 'node:fs';
@@ -7,6 +9,7 @@ import { Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { createCollaborationStore } from './collaboration-store.mjs';
 import { serveVideo } from './media-response.mjs';
+import { remoteImage } from './remote-image.mjs';
 import { createCollaborationFrontend } from './collaboration-frontend.mjs';
 
 const ROOT = resolve(process.env.COLLAB_ROOT || fileURLToPath(new URL('../', import.meta.url)));
@@ -71,8 +74,8 @@ function cookie(req,res,id) {
   sessions.set(token,{id,until:Date.now()+8*60*60*1000});
   res.setHeader('Set-Cookie',sessionCookieName()+'='+token+'; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800'+(publicOrigin&&req.headers.host===new URL(publicOrigin).host?'; Secure':''));
 }
-const MIME={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.webp':'image/webp','.avif':'image/avif','.mp4':'video/mp4','.webm':'video/webm'};
-const extensions={'image/jpeg':'.jpg','image/png':'.png','image/gif':'.gif','image/webp':'.webp','image/avif':'.avif','video/mp4':'.mp4','video/webm':'.webm'};
+const MIME={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.webp':'image/webp','.avif':'image/avif','.mp4':'video/mp4','.webm':'video/webm','.mp3':'audio/mpeg','.ogg':'audio/ogg','.wav':'audio/wav','.m4a':'audio/mp4'};
+const extensions={'image/jpeg':'.jpg','image/png':'.png','image/gif':'.gif','image/webp':'.webp','image/avif':'.avif','video/mp4':'.mp4','video/webm':'.webm','audio/mpeg':'.mp3','audio/ogg':'.ogg','audio/wav':'.wav','audio/mp4':'.m4a'};
 const server=createServer(async(req,res)=>{
   res.setHeader('Cache-Control','no-store');
   res.setHeader('X-Content-Type-Options','nosniff');
@@ -87,14 +90,43 @@ const server=createServer(async(req,res)=>{
     if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     const path=url.pathname;
     if(path==='/admin'&&['GET','HEAD'].includes(req.method)){res.writeHead(303,{Location:'/shared?view=library'});return res.end();}
+    const requireCreator=user=>{if(!isCreator(user))throw Object.assign(new Error('只有创作者可以访问素材库'),{status:403});return user;};
+    const creativeAssets={'/intro-entry.js':['intro-entry.js','text/javascript'],'/intro-controller.js':['../src/scripts/intro-controller.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css'],'/post-pages.css':['post-pages.css','text/css'],'/materials.js':['materials.js','text/javascript'],'/post-studio.css':['post-studio.css','text/css'],'/post-studio.js':['post-studio.js','text/javascript'],'/post-studio-model.mjs':['post-studio-model.mjs','text/javascript']};
+    if(creativeAssets[path]){const [file,type]=creativeAssets[path];res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./'+file,import.meta.url)));}
+    if(path==='/studio'||path==='/materials'||path==='/drafts'){
+      const user=requireCreator(identify(req).user);
+      const html=path==='/studio'?readFileSync(new URL('./post-studio.html',import.meta.url),'utf8').replace('<body>','<body data-connected="true">').replace('交互原型','创作者工作区').replace('示例素材 · 仅保存在此浏览器','共享素材 · 版本保存').replace('这是协作流程预览。此处记录你在当前浏览器的修改和留言；多人实时同步尚未接入。','受邀创作者共同编排作品。保存会核对版本；他人保存后需重新打开作品载入新版本。').replace('href="/topics"','href="/"'):path==='/materials'?renderMaterials(user):renderDrafts(store,user);
+      res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:html);
+    }
+    if((path==='/'||path==='/guest'||path==='/posts'||path.startsWith('/posts/'))&&['GET','HEAD'].includes(req.method)){
+      const user=viewer(req,path==='/guest');const html=path.startsWith('/posts/')?renderPost(store,user,path.slice(7)):renderGallery(store,user);
+      res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:html);
+    }
+    if(path==='/api/posts'&&req.method==='GET'){
+      if(url.searchParams.get('edit')==='1')return reply(res,200,store.editPost(identify(req).user,url.searchParams.get('id')));
+      return reply(res,200,url.searchParams.has('id')?store.readPost(viewer(req),url.searchParams.get('id')):store.listPosts(viewer(req)));
+    }
+    if((path.startsWith('/api/post-media/')||path.startsWith('/api/post-draft-media/'))&&['GET','HEAD'].includes(req.method)){
+      const draft=path.startsWith('/api/post-draft-media/');const parts=path.slice(draft?22:16).split('/');if(parts.length!==2||!/^\d+$/.test(parts[1]))return reply(res,404,{error:'文件不存在'});
+      const asset=store.postAsset(parts[0],Number(parts[1]),draft?identify(req).user:undefined,draft);
+      if(asset.reference.startsWith('https://')){if(new URL(asset.reference).hostname==='aka.doubaocdn.com'){const image=await remoteImage(store.directory,asset.reference);res.writeHead(200,{'Content-Type':image.type,'Content-Length':image.bytes.length});return res.end(req.method==='HEAD'?undefined:image.bytes);}res.writeHead(302,{Location:asset.reference});return res.end();}
+      let target,extension;
+      if(asset.media){target=join(store.directory,'media',asset.media.id+asset.media.extension);extension=asset.media.extension;}
+      else if(asset.reference.startsWith('/photos/')){const directory=resolve(ROOT,'public/photos');target=resolve(ROOT,'public','.'+decodeURIComponent(asset.reference));if(relative(directory,target).startsWith('..')||isAbsolute(relative(directory,target)))return reply(res,404,{error:'文件不存在'});extension=Object.keys(MIME).find(ext=>target.toLowerCase().endsWith(ext));}
+      if(!target||!extension||!existsSync(target))return reply(res,404,{error:'文件不存在'});
+      if(MIME[extension]?.startsWith('video/')||MIME[extension]?.startsWith('audio/'))return serveVideo(req,res,target,MIME[extension]);
+      res.writeHead(200,{'Content-Type':MIME[extension]});if(req.method==='HEAD')return res.end();return createReadStream(target).on('error',()=>res.destroy()).pipe(res);
+    }
     if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,storageVersion:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:store.schemaVersion(),publicOrigin:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:publicOrigin});
     if(['GET','HEAD'].includes(req.method)&&frontend.resource(req,res,path))return;
     if(path==='/bridge.css'||path==='/bridge-client.js'){
       res.writeHead(200,{'Content-Type':path.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'});
       return res.end(req.method==='HEAD'?undefined:readFileSync(new URL(path.endsWith('.js')?'./collaboration-frontend.js':'./collaboration-frontend.css',import.meta.url)));
     }
-    if(['GET','HEAD'].includes(req.method)&&/^\/(?:guest(?:\/.*)?|events(?:\/.*)?|works(?:\/.*)?|thoughts(?:\/.*)?|people(?:\/.*)?|timeline)?\/?$/.test(path)){
-      const html=frontend.render(path,viewer(req,path==='/guest'||path.startsWith('/guest/')));
+    if(['GET','HEAD'].includes(req.method)&&/^\/(?:guest(?:\/.*)?|topics(?:\/.*)?|events(?:\/.*)?|works(?:\/.*)?|thoughts(?:\/.*)?|people(?:\/.*)?|timeline)?\/?$/.test(path)){
+      const browsingUser=viewer(req,path.startsWith('/guest'));
+      if(!isCreator(browsingUser)){if(/^\/(?:guest\/)?(?:events|works|thoughts|people)\//.test(path))return reply(res,404,{error:'素材仅供创作者查看'});res.writeHead(303,{Location:'/'});return res.end();}
+      const html=frontend.render(path,browsingUser);
       if(html===null)return reply(res,404,{error:'记录不存在或无权查看'});
       const nonce=randomBytes(24).toString('base64');
       const policy="default-src 'self'; script-src 'self' 'nonce-"+nonce+"'; style-src 'self' 'nonce-"+nonce+"'; img-src 'self' https: data:; media-src 'self' https:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
@@ -122,16 +154,22 @@ const server=createServer(async(req,res)=>{
       }else user=path==='/api/register'?store.register(data):store.login(data);
       cookie(req,res,user.id); return reply(res,200,{user});
     }
+    if(path==='/api/remote-image'&&['GET','HEAD'].includes(req.method)){
+      const entry=store.readEntry(requireCreator(viewer(req,url.searchParams.get('guest')==='1')),url.searchParams.get('id'));
+      const image=await remoteImage(store.directory,entry.images[Number(url.searchParams.get('index'))]);
+      res.writeHead(200,{'Content-Type':image.type,'Content-Length':image.bytes.length});
+      return res.end(req.method==='HEAD'?undefined:image.bytes);
+    }
     if(path.startsWith('/api/media/')&&['GET','HEAD'].includes(req.method)){
-      const media=store.mediaRead(viewer(req,url.searchParams.get('guest')==='1'),path.slice('/api/media/'.length));
+      const media=store.mediaRead(requireCreator(viewer(req,url.searchParams.get('guest')==='1')),path.slice('/api/media/'.length));
       const target=join(store.directory,'media',media.id+media.extension);
-      if(media.extension==='.mp4')return serveVideo(req,res,target);
+      if(MIME[media.extension]?.startsWith('video/')||MIME[media.extension]?.startsWith('audio/'))return serveVideo(req,res,target,MIME[media.extension]);
       res.writeHead(200,{'Content-Type':MIME[media.extension]});
       if(req.method==='HEAD')return res.end();
       return createReadStream(target).on('error',()=>res.destroy()).pipe(res);
     }
     if(path==='/api/legacy-media'&&['GET','HEAD'].includes(req.method)){
-      const entry=store.readEntry(viewer(req,url.searchParams.get('guest')==='1'),url.searchParams.get('id'));
+      const entry=store.readEntry(requireCreator(viewer(req,url.searchParams.get('guest')==='1')),url.searchParams.get('id'));
       const reference=(url.searchParams.get('kind')==='video'?entry.videos:entry.images)[Number(url.searchParams.get('index'))];
       if(typeof reference!=='string'||!reference.startsWith('/photos/'))return reply(res,404,{error:'文件不存在'});
       const directory=resolve(ROOT,'public/photos'),target=resolve(ROOT,'public','.'+decodeURIComponent(reference));
@@ -144,6 +182,12 @@ const server=createServer(async(req,res)=>{
       return createReadStream(target).on('error',()=>res.destroy()).pipe(res);
     }
     const {user,token}=identify(req);
+    if(path==='/api/materials'&&req.method==='GET')return reply(res,200,store.materialLibrary(user));
+    if(path==='/api/drafts'&&req.method==='GET')return reply(res,200,store.drafts(user));
+    if(path==='/api/posts'&&req.method==='POST')return reply(res,200,store.savePost(user,await json(req)));
+    if(path==='/api/post-comments'&&req.method==='POST')return reply(res,200,store.commentPost(user,await json(req)));
+    if(['/api/entries','/api/entry','/api/catalog','/api/history','/api/archive','/api/archive-batch','/api/upload'].includes(path))requireCreator(user);
+    if(path==='/api/guest-access')return reply(res,410,{error:'原始素材不再直接对访客开放，请在剪辑台发布作品'});
     if(path==='/api/me')return reply(res,200,store.profile(user.id));
     if(path==='/api/logout'&&req.method==='POST'){sessions.delete(token);res.setHeader('Set-Cookie',sessionCookieName()+'=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return reply(res,200,{ok:true});}
     if(path==='/api/entries'&&req.method==='GET')return reply(res,200,store.entries(user));

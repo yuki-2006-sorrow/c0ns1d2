@@ -2,9 +2,9 @@ import { createReadStream, statSync } from 'node:fs';
 
 // Video seeking needs byte ranges; returning the entire file for a Range
 // request can make the browser abandon the seek and redraw the first frame.
-export function serveVideo(req, res, path) {
+export function serveVideo(req, res, path, contentType = 'video/mp4') {
   const size = statSync(path).size;
-  const headers = { 'Content-Type': 'video/mp4', 'Accept-Ranges': 'bytes' };
+  const headers = { 'Content-Type': contentType, 'Accept-Ranges': 'bytes' };
   let start = 0, end = size - 1, status = 200;
   if (req.headers.range) {
     const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range);

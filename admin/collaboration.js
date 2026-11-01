@@ -2,7 +2,7 @@ const app=document.getElementById('app'), account=document.getElementById('accou
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const setupToken=new URLSearchParams(location.hash.slice(1)).get('setup')||'';
 if(location.hash)history.replaceState(null,'',location.pathname);
-let me=null,records=[],people=[],filter='event',query='',dirty=false,submitting=false;
+let me=null,records=[],people=[],filter='all',query='',dirty=false,submitting=false;
 let catalogCache={groups:[],people:[]};
 const notify=value=>{statusBox.textContent=value;};
 statusBox.addEventListener('click',()=>notify(''));
@@ -33,8 +33,9 @@ function formAction(form,action){form.addEventListener('submit',async event=>{
   finally{clearTimeout(waiting);if(statusBox.textContent==='仍在处理，请保留此页，避免重复提交。')notify('');submitting=false;app.inert=false;account.inert=false;form.removeAttribute('aria-busy');if(button)button.disabled=false;}
 });}
 function accountBar(){
-  account.innerHTML=me?'<a class="button subtle" href="/">网站首页</a><span>'+escape(me.name)+'</span><button class="subtle" id="home">记录与草稿</button>'+(me.role==='owner'?'<button class="subtle" id="manage">成员与准入</button>':'')+'<button class="subtle" id="password">改密码</button><button class="subtle" id="logout">退出</button>':'<a class="button subtle" href="/guest">访客浏览</a>';
-  if(me?.role==='owner'){const button=document.createElement('button');button.className='subtle';button.textContent='资料整理';button.onclick=()=>organize().catch(error=>notify(error.message));account.insertBefore(button,account.querySelector('#manage'));}
+  account.innerHTML=me?'<a class="button subtle" href="/topics">专题</a><details class="account-more"><summary>'+escape(me.name)+'</summary><div id="more-actions"><button class="subtle" id="home">我的记录</button>'+(me.role==='owner'?'<button class="subtle" id="activity">改动记录</button><button class="subtle" id="organize">资料整理</button><button class="subtle" id="manage">成员与准入</button>':'')+'<button class="subtle" id="password">改密码</button><button class="subtle" id="logout">退出</button></div></details>':'<a class="button subtle" href="/guest/topics">浏览专题</a>';
+  account.querySelector('#activity')?.addEventListener('click',()=>activity().catch(error=>notify(error.message)));
+  account.querySelector('#organize')?.addEventListener('click',()=>organize().catch(error=>notify(error.message)));
   account.querySelector('#home')?.addEventListener('click',()=>loadLibrary().catch(e=>notify(e.message)));
   account.querySelector('#manage')?.addEventListener('click',()=>manage().catch(e=>notify(e.message)));
   account.querySelector('#password')?.addEventListener('click',passwordPage);
@@ -66,18 +67,22 @@ function registration(state){
   formAction(document.getElementById('register'),async data=>{if(data.get('password')!==data.get('repeat'))throw new Error('两次密码不一致');const answers=Object.fromEntries(state.questions.map(q=>[q.id,data.get('answer-'+q.id)]));me=(await api('/api/register',{username:data.get('username'),name:data.get('name'),password:data.get('password'),consent:!!data.get('consent'),answers})).user;accountBar();await enterRecords();});
 }
 async function enterRecords(){
+  if(me.role!=='owner'&&!me.canCreate){if(new URLSearchParams(location.search).get('view')==='password')return passwordPage();location.assign('/');return;}
   const request=new URLSearchParams(location.search),id=request.get('edit')||request.get('from'),create=request.get('new');
   if(!id&&!create){
+    if(request.get('view')==='topic-new'&&me.role==='owner')return createTopic();
     if(request.get('view')==='organize'&&me.role==='owner')return organize();
+    if(request.get('view')==='activity'&&me.role==='owner')return activity();
     if(request.get('view')==='manage'&&me.role==='owner')return manage();
     if(request.get('view')==='password')return passwordPage();
+    if(['studio','materials'].includes(request.get('return'))){location.assign('/'+request.get('return'));return;}
     if(request.get('return')==='home'){submitting=false;location.assign('/');return;}
   }
   if(['event','work','thought'].includes(create))filter=create;
   await loadLibrary();
   if(!id&&['event','work','thought'].includes(create)){
     if(!me.canCreate)return notify('目前还没有投稿资格，可以先浏览或联系站主。');
-    return edit({type:create,scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''});
+    return edit({type:create,medium:request.get('topic')||'',scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''});
   }
   if(!id)return;const entry=records.find(entry=>entry.id===id);
   if(!entry)return notify('这段记录不存在或当前无权访问。');
@@ -90,27 +95,22 @@ async function loadLibrary(){
   const viewer=me?.id;
   const [nextRecords,nextPeople,nextMe,nextCatalog]=await Promise.all([api('/api/entries'),api('/api/members'),api('/api/me'),api('/api/catalog')]);
   if(me?.id!==viewer)return;
-  if(!swap('<h1>一起留下的记忆</h1><p class="muted">每段原文由作者自己保留；你看到的是获准分享给你的部分。</p><div class="toolbar"><div class="tabs" id="types"></div><input id="search" aria-label="搜索可见内容" placeholder="搜索标题或文字">'+(nextMe.canCreate?'<button id="create">＋ 留下一段</button>':'')+'</div><div class="grid" id="entries"></div>'))return;
-  me=nextMe;records=nextRecords;people=nextPeople;
-  catalogCache=nextCatalog;
-  if(me.role==='owner'){
-    const button=document.createElement('button');button.className='subtle';button.textContent='整理、分组与人物';button.onclick=()=>organize().catch(error=>notify(error.message));document.querySelector('.toolbar').append(button);
-  }
-  document.getElementById('types').innerHTML=[['event','记忆'],['work','作品'],['thought','想法']].map(([type,label])=>'<button class="subtle" data-type="'+type+'" aria-pressed="'+(filter===type)+'">'+label+'</button>').join('');
-  document.querySelectorAll('[data-type]').forEach(button=>button.onclick=()=>{filter=button.dataset.type;document.querySelectorAll('[data-type]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));renderList();});
+  if(!swap('<h1>我的记录</h1><p class="muted">你写下的草稿和记录。</p><div class="toolbar"><input id="search" aria-label="搜索我的记录" placeholder="搜索标题或文字">'+(nextMe.canCreate?'<button id="create">＋ 记一笔</button>':'')+'</div><div class="grid" id="entries"></div>'))return;
+  me=nextMe;records=nextRecords;people=nextPeople;catalogCache=nextCatalog;
   document.getElementById('search').value=query;
   document.getElementById('search').oninput=event=>{query=event.target.value;renderList();};
-  document.getElementById('create')?.addEventListener('click',()=>edit({type:filter,scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''}));
+  document.getElementById('create')?.addEventListener('click',()=>edit({type:'event',scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''}));
   renderList();
 }
-const scopeLabel=entry=>!entry.published?'草稿':entry.scope==='private'?'仅作者':entry.scope==='selected'?'指定成员':entry.visitorVisible?'访客可见':'共同内容';
+const scopeLabel=entry=>!entry.published?'草稿':entry.scope==='private'?'仅作者':entry.scope==='selected'?'指定成员':'创作者可引用';
 function renderList(){
-  const filtered=records.filter(entry=>entry.type===filter&&(entry.title+' '+entry.body).toLowerCase().includes(query.toLowerCase()));
+  const filtered=records.filter(entry=>entry.editable&&(entry.title+' '+entry.body).toLowerCase().includes(query.toLowerCase()));
   const container=document.getElementById('entries');
-  container.innerHTML=filtered.length?filtered.map(entry=>'<button class="card" data-entry="'+escape(entry.id)+'"><small>'+escape(entry.date)+' · '+escape(entry.authorName)+'</small><h2>'+escape(entry.title)+'</h2><p>'+escape(entry.body.slice(0,180))+'</p><small class="end">'+scopeLabel(entry)+(entry.editable?' · 我的原文':'')+' ↗</small></button>').join(''):'<p class="search-empty">这里暂时没有向你开放的记录。'+(me.canCreate?'可以先写下自己的记忆。':'站主可以为你开放内容或投稿权限。')+'</p>';
+  container.innerHTML=filtered.length?filtered.map(entry=>'<button class="card" data-entry="'+escape(entry.id)+'"><small>'+escape(entry.date)+' · '+escape(entry.authorName)+'</small><h2>'+escape(entry.title)+'</h2><p>'+escape(entry.body.slice(0,180))+'</p><small class="end">'+escape(entry.medium?groupLabel(entry.medium)+' · ':'')+scopeLabel(entry)+(entry.editable?' · 我的原文':'')+' ↗</small></button>').join(''):'<p class="search-empty">这里还没有你写下的记录。'+(me.canCreate?'点“记一笔”开始。':'站主可以为你开放内容或投稿权限。')+'</p>';
   container.querySelectorAll('[data-entry]').forEach(button=>button.onclick=()=>read(button.dataset.entry).catch(e=>notify(e.message)));
 }
 function mediaUrl(entry,reference,index){
+  if(/^https:\/\/aka\.doubaocdn\.com\//.test(reference))return '/api/remote-image?id='+encodeURIComponent(entry.id)+'&index='+index;
   if(/^https:\/\/[^\s]+$/.test(reference)||/^\/api\/media\/[a-f0-9-]+$/.test(reference))return reference;
   if(reference.startsWith('/photos/'))return '/api/legacy-media?id='+encodeURIComponent(entry.id)+'&index='+index;
   return '';
@@ -120,7 +120,10 @@ async function read(id){
   const [entry,latestRecords]=await Promise.all([api('/api/entry?id='+encodeURIComponent(id)),api('/api/entries')]);
   if(me?.id!==viewer)return;
   records=latestRecords;
-  if(!swap('<section class="reading"><button class="subtle" id="back">← 返回</button><p class="muted">'+escape(entry.date)+' · '+escape(entry.authorName)+' · '+scopeLabel(entry)+'</p><h1>'+escape(entry.title)+'</h1><div class="prose">'+escape(entry.body)+'</div><div class="media">'+entry.images.map((ref,index)=>{const url=mediaUrl(entry,ref,index);return url?'<a href="'+escape(url)+'" target="_blank" rel="noopener"><img src="'+escape(url)+'" alt="记忆中的照片" loading="lazy"></a>':'';}).join('')+entry.videos.map(ref=>/^\/api\/media\/[a-f0-9-]+$/.test(ref)?'<video controls preload="metadata" src="'+escape(ref)+'"></video>':'').join('')+'</div><div class="actions">'+(entry.editable?'<button id="edit">编辑我的原文</button>':'')+(entry.type!=='thought'&&me.canCreate?'<button class="subtle" id="connect">从这里想到的</button>':'')+(entry.editable||me.role==='owner'?'<button class="subtle" id="history">修改历史</button><button class="subtle" id="archive">移入回收站</button>':'')+'</div><div id="history-list"></div></section>'))return;
+  if(!swap('<section class="reading"><button class="subtle" id="back">← 返回</button><p class="muted">'+escape(entry.date)+' · '+escape(entry.authorName)+' · '+scopeLabel(entry)+'</p><h1>'+escape(entry.title)+'</h1><div class="prose">'+escape(entry.body)+'</div><div class="media">'+entry.images.map((ref,index)=>{const url=mediaUrl(entry,ref,index);return url?'<a href="'+escape(url)+'" target="_blank" rel="noopener"><img src="'+escape(url)+'" alt="记忆中的照片" loading="lazy"></a>':'';}).join('')+entry.videos.map(ref=>/^\/api\/media\/[a-f0-9-]+$/.test(ref)?'<video controls preload="metadata" src="'+escape(ref)+'"></video>':'').join('')+'</div><div class="actions">'+(entry.editable?'<button id="edit">编辑</button>':'')+(entry.editable||me.role==='owner'?'<button class="subtle" id="history">修改历史</button><button class="subtle" id="archive">移入回收站</button>':'')+'</div><div id="history-list"></div></section>'))return;
+  const extraActions=document.createElement('details');extraActions.className='reading-options';extraActions.innerHTML='<summary>更多操作</summary>';
+  for(const key of ['history','archive']){const button=document.getElementById(key);if(button)extraActions.append(button);}
+  if(extraActions.childElementCount>1)document.getElementById('history-list').before(extraActions);
   document.getElementById('back').onclick=()=>loadLibrary().catch(e=>notify(e.message));
   const connections=document.createElement('nav');connections.className='actions';connections.setAttribute('aria-label','这段想法的关联');
   for(const [key,label]of [['fromId','从这里出发'],['toId','又想到']]){
@@ -129,35 +132,63 @@ async function read(id){
   }
   if(connections.childElementCount)app.querySelector('.prose').after(connections);
   document.getElementById('edit')?.addEventListener('click',()=>edit(entry));
-  document.getElementById('connect')?.addEventListener('click',()=>edit({type:'thought',fromId:entry.id,toId:'',scope:'private',recipients:[],images:[],videos:[],date:'?',title:'',body:''}));
   document.getElementById('archive')?.addEventListener('click',async()=>{if(!confirm('把这段记录移入可恢复的回收站？'))return;try{await api('/api/archive',{id,revision:entry.revision,archived:true});await loadLibrary();}catch(e){notify(e.message);}});
-  document.getElementById('history')?.addEventListener('click',async()=>{try{const revisions=await api('/api/history?id='+id);document.getElementById('history-list').innerHTML=revisions.length?revisions.slice().reverse().map(h=>'<details><summary>'+escape(h.at)+'</summary><h3>'+escape(h.entry.title)+'</h3><pre>'+escape(h.entry.body)+'</pre><small>可复制历史文字，回到自己的编辑页保存。</small></details>').join(''):'<p class="muted">还没有更早的版本。</p>';}catch(e){notify(e.message);}});
+  document.getElementById('history')?.addEventListener('click',async()=>{try{const revisions=await api('/api/history?id='+id);document.getElementById('history-list').innerHTML=revisions.length?revisions.slice().reverse().map(h=>'<details><summary>'+escape(h.at)+' · '+escape(h.actorName||'原账号')+'</summary><h3>'+escape(h.entry.title)+'</h3><pre>'+escape(h.entry.body)+'</pre><small>可复制历史文字，回到自己的编辑页保存。</small></details>').join(''):'<p class="muted">还没有更早的版本。</p>';}catch(e){notify(e.message);}});
 }
 function edit(entry){
-  if(!swap('<section class="reading"><h1>'+ (entry.id?'继续写自己的记录':'留下一段记忆')+'</h1><form id="entry-form"><label>标题<input name="title" required maxlength="300" value="'+escape(entry.title)+'"></label><div class="form-row"><label>类型<select name="type"><option value="event">记忆</option><option value="work">作品</option><option value="thought">想法</option></select></label><label>时间<input name="date" value="'+escape(entry.date||'?')+'"></label></div><div id="work-kind"><label>作品类型<select name="kind"><option value="book">书</option><option value="film">电影</option><option value="game">游戏</option></select></label></div><div id="thought-links"><p class="muted">关联可以留空；引用的记录也需获准阅读，才能看到这段关联想法。</p>'+['fromId','toId'].map(key=>'<label>'+(key==='fromId'?'从哪段记忆或作品出发':'又想到了哪段记忆或作品')+'<select name="'+key+'"><option value="">暂不关联</option>'+records.filter(record=>record.type!=='thought').map(record=>'<option value="'+record.id+'">'+escape(record.title)+'</option>').join('')+'</select></label>').join('')+'</div><label>文字<textarea name="body" rows="15">'+escape(entry.body)+'</textarea></label><label>添加照片或视频<input id="files" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm" '+(!me.canCreate?'disabled':'')+'></label><p class="muted">单个文件不超过500MB。上传后还需保存记录，才会随分享设置开放。</p><div id="attachments"></div><details><summary>分层整理（可选）</summary><label>中事件分组<input name="medium" value="'+escape(entry.medium||'')+'"></label><label>参与人（逗号分隔）<input name="persons" value="'+escape((entry.persons||[]).join('，'))+'"></label><label class="checkbox"><input name="major" type="checkbox" '+(entry.major?'checked':'')+'>大事件</label></details><label>分享范围<select name="scope"><option value="private">仅自己（站主仍可管理）</option><option value="members">有共同内容访问权的成员</option><option value="selected">指定成员</option></select></label><label id="recipient-label">分享给谁<select name="recipients" multiple size="5">'+people.filter(person=>person.id!==me.id).map(person=>'<option value="'+escape(person.id)+'">'+escape(person.name)+'</option>').join('')+'</select></label><label class="checkbox"><input name="published" type="checkbox" '+(entry.published?'checked':'')+'>发布（按上方分享范围展示；不勾选则只留草稿）</label><div class="actions"><button type="submit">保存记录</button><button type="button" class="subtle" id="cancel">返回</button></div></form></section>'))return;
+  if(!swap('<section class="reading"><h1>'+ (entry.id?'编辑记录':'记一笔')+'</h1><form id="entry-form"><label>标题<input name="title" required maxlength="300" value="'+escape(entry.title)+'"></label><input type="hidden" name="type"><div><label>时间（记不清可填 ?）<input name="date" value="'+escape(entry.date||'?')+'"></label></div><div id="work-kind" hidden><label>作品类型<select name="kind"><option value="book">书</option><option value="film">电影</option><option value="game">游戏</option></select></label></div><div id="thought-links"><p class="muted">关联可以留空；引用的记录也需获准阅读，才能看到这段关联想法。</p>'+['fromId','toId'].map(key=>'<label>'+(key==='fromId'?'从哪段记忆或作品出发':'又想到了哪段记忆或作品')+'<select name="'+key+'"><option value="">暂不关联</option>'+records.filter(record=>record.type!=='thought').map(record=>'<option value="'+record.id+'">'+escape(record.title)+'</option>').join('')+'</select></label>').join('')+'</div><label>文字<textarea name="body" rows="15">'+escape(entry.body)+'</textarea></label><label>添加照片或视频<input id="files" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm,audio/mpeg,audio/ogg,audio/wav,audio/mp4" '+(!me.canCreate?'disabled':'')+'></label><p class="muted">单个文件不超过500MB。上传后还需保存记录，才会随分享设置开放。</p><div id="attachments"></div><details><summary>参与人与首页展示</summary><label>所属专题<input name="medium" value="'+escape(entry.medium||'')+'"></label><label>参与人（逗号分隔）<input name="persons" value="'+escape((entry.persons||[]).join('，'))+'"></label><label class="checkbox"><input name="major" type="checkbox" '+(entry.major?'checked':'')+'>放在首页精选</label></details><label>分享范围<select name="scope"><option value="private">仅自己（站主仍可管理）</option><option value="members">有权限的创作者</option><option value="selected">指定成员</option></select></label><label id="recipient-label">分享给谁<select name="recipients" multiple size="5">'+people.filter(person=>person.id!==me.id).map(person=>'<option value="'+escape(person.id)+'">'+escape(person.name)+'</option>').join('')+'</select></label><label class="checkbox"><input name="published" type="checkbox" '+(entry.published?'checked':'')+'>允许有权限的创作者引用（不勾选则保留私有草稿）</label><div class="actions"><button type="submit">保存记录</button><button type="button" class="subtle" id="cancel">返回</button></div></form></section>'))return;
   const form=document.getElementById('entry-form');
+  const materialLabel=document.createElement('label');materialLabel.textContent='素材类型';const materialType=document.createElement('select');materialType.name='materialKind';for(const [value,label]of [['event','经历'],['chat','聊天记录'],['thought','想法'],['opinion','观点'],['essay','随笔'],['image','图片'],['video','视频'],['audio','音频']]){const option=document.createElement('option');option.value=value;option.textContent=label;materialType.append(option);}materialType.value=entry.materialKind||'event';materialLabel.append(materialType);form.elements.title.closest('label').before(materialLabel);
   const introduction=document.createElement('details');introduction.innerHTML='<summary>列表介绍（可选）</summary><label>留空时自动取正文开头<textarea name="summary" rows="3">'+escape(entry.summary||'')+'</textarea></label>';form.elements.body.closest('label').after(introduction);
-  const groupInput=form.elements.medium,groupSelect=document.createElement('select');groupSelect.name='medium';groupSelect.innerHTML='<option value="">暂不分组</option>'+catalogCache.groups.map(group=>'<option value="'+escape(group.slug)+'">'+escape(groupLabel(group.slug))+'</option>').join('')+(entry.medium&&!catalogCache.groups.some(group=>group.slug===entry.medium)?'<option value="'+escape(entry.medium)+'">'+escape(entry.medium)+'</option>':'');groupInput.replaceWith(groupSelect);groupSelect.value=entry.medium||'';
+  const groupInput=form.elements.medium,groupSelect=document.createElement('select');groupSelect.name='medium';groupSelect.innerHTML='<option value="">先放在未归专题</option>'+catalogCache.groups.map(group=>'<option value="'+escape(group.slug)+'">'+escape(groupLabel(group.slug))+'</option>').join('')+(entry.medium&&!catalogCache.groups.some(group=>group.slug===entry.medium)?'<option value="'+escape(entry.medium)+'">'+escape(entry.medium)+'</option>':'');groupInput.replaceWith(groupSelect);groupSelect.value=entry.medium||'';
   form.elements.type.value=entry.type;form.elements.scope.value=entry.scope;
-  if(me.role==='owner'){
-    const label=document.createElement('label');label.className='checkbox';label.innerHTML='<input name="visitorVisible" type="checkbox">同时开放给未登录访客（仅适用于已发布的共同内容）';
-    form.elements.published.closest('label').after(label);form.elements.visitorVisible.checked=entry.visitorVisible===true;
-    const update=()=>{const eligible=form.elements.published.checked&&form.elements.scope.value==='members';form.elements.visitorVisible.disabled=!eligible;if(!eligible)form.elements.visitorVisible.checked=false;};
-    form.addEventListener('change',update);update();
-  }else if(entry.visitorVisible){const note=document.createElement('p');note.className='notice';note.textContent='这段记录当前对访客开放。修改保存后，需要站主重新确认访客开放。';form.prepend(note);}
   form.elements.kind.value=entry.kind||'book';
   form.elements.fromId.value=entry.fromId||'';form.elements.toId.value=entry.toId||'';
-  const showType=()=>{form.elements.title.required=form.elements.type.value!=='thought';form.elements.title.placeholder=form.elements.type.value==='thought'?'可留空，自动取文字开头':'';document.getElementById('work-kind').hidden=form.elements.type.value!=='work';document.getElementById('thought-links').hidden=form.elements.type.value!=='thought';};showType();form.elements.type.onchange=showType;
+  const showType=()=>{form.elements.title.required=form.elements.type.value!=='thought';form.elements.title.placeholder=form.elements.type.value==='thought'?'可留空，自动取文字开头':'';document.getElementById('work-kind').hidden=true;document.getElementById('thought-links').hidden=form.elements.type.value!=='thought';};showType();form.elements.type.onchange=showType;
   [...form.elements.recipients.options].forEach(option=>option.selected=entry.recipients.includes(option.value));
+  const more=document.createElement('details');more.className='editor-options';more.innerHTML='<summary>更多选项</summary>';
+  const grouping=form.elements.persons.closest('details');
+  const topicLabel=form.elements.medium.closest('label');form.elements.title.closest('label').before(topicLabel);
+  more.append(document.getElementById('work-kind'),document.getElementById('thought-links'),grouping,introduction);
+  const sharing=document.createElement('details');sharing.className='editor-sharing';
+  const sharingSummary=document.createElement('summary');sharing.append(sharingSummary);
+  const scope=form.elements.scope.closest('label'),recipients=document.getElementById('recipient-label'),publish=form.elements.published.closest('label');
+  const visitor=form.elements.visitorVisible?.closest('label');
+  sharing.append(scope,recipients,publish);if(visitor)sharing.append(visitor);
+  const actions=form.querySelector('.actions');actions.before(sharing,more);
+  const visibility=()=>{
+    sharingSummary.textContent='谁能看到：'+(!form.elements.published.checked?'仅自己 · 草稿':form.elements.scope.value==='private'?'仅自己':form.elements.scope.value==='selected'?'指定成员':'有权限的创作者')+' · 点击调整';
+  };
+  visibility();form.addEventListener('change',visibility);
+  const hint=document.createElement('p');hint.className='muted';hint.textContent='收录一份素材，供创作者在剪辑台中引用。成品需在剪辑台单独发布。';form.before(hint);
+  form.elements.body.rows=8;
   const images=[...entry.images],videos=[...entry.videos];
-  const attachments=()=>{document.getElementById('attachments').innerHTML=[...images.map((url,index)=>({url,index,kind:'image'})),...videos.map((url,index)=>({url,index,kind:'video'}))].map(item=>'<p><span class="muted">'+(item.kind==='image'?'照片':'视频')+' '+(item.index+1)+'</span> <button type="button" class="subtle" data-remove="'+item.kind+':'+item.index+'">移除引用</button></p>').join('');document.querySelectorAll('[data-remove]').forEach(button=>button.onclick=()=>{const [kind,index]=button.dataset.remove.split(':');(kind==='image'?images:videos).splice(Number(index),1);dirty=true;attachments();});};
+  const attachments=()=>{document.getElementById('attachments').innerHTML=[...images.map((url,index)=>({url,index,kind:'image'})),...videos.map((url,index)=>({url,index,kind:'video'}))].map(item=>'<p>'+(item.kind==='image'?'<img class="attachment-preview" src="'+escape(mediaUrl(entry,item.url,item.index))+'" alt="照片预览">':'')+'<span class="muted">'+(item.kind==='image'?'照片':'视频')+' '+(item.index+1)+'</span> <button type="button" class="subtle" data-remove="'+item.kind+':'+item.index+'">移除引用</button></p>').join('');document.querySelectorAll('[data-remove]').forEach(button=>button.onclick=()=>{const [kind,index]=button.dataset.remove.split(':');(kind==='image'?images:videos).splice(Number(index),1);dirty=true;attachments();});};
   attachments();
   const showScope=()=>document.getElementById('recipient-label').hidden=form.elements.scope.value!=='selected';showScope();form.elements.scope.onchange=showScope;
   form.addEventListener('input',()=>dirty=true);form.addEventListener('change',()=>dirty=true);
   let uploading=false;
-  document.getElementById('files').onchange=async event=>{uploading=true;form.querySelector('[type=submit]').disabled=true;try{for(const file of event.target.files){if(file.size>500*1024*1024)throw new Error('单个文件不超过500MB');notify('正在上传 '+file.name);const result=await api('/api/upload?name='+encodeURIComponent(file.name),file,true);(file.type.startsWith('video/')?videos:images).push(result.url);dirty=true;attachments();}notify('上传完成，请保存记录。');}catch(error){notify(error.message);}finally{uploading=false;form.querySelector('[type=submit]').disabled=false;event.target.value='';}};
+  document.getElementById('files').onchange=async event=>{
+    if(uploading)return;uploading=true;event.target.disabled=true;form.querySelector('[type=submit]').disabled=true;
+    const files=Array.from(event.target.files),failed=[];let completed=0;
+    try{for(const [index,file] of files.entries()){
+      try{if(file.size>500*1024*1024)throw new Error('单个文件不超过500MB');
+        notify('正在上传 '+(index+1)+' / '+files.length+'：'+file.name);
+        const result=await api('/api/upload?name='+encodeURIComponent(file.name),file,true);
+        (file.type.startsWith('video/')||file.type.startsWith('audio/')?videos:images).push(result.url);completed++;dirty=true;attachments();
+      }catch(error){failed.push(file.name+'：'+error.message);}
+    }notify('已上传 '+completed+' / '+files.length+'，请保存记录。'+(failed.length?'\n未完成：\n'+failed.join('\n'):''));
+    }finally{uploading=false;form.querySelector('[type=submit]').disabled=false;event.target.disabled=false;event.target.value='';}
+  };
   document.getElementById('cancel').onclick=()=>loadLibrary().catch(e=>notify(e.message));
-  formAction(form,async data=>{if(uploading)throw new Error('请等待上传完成');const saved=await api('/api/entry',{id:entry.id,revision:entry.revision,title:data.get('title'),date:data.get('date'),body:data.get('body'),summary:data.get('summary'),type:data.get('type'),kind:data.get('kind'),fromId:data.get('fromId'),toId:data.get('toId'),scope:data.get('scope'),recipients:data.getAll('recipients'),published:!!data.get('published'),visitorVisible:!!data.get('visitorVisible'),medium:data.get('medium'),persons:String(data.get('persons')).split(/[,，]/).map(p=>p.trim()).filter(Boolean),major:!!data.get('major'),images,videos});dirty=false;await read(saved.id);notify('已保存，网站会按分享范围立即显示。');});
+  formAction(form,async data=>{if(uploading)throw new Error('请等待上传完成');const saved=await api('/api/entry',{id:entry.id,revision:entry.revision,title:data.get('title'),date:data.get('date'),body:data.get('body'),summary:data.get('summary'),type:data.get('type'),materialKind:data.get('materialKind'),kind:data.get('kind'),fromId:data.get('fromId'),toId:data.get('toId'),scope:data.get('scope'),recipients:data.getAll('recipients'),published:!!data.get('published'),visitorVisible:!!data.get('visitorVisible'),medium:data.get('medium'),persons:String(data.get('persons')).split(/[,，]/).map(p=>p.trim()).filter(Boolean),major:!!data.get('major'),images,videos});dirty=false;await read(saved.id);notify('已保存，网站会按分享范围立即显示。');});
+}
+function createTopic(){
+  if(me?.role!=='owner')return;
+  if(!swap('<section class="reading"><h1>新建专题</h1><p class="muted">围绕一件事，把照片、回忆、作品和想法放在一起。例如“毕业那年”或“一起看过的电影”。</p><form id="catalog-form"><label>专题名称<input name="title" required maxlength="300" placeholder="给这段经历起个名字"></label><div class="actions"><button type="submit">创建专题</button><a class="button subtle" href="/topics">返回专题</a></div></form></section>'))return;
+  const form=document.getElementById('catalog-form');
+  form.addEventListener('input',()=>dirty=true);
+  formAction(form,async values=>{const saved=await api('/api/catalog',{kind:'group',title:values.get('title'),parent:''});dirty=false;submitting=false;location.assign('/topics/'+encodeURIComponent(saved.slug));});
 }
 function groupLabel(id){const titles=[],visited=new Set();while(id&&!visited.has(id)){visited.add(id);const group=catalogCache.groups.find(item=>item.slug===id);titles.unshift(group?.title||id);id=group?.parent;}return titles.join(' / ');}
 async function organize(tab='records',selected='',recordFilters={}){
@@ -165,20 +196,20 @@ async function organize(tab='records',selected='',recordFilters={}){
   const viewer=me.id;
   const [entries,catalog,overview]=await Promise.all([api('/api/entries'),api('/api/catalog'),api('/api/manage')]);
   if(me?.id!==viewer)return;
-  if(!swap('<h1>整理记忆库</h1><p class="muted">在这里整理记忆、分组和人物，保存后网站会直接显示更新。</p><div class="toolbar tabs" id="organize-tabs"></div><div id="organize-body"></div>'))return;
+  if(!swap('<h1>整理记忆库</h1><p class="muted">在这里整理记录、专题和人物，保存后网站会直接显示更新。</p><div class="toolbar tabs" id="organize-tabs"></div><div id="organize-body"></div>'))return;
   records=entries;catalogCache=catalog;
-  document.getElementById('organize-tabs').innerHTML=[['records','记录整理'],['group','中事件分组'],['person','人物档案']].map(([key,label])=>'<button class="subtle" data-organize="'+key+'" aria-pressed="'+(tab===key)+'">'+label+'</button>').join('')+'<a class="button subtle" href="/api/export" download>导出文字资料</a><button class="subtle" id="organize-back">返回记忆库</button>';
+  document.getElementById('organize-tabs').innerHTML=[['records','记录整理'],['group','专题'],['person','人物档案']].map(([key,label])=>'<button class="subtle" data-organize="'+key+'" aria-pressed="'+(tab===key)+'">'+label+'</button>').join('')+'<a class="button subtle" href="/api/export" download>导出文字资料</a><button class="subtle" id="organize-back">返回记忆库</button>';
   document.querySelectorAll('[data-organize]').forEach(button=>button.onclick=()=>organize(button.dataset.organize).catch(error=>notify(error.message)));
   document.getElementById('organize-back').onclick=()=>loadLibrary().catch(error=>notify(error.message));
   if(tab==='records')return organizeRecords([...entries,...overview.archived],recordFilters);
   const items=catalog[tab==='group'?'groups':'people'],host=document.getElementById('organize-body');
-  host.innerHTML='<section class="panel"><label>选择'+(tab==='group'?'分组':'人物')+'<select id="catalog-select"><option value="">＋ 新增</option>'+items.map(item=>'<option value="'+escape(item.slug)+'">'+escape(tab==='group'?groupLabel(item.slug):item.name)+'</option>').join('')+'</select></label><div id="catalog-editor"></div></section>';
+  host.innerHTML='<section class="panel"><label>选择'+(tab==='group'?'专题':'人物')+'<select id="catalog-select"><option value="">＋ 新增</option>'+items.map(item=>'<option value="'+escape(item.slug)+'">'+escape(tab==='group'?groupLabel(item.slug):item.name)+'</option>').join('')+'</select></label><div id="catalog-editor"></div></section>';
   const chooser=document.getElementById('catalog-select');chooser.value=selected;
   let current=selected;
   const draw=()=>{
     const item=items.find(item=>item.slug===chooser.value)||{};current=chooser.value;
     const traits=[['openness','开放性'],['conscientiousness','尽责性'],['extraversion','外向性'],['agreeableness','宜人性'],['neuroticism','神经质']];
-    document.getElementById('catalog-editor').innerHTML='<form id="catalog-form">'+(tab==='group'?'<label>分组名称<input name="title" maxlength="300" required value="'+escape(item.title)+'"></label><label>上级分组<select name="parent"><option value="">无（最外层）</option>'+catalog.groups.filter(group=>group.slug!==item.slug).map(group=>'<option value="'+escape(group.slug)+'">'+escape(groupLabel(group.slug))+'</option>').join('')+'</select></label><p class="muted">修改名称保留原分组关联，可以继续嵌套整理。</p>':'<p class="notice">人物侧写目前仅站主可见。</p><label>姓名<input name="name" maxlength="100" required '+(item.slug?'readonly':'')+' value="'+escape(item.name)+'"></label>'+[['nickname','昵称'],['university','学校'],['major','专业'],['role','身份或关系']].map(([key,label])=>'<label>'+label+'<input name="'+key+'" maxlength="300" value="'+escape(item[key])+'"></label>').join('')+'<label>人物侧写<textarea name="body" rows="16">'+escape(item.body)+'</textarea></label><details><summary>大五人格数值（可选）</summary><div class="trait-inputs">'+traits.map(([key,label])=>'<label>'+label+'<input name="'+key+'" type="number" min="0" max="100" value="'+escape(item.personality?.[key]??0)+'"></label>').join('')+'</div></details>')+'<div class="actions"><button type="submit">保存'+(tab==='group'?'分组':'人物档案')+'</button></div></form>';
+    document.getElementById('catalog-editor').innerHTML='<form id="catalog-form">'+(tab==='group'?'<label>专题名称<input name="title" maxlength="300" required value="'+escape(item.title)+'"></label><label>上级专题<select name="parent"><option value="">无（最外层）</option>'+catalog.groups.filter(group=>group.slug!==item.slug).map(group=>'<option value="'+escape(group.slug)+'">'+escape(groupLabel(group.slug))+'</option>').join('')+'</select></label><p class="muted">修改名称后，专题里的记录会继续保留。</p>':'<p class="notice">人物侧写目前仅站主可见。</p><label>姓名<input name="name" maxlength="100" required '+(item.slug?'readonly':'')+' value="'+escape(item.name)+'"></label>'+[['nickname','昵称'],['university','学校'],['major','专业'],['role','身份或关系']].map(([key,label])=>'<label>'+label+'<input name="'+key+'" maxlength="300" value="'+escape(item[key])+'"></label>').join('')+'<label>人物侧写<textarea name="body" rows="16">'+escape(item.body)+'</textarea></label><details><summary>大五人格数值（可选）</summary><div class="trait-inputs">'+traits.map(([key,label])=>'<label>'+label+'<input name="'+key+'" type="number" min="0" max="100" value="'+escape(item.personality?.[key]??0)+'"></label>').join('')+'</div></details>')+'<div class="actions"><button type="submit">保存'+(tab==='group'?'分组':'人物档案')+'</button></div></form>';
     const form=document.getElementById('catalog-form');if(tab==='group')form.elements.parent.value=item.parent||'';
     form.addEventListener('input',()=>dirty=true);form.addEventListener('change',()=>dirty=true);
     formAction(form,async values=>{const data={...Object.fromEntries(values),kind:tab,slug:item.slug,revision:item.revision};if(tab==='person')data.personality=Object.fromEntries(traits.map(([key])=>[key,Number(values.get(key))]));const saved=await api('/api/catalog',data);dirty=false;await organize(tab,saved.slug);notify('已保存到统一资料库。');});
@@ -213,22 +244,8 @@ async function manage(){
   const viewer=me?.id;
   const [data,managedRecords]=await Promise.all([api('/api/manage'),api('/api/entries')]);records=managedRecords;
   if(me?.id!==viewer)return;
-  if(!swap('<h1>管理这座记忆库</h1><p class="muted">网站与后台共用一份资料。文字、账号、人物和分组保存在这台电脑；完整备份还需包含照片、视频。</p><section class="panel"><h2>问答准入</h2><p class="muted">答案只在服务器核对。编辑已有题目时，请重新填写可接受答案；一行一个说法。新设置只影响新成员。</p><form id="settings"><div id="questions"></div><button type="button" class="subtle" id="add-question">＋ 增加题目</button><div class="form-row"><label>至少答对几题<input name="threshold" type="number" min="1" max="10" value="'+(data.settings.threshold||1)+'" required></label><label>通过后的默认阅读范围<select name="defaultAccess"><option value="selected">仅被指定分享给他的内容</option><option value="all">全部共同内容（不含他人定向或私人记录）</option></select></label></div><label class="checkbox"><input name="defaultCreate" type="checkbox" '+(data.settings.defaultCreate?'checked':'')+'>通过后允许新增内容</label><div class="actions"><button type="submit">保存准入规则</button></div></form></section><section class="panel"><h2>成员与权限</h2><label>选择成员<select id="member-select"><option value="">请选择</option>'+data.members.filter(user=>user.role!=='owner').map(user=>'<option value="'+user.id+'">'+escape(user.name)+'（'+escape(user.username)+'）</option>').join('')+'</select></label><div id="member-editor"></div></section><section class="panel"><h2>回收站</h2><div id="trash"></div></section><details><summary>最近操作记录</summary><div id="audit"></div></details>'))return;
+  if(!swap('<h1>管理这座记忆库</h1><p class="muted">网站与后台共用一份资料。文字、账号、人物和分组保存在这台电脑；完整备份还需包含照片、视频。</p><section class="panel"><h2>问答准入</h2><p class="muted">答案只在服务器核对。编辑已有题目时，请重新填写可接受答案；一行一个说法。新设置只影响新成员。</p><form id="settings"><div id="questions"></div><button type="button" class="subtle" id="add-question">＋ 增加题目</button><div class="form-row"><label>至少答对几题<input name="threshold" type="number" min="1" max="10" value="'+(data.settings.threshold||1)+'" required></label><label>通过后的默认阅读范围<select name="defaultAccess"><option value="selected">仅被指定分享给他的内容</option><option value="all">全部共同内容（不含他人定向或私人记录）</option></select></label></div><label class="checkbox"><input name="defaultCreate" type="checkbox" '+(data.settings.defaultCreate?'checked':'')+'>通过后授予创作者权限（可进入素材库与剪辑台）</label><div class="actions"><button type="submit">保存准入规则</button></div></form></section><section class="panel"><h2>成员与权限</h2><label>选择成员<select id="member-select"><option value="">请选择</option>'+data.members.filter(user=>user.role!=='owner').map(user=>'<option value="'+user.id+'">'+escape(user.name)+'（'+escape(user.username)+'）</option>').join('')+'</select></label><div id="member-editor"></div></section><section class="panel"><h2>回收站</h2><div id="trash"></div></section><details><summary>最近操作记录</summary><a href="/shared?view=activity">查看具体改动 →</a><div id="audit"></div></details>'))return;
   const settings=document.getElementById('settings'),questions=document.getElementById('questions');
-  const visitors=document.createElement('section');visitors.className='panel';
-  visitors.innerHTML='<h2>访客通道</h2><p class="muted">访客无需登录，只能看到你在这里明确开放的内容。私人、草稿和定向分享不能直接对外开放。</p><a class="button subtle" href="/guest" target="_blank" rel="noopener">查看访客视角 ↗</a><details><summary>选择开放内容</summary><input id="visitor-search" aria-label="搜索可开放给访客的内容" placeholder="搜索可开放的标题"><div id="visitor-records"></div></details>';
-  settings.closest('.panel').after(visitors);
-  const visitorRecords=managedRecords.filter(entry=>entry.published&&entry.scope==='members');
-  function renderVisitors(){
-    const query=document.getElementById('visitor-search').value.trim().toLowerCase(),host=document.getElementById('visitor-records');
-    host.innerHTML=visitorRecords.filter(entry=>entry.title.toLowerCase().includes(query)).map(entry=>'<label class="visitor-record"><input type="checkbox" data-visitor="'+entry.id+'" '+(entry.visitorVisible?'checked':'')+'><span>'+escape(entry.title)+'<small> · '+escape(entry.authorName)+'</small></span></label>').join('')||'<p class="muted">没有匹配的已发布共同内容。</p>';
-    host.querySelectorAll('[data-visitor]').forEach(checkbox=>checkbox.onchange=async()=>{
-      const entry=visitorRecords.find(entry=>entry.id===checkbox.dataset.visitor),before=entry.visitorVisible;checkbox.disabled=true;
-      try{Object.assign(entry,await api('/api/guest-access',{id:entry.id,revision:entry.revision,visible:checkbox.checked}));notify(entry.visitorVisible?'已开放给访客。':'已撤销访客访问。');}
-      catch(error){checkbox.checked=before;notify(error.message);}finally{checkbox.disabled=false;}
-    });
-  }
-  document.getElementById('visitor-search').oninput=renderVisitors;renderVisitors();
   settings.elements.defaultAccess.value=data.settings.defaultAccess;
   function addQuestion(text=''){const block=document.createElement('div');block.className='question';block.innerHTML='<label>题目<input class="question-text" value="'+escape(text)+'" required maxlength="500"></label><label>可接受答案（一行一个）<textarea class="question-answers" required autocomplete="off"></textarea></label><button type="button" class="subtle">移除此题</button>';block.querySelector('button').onclick=()=>{block.remove();dirty=true;};questions.append(block);}
   (data.settings.questions.length?data.settings.questions:[{text:''}]).forEach(q=>addQuestion(q.text));
@@ -238,14 +255,14 @@ async function manage(){
   document.getElementById('member-select').onchange=event=>{
     const user=data.members.find(user=>user.id===event.target.value),host=document.getElementById('member-editor');
     if(!user){host.innerHTML='';return;}
-    host.innerHTML='<p class="muted">加入：'+escape(user.createdAt)+'<br>最近登录：'+escape(user.lastLogin||'尚无')+'</p><form id="member-form"><label>阅读权限<select name="access"><option value="selected">指定内容</option><option value="all">全部共同内容</option><option value="blocked">停用账号</option></select></label><label class="checkbox"><input name="canCreate" type="checkbox" '+(user.canCreate?'checked':'')+'>允许新增内容</label><label>单独开放共同记录<select name="grants" multiple size="7">'+records.filter(e=>e.published&&e.scope==='members').map(e=>'<option value="'+e.id+'">'+escape(e.title)+'</option>').join('')+'</select></label><div class="actions"><button type="submit">保存成员权限</button></div></form><details><summary>为此成员重设密码</summary><form id="reset-password"><label>新密码（至少12个字符）<input name="password" type="password" autocomplete="new-password" minlength="12" required></label><button type="submit">重设并退出该成员的全部登录</button></form></details>';
+    host.innerHTML='<p class="muted">加入：'+escape(user.createdAt)+'<br>最近登录：'+escape(user.lastLogin||'尚无')+'</p><form id="member-form"><label>阅读权限<select name="access"><option value="selected">指定内容</option><option value="all">全部共同内容</option><option value="blocked">停用账号</option></select></label><label class="checkbox"><input name="canCreate" type="checkbox" '+(user.canCreate?'checked':'')+'>创作者权限（可进入素材库与剪辑台）</label><label>单独开放共同记录<select name="grants" multiple size="7">'+records.filter(e=>e.published&&e.scope==='members').map(e=>'<option value="'+e.id+'">'+escape(e.title)+'</option>').join('')+'</select></label><div class="actions"><button type="submit">保存成员权限</button></div></form><details><summary>为此成员重设密码</summary><form id="reset-password"><label>新密码（至少12个字符）<input name="password" type="password" autocomplete="new-password" minlength="12" required></label><button type="submit">重设并退出该成员的全部登录</button></form></details>';
     const form=document.getElementById('member-form');form.elements.access.value=user.access;[...form.elements.grants.options].forEach(option=>option.selected=(user.grants||[]).includes(option.value));
     formAction(form,async values=>{await api('/api/member',{id:user.id,access:values.get('access'),canCreate:!!values.get('canCreate'),grants:values.getAll('grants')});notify('成员权限已更新。');});
     formAction(document.getElementById('reset-password'),async values=>{await api('/api/password',{id:user.id,password:values.get('password')});notify('密码已重设；请自行把新密码交给这位成员。');});
   };
   document.getElementById('trash').innerHTML=data.archived.length?data.archived.map(entry=>'<p>'+escape(entry.title)+' <button class="subtle" data-restore="'+entry.id+'">恢复</button></p>').join(''):'<p class="muted">回收站为空</p>';
   document.querySelectorAll('[data-restore]').forEach(button=>button.onclick=async()=>{try{const entry=data.archived.find(entry=>entry.id===button.dataset.restore);await api('/api/archive',{id:entry.id,revision:entry.revision,archived:false});await manage();}catch(error){notify(error.message);}});
-  document.getElementById('audit').innerHTML=data.audit.map(item=>'<p><small>'+escape(item.at)+' · '+escape(data.members.find(user=>user.id===item.actor)?.name||'账号')+' · '+escape(({setup:'建立站主',login:'登录',admitted:'答题通过',save:'保存记录',member:'调整权限',questions:'修改准入题目',archive:'移入回收站',restore:'恢复记录',upload:'上传文件',password:'更改密码','visitor-access':'调整访客开放'})[item.action]||item.action)+'</small></p>').join('');
+  document.getElementById('audit').innerHTML=data.audit.map(item=>'<p><small>'+escape(item.at)+' · '+escape(data.members.find(user=>user.id===item.actor)?.name||'账号')+' · '+escape(({setup:'建立站主',login:'登录',admitted:'答题通过',save:'保存记录',member:'调整权限',questions:'修改准入题目',archive:'移入回收站',restore:'恢复记录',upload:'上传文件',password:'更改密码','post-draft':'保存作品草稿','post-publish':'发布成品','post-unpublish':'撤回成品','post-comment':'作品留言','visitor-access':'调整访客开放'})[item.action]||item.action)+'</small></p>').join('');
 }
 function connect(){
   initialize().catch(error=>{
@@ -256,3 +273,20 @@ function connect(){
   });
 }
 connect();
+
+async function activity(){
+  const data=await api('/api/manage');
+  const labels={save:'保存记录',upload:'上传文件',archive:'移入回收站',restore:'恢复记录',catalog:'整理资料',member:'调整成员权限',questions:'修改准入规则','visitor-access':'调整访客开放',setup:'建立站主',login:'登录',admitted:'加入记忆库',password:'更改密码'};
+  const fields={title:'标题',body:'正文',date:'时间',summary:'列表介绍',images:'照片',videos:'视频',scope:'分享范围',recipients:'分享对象',published:'发布状态',visitorVisible:'访客开放',medium:'所属专题',persons:'参与人',major:'首页精选',type:'类型',kind:'作品类型',fromId:'起点关联',toId:'终点关联'};
+  if(!swap('<section class="reading"><h1>谁做了哪些改动</h1><p class="muted">最近200次操作。历史版本只有作者和站主可以查看。</p><div id="activity-list"></div></section>'))return;
+  document.getElementById('activity-list').innerHTML=data.audit.map(item=>'<article class="activity-item"><p><strong>'+escape(item.actorName)+'</strong> · '+escape(item.created?'新建记录':labels[item.action]||item.action)+'</p><p>'+escape(item.title||'系统设置')+'</p>'+(item.fields?.length?'<p class="muted">修改了：'+escape(item.fields.map(key=>fields[key]||key).join('、'))+'</p>':'')+'<small>'+escape(new Date(item.at).toLocaleString())+'</small>'+(data.archived.some(entry=>entry.id===item.target)?'<p class="muted">记录在回收站</p>':data.audit.some(row=>row.target===item.target&&row.action==='save')?'<p><button class="subtle" data-open-entry="'+escape(item.target)+'">查看记录与历史</button></p>':'')+'</article>').join('')||'<p class="muted">还没有操作记录。</p>';
+  document.querySelectorAll('[data-open-entry]').forEach(button=>button.onclick=()=>read(button.dataset.openEntry).catch(error=>notify(error.message)));
+}
+
+document.addEventListener('error',event=>{
+  const img=event.target;
+  if(!(img instanceof HTMLImageElement)||!img.getAttribute('src')||img.nextElementSibling?.classList.contains('photo-retry'))return;
+  const retry=document.createElement('button');retry.type='button';retry.className='photo-retry';retry.textContent='照片未能载入 · 点击重试';
+  retry.onclick=event=>{event.preventDefault();event.stopPropagation();retry.remove();const src=img.src;img.removeAttribute('src');img.src=src;};
+  img.after(retry);
+},true);

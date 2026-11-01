@@ -1,3 +1,4 @@
+import { createPostStore } from './post-store.mjs';
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual, createHmac } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync, renameSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -47,7 +48,7 @@ export function createCollaborationStore(root) {
     });
   }
   if (state.version !== 2 || !state.catalog || !Array.isArray(state.catalog.groups) || !Array.isArray(state.catalog.people)) throw new Error('不支持的资料库版本，请保留文件并检查迁移记录');
-  function audit(actor, action, target) { state.audit.push({ at: new Date().toISOString(), actor: actor?.id || '', action, target }); }
+  function audit(actor, action, target, details = {}) { state.audit.push({ at: new Date().toISOString(), actor: actor?.id || '', action, target, ...details }); }
   function owner(user) { if (user?.role !== 'owner' || user.access === 'blocked') fail('仅站主可操作', 403); }
   function active(user) { if (!user || user.access === 'blocked') fail('账号未获准访问', 403); }
   function getUser(id) { return state.users.find(user => user.id === id); }
@@ -172,6 +173,7 @@ export function createCollaborationStore(root) {
     if (existing && (existing.author !== user.id || existing.archived)) fail('只能修改自己的原文',403);
     if (!existing && !user.canCreate) fail('尚未获得投稿资格',403);
     if (existing && (!input.revision || input.revision !== existing.revision)) fail('记录已更新，请先保留当前文字再重新打开',409);
+    if(input.materialKind&&!['chat','event','image','video','audio','essay','thought','opinion'].includes(input.materialKind))fail('素材类型不正确');
     const body = clean(input.body || '',200000);
     const summary = 'summary' in input ? clean(input.summary, 5000) : existing?.summary || '';
     let title=clean(input.title||'',300);
@@ -196,16 +198,16 @@ export function createCollaborationStore(root) {
       const now = new Date().toISOString();
       if (existing) state.history.push({ entry: structuredClone(existing), at:now, actor:user.id });
       const entry = { ...(existing || {}), id:existing?.id || randomUUID(), author:user.id, revision:randomUUID(), title, body,
-        type:input.type, date:validateDate(input.date || '?'), summary, scope:input.scope, recipients,
+        materialKind:clean(input.materialKind||existing?.materialKind||'',20),type:input.type, date:validateDate(input.date || '?'), summary, scope:input.scope, recipients,
         medium:clean(input.medium || '',300), persons:Array.isArray(input.persons)?input.persons.map(person=>clean(person,100)):[],major:input.major===true,
         fromId,toId,kind,
         visitorVisible:user.role==='owner'&&input.visitorVisible===true&&input.published===true&&input.scope==='members',
         published:input.published === true, images,videos, updatedAt:now,createdAt:existing?.createdAt || now };
       if (existing) state.entries[state.entries.indexOf(existing)] = entry; else state.entries.push(entry);
-      audit(user,'save',entry.id); return entryView(user,entry);
+      audit(user,'save',entry.id,{title:entry.title,created:!existing,fields:Object.keys(input).filter(key=>!['id','revision'].includes(key)&&JSON.stringify(existing?.[key])!==JSON.stringify(entry[key]))}); return entryView(user,entry);
     });
   }
-  function members(user) { active(user); return state.users.filter(u => u.access !== 'blocked').map(u => user.role === 'owner' ? safeUser(u) : {id:u.id,name:u.name}); }
+  function members(user) { active(user); return state.users.filter(u => u.access !== 'blocked').map(u => user.role === 'owner' ? safeUser(u) : {id:u.id,name:u.name,canCreate:u.canCreate}); }
   function setVisitorAccess(user,input){
     owner(user);const entry=state.entries.find(entry=>entry.id===input.id&&!entry.archived);
     if(!entry)fail('记录不存在',404);
@@ -225,7 +227,7 @@ export function createCollaborationStore(root) {
       audit(user,'member',target.id); return safeUser(target);
     });
   }
-  function history(user,id) { readEntry(user,id); const entry=state.entries.find(e=>e.id===id); if(user.role!=='owner'&&entry.author!==user.id) fail('只有作者和站主能查看历史',403); return state.history.filter(h=>h.entry.id===id); }
+  function history(user,id) { readEntry(user,id); const entry=state.entries.find(e=>e.id===id); if(user.role!=='owner'&&entry.author!==user.id) fail('只有作者和站主能查看历史',403); return state.history.filter(h=>h.entry.id===id).map(h=>({...h,actorName:getUser(h.actor)?.name||'原账号'})); }
   function archive(user,input) {
     active(user); const entry=state.entries.find(e=>e.id===input.id);
     if(!entry || (entry.author!==user.id&&user.role!=='owner')) fail('无权操作',403);
@@ -302,12 +304,13 @@ export function createCollaborationStore(root) {
   }
   function exportContent(user) {
     owner(user);
-    return structuredClone({ format: 'c0ns1d2-content', version: 2, exportedAt: new Date().toISOString(), entries: state.entries, catalog: state.catalog,
+    return structuredClone({ format: 'c0ns1d2-content', version: 2, exportedAt: new Date().toISOString(), entries: state.entries, posts: state.posts || [], catalog: state.catalog,
       note: '文字资料导出，不含账号凭据或附件文件；完整恢复需要备份整个项目的私有资料与照片目录。' });
   }
-  return { directory, setupFile, isSetup:()=>state.users.length>0, setup, questions, configure, register, login, checkedUser,
+  const posts=createPostStore({getState:()=>state,transaction,audit,canRead});
+  return { ...posts, directory, setupFile, isSetup:()=>state.users.length>0, setup, questions, configure, register, login, checkedUser,
     profile:id=>safeUser(checkedUser(id)), entries, readEntry, saveEntry, members, updateMember, history, archive, mediaAdd, mediaRead, changePassword,setVisitorAccess,
     guest, catalog, saveCatalog, archiveBatch, exportContent, schemaVersion:()=>state.version,
-    ownerOverview(user){owner(user);return {members:state.users.map(safeUser),audit:state.audit.slice(-200).reverse(),archived:state.entries.filter(e=>e.archived),settings:{...questions(),defaultAccess:state.defaultAccess,defaultCreate:state.defaultCreate},notice:'站主可查看本机保存的全部记录，包括私人记录。'};},
+    ownerOverview(user){owner(user);return {members:state.users.map(safeUser),audit:state.audit.slice(-200).reverse().map(item=>({...item,title:item.title||state.entries.find(entry=>entry.id===item.target)?.title||state.media.find(media=>media.id===item.target)?.name||getUser(item.target)?.name||'',actorName:getUser(item.actor)?.name||'原账号'})),archived:state.entries.filter(e=>e.archived),settings:{...questions(),defaultAccess:state.defaultAccess,defaultCreate:state.defaultCreate},notice:'站主可查看本机保存的全部记录，包括私人记录。'};},
   };
 }

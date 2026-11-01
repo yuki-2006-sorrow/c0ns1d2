@@ -45,7 +45,8 @@ export function validateArchiveOrigins({upstream,publicOrigin,publicAliases=[]})
 
 export function createArchiveProxy({upstream,publicOrigin,publicAliases=[],staticAssets=[],introSize=0},forward=fetch,assets,{readTimeoutMs=12000}={}){
   const {target,origins}=validateArchiveOrigins({upstream,publicOrigin,publicAliases});
-  const publicFiles=new Set(staticAssets.filter(path=>/^\/_astro\/[a-zA-Z0-9_.-]+\.(?:js|css|woff2?|svg|png)$/.test(path)||/^\/intro\/(?:intro\.mp4|k[1-9]\.png)$/.test(path)||/^\/(?:app|bridge)\.css$|^\/(?:app|bridge-client)\.js$/.test(path)));
+  const creativePublicFiles=new Set(['/minimal-system.css','/post-pages.css','/intro-entry.js','/intro-controller.js']);
+  const publicFiles=new Set(staticAssets.filter(path=>creativePublicFiles.has(path)||/^\/_astro\/[a-zA-Z0-9_.-]+\.(?:js|css|woff2?|svg|png)$/.test(path)||/^\/intro\/(?:intro\.mp4|k[1-9]\.png)$/.test(path)||/^\/(?:app|bridge)\.css$|^\/(?:app|bridge-client)\.js$/.test(path)));
   return async request=>{
     const address=new URL(request.url);
     if(!origins.has(address.origin))return unavailable(request);

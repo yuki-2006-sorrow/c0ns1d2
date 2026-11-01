@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-label="示例插画：夏日海边">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#a2b4ad"/><stop offset=".58" stop-color="#d4c9a7"/><stop offset="1" stop-color="#edc38b"/></linearGradient>
+    <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#849f96"/><stop offset="1" stop-color="#455d58"/></linearGradient>
+    <linearGradient id="shore" x2="1" y2="0"><stop stop-color="#3f493d"/><stop offset="1" stop-color="#6d7356"/></linearGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+  </defs>
+  <g filter="url(#grain)">
+    <path fill="url(#sky)" d="M0 0h1200v680H0z"/>
+    <circle cx="840" cy="259" r="73" fill="#e6cf9b" opacity=".94"/>
+    <path d="M0 350c140-14 190-48 285-39 106 10 140 51 251 42 160-13 240-18 664-6v333H0z" fill="url(#sea)"/>
+    <path d="M0 338c88-7 123-55 170-53 86 3 115 48 188 47 91-2 134-42 218-23 57 13 99 42 169 39L0 374z" fill="#748b7c" opacity=".75"/>
+    <g fill="none" stroke="#c7cbb0" opacity=".45"><path d="M540 397h563m-463 30h412M510 462h570m-351 37h278M330 530h628"/><path d="M790 365h143m-174 19h200m-205 25h212" stroke="#e6d3a7" stroke-width="3"/></g>
+    <path d="M0 473c160-2 202 40 357 70 205 38 380-19 571 5l272 132H0z" fill="url(#shore)"/>
+    <path d="M0 485c165 5 225 56 373 76 220 30 397-27 510 5 115 33 174 80 317 114" fill="none" stroke="#baad83" stroke-width="18" opacity=".65"/>
+    <path d="M0 486c155 3 221 46 340 66 148 26 245 5 323 5" fill="none" stroke="#d0c3a0" stroke-width="3" opacity=".6"/>
+    <path d="M0 583c145-68 251-36 384 97H0z" fill="#293e35"/>
+    <g stroke="#253b33" fill="none" stroke-linecap="round"><path d="M115 663c7-113 21-224 42-340" stroke-width="20"/><path d="M157 328c-29-45-54-72-110-67m108 64c13-59 49-83 106-84m-109 87c-52-11-91-6-117 39m121-37c50-18 98-12 143 25m-141-29c-14-56-10-90 25-123" stroke-width="13"/></g>
+    <g fill="#283b35"><path d="M417 548c0-22 8-30 16-30s17 9 17 30l-2 42h-29z"/><circle cx="434" cy="506" r="11"/><path d="M455 552c1-21 9-29 17-29s17 9 17 29l-2 44h-28z"/><circle cx="472" cy="511" r="10"/></g>
+  </g>
+  <text x="1140" y="635" text-anchor="end" fill="#e9e1c9" opacity=".65" font-family="sans-serif" font-size="12" letter-spacing="4">SUMMER / AN ILLUSTRATION</text>
+</svg>

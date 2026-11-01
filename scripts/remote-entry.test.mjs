@@ -4,6 +4,15 @@ import {createArchiveProxy,validateArchiveOrigins} from '../deployment/pages-wor
 const configuration={upstream:'https://archive-test.trycloudflare.com',publicOrigin:'https://c0ns1d2.pages.dev'};
 const page=path=>configuration.publicOrigin+path;
 
+test('intro integration assets remain available on Pages while archive data stays behind the backend',async()=>{
+  let privateCalls=0;
+  const paths=['/intro-entry.js','/intro-controller.js','/minimal-system.css','/post-pages.css'];
+  const proxy=createArchiveProxy({...configuration,staticAssets:[...paths,'/api/materials']},async()=>{privateCalls++;return new Response('protected',{status:401});},{fetch:async()=>new Response('asset',{headers:{'Content-Type':'text/javascript'}})});
+  for(const path of paths)assert.equal((await proxy(new Request(page(path)))).status,200);
+  assert.equal((await proxy(new Request(page('/api/materials')))).status,401);
+  assert.equal(privateCalls,1);
+});
+
 test('custom domains preserve their own login redirects and reject cross-domain writes',async()=>{
   let calls=0;
   const upstream='https://backend.c0ns1d2.com';

@@ -26,6 +26,24 @@ function register(store,name){
 }
 const makeEntry=(user,title='记忆')=>({title,date:'2026',body:'署名原文',type:'event',published:true,scope:'members',recipients:[],images:[],videos:[]});
 
+test('change log identifies the record, actor and changed fields while preserving previous text',()=>{
+  const root=fixture();
+  try{
+    const store=createCollaborationStore(root),owner=ownerSetup(store);
+    const entry=store.saveEntry(owner,makeEntry(owner));
+    store.saveEntry(owner,{...entry,body:'修改后的正文'});
+    const log=store.ownerOverview(owner).audit[0];
+    assert.equal(log.actorName,owner.name);
+    assert.equal(log.title,entry.title);
+    assert.equal(log.created,false);
+    assert.ok(log.fields.includes('body'));
+    assert.ok(!log.fields.includes('title'));
+    const previous=store.history(owner,entry.id)[0];
+    assert.equal(previous.actorName,owner.name);
+    assert.equal(previous.entry.body,'署名原文');
+  }finally{cleanup(root);}
+});
+
 test('setup is single-use; answers are secret; automatic admission accepts configured aliases',()=>{
   const root=fixture();
   try{

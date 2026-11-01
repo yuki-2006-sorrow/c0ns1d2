@@ -7,6 +7,7 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import { createCollaborationStore } from '../admin/collaboration-store.mjs';
+import { createCollaborationFrontend } from '../admin/collaboration-frontend.mjs';
 import {createPublicEntry} from './public-entry.mjs';
 import {verifyMainEntryBrowser} from './verify-main-entry-browser.mjs';
 
@@ -55,71 +56,87 @@ test('guest publishing is explicit, owner-only and follows linked endpoints, aut
   }finally{cleanup(root);}
 });
 
-test('real frontend routes contain only readable records; media and guest preview enforce the same boundary',async()=>{
+test('topics combine all record types and descendants without revealing private groups or records',()=>{
   const {root,store,owner,member}=fixture();
-  let child;
   try{
-    const mediaId=randomUUID();
-    store.mediaAdd(member,{id:mediaId,extension:'.png',name:'照片',size:10});
-    mkdirSync(join(store.directory,'media'),{recursive:true});writeFileSync(join(store.directory,'media',mediaId+'.png'),'test-photo');
-    const record=store.saveEntry(member,entry({images:['/api/media/'+mediaId],persons:['测试人物']}));
-    const secret=store.saveEntry(owner,entry({title:'PRIVATE_TOKEN_984',body:'PRIVATE_BODY_192',scope:'private'}));
-    const targeted=store.saveEntry(owner,entry({title:'TARGETED_TOKEN_642',scope:'selected',recipients:[member.id]}));
-    const visible=store.setVisitorAccess(owner,{id:record.id,revision:record.revision,visible:true});
-    child=spawn(process.execPath,[resolve('admin/collaboration-server.mjs')],{env:{...process.env,COLLAB_ROOT:root,COLLAB_PORT:'0'},windowsHide:true,stdio:['ignore','pipe','pipe']});
-    let logs='';child.stdout.on('data',chunk=>logs+=chunk);child.stderr.on('data',chunk=>logs+=chunk);
-    let origin;
-    for(let i=0;i<150&&!origin;i++){origin=logs.match(/http:\/\/127\.0\.0\.1:\d+/)?.[0];if(!origin)await new Promise(resolve=>setTimeout(resolve,40));}
-    assert.ok(origin,logs);
-    const login=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json'},body:JSON.stringify({username:'owner',password})});
-    const cookie=login.headers.get('set-cookie').split(';')[0];assert.equal(login.status,200);
-    for(const path of ['/api/catalog','/api/export'])assert.equal((await fetch(origin+path)).status,401);
-    const memberLogin=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json'},body:JSON.stringify({username:'alice',password})});
-    const memberCookie=memberLogin.headers.get('set-cookie').split(';')[0];
-    const memberCatalog=await(await fetch(origin+'/api/catalog',{headers:{Cookie:memberCookie}})).json();assert.deepEqual(memberCatalog.people,[]);
-    assert.equal((await fetch(origin+'/api/export',{headers:{Cookie:memberCookie}})).status,403);
-    for(const path of ['/api/catalog','/api/archive-batch'])assert.equal((await fetch(origin+path,{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:memberCookie},body:'{}'})).status,403);
-    const exportResponse=await fetch(origin+'/api/export',{headers:{Cookie:cookie}});assert.equal(exportResponse.status,200);assert.ok(exportResponse.headers.get('content-disposition').includes('attachment'));
-    assert.equal((await exportResponse.json()).users,undefined);
-    assert.ok(cookie.startsWith('archive_session_'+new URL(origin).port+'='),'separate localhost services must not overwrite each other’s session cookie');
-    for(const path of ['/','/guest','/events','/guest/events','/timeline','/guest/timeline','/works','/thoughts','/events/'+visible.id,'/guest/events/'+visible.id]){
-      const response=await fetch(origin+path);assert.equal(response.status,200,path);
-      const html=await response.text();
-      for(const token of ['PRIVATE_TOKEN_984','PRIVATE_BODY_192','TARGETED_TOKEN_642','IMPORTED_SECRET','PROFILE_PRIVATE_971'])assert.ok(!html.includes(token),path+' leaked '+token);
-      assert.ok(!html.includes('<script>alert(1)</script>'),path+' escaped title');
-      assert.ok(response.headers.get('content-security-policy').includes("'nonce-"));
-      if(path.includes('/events/')){assert.ok(html.includes('<strong>加粗</strong>'));assert.ok(!html.includes('href="javascript:'));assert.ok(html.includes('<title>Visible $&amp; &lt;script&gt;'));}
+    const topic=store.saveCatalog(owner,{kind:'group',title:'共同专题',parent:''});
+    const child=store.saveCatalog(owner,{kind:'group',title:'专题里的作品',parent:topic.slug});
+    const grandchild=store.saveCatalog(owner,{kind:'group',title:'后来的随想',parent:child.slug});
+    const hidden=store.saveCatalog(owner,{kind:'group',title:'PRIVATE_TOPIC_NAME_971',parent:''});
+    const empty=store.saveCatalog(owner,{kind:'group',title:'新建的空专题',parent:''});
+    const visible=[];
+    for(const values of [
+      {title:'同一专题的经历',type:'event',medium:topic.slug},
+      {title:'同一专题的一部电影',type:'work',kind:'film',medium:child.slug},
+      {title:'同一专题的一点想法',type:'thought',medium:grandchild.slug},
+      {title:'尚未归类的记录',type:'event',medium:''},
+    ]){
+      const record=store.saveEntry(member,entry(values));
+      visible.push(store.setVisitorAccess(owner,{id:record.id,revision:record.revision,visible:true}));
     }
-    for(const path of ['/events/'+secret.id,'/events/'+targeted.id,'/events/imported','/photos/imported.png','/dist/events/imported/index.html','/collaboration-shell/home','/api/entries']){
-      assert.ok([401,404].includes((await fetch(origin+path)).status),path+' must not bypass permissions');
+    store.saveEntry(owner,entry({title:'PRIVATE_TOPIC_RECORD_158',medium:hidden.slug,scope:'private'}));
+    store.saveEntry(owner,entry({title:'PRIVATE_DESCENDANT_265',medium:grandchild.slug,scope:'private'}));
+    const frontend=createCollaborationFrontend(root,store);
+    for(const viewer of [member,store.guest()]){
+      const prefix=viewer.role==='guest'?'/guest':'';
+      const index=frontend.render(prefix+'/topics',viewer);
+      assert.ok(index.includes('共同专题'));
+      assert.ok(index.includes('3 条记录'),'root topic count includes descendants of every type');
+      assert.ok(!index.includes('新建的空专题'));
+      const detail=frontend.render(prefix+'/topics/'+topic.slug,viewer);
+      for(const record of visible.slice(0,3))assert.ok(detail.includes(record.title),record.title);
+      assert.ok(!detail.includes('尚未归类的记录'));
+      for(const token of ['PRIVATE_TOPIC_NAME_971','PRIVATE_TOPIC_RECORD_158','PRIVATE_DESCENDANT_265']){
+        assert.ok(!index.includes(token));assert.ok(!detail.includes(token));
+      }
+      assert.equal(frontend.render(prefix+'/topics/'+hidden.slug,viewer),null);
+      assert.equal(frontend.render(prefix+'/topics/'+empty.slug,viewer),null);
+      const nested=frontend.render(prefix+'/topics/'+child.slug,viewer);
+      assert.ok(nested.includes('同一专题的一部电影')&&nested.includes('同一专题的一点想法'));
+      assert.ok(!nested.includes('同一专题的经历'));
+      const unfiled=frontend.render(prefix+'/topics/_unfiled',viewer);
+      assert.ok(unfiled.includes('尚未归类的记录')&&!unfiled.includes('同一专题的一部电影'));
+      const reading=frontend.render(prefix+'/works/'+visible[1].id,viewer);
+      assert.ok(reading.includes('href="'+prefix+'/topics/'+child.slug+'"'));
+      assert.ok(!reading.includes('bridge-thought-form'),'one topic writing entry replaces extra quick-note forms');
+      for(const route of ['/events','/works','/thoughts'])assert.ok(frontend.render(prefix+route,viewer).includes('<h1>专题</h1>'));
     }
-    assert.equal((await fetch(origin+'/api/media/'+mediaId)).status,200);
-    const ownerHtml=await(await fetch(origin+'/events',{headers:{Cookie:cookie}})).text();assert.ok(ownerHtml.includes('PRIVATE_TOKEN_984'));
-    const ownerHome=await(await fetch(origin+'/',{headers:{Cookie:cookie}})).text();
-    for(const link of ['/thoughts','/timeline','/shared?new=event','/shared?new=work','/shared?new=thought','/shared?view=manage'])assert.ok(ownerHome.includes('href="'+link+'"'),link);
-    const guestHome=await(await fetch(origin+'/')).text();
-    assert.ok(guestHome.includes('/shared?join=1&amp;return=home'));assert.ok(!guestHome.includes('/shared?new=event'));assert.ok(!guestHome.includes('/shared?view=manage'));
-    const offlineHome=createPublicEntry(root);
-    assert.ok(offlineHome.includes('共享资料暂时离线'));assert.ok(offlineHome.includes('id="introVideo"'));
-    for(const token of ['PRIVATE_TOKEN_984','IMPORTED_SECRET','Visible $&amp;','PROFILE_PRIVATE_971'])assert.ok(!offlineHome.includes(token),'empty offline shell leaked '+token);
-    const oldAdmin=await fetch(origin+'/admin',{redirect:'manual'});assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/shared?view=library');
-    assert.equal((await fetch(origin+'/people/test-person')).status,404);
-    assert.equal((await fetch(origin+'/guest/people/test-person',{headers:{Cookie:cookie}})).status,404);
-    const profile=await fetch(origin+'/people/test-person',{headers:{Cookie:cookie}});assert.equal(profile.status,200);assert.ok((await profile.text()).includes('PROFILE_PRIVATE_971'));
-    const forcedGuest=await(await fetch(origin+'/guest/events',{headers:{Cookie:cookie}})).text();assert.ok(!forcedGuest.includes('PRIVATE_TOKEN_984'));
-    const revoke=await fetch(origin+'/api/guest-access',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({id:visible.id,revision:visible.revision,visible:false})});
-    assert.equal(revoke.status,200);
-    assert.equal((await fetch(origin+'/events/'+visible.id)).status,404);
-    assert.equal((await fetch(origin+'/api/media/'+mediaId)).status,404);
-    assert.equal((await fetch(origin+'/api/media/'+mediaId+'?guest=1',{headers:{Cookie:cookie}})).status,404);
-    const imported=store.entries(owner).find(e=>e.source==='imported.md');
-    assert.equal((await fetch(origin+'/api/legacy-media?id='+imported.id+'&index=0')).status,404);
-    const openLegacy=await fetch(origin+'/api/guest-access',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({id:imported.id,revision:imported.revision,visible:true})});
-    assert.equal(openLegacy.status,200);
-    assert.equal((await fetch(origin+'/api/legacy-media?id='+imported.id+'&index=0')).status,200,'legacy photos inherit explicit guest permission');
-    if(process.env.CHECK_MAIN_BROWSER==='1')await verifyMainEntryBrowser(root,origin,password);
-  }finally{
-    if(child){child.kill();await once(child,'exit');}
-    cleanup(root);
-  }
+    const memberDetail=frontend.render('/topics/'+child.slug,member);
+    assert.ok(memberDetail.includes('href="/shared?new=event&amp;topic='+child.slug+'"'));
+    assert.ok(frontend.render('/topics',owner).includes('href="/shared?view=topic-new"'));
+    assert.ok(frontend.render('/topics',owner).includes('新建的空专题'));
+    assert.ok(frontend.render('/topics/'+empty.slug,owner).includes('这里还没有记录'));
+  }finally{cleanup(root);}
+});
+
+test('a real topic named _unfiled remains distinct from unfiled records',()=>{
+  const {root,store,owner}=fixture();
+  try{
+    const records=[entry({id:'reserved-topic-record',authorName:'测试站主',medium:'_unfiled',title:'命名冲突的专题记录'}),entry({id:'unfiled-record',authorName:'测试站主',medium:'',title:'真正未归类的记录'})];
+    const frontend=createCollaborationFrontend(root,{entries:()=>records,catalog:()=>({groups:[{slug:'_unfiled',title:'真实专题'}],people:[]})});
+    assert.ok(frontend.render('/topics',owner).includes('href="/topics/_group/_unfiled"'));
+    const named=frontend.render('/topics/_group/_unfiled',owner);
+    assert.ok(named.includes('命名冲突的专题记录')&&!named.includes('真正未归类的记录'));
+    const unfiled=frontend.render('/topics/_unfiled',owner);
+    assert.ok(unfiled.includes('真正未归类的记录')&&!unfiled.includes('命名冲突的专题记录'));
+  }finally{cleanup(root);}
+});
+
+test('public works expose selected published content while all legacy raw material routes require creator access',async()=>{
+ const {root,store,owner,member}=fixture();let child;
+ try{
+  const mediaId=randomUUID();store.mediaAdd(owner,{id:mediaId,extension:'.png',name:'原图',size:10});mkdirSync(join(store.directory,'media'),{recursive:true});writeFileSync(join(store.directory,'media',mediaId+'.png'),'test-photo');
+  const source=store.saveEntry(owner,entry({title:'RAW_PRIVATE_TITLE',body:'SELECTED_SENTENCE 未采用聊天 PRIVATE_REMAINDER',scope:'private',images:['/api/media/'+mediaId]}));
+  const legacy=store.saveEntry(owner,entry({title:'OLD_PUBLIC_RAW_SECRET',visitorVisible:true}));
+  const post=store.savePost(owner,{title:'公开成品',subtitle:'导语',clips:[{id:'text',sourceId:source.id,kind:'text',text:'SELECTED_SENTENCE'},{id:'image',sourceId:source.id,kind:'image',mediaRef:'/api/media/'+mediaId}],action:'publish'});
+  store.updateMember(owner,{id:member.id,access:'all',canCreate:false});
+  child=spawn(process.execPath,[resolve('admin/collaboration-server.mjs')],{env:{...process.env,COLLAB_ROOT:root,COLLAB_PORT:'0'},windowsHide:true,stdio:['ignore','pipe','pipe']});let logs='';child.stdout.on('data',chunk=>logs+=chunk);child.stderr.on('data',chunk=>logs+=chunk);let origin;for(let i=0;i<150&&!origin;i++){origin=logs.match(/http:\/\/127\.0\.0\.1:\d+/)?.[0];if(!origin)await new Promise(resolve=>setTimeout(resolve,40));}assert.ok(origin,logs);
+  const login=async username=>{const response=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json'},body:JSON.stringify({username,password})});assert.equal(response.status,200);return response.headers.get('set-cookie').split(';')[0];};
+  const ownerCookie=await login('owner'),readerCookie=await login('alice');
+  for(const path of ['/','/guest','/posts/'+post.id,'/api/posts','/api/posts?id='+post.id]){const response=await fetch(origin+path);assert.equal(response.status,200,path);const body=await response.text();for(const secret of ['RAW_PRIVATE_TITLE','PRIVATE_REMAINDER','OLD_PUBLIC_RAW_SECRET',source.id])assert.ok(!body.includes(secret),path+' leaked '+secret);}
+  for(const cookie of ['',readerCookie])for(const path of ['/materials','/studio','/api/materials','/api/entries','/api/entry?id='+source.id,'/api/media/'+mediaId,'/api/legacy-media?id='+source.id+'&index=0','/events/'+source.id,'/events/'+legacy.id,'/api/entry?id='+legacy.id,'/api/posts?edit=1&id='+post.id,'/api/post-draft-media/'+post.id+'/1']){const response=await fetch(origin+path,{headers:cookie?{Cookie:cookie}:{}});assert.ok([401,403,404].includes(response.status),path+' exposed raw material');}
+  assert.equal((await fetch(origin+'/api/materials',{headers:{Cookie:ownerCookie}})).status,200);assert.equal((await fetch(origin+'/studio',{headers:{Cookie:ownerCookie}})).status,200);
+  const published=await(await fetch(origin+'/api/posts?id='+post.id)).json();assert.equal(published.blocks[0].text,'SELECTED_SENTENCE');assert.equal(await(await fetch(origin+published.blocks[1].media)).text(),'test-photo');
+  const withdraw=await fetch(origin+'/api/posts',{method:'POST',headers:{Origin:origin,'X-Archive-Client':'1','Content-Type':'application/json',Cookie:ownerCookie},body:JSON.stringify({id:post.id,revision:post.revision,title:post.title,clips:[],action:'unpublish'})});assert.equal(withdraw.status,200);assert.equal((await fetch(origin+published.blocks[1].media)).status,404);
+ }finally{if(child&&!child.killed){child.kill();await once(child,'exit').catch(()=>{});}cleanup(root);}
 });
