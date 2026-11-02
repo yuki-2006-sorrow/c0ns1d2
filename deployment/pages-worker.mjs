@@ -56,7 +56,7 @@ export function createArchiveProxy({upstream,publicOrigin,publicAliases=[],stati
       if(!/^Bearer pc_[a-f0-9]{64}$/.test(request.headers.get('Authorization')||''))return new Response(JSON.stringify({error:'请使用手机专用凭证'}),{status:401,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
       if(request.headers.has('Origin')&&request.headers.get('Origin')!==address.origin)return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
     }else if(request.method==='POST'&&(request.headers.get('Origin')!==address.origin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
-    if(address.pathname==='/admin'&&['GET','HEAD'].includes(request.method))return new Response(null,{status:303,headers:{Location:'/shared?view=library','Cache-Control':'no-store'}});
+    if(address.pathname==='/admin'&&['GET','HEAD'].includes(request.method))return new Response(null,{status:303,headers:{Location:'/personal','Cache-Control':'no-store'}});
     const offline=async()=>{
       const shell=['/','/guest','/guest/'].includes(address.pathname)?'/archive-entry.html':address.pathname==='/shared'?'/archive-shared.html':null;
       if(assets&&shell&&['GET','HEAD'].includes(request.method))try{
@@ -96,7 +96,7 @@ export function createArchiveProxy({upstream,publicOrigin,publicAliases=[],stati
     const timer=['GET','HEAD'].includes(request.method)?setTimeout(cancel,readTimeoutMs):null;
     try{
       const response=await forward(new Request(destination,{method:request.method,headers,body:['GET','HEAD'].includes(request.method)?undefined:request.body,redirect:'manual',duplex:'half',signal:controller.signal}));
-      if(response.status>=500)return offline();
+      if(response.status>=500&&!['/api/personal/ai','/api/personal/decompose'].includes(address.pathname))return offline();
       const returned=new Headers(response.headers);returned.set('Cache-Control','no-store');returned.set('X-Archive-Gateway','collaboration');
       const location=returned.get('Location');
       if(location){const redirect=new URL(location,upstream);if(redirect.origin!==upstream)return unavailable(request);returned.set('Location',address.origin+redirect.pathname+redirect.search+redirect.hash);}

@@ -1,4 +1,5 @@
 import {randomUUID,randomBytes,createHash,timingSafeEqual} from 'node:crypto';
+import {applyPersonalPlan} from './personal-plans.mjs';
 
 const fail=(message,status=400)=>{throw Object.assign(new Error(message),{status});};
 export function createPersonalStore({getState,transaction}){
@@ -32,7 +33,12 @@ export function createPersonalStore({getState,transaction}){
     if(!device||!Number.isFinite(Date.parse(device.expiresAt))||Date.parse(device.expiresAt)<=Date.now())fail('手机凭证无效或已停用',401);
     const user=getState().users.find(row=>row.id===device.owner);
     if(user?.role!=='owner'||user.access==='blocked')fail('手机凭证无效或已停用',401);
-    if(typeof input.body!=='string'||!input.body.trim()||input.body.length>8000)fail('请提供1到8000字的想法');
+    // Keep these cases distinct: a Shortcuts field can look populated while
+    // arriving under a different key or as a dictionary rather than text.
+    if(!Object.hasOwn(input,'body'))fail('未收到body字段，请将JSON左侧的键名重新输入为body');
+    if(typeof input.body!=='string')fail('body字段不是文本，请将该JSON字段的类型设为文本');
+    if(!input.body.trim())fail('body字段为空，请先确认听写结果有文字');
+    if(input.body.length>8000)fail('想法超过8000字，请分成几条记录');
     const body=input.body.trim(),requestId=input.requestId;
     if(requestId!==undefined&&(typeof requestId!=='string'||!/^[\w.:-]{8,120}$/.test(requestId)))fail('请求标识格式不正确');
     const previous=requestId&&current().records.find(row=>row.deviceId===device.id&&row.requestId===requestId);
@@ -64,7 +70,7 @@ export function createPersonalStore({getState,transaction}){
       const sleep=input.sleep===''||input.sleep===undefined?null:Number(input.sleep);
       if(sleep!==null&&(!Number.isFinite(sleep)||sleep<0||sleep>24))fail('睡眠时长应在0到24小时之间');
       next.records.push({id:randomUUID(),kind:input.kind,date,body,sleep,createdAt:at,source:'manual'});
-    }else fail('保存操作不正确');
+    }else if(!applyPersonalPlan(next,input))fail('保存操作不正确');
     next.revision=randomUUID();next.updatedAt=at;
     return transaction(()=>{getState().personal=next;return personalRead(user);});
   }

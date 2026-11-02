@@ -25,3 +25,6 @@ agent-memory/
 
 # 交接文档（含人名/学校/本地路径等隐私，不提交、不 push）
 DSH-交接文档.md
+
+# Temporary integration-test data
+.test-tmp/

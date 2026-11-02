@@ -1,6 +1,35 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createPersonalStore} from '../admin/personal-store.mjs';
+
+test('project plans persist unknown progress, dated tasks, corrections and revision conflicts',()=>{
+  const owner={id:'owner',role:'owner',access:'all'},state={users:[owner]};
+  const store=createPersonalStore({getState:()=>state,transaction:action=>action()});
+  const save=input=>store.personalSave(owner,{revision:store.personalRead(owner).revision,...input});
+  let current=save({action:'initializePlans'});assert.equal(current.projects.length,0);
+  for(const title of ['英语复习','微积分复习'])current=save({action:'project',title,status:'active',progress:null,deadline:'',nextAction:'',note:''});
+  assert.ok(current.projects.every(project=>project.progress===null&&project.deadline===''));
+  current=save({action:'initializePlans'});assert.equal(current.projects.length,2);
+  const project=current.projects[0];
+  current=save({action:'project',...project,progress:25,nextAction:'复习一章',deadline:'2026-11-06'});
+  assert.equal(current.projects[0].progress,25);
+  const stale=current.revision;
+  current=save({action:'task',title:'复习一章',projectId:project.id,date:'2026-11-02'});
+  assert.equal(current.tasks.length,1);const task=current.tasks[0];
+  assert.throws(()=>store.personalSave(owner,{revision:stale,action:'taskStatus',id:task.id,done:true}),{status:409});
+  assert.throws(()=>save({action:'task',title:'复习一章',projectId:project.id,date:'2026-11-02'}),{status:400});
+  current=save({action:'taskStatus',id:task.id,done:true});assert.equal(current.tasks[0].done,true);
+  current=save({action:'taskStatus',id:task.id,done:false});assert.equal(current.tasks[0].completedAt,null);
+  current=save({action:'taskMove',id:task.id,date:'2026-11-03'});assert.equal(current.tasks[0].date,'2026-11-03');
+  const batch={action:'taskBatch',projectId:project.id,batchId:'reviewed-batch-001',date:'2026-11-04',steps:[{title:'确认薄弱项'},{title:'完成专项练习'}]};
+  current=save(batch);assert.equal(current.tasks.length,3);assert.equal(current.tasks[1].source,'ai-reviewed');
+  current=save(batch);assert.equal(current.tasks.length,3);
+  assert.throws(()=>save({...batch,batchId:'reviewed-batch-002',projectUpdatedAt:'stale'}),{status:400});
+  assert.throws(()=>save({...batch,batchId:'reviewed-batch-002',steps:[{title:''}]}),{status:400});
+  for(const input of [{action:'taskMove',id:task.id,date:'2026-02-30'},{action:'project',...project,progress:101},{action:'task',title:'任务',date:'2026-11-02',projectId:'missing'}])assert.throws(()=>save(input),{status:400});
+  assert.equal(store.personalRead(owner).tasks[0].date,'2026-11-03');
+  assert.throws(()=>store.personalSave({role:'guest'},{action:'initializePlans'}),{status:403});
+});
 test('personal records are owner-only, preserve originals and reject stale writes',()=>{
   const state={entries:[],users:[{id:'owner'}]},owner={id:'owner',role:'owner',access:'all'};
   const store=createPersonalStore({getState:()=>state,transaction:action=>action()});

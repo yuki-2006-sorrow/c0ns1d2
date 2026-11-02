@@ -6,8 +6,8 @@ const page=path=>configuration.publicOrigin+path;
 
 test('phone capture forwards bearer authorization without relaxing browser write checks elsewhere',async()=>{
   const token='pc_'+'a'.repeat(64);const sent=[];
-  const proxy=createArchiveProxy(configuration,async request=>{sent.push(request);return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});});
-  const make=(path,extra={})=>new Request(page(path),{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',...extra},body:JSON.stringify({body:'test'})});
+  const proxy=createArchiveProxy(configuration,async request=>{sent.push(request);assert.deepEqual(await request.json(),{body:'手机测试记录'});return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});});
+  const make=(path,extra={})=>new Request(page(path),{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',...extra},body:JSON.stringify({body:'手机测试记录'})});
   assert.equal((await proxy(make('/api/personal/capture'))).status,200);
   assert.equal(sent[0].headers.get('Authorization'),'Bearer '+token);
   assert.equal(sent[0].headers.get('Origin'),configuration.upstream);
@@ -15,6 +15,12 @@ test('phone capture forwards bearer authorization without relaxing browser write
   assert.equal((await proxy(make('/api/personal/capture',{Origin:'https://evil.example'}))).status,403);
   assert.equal((await proxy(new Request(page('/api/personal/capture'),{method:'POST',body:'{}'}))).status,401);
   assert.equal(sent.length,1);
+});
+
+test('AI provider failures keep the actionable backend JSON message',async()=>{
+  const proxy=createArchiveProxy(configuration,async()=>new Response(JSON.stringify({error:'DeepSeek 余额不足'}),{status:502,headers:{'Content-Type':'application/json'}}));
+  const response=await proxy(new Request(page('/api/personal/decompose'),{method:'POST',headers:{Origin:configuration.publicOrigin,'X-Archive-Client':'1'},body:'{}'}));
+  assert.equal(response.status,502);assert.deepEqual(await response.json(),{error:'DeepSeek 余额不足'});
 });
 
 test('intro integration assets remain available on Pages while archive data stays behind the backend',async()=>{
@@ -136,7 +142,7 @@ test('offline opens only empty entry shells; content, API and preview domains st
   assert.deepEqual(requested,['/archive-entry.html','/archive-entry.html','/archive-shared.html']);
   for(const path of ['/events/old','/api/entries','/photos/private.jpg','/archive-entry.html'])assert.equal((await proxy(new Request(page(path)))).status,503);
   assert.equal((await proxy(new Request('https://preview.pages.dev/'))).status,503);assert.equal(requested.length,3);
-  const oldAdmin=await proxy(new Request(page('/admin')));assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/shared?view=library');
+  const oldAdmin=await proxy(new Request(page('/admin')));assert.equal(oldAdmin.status,303);assert.equal(oldAdmin.headers.get('Location'),'/personal');
 });
 
 test('intro seeking still returns exact ranges when the asset binding ignores Range',async()=>{

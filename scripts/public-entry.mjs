@@ -1,7 +1,2 @@
-import {renderGallery} from '../admin/post-pages.mjs';
-
-// Generate from empty shells, never from a real account or archive.json.
-export function createPublicEntry(){
-  const html=renderGallery({listPosts:()=>[]},{id:'__visitor__',name:'访客',role:'guest',canCreate:false});
-  return html.replace('<main class="exhibition">','<main class="exhibition"><section class="exhibit-empty" role="status"><h2>创作空间暂时未连接</h2><p>连接恢复后即可浏览已发布的帖子。开场仍可观看。</p><a href="/">重新连接 →</a></section>');
-}
+// Content-free offline entry; private records never enter the public build.
+export function createPublicEntry(){return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>我的生活 · c0ns1d2</title><link rel="stylesheet" href="/personal.css"><body><main class="personal-main"><h1>我的生活</h1><p>个人空间暂时未连接，请确认本人电脑和网站通道在线。</p><a href="/personal">重新连接个人空间 →</a></main></body></html>';}
