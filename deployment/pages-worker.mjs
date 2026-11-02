@@ -51,7 +51,11 @@ export function createArchiveProxy({upstream,publicOrigin,publicAliases=[],stati
     const address=new URL(request.url);
     if(!origins.has(address.origin))return unavailable(request);
     if(!['GET','HEAD','POST'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD, POST','Cache-Control':'no-store'}});
-    if(request.method==='POST'&&(request.headers.get('Origin')!==address.origin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
+    const phoneCapture=address.pathname==='/api/personal/capture'&&request.method==='POST';
+    if(phoneCapture){
+      if(!/^Bearer pc_[a-f0-9]{64}$/.test(request.headers.get('Authorization')||''))return new Response(JSON.stringify({error:'请使用手机专用凭证'}),{status:401,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
+      if(request.headers.has('Origin')&&request.headers.get('Origin')!==address.origin)return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
+    }else if(request.method==='POST'&&(request.headers.get('Origin')!==address.origin||request.headers.get('X-Archive-Client')!=='1'))return new Response('请求来源不正确',{status:403,headers:{'Cache-Control':'no-store'}});
     if(address.pathname==='/admin'&&['GET','HEAD'].includes(request.method))return new Response(null,{status:303,headers:{Location:'/shared?view=library','Cache-Control':'no-store'}});
     const offline=async()=>{
       const shell=['/','/guest','/guest/'].includes(address.pathname)?'/archive-entry.html':address.pathname==='/shared'?'/archive-shared.html':null;

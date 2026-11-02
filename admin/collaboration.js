@@ -75,7 +75,7 @@ async function enterRecords(){
     if(request.get('view')==='activity'&&me.role==='owner')return activity();
     if(request.get('view')==='manage'&&me.role==='owner')return manage();
     if(request.get('view')==='password')return passwordPage();
-    if(['studio','materials'].includes(request.get('return'))){location.assign('/'+request.get('return'));return;}
+    if(['studio','materials','personal'].includes(request.get('return'))){location.assign('/'+request.get('return'));return;}
     if(request.get('return')==='home'){submitting=false;location.assign('/');return;}
   }
   if(['event','work','thought'].includes(create))filter=create;

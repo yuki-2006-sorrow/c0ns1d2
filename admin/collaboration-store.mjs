@@ -1,3 +1,4 @@
+import {createPersonalStore} from './personal-store.mjs';
 import { createPostStore } from './post-store.mjs';
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual, createHmac } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync, renameSync, rmSync, readdirSync } from 'node:fs';
@@ -304,11 +305,11 @@ export function createCollaborationStore(root) {
   }
   function exportContent(user) {
     owner(user);
-    return structuredClone({ format: 'c0ns1d2-content', version: 2, exportedAt: new Date().toISOString(), entries: state.entries, posts: state.posts || [], catalog: state.catalog,
+    return structuredClone({ format: 'c0ns1d2-content', version: 2, exportedAt: new Date().toISOString(), entries: state.entries, posts: state.posts || [], personal: state.personal || null, catalog: state.catalog,
       note: '文字资料导出，不含账号凭据或附件文件；完整恢复需要备份整个项目的私有资料与照片目录。' });
   }
   const posts=createPostStore({getState:()=>state,transaction,audit,canRead});
-  return { ...posts, directory, setupFile, isSetup:()=>state.users.length>0, setup, questions, configure, register, login, checkedUser,
+  return { ...createPersonalStore({getState:()=>state,transaction}), ...posts, directory, setupFile, isSetup:()=>state.users.length>0, setup, questions, configure, register, login, checkedUser,
     profile:id=>safeUser(checkedUser(id)), entries, readEntry, saveEntry, members, updateMember, history, archive, mediaAdd, mediaRead, changePassword,setVisitorAccess,
     guest, catalog, saveCatalog, archiveBatch, exportContent, schemaVersion:()=>state.version,
     ownerOverview(user){owner(user);return {members:state.users.map(safeUser),audit:state.audit.slice(-200).reverse().map(item=>({...item,title:item.title||state.entries.find(entry=>entry.id===item.target)?.title||state.media.find(media=>media.id===item.target)?.name||getUser(item.target)?.name||'',actorName:getUser(item.actor)?.name||'原账号'})),archived:state.entries.filter(e=>e.archived),settings:{...questions(),defaultAccess:state.defaultAccess,defaultCreate:state.defaultCreate},notice:'站主可查看本机保存的全部记录，包括私人记录。'};},

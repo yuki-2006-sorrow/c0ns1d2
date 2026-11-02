@@ -1,0 +1,37 @@
+@import url('/minimal-system.css');
+@layer layout {
+  .personal-nav {display:flex;align-items:center;gap:32px;padding:20px var(--page-pad);border-bottom:1px solid var(--line);}
+  .personal-nav nav {display:flex;gap:28px;margin-left:auto;}
+  .personal-nav nav a {padding:8px 0;color:var(--muted);}
+  .personal-nav a[aria-current="page"] {color:var(--ink);border-bottom:1px solid var(--ink);}
+  .account-link {font-size:13px;color:var(--muted);}
+  .personal-main {max-width:1120px;margin:auto;padding:48px var(--page-pad) 80px;}
+  .page-heading {margin-bottom:40px;}
+  .page-heading h1 {font-size:clamp(26px,4vw,36px);margin:8px 0 12px;}
+  .page-heading>p {color:var(--muted);}
+  .personal-columns {display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:64px;}
+  .personal-section {border-top:1px solid var(--line);padding:24px 0;}
+  .personal-section h2 {font-size:17px;margin-bottom:16px;}
+  .personal-section a {display:inline-block;margin-top:16px;font-size:13px;}
+  .preserve,.daily-record p {white-space:pre-wrap;overflow-wrap:anywhere;}
+  .personal-main label {display:block;font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .personal-main input,.personal-main textarea,.personal-main select {display:block;width:100%;margin-top:8px;}
+  .profile-form {max-width:720px;}
+  .phone-setup {max-width:720px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;margin-bottom:32px;scroll-margin-top:24px;}
+  .phone-setup summary {cursor:pointer;color:var(--ink);font-size:17px;}
+  .phone-setup p {margin:16px 0;font-size:13px;}
+  .phone-setup label {margin-top:20px;}
+  .phone-setup h2 {font-size:15px;margin-top:24px;}
+  .phone-device {display:flex;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:16px 0;}
+  .phone-device small {display:block;color:var(--muted);}
+  .shortcut-steps {padding-left:24px;font-size:14px;}
+  .shortcut-steps li {margin:12px 0;}
+  #phone-secret {border-left:2px solid var(--ink);padding-left:16px;}
+  .personal-main input,.personal-main textarea,.personal-main select {font-size:16px;}
+  .daily-record {padding:24px 0;border-top:1px solid var(--line);max-width:760px;}
+  .daily-record h2 {font-size:17px;margin-bottom:12px;}
+  .daily-record small {color:var(--muted);}
+  #connection:empty {display:none;}
+  #personal-status:not(:empty) {position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 20px;background:var(--ink);color:var(--surface);max-width:90vw;}
+  @media(max-width:640px){.personal-nav{gap:16px;flex-wrap:wrap;}.personal-nav nav{gap:20px;}.personal-main{padding-top:32px;}.personal-columns{grid-template-columns:1fr;gap:24px;}}
+}

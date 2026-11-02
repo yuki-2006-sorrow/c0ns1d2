@@ -87,19 +87,37 @@ const server=createServer(async(req,res)=>{
     if(!origins.some(origin=>new URL(origin).host===req.headers.host))return reply(res,403,{error:'访问地址未获允许'});
     url=new URL(req.url,'http://localhost');
     if(!['GET','HEAD','POST'].includes(req.method))return reply(res,405,{error:'请求方式不支持'});
-    if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     const path=url.pathname;
+    // This append-only endpoint uses its own bearer credential, never a login cookie.
+    if(path==='/api/personal/capture'){
+      if(req.method!=='POST')return reply(res,405,{error:'手机入口仅支持新增想法'});
+      if(req.headers.origin&&!origins.includes(req.headers.origin))return reply(res,403,{error:'请求来源不正确'});
+      if(!/^application\/json(?:;|$)/i.test(req.headers['content-type']||''))return reply(res,415,{error:'请使用JSON请求正文'});
+      const match=/^Bearer (pc_[a-f0-9]{64})$/.exec(req.headers.authorization||'');
+      if(!match)return reply(res,401,{error:'请使用手机专用凭证'});
+      limit('phone-capture:'+req.socket.remoteAddress,120);
+      return reply(res,200,store.personalCapture(match[1],await json(req)));
+    }
+    if(req.method==='POST' && (!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从协作页面操作'});
     if(path==='/admin'&&['GET','HEAD'].includes(req.method)){res.writeHead(303,{Location:'/shared?view=library'});return res.end();}
     const requireCreator=user=>{if(!isCreator(user))throw Object.assign(new Error('只有创作者可以访问素材库'),{status:403});return user;};
-    const creativeAssets={'/intro-entry.js':['intro-entry.js','text/javascript'],'/intro-controller.js':['../src/scripts/intro-controller.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css'],'/post-pages.css':['post-pages.css','text/css'],'/materials.js':['materials.js','text/javascript'],'/post-studio.css':['post-studio.css','text/css'],'/post-studio.js':['post-studio.js','text/javascript'],'/post-studio-model.mjs':['post-studio-model.mjs','text/javascript']};
+    const creativeAssets={'/personal.css':['personal.css','text/css'],'/personal.js':['personal.js','text/javascript'],'/intro-entry.js':['intro-entry.js','text/javascript'],'/intro-controller.js':['../src/scripts/intro-controller.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css'],'/post-pages.css':['post-pages.css','text/css'],'/materials.js':['materials.js','text/javascript'],'/post-studio.css':['post-studio.css','text/css'],'/post-studio.js':['post-studio.js','text/javascript'],'/post-studio-model.mjs':['post-studio-model.mjs','text/javascript']};
     if(creativeAssets[path]){const [file,type]=creativeAssets[path];res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./'+file,import.meta.url)));}
+    if(path==='/api/personal'){const user=identify(req).user;return reply(res,200,req.method==='POST'?store.personalSave(user,await json(req)):store.personalRead(user));}
+    if(path==='/api/personal/devices'){const user=identify(req).user;return reply(res,200,req.method==='POST'?store.personalDeviceSave(user,await json(req)):{devices:store.personalDevices(user)});}
+    if(['/personal','/personal/records','/personal/me'].includes(path)){
+      let user;try{user=identify(req).user;}catch(error){if(error.status===401){res.writeHead(303,{Location:'/shared?return=personal'});return res.end();}throw error;}
+      store.personalRead(user);res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./personal.html',import.meta.url)));
+    }
     if(path==='/studio'||path==='/materials'||path==='/drafts'){
       const user=requireCreator(identify(req).user);
       const html=path==='/studio'?readFileSync(new URL('./post-studio.html',import.meta.url),'utf8').replace('<body>','<body data-connected="true">').replace('交互原型','创作者工作区').replace('示例素材 · 仅保存在此浏览器','共享素材 · 版本保存').replace('这是协作流程预览。此处记录你在当前浏览器的修改和留言；多人实时同步尚未接入。','受邀创作者共同编排帖子。保存会核对版本；他人保存后需重新打开帖子载入新版本。').replace('href="/topics"','href="/"'):path==='/materials'?renderMaterials(user):renderDrafts(store,user);
       res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:html);
     }
     if((path==='/'||path==='/guest'||path==='/posts'||path.startsWith('/posts/'))&&['GET','HEAD'].includes(req.method)){
-      const user=viewer(req,path==='/guest');const html=path.startsWith('/posts/')?renderPost(store,user,path.slice(7)):renderGallery(store,user);
+      const user=viewer(req,path==='/guest');
+      if(path==='/'&&user.role==='owner'){res.writeHead(303,{Location:'/personal'});return res.end();}
+      const html=path.startsWith('/posts/')?renderPost(store,user,path.slice(7)):renderGallery(store,user);
       res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:html);
     }
     if(path==='/api/posts'&&req.method==='GET'){

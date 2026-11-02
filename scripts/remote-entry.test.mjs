@@ -4,6 +4,19 @@ import {createArchiveProxy,validateArchiveOrigins} from '../deployment/pages-wor
 const configuration={upstream:'https://archive-test.trycloudflare.com',publicOrigin:'https://c0ns1d2.pages.dev'};
 const page=path=>configuration.publicOrigin+path;
 
+test('phone capture forwards bearer authorization without relaxing browser write checks elsewhere',async()=>{
+  const token='pc_'+'a'.repeat(64);const sent=[];
+  const proxy=createArchiveProxy(configuration,async request=>{sent.push(request);return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});});
+  const make=(path,extra={})=>new Request(page(path),{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',...extra},body:JSON.stringify({body:'test'})});
+  assert.equal((await proxy(make('/api/personal/capture'))).status,200);
+  assert.equal(sent[0].headers.get('Authorization'),'Bearer '+token);
+  assert.equal(sent[0].headers.get('Origin'),configuration.upstream);
+  assert.equal((await proxy(make('/api/personal'))).status,403);
+  assert.equal((await proxy(make('/api/personal/capture',{Origin:'https://evil.example'}))).status,403);
+  assert.equal((await proxy(new Request(page('/api/personal/capture'),{method:'POST',body:'{}'}))).status,401);
+  assert.equal(sent.length,1);
+});
+
 test('intro integration assets remain available on Pages while archive data stays behind the backend',async()=>{
   let privateCalls=0;
   const paths=['/intro-entry.js','/intro-controller.js','/minimal-system.css','/post-pages.css'];
