@@ -11,6 +11,11 @@ test('project plans persist unknown progress, dated tasks, corrections and revis
   assert.ok(current.projects.every(project=>project.progress===null&&project.deadline===''));
   current=save({action:'initializePlans'});assert.equal(current.projects.length,2);
   const project=current.projects[0];
+  current=save({action:'resource',title:'复习课件',kind:'material',status:'available',projectId:project.id,detail:'已有课程资料',shareWithAI:true});
+  const resource=current.resources[0];assert.equal(resource.title,'复习课件');
+  current=save({action:'resource',...resource,status:'unavailable',shareWithAI:false});assert.equal(current.resources.length,1);assert.equal(current.resources[0].status,'unavailable');
+  current=save({action:'profile',profile:{availability:'时间待确认',skills:'学习基础',constraints:'约束'}});assert.equal(current.profile.availability,'时间待确认');
+  assert.throws(()=>save({action:'resource',...resource,projectId:'missing'}),{status:400});
   current=save({action:'project',...project,progress:25,nextAction:'复习一章',deadline:'2026-11-06'});
   assert.equal(current.projects[0].progress,25);
   const stale=current.revision;

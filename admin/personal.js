@@ -1,3 +1,4 @@
+import {buildPersonalContext} from '/personal-context.mjs';
 const $=id=>document.getElementById(id);
 let state,dirty=false,saving=false;
 const dirtyForms=new Set();
@@ -59,7 +60,7 @@ async function request(body,path='/api/personal'){const response=await fetch(pat
 function render(){
   $('focus-view').textContent=state.profile.focus||'还没有写下本周关注，慢慢想也可以。';
   $('projects-view').textContent=(state.projects||[]).filter(project=>project.status==='active').map(project=>project.title).join(' · ')||state.profile.projects||'到计划页添加第一个项目。';
-  renderPlans();
+  renderPlans();renderResources();if(!$('ai-decomposer').hidden)renderContextPreview();
   const host=$('record-list');host.replaceChildren();
   for(const record of state.records.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt.localeCompare(a.createdAt))){const article=document.createElement('article');article.className='daily-record';const heading=document.createElement('h2');heading.textContent=record.date+' · '+(record.kind==='week'?'每周回顾':record.kind==='thought'?'随手想法':'日常记录');const text=document.createElement('p');text.textContent=record.body;article.append(heading,text);if(record.source==='siri'){const origin=document.createElement('small');origin.textContent='来自 Siri 快速记录';article.append(origin);}if(record.sleep!==null){const note=document.createElement('small');note.textContent='睡眠记录：'+record.sleep+' 小时';article.append(note);}host.append(article);}
   if(!state.records.length){const note=document.createElement('p');note.textContent='还没有记录。从今天的几句话开始。';host.append(note);}
@@ -74,6 +75,7 @@ const localPreview=['localhost','127.0.0.1','::1'].includes(location.hostname);
 $('capture-url').value=(localPreview?'https://c0ns1d2.com':location.origin)+'/api/personal/capture';
 $('phone-environment').textContent=localPreview?'这是隔离预览。这里生成的凭证只对本机预览有效，不能用于正式站；手机配置需在正式站更新后登录生成。':'在这台 iPhone 上配置一次即可。站主电脑与网站通道需要保持在线。';
 if(location.hash==='#iphone')$('iphone').open=true;
+if(location.hash==='#ai-settings')$('ai-settings').open=true;
 function hidePhoneSecret(){$('capture-auth').value='';$('phone-secret').hidden=true;}
 $('hide-phone-secret').onclick=hidePhoneSecret;
 window.addEventListener('pagehide',hidePhoneSecret);
@@ -111,13 +113,13 @@ $('reload-plans').onclick=async()=>{try{state=await request();render();$('reload
 let aiProjectId='',proposal=null,aiWorking=false;
 function openDecomposer(project){
  if(aiWorking){$('personal-status').textContent='正在生成步骤，请稍候。';return;}
- aiProjectId=project.id;proposal=null;$('ai-decomposer').hidden=false;$('ai-project-title').textContent='拆解 · '+project.title;$('ai-context').value='';$('ai-results').hidden=true;$('ai-result-status').textContent='';$('ai-task-date').value=today;$('ai-decomposer').scrollIntoView({behavior:'smooth',block:'start'});
+ aiProjectId=project.id;proposal=null;renderContextPreview();$('ai-decomposer').hidden=false;$('ai-project-title').textContent='拆解 · '+project.title;$('ai-context').value='';$('ai-results').hidden=true;$('ai-result-status').textContent='';$('ai-task-date').value=today;$('ai-decomposer').scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('close-ai').onclick=()=>{if(!aiWorking)$('ai-decomposer').hidden=true;};
 $('ai-breakdown-form').onsubmit=async event=>{
  event.preventDefault();if(aiWorking)return;aiWorking=true;const form=event.target;form.inert=true;$('ai-results').hidden=true;$('ai-result-status').textContent='DeepSeek 正在拆解，通常需要几秒到几十秒…';
  try{
-  proposal=await request({projectId:aiProjectId,context:$('ai-context').value},'/api/personal/decompose');proposal.batchId=crypto.randomUUID();
+  proposal=await request({projectId:aiProjectId,context:$('ai-context').value,includeBackground:$('use-background').checked,includeResources:$('use-resources').checked},'/api/personal/decompose');proposal.batchId=crypto.randomUUID();
   $('ai-summary').textContent=proposal.summary;
   const questions=$('ai-questions');questions.replaceChildren();if(proposal.questions.length){questions.append(node('h3','还需要确认'));for(const question of proposal.questions)questions.append(node('p',question));}
   const host=$('ai-step-list');host.replaceChildren();
@@ -144,3 +146,26 @@ $('ai-config-form').onsubmit=async event=>{
  try{await request({apiKey:$('deepseek-key').value,model:$('deepseek-model').value},'/api/personal/ai');$('deepseek-key').value='';dirtyForms.delete(form);dirty=dirtyForms.size>0;await loadAISettings();}catch(error){$('ai-config-status').textContent=error.message;}finally{form.inert=false;}
 };
 window.addEventListener('pagehide',()=>{$('deepseek-key').value='';});
+
+function getResourceKinds(){return {material:'学习资料',course:'课程',device:'设备',tool:'软件与工具',support:'支持与人脉',other:'其他'};}
+function renderResources(){
+ const list=$('resource-list');list.replaceChildren();
+ for(const resource of state.resources||[]){const card=node('article',undefined,'project-card');card.append(node('h3',resource.title),node('small',getResourceKinds()[resource.kind]+' · '+({available:'已经可用',planned:'计划获取',unavailable:'暂不可用'})[resource.status]));if(resource.detail)card.append(node('p',resource.detail,'preserve'));const project=(state.projects||[]).find(project=>project.id===resource.projectId);card.append(node('small',(project?project.title:'通用资源')+' · '+(resource.shareWithAI?'允许 AI 参考':'不供 AI 参考')),button('更新资源',()=>editResource(resource)));list.append(card);}
+ if(!(state.resources||[]).length)list.append(node('p','还没有资源。先加入手头的教材、课件或设备。','muted'));
+ const select=$('resource-project'),previous=select.value;select.replaceChildren(new Option('通用资源',''));for(const project of state.projects||[])select.add(new Option(project.title,project.id));select.value=previous;
+}
+function editResource(resource){
+ const form=$('resource-form');if(dirtyForms.has(form)&&!confirm('放弃尚未保存的资源编辑？'))return;
+ form.reset();for(const key of ['id','title','kind','status','projectId','detail'])form.elements[key].value=resource?.[key]??({kind:'material',status:'available'}[key]||'');form.elements.shareWithAI.checked=resource?.shareWithAI??true;dirtyForms.delete(form);dirty=dirtyForms.size>0;$('resource-editor').open=true;$('resource-editor').scrollIntoView({behavior:'smooth',block:'start'});form.elements.title.focus({preventScroll:true});
+}
+$('new-resource').onclick=()=>editResource(null);
+$('resource-form').onsubmit=async event=>{event.preventDefault();const form=event.target;if(await save({action:'resource',...Object.fromEntries(new FormData(form)),shareWithAI:form.elements.shareWithAI.checked},form))$('resource-editor').open=false;};
+function renderContextPreview(){
+ const context=buildPersonalContext(state,aiProjectId,{includeBackground:$('use-background').checked,includeResources:$('use-resources').checked});
+ const labels={focus:'近期重点',goals:'长期方向',about:'我的情况',availability:'可用时间',skills:'已有基础',constraints:'限制与偏好'};
+ const lines=[];for(const [key,value] of Object.entries(context.background||{}))lines.push(labels[key]+'：'+value);
+ for(const resource of context.resources||[])lines.push('资源 · '+resource.title+'：'+(resource.detail||'详情待补充'));
+ if(context.omittedResourceCount)lines.push('另有 '+context.omittedResourceCount+' 项资源未加入，本次最多参考20项。');
+ $('ai-context-preview').textContent=lines.join('\n\n')||'当前没有选中的背景或可用资源。你仍可以在补充说明中填写情况。';
+}
+$('use-background').onchange=renderContextPreview;$('use-resources').onchange=renderContextPreview;

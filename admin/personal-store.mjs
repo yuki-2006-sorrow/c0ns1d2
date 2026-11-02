@@ -61,7 +61,7 @@ export function createPersonalStore({getState,transaction}){
     const text=(value,max)=>{if(typeof value!=='string'||value.length>max)fail('文字格式不正确或过长');return value.trim();};
     const next=structuredClone(current()),at=new Date().toISOString();
     if(input.action==='profile'){
-      for(const field of ['focus','projects','goals','about'])next.profile[field]=text(input.profile?.[field]??next.profile[field],12000);
+      for(const field of ['focus','projects','goals','about','availability','skills','constraints'])next.profile[field]=text(input.profile?.[field]??next.profile[field]??'',12000);
     }else if(input.action==='record'){
       if(!['day','week','thought'].includes(input.kind))fail('记录类型不正确');
       const date=text(input.date,10);

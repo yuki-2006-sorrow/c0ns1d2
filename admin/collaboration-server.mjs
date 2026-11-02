@@ -4,6 +4,7 @@ import { readFileSync, createReadStream, createWriteStream, existsSync, mkdirSyn
 import { join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCollaborationStore } from './collaboration-store.mjs';
+import {buildPersonalContext} from './personal-context.mjs';
 import {createPersonalAI} from './personal-ai.mjs';
 
 const ROOT = resolve(process.env.COLLAB_ROOT || fileURLToPath(new URL('../', import.meta.url)));
@@ -85,7 +86,7 @@ const server=createServer(async(req,res)=>{
   }
   if(req.method==='POST'&&(!origins.includes(req.headers.origin)||req.headers['x-archive-client']!=='1'))return reply(res,403,{error:'请求来源不正确，请从个人空间操作'});
   if(path==='/api/health')return reply(res,200,{app:'c0ns1d2-collaboration',root:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:ROOT,storageVersion:publicOrigin&&req.headers.host===new URL(publicOrigin).host?undefined:store.schemaVersion()});
-  const assets={'/personal-login.js':['collaboration.js','text/javascript'],'/personal.css':['personal.css','text/css'],'/personal.js':['personal.js','text/javascript'],'/app.css':['collaboration.css','text/css'],'/app.js':['collaboration.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css']};
+  const assets={'/personal-context.mjs':['personal-context.mjs','text/javascript'],'/personal-login.js':['collaboration.js','text/javascript'],'/personal.css':['personal.css','text/css'],'/personal.js':['personal.js','text/javascript'],'/app.css':['collaboration.css','text/css'],'/app.js':['collaboration.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css']};
   if(assets[path]&&req.method!=='POST'){const [file,type]=assets[path];res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./'+file,import.meta.url)));}
   if(path==='/shared'&&req.method!=='POST'){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./collaboration.html',import.meta.url)));}
   if(['/personal','/personal/plans','/personal/records','/personal/me'].includes(path)&&req.method!=='POST'){
@@ -115,7 +116,7 @@ const server=createServer(async(req,res)=>{
    const input=await json(req),project=(personal.projects||[]).find(row=>row.id===input.projectId);if(!project)return reply(res,404,{error:'项目不存在'});
    if(aiBusy.has(user.id))return reply(res,429,{error:'正在拆解一个项目，请稍候'});
    limit('ai:'+user.id,20);aiBusy.add(user.id);
-   try{return reply(res,200,{...await ai.decompose(project,input.context||''),projectId:project.id,projectUpdatedAt:project.updatedAt});}finally{aiBusy.delete(user.id);}
+   try{return reply(res,200,{...await ai.decompose(project,input.context||'',buildPersonalContext(personal,project.id,{includeBackground:input.includeBackground===true,includeResources:input.includeResources===true})),projectId:project.id,projectUpdatedAt:project.updatedAt});}finally{aiBusy.delete(user.id);}
   }
   reply(res,405,{error:'请求方式不支持'});
  }catch(error){if(!res.headersSent)reply(res,error.status||400,{error:error.message});else res.destroy();}

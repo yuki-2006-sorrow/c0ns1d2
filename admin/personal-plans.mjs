@@ -8,6 +8,18 @@ export function applyPersonalPlan(next,input){
   if(input.action==='initializePlans'){
     if(next.plansInitialized)return true;
     next.plansInitialized=true;
+  }else if(input.action==='resource'){
+    next.resources||=[];
+    const existing=input.id?next.resources.find(resource=>resource.id===input.id):null;
+    if(input.id&&!existing)fail('资源不存在');
+    if(!existing&&next.resources.length>=100)fail('最多保留100项资源');
+    const title=text(input.title,120);if(!title)fail('请填写资源名称');
+    if(!['material','course','device','tool','support','other'].includes(input.kind))fail('资源类型不正确');
+    if(!['available','planned','unavailable'].includes(input.status))fail('资源状态不正确');
+    const projectId=input.projectId||'';if(projectId&&!next.projects.some(project=>project.id===projectId))fail('关联项目不存在');
+    if(typeof input.shareWithAI!=='boolean')fail('请选择是否供 AI 参考');
+    const resource={id:existing?.id||randomUUID(),title,kind:input.kind,status:input.status,projectId,detail:text(input.detail,4000),shareWithAI:input.shareWithAI,createdAt:existing?.createdAt||at,updatedAt:at};
+    if(existing)Object.assign(existing,resource);else next.resources.push(resource);
   }else if(input.action==='project'){
     const existing=input.id?next.projects.find(project=>project.id===input.id):null;
     if(input.id&&!existing)fail('项目不存在');
