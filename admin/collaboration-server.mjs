@@ -4,6 +4,8 @@ import { readFileSync, createReadStream, createWriteStream, existsSync, mkdirSyn
 import { join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCollaborationStore } from './collaboration-store.mjs';
+import {parseTimetable} from './timetable-import.mjs';
+import {copyFileSync} from 'node:fs';
 import {buildPersonalContext} from './personal-context.mjs';
 import {createPersonalAI} from './personal-ai.mjs';
 
@@ -102,14 +104,15 @@ const server=createServer(async(req,res)=>{
    if(path==='/api/setup'){if(publicOrigin&&req.headers.host===new URL(publicOrigin).host)return reply(res,403,{error:'请在本人电脑本机初始化'});user=store.setup(data,data.token);}else user=store.login(data);
    store.personalRead(user);cookie(req,res,user.id);return reply(res,200,{user});
   }
-  const allowed=new Set(['/api/me','/api/logout','/api/password','/api/export','/api/personal','/api/personal/devices','/api/personal/ai','/api/personal/decompose']);
+  const allowed=new Set(['/api/me','/api/logout','/api/password','/api/export','/api/personal','/api/personal/devices','/api/personal/ai','/api/personal/decompose','/api/personal/timetable']);
   if(!allowed.has(path))return reply(res,410,{error:'旧版共同创作功能已停用，请使用个人空间'});
   const {user,token}=identify(req);const personal=store.personalRead(user);
   if(path==='/api/me'&&req.method==='GET')return reply(res,200,store.profile(user.id));
   if(path==='/api/logout'&&req.method==='POST'){sessions.delete(token);res.setHeader('Set-Cookie',sessionCookieName()+'=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return reply(res,200,{ok:true});}
   if(path==='/api/password'&&req.method==='POST'){const result=store.changePassword(user,await json(req));for(const [key,session]of sessions)if(session.id===result.id)sessions.delete(key);return reply(res,200,result);}
   if(path==='/api/export'&&req.method==='GET'){res.setHeader('Content-Disposition','attachment; filename="personal-space.json"');return reply(res,200,{version:1,exportedAt:new Date().toISOString(),personal});}
-  if(path==='/api/personal')return reply(res,200,req.method==='POST'?store.personalSave(user,await json(req)):personal);
+  if(path==='/api/personal'){if(req.method!=='POST')return reply(res,200,personal);const input=await json(req);if(input.action==='timetableImport')return reply(res,400,{error:'请通过课表导入入口上传源文件'});return reply(res,200,store.personalSave(user,input));}
+  if(path==='/api/personal/timetable'&&req.method==='POST'){const input=await json(req);if(typeof input.file!=='string'||input.file.length>700000||!/^[-A-Za-z0-9+/=]+$/.test(input.file))return reply(res,400,{error:'课表文件编码不正确'});const snapshot=parseTimetable(Buffer.from(input.file,'base64'));if(input.action==='preview')return reply(res,200,{snapshot});if(input.action!=='import')return reply(res,400,{error:'导入操作不正确'});if(input.revision!==personal.revision)return reply(res,409,{error:'资料已更新，请读取最新进度后重新导入'});if(personal.timetables?.some(item=>item.sourceKey===snapshot.sourceKey&&item.sourceHash===snapshot.sourceHash))return reply(res,200,personal);mkdirSync(join(privateDirectory,'backups'),{recursive:true});copyFileSync(join(privateDirectory,'archive.json'),join(privateDirectory,'backups','before-timetable-'+Date.now()+'.json'));return reply(res,200,store.personalSave(user,{action:'timetableImport',revision:input.revision,snapshot}));}
   if(path==='/api/personal/devices')return reply(res,200,req.method==='POST'?store.personalDeviceSave(user,await json(req)):{devices:store.personalDevices(user)});
   if(path==='/api/personal/ai')return reply(res,200,req.method==='POST'?ai.save(await json(req)):ai.status());
   if(path==='/api/personal/decompose'&&req.method==='POST'){

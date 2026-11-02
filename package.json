@@ -19,11 +19,13 @@
     "collaboration": "node admin/collaboration-server.mjs",
     "test:collaboration": "node --test scripts/collaboration.test.mjs scripts/collaboration-frontend.test.mjs scripts/collaboration-ui.test.mjs scripts/unified-archive.test.mjs scripts/post-store.test.mjs scripts/post-studio.test.mjs scripts/post-pages.test.mjs scripts/personal-store.test.mjs scripts/personal-capture-http.test.mjs",
     "test:posts": "node --test scripts/post-store.test.mjs scripts/post-studio.test.mjs scripts/post-pages.test.mjs",
-    "test:personal": "node --test scripts/personal-store.test.mjs scripts/personal-capture-http.test.mjs scripts/personal-ai.test.mjs"
+    "test:personal": "node --test scripts/personal-store.test.mjs scripts/personal-capture-http.test.mjs scripts/personal-ai.test.mjs scripts/timetable-import.test.mjs"
   },
   "dependencies": {
     "@pixiv/three-vrm": "^3.5.5",
     "astro": "^5.0.0",
+    "fast-xml-parser": "^5.11.2",
+    "fflate": "^0.8.3",
     "github-slugger": "2.0.0",
     "js-yaml": "4.3.2",
     "markdown-it": "15.0.3",

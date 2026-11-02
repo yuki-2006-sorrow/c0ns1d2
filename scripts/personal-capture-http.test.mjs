@@ -6,6 +6,7 @@ import {join,resolve,basename} from 'node:path';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
 import {createCollaborationStore} from '../admin/collaboration-store.mjs';
+import {timetableFixture} from './fixtures/timetable.mjs';
 
 test('Shortcuts can append without a browser session; bearer tokens grant no read or management access',async()=>{
   const root=mkdtempSync(join(tmpdir(),'c0ns1d2-phone-'));
@@ -21,6 +22,14 @@ test('Shortcuts can append without a browser session; bearer tokens grant no rea
     const browserHeaders={'Content-Type':'application/json','X-Archive-Client':'1',Origin:origin};
     async function login(username){const response=await fetch(origin+'/api/login',{method:'POST',headers:browserHeaders,body:JSON.stringify({username,password})});assert.equal(response.status,200);return response.headers.get('set-cookie').split(';')[0];}
     const ownerCookie=await login('owner');
+    const timetableFile=Buffer.from(timetableFixture()).toString('base64');
+    const postTable=input=>fetch(origin+'/api/personal/timetable',{method:'POST',headers:{...browserHeaders,Cookie:ownerCookie},body:JSON.stringify(input)});
+    const preview=await postTable({action:'preview',file:timetableFile});assert.equal(preview.status,200);assert.equal((await preview.json()).snapshot.courses.length,1);
+    const before=await(await fetch(origin+'/api/personal',{headers:{Cookie:ownerCookie}})).json();assert.ok(!before.timetables);
+    assert.equal((await postTable({action:'import',file:timetableFile,revision:'stale'})).status,409);
+    const imported=await(await postTable({action:'import',file:timetableFile,revision:before.revision})).json();assert.equal(imported.timetables.length,1);
+    const repeated=await(await postTable({action:'import',file:timetableFile,revision:imported.revision})).json();assert.equal(repeated.revision,imported.revision);
+    assert.equal((await fetch(origin+'/api/personal',{method:'POST',headers:{...browserHeaders,Cookie:ownerCookie},body:JSON.stringify({action:'timetableImport',revision:imported.revision,snapshot:{}})})).status,400);
     assert.equal((await fetch(origin+'/api/login',{method:'POST',headers:browserHeaders,body:JSON.stringify({username:'reader',password})})).status,403);
     for(const path of ['/studio','/materials','/posts','/topics']){const retired=await fetch(origin+path,{redirect:'manual'});assert.equal(retired.status,303);assert.equal(retired.headers.get('Location'),'/personal');}
     for(const path of ['/api/posts','/api/materials','/api/register','/api/entries'])assert.equal((await fetch(origin+path)).status,410);

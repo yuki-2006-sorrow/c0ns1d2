@@ -8,6 +8,16 @@ export function applyPersonalPlan(next,input){
   if(input.action==='initializePlans'){
     if(next.plansInitialized)return true;
     next.plansInitialized=true;
+  }else if(input.action==='timetableImport'){
+    // The server supplies the parsed snapshot; browser JSON cannot write this
+    // action directly through personalSave (checked by the HTTP route).
+    const snapshot=input.snapshot;
+    if(!snapshot?.sourceHash||!Array.isArray(snapshot.courses))fail('课表快照不正确');
+    next.timetables||=[];
+    const existing=next.timetables.find(item=>item.sourceKey===snapshot.sourceKey);
+    if(existing?.sourceHash===snapshot.sourceHash)return true;
+    const record={...snapshot,importedAt:at,source:'教务课表 Excel'};
+    if(existing)Object.assign(existing,record);else next.timetables.push(record);
   }else if(input.action==='resource'){
     next.resources||=[];
     const existing=input.id?next.resources.find(resource=>resource.id===input.id):null;
