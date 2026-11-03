@@ -127,4 +127,4 @@ const server=createServer(async(req,res)=>{
   reply(res,405,{error:'请求方式不支持'});
  }catch(error){if(!res.headersSent)reply(res,error.status||400,{error:error.message});else res.destroy();}
 });
-server.listen(PORT,'127.0.0.1',()=>{console.log('Collaboration ready: http://127.0.0.1:'+server.address().port+'/shared');autoImport.run();});
+server.listen(PORT,'127.0.0.1',()=>{console.log('Collaboration ready: http://127.0.0.1:'+server.address().port+'/shared');autoImport.run({force:true});});
