@@ -14,5 +14,7 @@ export function buildPersonalContext(personal,projectId,{includeBackground=false
     result.resources=eligible.slice(0,20).map(resource=>({title:resource.title,kind:resource.kind,detail:resource.detail.slice(0,800)}));
     if(eligible.length>20)result.omittedResourceCount=eligible.length-20;
   }
+  if(includeResources){const docs=(personal.documents||[]).filter(doc=>doc.shareWithAI&&!doc.stale&&(!doc.projectId||doc.projectId===projectId));result.documents=docs.slice(-5).map(doc=>({name:doc.name,source:doc.sourceName,updatedAt:doc.updatedAt,excerpt:doc.text.slice(0,4000),excerptTruncated:doc.text.length>4000}));}
+  if(includeResources)result.opportunities=(personal.notices||[]).filter(notice=>notice.relevant).slice(0,6).map(({title,published,url,source})=>({title,published,url,source}));
   return result;
 }

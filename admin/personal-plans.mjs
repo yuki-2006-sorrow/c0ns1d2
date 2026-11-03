@@ -18,6 +18,21 @@ export function applyPersonalPlan(next,input){
     if(existing?.sourceHash===snapshot.sourceHash)return true;
     const record={...snapshot,importedAt:at,source:'教务课表 Excel'};
     if(existing)Object.assign(existing,record);else next.timetables.push(record);
+  }else if(input.action==='noticeImport'){
+    if(!Array.isArray(input.notices)||input.notices.length>150)fail('通知数据不正确');
+    const known=new Map((next.notices||[]).map(notice=>[notice.url,notice]));
+    for(const notice of input.notices)known.set(notice.url,{...notice,seenAt:at});
+    next.notices=[...known.values()].sort((a,b)=>b.published.localeCompare(a.published)).slice(0,300);
+  }else if(input.action==='documentImport'){
+    next.documents||=[];const existing=next.documents.find(doc=>doc.sourceKey===input.sourceKey);
+    if(typeof input.text!=='string'||!input.text.trim()||input.text.length>64000)fail('资料文字不正确');
+    if(!existing&&next.documents.length>=200)fail('最多自动导入200份资料');
+    const doc={id:existing?.id||randomUUID(),sourceKey:text(input.sourceKey,100),sourceName:text(input.sourceName,120),name:text(input.name,240),contentHash:text(input.contentHash,100),text:input.text,totalCharacters:input.totalCharacters,truncated:input.truncated===true,projectId:existing?.projectId||'',shareWithAI:existing?.shareWithAI??true,updatedAt:at,stale:false};
+    if(existing)Object.assign(existing,doc);else next.documents.push(doc);
+  }else if(input.action==='documentState'){
+    const doc=(next.documents||[]).find(doc=>doc.sourceKey===input.sourceKey);if(!doc)return true;doc.stale=true;doc.lastError=text(input.error,500);
+  }else if(input.action==='documentSetting'){
+    const doc=(next.documents||[]).find(doc=>doc.id===input.id);if(!doc)fail('资料不存在');const projectId=input.projectId||'';if(projectId&&!next.projects.some(project=>project.id===projectId))fail('项目不存在');if(typeof input.shareWithAI!=='boolean')fail('请选择共享状态');doc.projectId=projectId;doc.shareWithAI=input.shareWithAI;
   }else if(input.action==='resource'){
     next.resources||=[];
     const existing=input.id?next.resources.find(resource=>resource.id===input.id):null;

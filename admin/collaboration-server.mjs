@@ -4,6 +4,7 @@ import { readFileSync, createReadStream, createWriteStream, existsSync, mkdirSyn
 import { join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCollaborationStore } from './collaboration-store.mjs';
+import {createAutoImporter} from './auto-import.mjs';
 import {parseTimetable} from './timetable-import.mjs';
 import {copyFileSync} from 'node:fs';
 import {buildPersonalContext} from './personal-context.mjs';
@@ -30,6 +31,7 @@ try {
 process.on('exit',()=>{try{rmSync(lock);}catch{}});
 // Acquire the exclusive writer lock before a storage migration can run.
 const store = createCollaborationStore(ROOT);
+const autoImport=createAutoImporter(ROOT,store);
 const sessions = new Map(), attempts = new Map();
 const allowedOrigin = req => {
   const local = ['http://127.0.0.1:' + server.address().port,'http://localhost:' + server.address().port];
@@ -91,7 +93,7 @@ const server=createServer(async(req,res)=>{
   const assets={'/personal-context.mjs':['personal-context.mjs','text/javascript'],'/personal-login.js':['collaboration.js','text/javascript'],'/personal.css':['personal.css','text/css'],'/personal.js':['personal.js','text/javascript'],'/app.css':['collaboration.css','text/css'],'/app.js':['collaboration.js','text/javascript'],'/minimal-system.css':['minimal-system.css','text/css']};
   if(assets[path]&&req.method!=='POST'){const [file,type]=assets[path];res.writeHead(200,{'Content-Type':type+'; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./'+file,import.meta.url)));}
   if(path==='/shared'&&req.method!=='POST'){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./collaboration.html',import.meta.url)));}
-  if(['/personal','/personal/plans','/personal/records','/personal/me'].includes(path)&&req.method!=='POST'){
+  if(['/personal','/personal/plans','/personal/records','/personal/me','/personal/import'].includes(path)&&req.method!=='POST'){
    let user;try{user=identify(req).user;}catch(error){if(error.status===401){res.writeHead(303,{Location:'/shared?return=personal'});return res.end();}throw error;}
    store.personalRead(user);res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});return res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./personal.html',import.meta.url)));
   }
@@ -104,16 +106,17 @@ const server=createServer(async(req,res)=>{
    if(path==='/api/setup'){if(publicOrigin&&req.headers.host===new URL(publicOrigin).host)return reply(res,403,{error:'请在本人电脑本机初始化'});user=store.setup(data,data.token);}else user=store.login(data);
    store.personalRead(user);cookie(req,res,user.id);return reply(res,200,{user});
   }
-  const allowed=new Set(['/api/me','/api/logout','/api/password','/api/export','/api/personal','/api/personal/devices','/api/personal/ai','/api/personal/decompose','/api/personal/timetable']);
+  const allowed=new Set(['/api/me','/api/logout','/api/password','/api/export','/api/personal','/api/personal/devices','/api/personal/ai','/api/personal/decompose','/api/personal/timetable','/api/personal/imports']);
   if(!allowed.has(path))return reply(res,410,{error:'旧版共同创作功能已停用，请使用个人空间'});
   const {user,token}=identify(req);const personal=store.personalRead(user);
   if(path==='/api/me'&&req.method==='GET')return reply(res,200,store.profile(user.id));
   if(path==='/api/logout'&&req.method==='POST'){sessions.delete(token);res.setHeader('Set-Cookie',sessionCookieName()+'=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return reply(res,200,{ok:true});}
   if(path==='/api/password'&&req.method==='POST'){const result=store.changePassword(user,await json(req));for(const [key,session]of sessions)if(session.id===result.id)sessions.delete(key);return reply(res,200,result);}
   if(path==='/api/export'&&req.method==='GET'){res.setHeader('Content-Disposition','attachment; filename="personal-space.json"');return reply(res,200,{version:1,exportedAt:new Date().toISOString(),personal});}
-  if(path==='/api/personal'){if(req.method!=='POST')return reply(res,200,personal);const input=await json(req);if(input.action==='timetableImport')return reply(res,400,{error:'请通过课表导入入口上传源文件'});return reply(res,200,store.personalSave(user,input));}
+  if(path==='/api/personal'){if(req.method!=='POST')return reply(res,200,personal);const input=await json(req);if(['timetableImport','documentImport','documentState','noticeImport'].includes(input.action))return reply(res,400,{error:'请通过课表导入入口上传源文件'});return reply(res,200,store.personalSave(user,input));}
   if(path==='/api/personal/timetable'&&req.method==='POST'){const input=await json(req);if(typeof input.file!=='string'||input.file.length>700000||!/^[-A-Za-z0-9+/=]+$/.test(input.file))return reply(res,400,{error:'课表文件编码不正确'});const snapshot=parseTimetable(Buffer.from(input.file,'base64'));if(input.action==='preview')return reply(res,200,{snapshot});if(input.action!=='import')return reply(res,400,{error:'导入操作不正确'});if(input.revision!==personal.revision)return reply(res,409,{error:'资料已更新，请读取最新进度后重新导入'});if(personal.timetables?.some(item=>item.sourceKey===snapshot.sourceKey&&item.sourceHash===snapshot.sourceHash))return reply(res,200,personal);mkdirSync(join(privateDirectory,'backups'),{recursive:true});copyFileSync(join(privateDirectory,'archive.json'),join(privateDirectory,'backups','before-timetable-'+Date.now()+'.json'));return reply(res,200,store.personalSave(user,{action:'timetableImport',revision:input.revision,snapshot}));}
   if(path==='/api/personal/devices')return reply(res,200,req.method==='POST'?store.personalDeviceSave(user,await json(req)):{devices:store.personalDevices(user)});
+  if(path==='/api/personal/imports'){if(req.method==='POST'){autoImport.run({force:true});return reply(res,202,autoImport.status());}return reply(res,200,autoImport.status());}
   if(path==='/api/personal/ai')return reply(res,200,req.method==='POST'?ai.save(await json(req)):ai.status());
   if(path==='/api/personal/decompose'&&req.method==='POST'){
    const input=await json(req),project=(personal.projects||[]).find(row=>row.id===input.projectId);if(!project)return reply(res,404,{error:'项目不存在'});
@@ -124,4 +127,4 @@ const server=createServer(async(req,res)=>{
   reply(res,405,{error:'请求方式不支持'});
  }catch(error){if(!res.headersSent)reply(res,error.status||400,{error:error.message});else res.destroy();}
 });
-server.listen(PORT,'127.0.0.1',()=>console.log('Collaboration ready: http://127.0.0.1:'+server.address().port+'/shared'));
+server.listen(PORT,'127.0.0.1',()=>{console.log('Collaboration ready: http://127.0.0.1:'+server.address().port+'/shared');autoImport.run();});

@@ -1,10 +1,10 @@
 import {buildPersonalContext} from '/personal-context.mjs';
 const $=id=>document.getElementById(id);
-let state,dirty=false,saving=false;
+let state,dirty=false,saving=false,aiConfigured=null,importsRefreshing=false;
 const dirtyForms=new Set();
-const page=location.pathname.endsWith('/records')?'records':location.pathname.endsWith('/me')?'me':location.pathname.endsWith('/plans')?'plans':'now';
+const page=location.pathname.endsWith('/import')?'import':location.pathname.endsWith('/records')?'records':location.pathname.endsWith('/me')?'me':location.pathname.endsWith('/plans')?'plans':'now';
 document.querySelector(`[data-page="${page}"]`).hidden=false;
-document.querySelector(`.personal-nav a[href="${page==='now'?'/personal':'/personal/'+page}"]`).setAttribute('aria-current','page');
+document.querySelector(`.personal-nav a[href="${page==='now'?'/personal':'/personal/'+page}"]`)?.setAttribute('aria-current','page');
 const parts=new Intl.DateTimeFormat('en',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
 const dateField=type=>parts.find(p=>p.type===type).value;
 const today=`${dateField('year')}-${dateField('month')}-${dateField('day')}`;
@@ -12,6 +12,7 @@ $('today-label').textContent=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Sha
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 const button=(text,action)=>{const el=node('button',text,'btn');el.type='button';el.onclick=action;return el;};
 function renderPlans(){
+  const projectSelect=$('start-project'),oldProject=projectSelect.value;projectSelect.replaceChildren();for(const project of state.projects||[])if(project.status==='active')projectSelect.add(new Option(project.title,project.id));if(oldProject)projectSelect.value=oldProject;
   const projects=state.projects||[],tasks=state.tasks||[],day=$('plan-date').value;
   const selected=tasks.filter(task=>task.date===day);
   $('task-count').textContent=`${selected.filter(task=>task.done).length} / ${selected.length} 已完成`;
@@ -58,15 +59,16 @@ $('record-date').value=today;
 $('plan-date').value=today;
 async function request(body,path='/api/personal'){const response=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Archive-Client':'1'},body:JSON.stringify(body)}:{});const data=await response.json();if(!response.ok){if(response.status===409)$('reload-plans').hidden=false;throw Error(data.error||'暂时无法保存');}return data;}
 function render(){
+  renderWorkStatus();
   $('focus-view').textContent=state.profile.focus||'还没有写下本周关注，慢慢想也可以。';
   $('projects-view').textContent=(state.projects||[]).filter(project=>project.status==='active').map(project=>project.title).join(' · ')||state.profile.projects||'到计划页添加第一个项目。';
-  renderPlans();renderResources();renderTimetables();if(!$('ai-decomposer').hidden)renderContextPreview();
+  renderPlans();renderResources();renderTimetables();renderDocuments();renderNotices();if(!$('ai-decomposer').hidden)renderContextPreview();
   const host=$('record-list');host.replaceChildren();
   for(const record of state.records.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt.localeCompare(a.createdAt))){const article=document.createElement('article');article.className='daily-record';const heading=document.createElement('h2');heading.textContent=record.date+' · '+(record.kind==='week'?'每周回顾':record.kind==='thought'?'随手想法':'日常记录');const text=document.createElement('p');text.textContent=record.body;article.append(heading,text);if(record.source==='siri'){const origin=document.createElement('small');origin.textContent='来自 Siri 快速记录';article.append(origin);}if(record.sleep!==null){const note=document.createElement('small');note.textContent='睡眠记录：'+record.sleep+' 小时';article.append(note);}host.append(article);}
   if(!state.records.length){const note=document.createElement('p');note.textContent='还没有记录。从今天的几句话开始。';host.append(note);}
 }
 async function save(input,form){if(saving)return;saving=true;form.inert=true;$('personal-status').textContent='正在保存…';try{state=await request({...input,revision:state.revision});if(input.action==='record'){$('record-body').value='';$('record-sleep').value='';}dirtyForms.delete(form);dirty=dirtyForms.size>0;render();$('personal-status').textContent='已保存，只在个人空间中可见。';return true;}catch(error){$('personal-status').textContent=error.message+'。输入仍然保留。';}finally{saving=false;form.inert=false;}}
-document.querySelectorAll('form').forEach(form=>form.addEventListener('input',()=>{dirtyForms.add(form);dirty=true;}));
+document.addEventListener('input',event=>{const form=event.target.closest('form');if(form){dirtyForms.add(form);dirty=true;}});
 $('record-form').onsubmit=event=>{event.preventDefault();save({action:'record',date:$('record-date').value,kind:$('record-kind').value,body:$('record-body').value,sleep:$('record-sleep').value},event.target);};
 $('profile-form').onsubmit=event=>{event.preventDefault();save({action:'profile',profile:Object.fromEntries(new FormData(event.target))},event.target);};
 window.addEventListener('beforeunload',event=>{if(dirty||saving){event.preventDefault();event.returnValue='';}});
@@ -165,6 +167,8 @@ function renderContextPreview(){
  const labels={focus:'近期重点',goals:'长期方向',about:'我的情况',availability:'可用时间',skills:'已有基础',constraints:'限制与偏好'};
  const lines=[];for(const [key,value] of Object.entries(context.background||{}))lines.push(labels[key]+'：'+value);
  for(const table of context.timetables||[])lines.push('课表 · '+table.schoolYear+' '+table.term+'：'+table.courses.map(course=>course.name+'（'+course.sessions.map(session=>(session.term||'')+'周'+'一二三四五六日'[session.weekday-1]+'第'+session.periods.join(',')+'节').join('；')+'）').join('；')+'。注意：未确认具体教学日期与钟点。');
+ for(const notice of context.opportunities||[])lines.push('学校通知 · '+notice.published+' · '+notice.title+'（仅发布信息，截止时间需看原文）');
+ for(const doc of context.documents||[])lines.push('资料 · '+doc.name+'（已提取文字片段）：'+doc.excerpt);
  for(const resource of context.resources||[])lines.push('资源 · '+resource.title+'：'+(resource.detail||'详情待补充'));
  if(context.omittedResourceCount)lines.push('另有 '+context.omittedResourceCount+' 项资源未加入，本次最多参考20项。');
  $('ai-context-preview').textContent=lines.join('\n\n')||'当前没有选中的背景或可用资源。你仍可以在补充说明中填写情况。';
@@ -177,3 +181,27 @@ $('timetable-form').onsubmit=async event=>{event.preventDefault();const file=$('
 $('import-timetable').onclick=async()=>{if(!timetableFile||saving)return;saving=true;$('import-timetable').disabled=true;try{state=await request({action:'import',file:timetableFile,revision:state.revision},'/api/personal/timetable');render();timetableFile='';$('timetable-preview').hidden=true;$('import-timetable').hidden=true;$('timetable-status').textContent='课表已导入。以后上传新版可更新同一学期，不会重复创建课程。';dirtyForms.delete($('timetable-form'));dirty=dirtyForms.size>0;}catch(error){$('timetable-status').textContent=error.message;}finally{saving=false;$('import-timetable').disabled=false;}};
 
 $('timetable-file').onchange=()=>{timetableFile='';$('timetable-preview').hidden=true;$('import-timetable').hidden=true;$('timetable-status').textContent='请选择读取并预览，核对后导入。';};
+
+function renderDocuments(){
+ if([...dirtyForms].some(form=>$('document-list').contains(form)))return;
+ const host=$('document-list');host.replaceChildren();
+ for(const doc of state.documents||[]){const section=node('details',undefined,'personal-section');section.append(node('summary',doc.name),node('p',(doc.stale?'源文件读取失败，旧内容暂不供AI参考。':'已提取 '+doc.text.length+' 字')+' · '+doc.sourceName),node('p',doc.text.slice(0,1000),'preserve'));const form=document.createElement('form'),label=node('label','用于哪个项目'),select=document.createElement('select');select.add(new Option('通用资料',''));for(const project of state.projects||[])select.add(new Option(project.title,project.id));select.value=doc.projectId;label.append(select);const shared=node('label',undefined,'context-choice'),check=document.createElement('input');check.type='checkbox';check.checked=doc.shareWithAI;shared.append(check,node('span','允许AI参考文字片段'));const submit=node('button','保存资料设置','btn');submit.type='submit';form.append(label,shared,submit);form.onsubmit=event=>{event.preventDefault();save({action:'documentSetting',id:doc.id,projectId:select.value,shareWithAI:check.checked},form);};section.append(form);host.append(section);}
+ if(!(state.documents||[]).length)host.append(node('p','还没有读入课件正文。文件被监测并提取后会出现在这里。','muted'));
+}
+async function refreshImports(){
+ if(importsRefreshing)return;importsRefreshing=true;
+ try{const status=await request(undefined,'/api/personal/imports');$('import-health').textContent=status.error?'检查失败：'+status.error:status.running?'正在读取新增或变化的文件…':status.lastRun?'上次检查：'+new Date(status.lastRun).toLocaleString('zh-CN')+' · 每60秒自动检查':'等待首次检查';const sources=$('import-sources');sources.replaceChildren();for(const source of status.sources){const row=node('div',undefined,'personal-section');row.append(node('h3',source.name),node('p',source.path,'preserve'),node('small',source.kind==='file'?'自动监测这一个文件':'自动读取目录内新增或变化的PDF、DOCX、PPTX、TXT、MD和课表xlsx'));sources.append(row);}const school=$('school-source-status');school.replaceChildren(node('h3','学校与活动来源'),node('p','综合服务网：'+(status.webSource.status==='ready'?'已自动读取 '+status.webSource.count+' 条通知 · '+new Date(status.webSource.lastSuccess).toLocaleString('zh-CN'):status.webSource.error||'等待连接')),node('p','ETA：登录连接待完成，尚未自动同步'),node('p','浙大钉与学在浙大：尚未自动下载课程资料'),node('p','微信公众号：尚未连接'));const files=$('import-files');files.replaceChildren();for(const file of status.files){files.append(node('p',file.name+' · '+({ready:'已读取',failed:'读取失败',reading:'正在读取'})[file.status]+(file.characters?' · '+file.characters+'字':'')+(file.error?'：'+file.error:'')));}}catch(error){$('import-health').textContent=error.message;}
+ try{const latest=await request();if(latest.revision!==state?.revision){if(!dirty&&!saving&&!aiWorking){state=latest;render();}else $('reload-plans').hidden=false;}}catch(error){$('import-health').textContent=error.message;}finally{importsRefreshing=false;}
+}
+function renderWorkStatus(){if(!state)return;$('work-status').textContent=(aiConfigured===null?'AI 状态待检查':aiConfigured?'AI 已配置':'AI 尚未配置')+' · '+(state.timetables||[]).reduce((n,t)=>n+t.courses.length,0)+' 门课程 · '+(state.documents||[]).filter(doc=>!doc.stale).length+' 份已读资料 · '+(state.tasks||[]).filter(t=>t.date===today&&!t.done).length+' 件今日待办';}
+$('check-imports').onclick=async()=>{$('check-imports').disabled=true;try{await request({},'/api/personal/imports');await refreshImports();}catch(error){$('import-health').textContent=error.message;}finally{$('check-imports').disabled=false;}};
+$('start-planning').onclick=()=>{const id=$('start-project').value;if(id)location.assign('/personal/plans?decompose='+encodeURIComponent(id));};
+if(page==='now'||page==='import'){
+ await refreshImports();
+ try{aiConfigured=(await request(undefined,'/api/personal/ai')).configured;renderWorkStatus();}catch(error){$('work-status').textContent=error.message;}
+ setInterval(refreshImports,15000);
+}
+if(page==='plans'){const id=new URLSearchParams(location.search).get('decompose'),project=state?.projects?.find(project=>project.id===id);if(project)openDecomposer(project);}
+if(page==='me'&&location.hash==='#timetable')location.replace('/personal/import#timetable');
+
+function renderNotices(){const all=$('all-notices');all.replaceChildren();for(const notice of (state.notices||[]).slice(0,150)){const row=node('article',undefined,'notice-row'),link=node('a',notice.title);link.href=notice.url;link.target='_blank';link.rel='noopener';row.append(link,node('small',notice.published+' · '+notice.source));all.append(row);}const host=$('notice-list');host.replaceChildren();const notices=(state.notices||[]).filter(notice=>notice.relevant).slice(0,3);for(const notice of notices){const row=node('article',undefined,'notice-row'),link=node('a',notice.title);link.href=notice.url;link.target='_blank';link.rel='noopener';row.append(link,node('small',notice.published+' · '+notice.source),button('加入今天阅读',()=>save({action:'task',title:'阅读通知：'+notice.title,date:today,projectId:''},row)));host.append(row);}if(!notices.length)host.append(node('p','还没有同步到相关通知。到自动导入页查看来源状态。','muted'));}

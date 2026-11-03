@@ -22,6 +22,11 @@ test('Shortcuts can append without a browser session; bearer tokens grant no rea
     const browserHeaders={'Content-Type':'application/json','X-Archive-Client':'1',Origin:origin};
     async function login(username){const response=await fetch(origin+'/api/login',{method:'POST',headers:browserHeaders,body:JSON.stringify({username,password})});assert.equal(response.status,200);return response.headers.get('set-cookie').split(';')[0];}
     const ownerCookie=await login('owner');
+    assert.equal((await fetch(origin+'/api/personal/imports')).status,401);
+    assert.equal((await fetch(origin+'/personal/import',{redirect:'manual'})).status,303);
+    assert.equal((await fetch(origin+'/personal/import',{headers:{Cookie:ownerCookie}})).status,200);
+    const imports=await fetch(origin+'/api/personal/imports',{headers:{Cookie:ownerCookie}});assert.equal(imports.status,200);assert.equal((await imports.json()).intervalSeconds,60);
+    assert.equal((await fetch(origin+'/api/personal/imports',{method:'POST',headers:{...browserHeaders,Cookie:ownerCookie},body:'{}'})).status,202);
     const timetableFile=Buffer.from(timetableFixture()).toString('base64');
     const postTable=input=>fetch(origin+'/api/personal/timetable',{method:'POST',headers:{...browserHeaders,Cookie:ownerCookie},body:JSON.stringify(input)});
     const preview=await postTable({action:'preview',file:timetableFile});assert.equal(preview.status,200);assert.equal((await preview.json()).snapshot.courses.length,1);
@@ -58,7 +63,7 @@ test('Shortcuts can append without a browser session; bearer tokens grant no rea
     const response=await capture({body:'SIRI_PRIVATE_SENTENCE',requestId:'request-iphone-1'});assert.equal(response.status,200);
     const receipt=await response.json();assert.equal(receipt.ok,true);assert.ok(!JSON.stringify(receipt).includes('SIRI_PRIVATE_SENTENCE'));
     assert.equal((await(await capture({body:'SIRI_PRIVATE_SENTENCE',requestId:'request-iphone-1'})).json()).id,receipt.id);
-    for(const path of ['/api/personal','/api/personal/devices','/api/personal/ai','/api/export'])assert.equal((await fetch(origin+path,{headers:phoneHeaders})).status,401,path);
+    for(const path of ['/api/personal','/api/personal/devices','/api/personal/ai','/api/personal/imports','/api/export'])assert.equal((await fetch(origin+path,{headers:phoneHeaders})).status,401,path);
     assert.equal((await fetch(origin+'/api/personal/capture',{headers:phoneHeaders})).status,405);
     assert.equal((await fetch(origin+'/api/personal/capture',{method:'POST',headers:{'Content-Type':'application/json',Cookie:ownerCookie},body:JSON.stringify({body:'cookie cannot capture'})})).status,401);
     assert.equal((await fetch(origin+'/api/personal/capture',{method:'POST',headers:{...phoneHeaders,Origin:'https://evil.example'},body:JSON.stringify({body:'cross-origin'})})).status,403);
