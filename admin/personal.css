@@ -11,6 +11,19 @@
   .page-heading>p {color:var(--muted);}
   .personal-columns {display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:64px;}
   .personal-section {border-top:1px solid var(--line);padding:24px 0;}
+  .deadline-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-bottom:40px;}
+  .deadline-card {border-top:1px solid var(--line);padding:20px 0;}
+  .deadline-card:first-child {border-top-color:var(--ink);}
+  .deadline-card h2 {font-size:20px;margin:10px 0;}
+  .deadline-card p {font-size:14px;margin:0 0 10px;}
+  .deadline-card small {display:block;color:var(--muted);font-size:12px;}
+  .deadline-card a {display:inline-block;font-size:13px;margin-top:16px;}
+  .evening-review {border-top:1px solid var(--line);padding:24px 0;max-width:720px;}
+  .evening-review summary,#more-tasks summary,#overdue-list summary {cursor:pointer;}
+  .evening-review form {margin-top:24px;}
+  .today-links {display:flex;gap:28px;margin-top:32px;font-size:13px;color:var(--muted);}
+  #more-tasks {padding-top:20px;}
+  @media(max-width:640px){.deadline-list{grid-template-columns:1fr;gap:0;}.deadline-card{padding:16px 0;}}
   .personal-section h2 {font-size:17px;margin-bottom:16px;}
   .personal-section a {display:inline-block;margin-top:16px;font-size:13px;}
   .preserve,.daily-record p {white-space:pre-wrap;overflow-wrap:anywhere;}
@@ -42,6 +55,11 @@
   .task-row input[type="checkbox"] {width:20px;height:20px;margin:0;flex-shrink:0;accent-color:var(--ink);}
   .task-row input[type="date"] {width:auto;}
   .task-row small {color:var(--muted);}
+  .task-edit {display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:16px;flex-basis:100%;}
+  .task-row .task-edit label {display:block;margin:0;min-width:0;font-size:13px;color:var(--muted);}
+  .task-row .task-edit input[type="date"] {width:100%;}
+  .task-edit .project-actions {grid-column:1 / -1;margin-top:0;}
+  @media(max-width:640px){.task-edit{grid-template-columns:1fr;}}
   .task-row.is-done label span {text-decoration:line-through;color:var(--muted);}
   .empty-note {padding:24px 0;color:var(--muted);}
   #task-entry,#project-editor {padding:24px 0;}

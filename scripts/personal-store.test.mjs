@@ -16,8 +16,11 @@ test('project plans persist unknown progress, dated tasks, corrections and revis
   current=save({action:'resource',...resource,status:'unavailable',shareWithAI:false});assert.equal(current.resources.length,1);assert.equal(current.resources[0].status,'unavailable');
   current=save({action:'profile',profile:{availability:'时间待确认',skills:'学习基础',constraints:'约束'}});assert.equal(current.profile.availability,'时间待确认');
   assert.throws(()=>save({action:'resource',...resource,projectId:'missing'}),{status:400});
-  current=save({action:'project',...project,progress:25,nextAction:'复习一章',deadline:'2026-11-06'});
+  current=save({action:'project',...project,progress:25,nextAction:'复习一章',deadline:'2026-11-06',deadlineDetail:'下午，具体钟点待确认'});
   assert.equal(current.projects[0].progress,25);
+  assert.equal(current.projects[0].deadlineDetail,'下午，具体钟点待确认');
+  const partial={...project};delete partial.deadlineDetail;
+  current=save({action:'project',...partial,progress:25,nextAction:'复习一章',deadline:'2026-11-06'});assert.equal(current.projects[0].deadlineDetail,'下午，具体钟点待确认');
   const stale=current.revision;
   current=save({action:'task',title:'复习一章',projectId:project.id,date:'2026-11-02'});
   assert.equal(current.tasks.length,1);const task=current.tasks[0];
@@ -26,6 +29,8 @@ test('project plans persist unknown progress, dated tasks, corrections and revis
   current=save({action:'taskStatus',id:task.id,done:true});assert.equal(current.tasks[0].done,true);
   current=save({action:'taskStatus',id:task.id,done:false});assert.equal(current.tasks[0].completedAt,null);
   current=save({action:'taskMove',id:task.id,date:'2026-11-03'});assert.equal(current.tasks[0].date,'2026-11-03');
+  current=save({action:'taskEdit',id:task.id,title:'调整后的具体练习',date:'2026-11-03'});assert.equal(current.tasks[0].title,'调整后的具体练习');assert.equal(current.tasks[0].source,'manual');
+  assert.throws(()=>save({action:'taskEdit',id:task.id,title:'',date:'2026-11-03'}),{status:400});
   const batch={action:'taskBatch',projectId:project.id,batchId:'reviewed-batch-001',date:'2026-11-04',steps:[{title:'确认薄弱项'},{title:'完成专项练习'}]};
   current=save(batch);assert.equal(current.tasks.length,3);assert.equal(current.tasks[1].source,'ai-reviewed');
   current=save(batch);assert.equal(current.tasks.length,3);

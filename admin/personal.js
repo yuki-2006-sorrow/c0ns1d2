@@ -1,4 +1,5 @@
 import {buildPersonalContext} from '/personal-context.mjs';
+import {buildTodayFocus} from '/personal-today.mjs';
 const $=id=>document.getElementById(id);
 let state,dirty=false,saving=false,aiConfigured=null,importsRefreshing=false;
 const dirtyForms=new Set();
@@ -12,24 +13,25 @@ $('today-label').textContent=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Sha
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 const button=(text,action)=>{const el=node('button',text,'btn');el.type='button';el.onclick=action;return el;};
 function renderPlans(){
-  const projectSelect=$('start-project'),oldProject=projectSelect.value;projectSelect.replaceChildren();for(const project of state.projects||[])if(project.status==='active')projectSelect.add(new Option(project.title,project.id));if(oldProject)projectSelect.value=oldProject;
+  if([...dirtyForms].some(form=>form.isConnected&&form.classList.contains('task-edit')))return;
   const projects=state.projects||[],tasks=state.tasks||[],day=$('plan-date').value;
-  const selected=tasks.filter(task=>task.date===day);
+  const selected=buildTodayFocus(state,day).tasks;
   $('task-count').textContent=`${selected.filter(task=>task.done).length} / ${selected.length} 已完成`;
-  const host=$('task-list');host.replaceChildren();
-  for(const task of selected){
+  const host=$('task-list'),more=$('more-task-list');host.replaceChildren();more.replaceChildren();$('more-tasks').hidden=selected.length<=3;$('more-task-label').textContent='其他安排 · '+Math.max(0,selected.length-3)+' 件';
+  for(const [index,task] of selected.entries()){
     const row=node('div',undefined,'task-row'+(task.done?' is-done':''));
     const label=node('label'),check=document.createElement('input');check.type='checkbox';check.checked=task.done;
     check.onchange=async()=>{check.disabled=true;const ok=await save({action:'taskStatus',id:task.id,done:check.checked},row);if(!ok)check.checked=task.done;check.disabled=false;};
     const copy=node('span',task.title);label.append(check,copy);row.append(label);
     const project=projects.find(project=>project.id===task.projectId);if(project)row.append(node('small',project.title));
-    if(!task.done)row.append(button('改日期',()=>{const input=document.createElement('input');input.type='date';input.value=task.date;input.setAttribute('aria-label','任务的新日期');const move=button('确认改期',()=>{if(input.value)save({action:'taskMove',id:task.id,date:input.value},row);});row.append(input,move);}));
-    host.append(row);
+    if(task.source==='assistant-suggested')row.append(node('small','建议安排，可调整'));
+    if(!task.done){const edit=button('调整',()=>{edit.disabled=true;const form=document.createElement('form');form.className='task-edit';const title=node('label','具体要做什么'),input=document.createElement('input');input.type='text';input.value=task.title;input.maxLength=500;input.required=true;title.append(input);const dateLabel=node('label','安排到'),date=document.createElement('input');date.type='date';date.value=task.date;date.required=true;dateLabel.append(date);const actions=node('div',undefined,'project-actions'),submit=node('button','保存调整','btn');submit.type='submit';actions.append(submit,button('取消',()=>{dirtyForms.delete(form);dirty=dirtyForms.size>0;form.remove();edit.disabled=false;renderPlans();}));form.append(title,dateLabel,actions);form.onsubmit=event=>{event.preventDefault();save({action:'taskEdit',id:task.id,title:input.value,date:date.value},form);};row.append(form);dirtyForms.add(form);dirty=true;input.focus();});row.append(edit);}
+    (index<3?host:more).append(row);
   }
   if(!selected.length)host.append(node('p','这一天还没有安排。先选一两件可以完成的事。','empty-note'));
   const overdue=$('overdue-list');overdue.replaceChildren();
   const pending=tasks.filter(task=>!task.done&&task.date<today);
-  if(pending.length){overdue.append(node('h3','之前尚未完成'));for(const task of pending){const row=node('div',undefined,'pending-row');row.append(node('span',task.date+' · '+task.title),button('移到今天',()=>save({action:'taskMove',id:task.id,date:today},row)));overdue.append(row);}}
+  if(pending.length){const disclosure=node('details');disclosure.append(node('summary','之前未完成 · '+pending.length+' 件'));overdue.append(disclosure);for(const task of pending){const row=node('div',undefined,'pending-row');row.append(node('span',task.date+' · '+task.title),button('移到今天',()=>save({action:'taskMove',id:task.id,date:today},row)));disclosure.append(row);}}
   const select=$('task-project'),previous=select.value;select.replaceChildren(new Option('独立事项',''));for(const project of projects)select.add(new Option(project.title,project.id));select.value=previous;
   $('project-count').textContent=`${projects.filter(project=>project.status==='active').length} 个进行中 · ${projects.length} 个项目`;
   const list=$('project-list');list.replaceChildren();
@@ -37,7 +39,7 @@ function renderPlans(){
     const card=node('article',undefined,'project-card');
     const top=node('div',undefined,'section-heading');top.append(node('h2',project.title),node('small',({active:'进行中',paused:'暂缓',done:'已完成'})[project.status]));card.append(top);
     if(project.progress!==null){const progress=document.createElement('progress');progress.max=100;progress.value=project.progress;progress.setAttribute('aria-label',project.title+'进度');card.append(progress,node('small',project.progress+'% · 手动记录'));}else card.append(node('p','进度尚未确认','muted'));
-    if(project.deadline)card.append(node('p','关键日期 · '+project.deadline,'muted'));
+    card.id='project-'+project.id;if(project.deadline)card.append(node('p','关键日期 · '+project.deadline+(project.deadlineDetail?' · '+project.deadlineDetail:''),'muted'));
     card.append(node('p',project.nextAction||'下一步还没确定。','next-action'));
     if(project.note)card.append(node('p',project.note,'preserve muted'));
     const actions=node('div',undefined,'project-actions');actions.append(button('更新进展',()=>editProject(project)),button('AI 拆解',()=>openDecomposer(project)));
@@ -47,7 +49,7 @@ function renderPlans(){
 }
 function editProject(project){
   const form=$('project-form');if(dirtyForms.has(form)&&!confirm('放弃尚未保存的项目编辑？'))return;
-  form.reset();for(const key of ['id','title','status','progress','deadline','nextAction','note'])form.elements[key].value=project?.[key]??(key==='status'?'active':'');
+  form.reset();for(const key of ['id','title','status','progress','deadline','deadlineDetail','nextAction','note'])form.elements[key].value=project?.[key]??(key==='status'?'active':'');
   dirtyForms.delete(form);dirty=dirtyForms.size>0;$('project-editor').open=true;$('project-editor').scrollIntoView({behavior:'smooth',block:'start'});form.elements.title.focus({preventScroll:true});
 }
 $('plan-date').onchange=()=>{if($('plan-date').value)renderPlans();};
@@ -60,8 +62,7 @@ $('plan-date').value=today;
 async function request(body,path='/api/personal'){const response=await fetch(path,body?{method:'POST',headers:{'Content-Type':'application/json','X-Archive-Client':'1'},body:JSON.stringify(body)}:{});const data=await response.json();if(!response.ok){if(response.status===409)$('reload-plans').hidden=false;throw Error(data.error||'暂时无法保存');}return data;}
 function render(){
   renderWorkStatus();
-  $('focus-view').textContent=state.profile.focus||'还没有写下本周关注，慢慢想也可以。';
-  $('projects-view').textContent=(state.projects||[]).filter(project=>project.status==='active').map(project=>project.title).join(' · ')||state.profile.projects||'到计划页添加第一个项目。';
+  renderTodayFocus();
   renderPlans();renderResources();renderTimetables();renderDocuments();renderNotices();if(!$('ai-decomposer').hidden)renderContextPreview();
   const host=$('record-list');host.replaceChildren();
   for(const record of state.records.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt.localeCompare(a.createdAt))){const article=document.createElement('article');article.className='daily-record';const heading=document.createElement('h2');heading.textContent=record.date+' · '+(record.kind==='week'?'每周回顾':record.kind==='thought'?'随手想法':'日常记录');const text=document.createElement('p');text.textContent=record.body;article.append(heading,text);if(record.source==='siri'){const origin=document.createElement('small');origin.textContent='来自 Siri 快速记录';article.append(origin);}if(record.sleep!==null){const note=document.createElement('small');note.textContent='睡眠记录：'+record.sleep+' 小时';article.append(note);}host.append(article);}
@@ -192,11 +193,10 @@ function sourceSummary(source){return source?.status==='ready'?'已自动读取 
 async function refreshImports(){
  if(importsRefreshing)return;importsRefreshing=true;
  try{const status=await request(undefined,'/api/personal/imports');$('import-health').textContent=status.error?'检查失败：'+status.error:status.running?'正在读取新增或变化的文件…':status.lastRun?'上次检查：'+new Date(status.lastRun).toLocaleString('zh-CN')+' · 每60秒自动检查':'等待首次检查';const sources=$('import-sources');sources.replaceChildren();for(const source of status.sources){const row=node('div',undefined,'personal-section');row.append(node('h3',source.name),node('p',source.path,'preserve'),node('small',source.kind==='file'?'自动监测这一个文件':'自动读取目录内新增或变化的PDF、DOCX、PPTX、TXT、MD和课表xlsx'));sources.append(row);}const school=$('school-source-status');school.replaceChildren(node('h3','学校与活动来源'),node('p','综合服务网：'+sourceSummary(status.webSource)),node('p','学工部：'+sourceSummary(status.studentSource)),node('p','ETA：'+(status.etaBrowserVerifiedAt?'浏览器访问已验证（'+new Date(status.etaBrowserVerifiedAt).toLocaleDateString('zh-CN')+'）；后台持续同步待连接':'登录连接待完成，尚未自动同步')),node('p','浙大钉与学在浙大：尚未自动下载课程资料'),node('p','微信公众号：尚未连接'));const files=$('import-files');files.replaceChildren();for(const file of status.files){files.append(node('p',file.name+' · '+({ready:'已读取',failed:'读取失败',reading:'正在读取'})[file.status]+(file.characters?' · '+file.characters+'字':'')+(file.error?'：'+file.error:'')));}}catch(error){$('import-health').textContent=error.message;}
- try{const latest=await request();if(latest.revision!==state?.revision){if(!dirty&&!saving&&!aiWorking){state=latest;render();}else $('reload-plans').hidden=false;}}catch(error){$('import-health').textContent=error.message;}finally{importsRefreshing=false;}
+ try{const latest=await request();$('connection').textContent='';if(latest.revision!==state?.revision){if(!dirty&&!saving&&!aiWorking){state=latest;render();}else $('reload-plans').hidden=false;}}catch(error){$('import-health').textContent=error.message;if(page==='now')$('connection').textContent='暂时无法同步，当前进度可能不是最新。'+error.message;}finally{importsRefreshing=false;}
 }
 function renderWorkStatus(){if(!state)return;$('work-status').textContent=(aiConfigured===null?'AI 状态待检查':aiConfigured?'AI 已配置':'AI 尚未配置')+' · '+(state.timetables||[]).reduce((n,t)=>n+t.courses.length,0)+' 门课程 · '+(state.documents||[]).filter(doc=>!doc.stale).length+' 份已读资料 · '+(state.tasks||[]).filter(t=>t.date===today&&!t.done).length+' 件今日待办';}
 $('check-imports').onclick=async()=>{$('check-imports').disabled=true;try{await request({},'/api/personal/imports');await refreshImports();}catch(error){$('import-health').textContent=error.message;}finally{$('check-imports').disabled=false;}};
-$('start-planning').onclick=()=>{const id=$('start-project').value;if(id)location.assign('/personal/plans?decompose='+encodeURIComponent(id));};
 if(page==='now'||page==='import'){
  await refreshImports();
  try{aiConfigured=(await request(undefined,'/api/personal/ai')).configured;renderWorkStatus();}catch(error){$('work-status').textContent=error.message;}
@@ -205,4 +205,12 @@ if(page==='now'||page==='import'){
 if(page==='plans'){const id=new URLSearchParams(location.search).get('decompose'),project=state?.projects?.find(project=>project.id===id);if(project)openDecomposer(project);}
 if(page==='me'&&location.hash==='#timetable')location.replace('/personal/import#timetable');
 
-function renderNotices(){const all=$('all-notices');all.replaceChildren();for(const notice of (state.notices||[]).slice(0,150)){const row=node('article',undefined,'notice-row'),link=node('a',notice.title);link.href=notice.url;link.target='_blank';link.rel='noopener';row.append(link,node('small',notice.published+' · '+notice.source));all.append(row);}const host=$('notice-list');host.replaceChildren();const notices=(state.notices||[]).filter(notice=>notice.relevant).slice(0,3);for(const notice of notices){const row=node('article',undefined,'notice-row'),link=node('a',notice.title);link.href=notice.url;link.target='_blank';link.rel='noopener';row.append(link,node('small',notice.published+' · '+notice.source),button('加入今天阅读',()=>save({action:'task',title:'阅读通知：'+notice.title,date:today,projectId:''},row)));host.append(row);}if(!notices.length)host.append(node('p','还没有同步到相关通知。到自动导入页查看来源状态。','muted'));}
+function renderNotices(){const all=$('all-notices');all.replaceChildren();for(const notice of (state.notices||[]).slice(0,150)){const row=node('article',undefined,'notice-row'),link=node('a',notice.title);link.href=notice.url;link.target='_blank';link.rel='noopener';row.append(link,node('small',notice.published+' · '+notice.source));all.append(row);}}
+
+function renderTodayFocus(){
+ const {upcoming,focus}=buildTodayFocus(state,today);
+ $('day-direction').textContent=focus?'先推进'+focus.title+'。':'今天，做完一件重要的事。';
+ $('day-reason').textContent=focus?(upcoming[1]?'先照顾更近的日期，再给'+upcoming[1].title+'留一点推进空间。':'围绕最近的关键日期，把下一步做具体。'):'完成一件，再决定下一件。';
+ const host=$('deadline-list');host.replaceChildren();host.hidden=!upcoming.length;
+ for(const [index,project] of upcoming.entries()){const card=node('article',undefined,'deadline-card');card.append(node('small',index===0?'最近的关键日期':'接下来'),node('h2',project.title));const formatted=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'long',day:'numeric',weekday:'long'}).format(new Date(project.deadline+'T12:00:00+08:00'));card.append(node('p',formatted+(project.deadlineDetail?' · '+project.deadlineDetail:'')),node('small',project.days===0?'日期在今天，完成情况待你确认':'还有 '+project.days+' 天'));const link=node('a','查看计划 →');link.href='/personal/plans#project-'+project.id;card.append(link);host.append(card);}
+}

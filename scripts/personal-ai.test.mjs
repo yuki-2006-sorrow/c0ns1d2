@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join,basename} from 'node:path';
 import {createPersonalAI} from '../admin/personal-ai.mjs';
 import {buildPersonalContext} from '../admin/personal-context.mjs';
-const project={title:'微积分',progress:null,deadline:'',nextAction:'',note:'确认范围'};
+const project={title:'微积分',progress:null,deadline:'2026-11-07',deadlineDetail:'下午，具体钟点待确认',nextAction:'',note:'确认范围'};
 const good={summary:'先明确范围，再逐章练习。',questions:['哪天考试？'],steps:[{title:'整理考试范围',minutes:20}]};
 const envelope=(result=good,finish_reason='stop')=>new Response(JSON.stringify({choices:[{finish_reason,message:{content:JSON.stringify(result)}}]}));
 test('personal context includes only opted-in available resources for the selected project',()=>{

@@ -53,14 +53,15 @@ export function applyPersonalPlan(next,input){
     const progress=input.progress===''||input.progress===null?null:Number(input.progress);
     if(progress!==null&&(!Number.isFinite(progress)||progress<0||progress>100))fail('进度应在0到100之间，也可以留空');
     const deadline=input.deadline?date(input.deadline):'';
-    const project={id:existing?.id||randomUUID(),createdAt:existing?.createdAt||at,title,status:input.status,progress,deadline,nextAction:text(input.nextAction,500),note:text(input.note,4000),updatedAt:at};
+    const deadlineDetail=text(input.deadlineDetail??existing?.deadlineDetail??'',120);
+    const project={id:existing?.id||randomUUID(),createdAt:existing?.createdAt||at,title,status:input.status,progress,deadline,deadlineDetail,nextAction:text(input.nextAction,500),note:text(input.note,4000),updatedAt:at};
     if(existing)Object.assign(existing,project);else next.projects.push(project);
   }else if(input.action==='task'){
     const title=text(input.title,500);if(!title)fail('请填写具体要做的事情');
     const projectId=input.projectId||'';if(projectId&&!next.projects.some(project=>project.id===projectId))fail('关联项目不存在');
     const taskDate=date(input.date);
     if(next.tasks.some(task=>task.title===title&&task.projectId===projectId&&task.date===taskDate))fail('这一天已安排过同一任务');
-    next.tasks.push({id:randomUUID(),title,projectId,date:taskDate,done:false,createdAt:at,updatedAt:at});
+    next.tasks.push({id:randomUUID(),title,projectId,date:taskDate,done:false,source:input.source==='assistant-suggested'?'assistant-suggested':'manual',createdAt:at,updatedAt:at});
   }else if(input.action==='taskBatch'){
     if(typeof input.batchId!=='string'||!/^[-\w]{8,100}$/.test(input.batchId))fail('任务清单标识不正确');
     const previous=next.tasks.filter(task=>task.batchId===input.batchId);
@@ -78,6 +79,10 @@ export function applyPersonalPlan(next,input){
     const task=next.tasks.find(task=>task.id===input.id);if(!task)fail('任务不存在');
     if(typeof input.done!=='boolean')fail('任务状态不正确');
     task.done=input.done;task.updatedAt=at;task.completedAt=input.done?at:null;
+  }else if(input.action==='taskEdit'){
+    const task=next.tasks.find(task=>task.id===input.id);if(!task)fail('任务不存在');
+    const title=text(input.title,500);if(!title)fail('请填写具体要做的事情');
+    task.title=title;task.date=date(input.date);task.source='manual';task.updatedAt=at;
   }else if(input.action==='taskMove'){
     const task=next.tasks.find(task=>task.id===input.id);if(!task)fail('任务不存在');
     task.date=date(input.date);task.updatedAt=at;
